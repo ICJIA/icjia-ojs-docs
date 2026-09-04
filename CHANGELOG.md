@@ -34,6 +34,18 @@ Reduced motion is respected throughout, and back and forward still work,
 because a contents click pushes a history entry. Verified over 110 clicks on
 the longest document with none obscured.
 
+### Changed
+
+- **The README now matches the code.** Six claims had drifted: a count of
+  &ldquo;four rules&rdquo; above a table of six, dependency figures that
+  predated CI (one dev dependency and 175 transitive, against four and 226),
+  a sentence describing four fixes as three, a layout tree missing
+  `public/`, `docs/assets/` and `.github/workflows/`, `tests/` described as two
+  suites when there are four, and a list of derived data that omitted the
+  last-updated date. The contents-scroll behaviour was added to the
+  accessibility table, which exists precisely to stop someone deleting code
+  that looks inert.
+
 ## [1.7.0] - 2026-09-04
 
 ### Changed
