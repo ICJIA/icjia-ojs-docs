@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="ICJIA Open Journal Systems documentation — three documents: for managers, for the journal administrator, and for developers.">
+  <title>Open Journal Systems, on trial at ICJIA</title>
+
+  <!--
+    Palette and type are the site's own: navy ground, cream text, coral accent,
+    Manrope for display. The coral bar along the top edge is the reading-progress
+    indicator from the document pages, stopped part-way — the documents are drafts.
+  -->
+  <defs>
+    <style>
+      .display { font-family: Manrope, "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif; font-weight: 800; }
+      .sans    { font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif; }
+      .num     { font-variant-numeric: tabular-nums; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#14202e"/>
+
+  <!-- reading progress, partway across -->
+  <rect x="0" y="0" width="408" height="5" fill="#f08a72"/>
+
+  <!-- ── headline ── -->
+  <text class="display" x="72" y="182" font-size="50" letter-spacing="-1.1" fill="#efe8da" textLength="313" lengthAdjust="spacingAndGlyphs">Open Journal</text>
+  <text class="display" x="72" y="238" font-size="50" letter-spacing="-1.1" fill="#efe8da" textLength="394" lengthAdjust="spacingAndGlyphs">Systems, on trial</text>
+  <text class="display" x="72" y="294" font-size="50" letter-spacing="-1.1" fill="#efe8da" textLength="179" lengthAdjust="spacingAndGlyphs">at ICJIA</text>
+
+  <text class="sans" x="72" y="352" font-size="20" fill="#a8b2be" textLength="349" lengthAdjust="spacingAndGlyphs">Three working documents: what it is,</text>
+  <text class="sans" x="72" y="380" font-size="20" fill="#a8b2be" textLength="334" lengthAdjust="spacingAndGlyphs">how to run the journal, and how the</text>
+  <text class="sans" x="72" y="408" font-size="20" fill="#a8b2be" textLength="156" lengthAdjust="spacingAndGlyphs">server was built.</text>
+
+  <!-- ── the shelf: one row per document, the site's own contents device ── -->
+  <g>
+    <rect x="704" y="150" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="184" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
+    <text class="display" x="704" y="216" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="262" lengthAdjust="spacingAndGlyphs">Should we adopt this?</text>
+    <text class="sans num" x="1128" y="216" font-size="19" fill="#f08a72" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs">9 min</text>
+    <rect x="704" y="246" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="280" font-size="15" fill="#a8b2be" textLength="200" lengthAdjust="spacingAndGlyphs">For the journal administrator</text>
+    <text class="display" x="704" y="312" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="291" lengthAdjust="spacingAndGlyphs">How do I run the journal?</text>
+    <text class="sans num" x="1128" y="312" font-size="19" fill="#f08a72" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs">8 min</text>
+    <rect x="704" y="342" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="376" font-size="15" fill="#a8b2be" textLength="106" lengthAdjust="spacingAndGlyphs">For developers</text>
+    <text class="display" x="704" y="408" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="213" lengthAdjust="spacingAndGlyphs">How do I install it?</text>
+    <text class="sans num" x="1128" y="408" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">36 min</text>
+    <rect x="704" y="438" width="424" height="1" fill="#2e4056"/>
+  </g>
+
+  <!-- ── footer facts ── -->
+  <rect x="72" y="498" width="1056" height="1" fill="#2e4056"/>
+  <text class="sans" x="72" y="536" font-size="17" fill="#a8b2be" textLength="57" lengthAdjust="spacingAndGlyphs">Astro 7</text>
+  <text class="sans" x="196" y="536" font-size="17" fill="#a8b2be" textLength="46" lengthAdjust="spacingAndGlyphs">Static</text>
+  <text class="sans" x="310" y="536" font-size="17" fill="#7fc49b" textLength="107" lengthAdjust="spacingAndGlyphs">WCAG 2.1 AA</text>
+  <text class="sans" x="480" y="536" font-size="17" fill="#a8b2be" textLength="60" lengthAdjust="spacingAndGlyphs">71 tests</text>
+  <text class="sans" x="1128" y="536" font-size="17" fill="#a8b2be" text-anchor="end" textLength="159" lengthAdjust="spacingAndGlyphs">ojs-docs.netlify.app</text>
+</svg>

@@ -1,6 +1,17 @@
-# ICJIA OJS documentation portal
+<p align="center">
+  <img src="public/banner.png" alt="Open Journal Systems, on trial at ICJIA — three working documents: what it is, how to run the journal, and how the server was built." width="100%">
+</p>
 
-**[ojs-docs.netlify.app](https://ojs-docs.netlify.app)**
+<h1 align="center">ICJIA OJS documentation portal</h1>
+
+<p align="center">
+  <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
+  <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
+  <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-71_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
+  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
+</p>
 
 A dark, static portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
