@@ -264,7 +264,7 @@ cat ~/.ssh/id_ed25519_ojs.pub</pre></div>
     <div>
       <h3>Confirm it's mta-sts-daemon, then remove it</h3>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>top -bn1 | head -12                        <span class="c"># look for mta-sts-daemon near the top, with low TIME+ but high %CPU</span></pre></div>
-      <p><code>postfix-mta-sts-resolver</code> exists only to hand MTA-STS policies to a <b>local Postfix sending mail</b>. Its default sqlite cache backend spins in a tight timeout loop in python-aiosqlite (Ubuntu bug open since 2023). OJS will send through Mailgun over SMTP, so local Postfix isn't in the picture and the daemon is dead weight.</p>
+      <p><code>postfix-mta-sts-resolver</code> exists only to hand MTA-STS policies to a <b>local Postfix sending mail</b>. Its default sqlite cache backend spins in a tight timeout loop in python-aiosqlite (Ubuntu bug open since 2023). OJS sends through Mailgun over SMTP, so local Postfix isn't in the picture and the daemon is dead weight.</p>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>sudo apt purge postfix-mta-sts-resolver
 sudo apt autoremove                        <span class="c"># drops the orphaned python3-aio* libs it pulled in</span>
 top -bn1 | head -5                         <span class="c"># idle should climb past 95% within a minute</span></pre></div>
@@ -559,6 +559,7 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
 <section>
   <h2>Post-install: outgoing mail via Mailgun</h2>
   <p>The OJS installer never asks about email. Mail is configured <b>after</b> install by editing <code>config.inc.php</code> in the OJS root. No restart needed; PHP reads the file on each request. There is no UI for these settings.</p>
+  <p class="note"><b>Done on this box.</b> Outgoing mail is configured and sending as of 4 September 2026. The steps below are what to repeat on the next server; the values in them are the ones this one uses.</p>
 
   <div class="step">
     <div class="n">F</div>
