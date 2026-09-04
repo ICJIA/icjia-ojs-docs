@@ -201,6 +201,14 @@ which means they cannot depend on someone remembering to run them.
 
 Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 
+### Releasing
+
+Raise the version in `package.json` and add the matching `CHANGELOG.md` entry,
+then push. Once CI is green, [`release.yml`](.github/workflows/release.yml) tags
+that version and publishes a release using the changelog section as its notes.
+Tagging by hand still works and takes precedence — the workflow only acts when
+a version has no tag.
+
 ## Tests
 
 87 tests across four files.
@@ -257,7 +265,7 @@ public/                 favicon, and the banner used as the og:image
 tests/                  parser, build output, screen-reader semantics, script pins
 docs/assets/            README screenshots — not published with the site
 docs/superpowers/specs/ design document
-.github/workflows/      CI
+.github/workflows/      CI, and automatic tagging on a version bump
 ```
 
 ## License

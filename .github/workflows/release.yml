@@ -1,0 +1,91 @@
+name: Release
+
+# Tag and release whatever version package.json is on, as soon as CI is green.
+#
+# This exists because the version bump and the tag kept happening at different
+# times, which left gaps that had to be filled in retroactively. Now the bump is
+# the only manual step: push a commit that raises the version and adds its
+# CHANGELOG entry, and the tag and release follow on their own.
+#
+# It is a backstop, not a replacement. A tag that already exists is left alone,
+# so a release published by hand — with a better title than "v1.9.0" — still
+# wins. It only steps in when nobody did it.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # Never tag a commit whose tests did not pass.
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The exact commit CI ran on, not whatever main points at now.
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Read and validate the version
+        id: read
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./package.json').version")"
+          # Refuse anything that is not digits and dots, so nothing from
+          # package.json can reach a shell as anything but a version.
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::package.json version is not a plain semver: $version"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Tag and release, if that version has no tag yet
+        env:
+          VERSION: ${{ steps.read.outputs.version }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="v${VERSION}"
+
+          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+            echo "${tag} already exists — nothing to do."
+            exit 0
+          fi
+
+          # Release notes are the CHANGELOG section for this version. If there
+          # isn't one, that is an oversight worth failing on rather than
+          # publishing an empty release.
+          notes="$(awk -v want="## [${VERSION}]" '
+            index($0, want) == 1 { inside = 1; next }
+            inside && /^## \[/   { exit }
+            inside               { print }
+          ' CHANGELOG.md)"
+
+          if [ -z "$(printf '%s' "$notes" | tr -d '[:space:]')" ]; then
+            echo "::error::no CHANGELOG.md entry for ${VERSION}"
+            exit 1
+          fi
+
+          printf '%s\n' "$notes" > /tmp/notes.md
+          printf '\nLive at https://ojs-docs.netlify.app\n' >> /tmp/notes.md
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" -m "$tag" "$HEAD_SHA"
+          git push origin "$tag"
+
+          gh release create "$tag" --title "$tag" --notes-file /tmp/notes.md --latest
+          echo "Released ${tag}."

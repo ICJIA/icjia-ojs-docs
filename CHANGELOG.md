@@ -5,6 +5,24 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2026-09-04
+
+### Added
+
+- **Releases tag themselves.** The version bump and the tag kept happening at
+  different times, which left gaps filled in retroactively three times over.
+  [`release.yml`](.github/workflows/release.yml) now watches for CI to pass on
+  `main`, reads the version from `package.json`, and if no tag exists for it,
+  creates the tag and a release using that version's CHANGELOG section as the
+  notes. The bump is the only manual step left.
+
+  It is a backstop rather than a replacement: a tag that already exists is left
+  alone, so a release published by hand &mdash; with a better title than
+  &ldquo;v1.9.0&rdquo; &mdash; still wins. It only steps in when nobody did it.
+  It refuses to run on a commit whose tests failed, refuses a version that is
+  not plain semver, and refuses to publish a release with no CHANGELOG entry
+  behind it.
+
 ## [1.8.0] - 2026-09-04
 
 ### Fixed
@@ -314,6 +332,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.9.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.9.0
 [1.8.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.8.0
 [1.7.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.7.0
 [1.6.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.6.0
