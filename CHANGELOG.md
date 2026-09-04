@@ -5,6 +5,43 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-09-04
+
+### Added
+
+- **Banner** for the README and as the site's `og:image` — authored as SVG,
+  rendered to a 1200×630 PNG. Every string carries an explicit `textLength`
+  measured from the real Manrope rendering, because without it the SVG collides
+  with itself the moment Manrope is unavailable, which is the normal case for an
+  SVG opened directly. Verified by rendering again with no access to the font.
+- Each document links back to the repository, so a reader can see how it is
+  built or raise a correction.
+- Open Graph and Twitter card metadata, pointing at the banner.
+
+### Security — red/blue pass
+
+First recorded pass. Full detail, including what was accepted rather than fixed,
+is in the [README](README.md#security).
+
+- **Fixed: a document's `<script>` reaches production unreviewed.** Re-emitting
+  document scripts is deliberate — the runbook's copy buttons need it — but it
+  means adding a file to `src/documents/` adds JavaScript to the live site, and
+  a reviewer skimming 60 KB of hand-written HTML can miss a script tag. Scripts
+  are now pinned by SHA-256; inline handlers, `javascript:` URLs, remote
+  scripts, iframes, `object`/`embed` and unknown outbound origins are refused.
+- **Fixed: no Content-Security-Policy.** Added, with `script-src`/`style-src`
+  keeping `'unsafe-inline'` because the documents carry their own inline styles
+  and script by design. `object-src`, `base-uri`, `form-action` and
+  `frame-ancestors` are all `'none'`; fonts are restricted to the two Google
+  hosts.
+- **Fixed: the site could be framed, and had no `Permissions-Policy`.**
+- Verified holding: no vulnerable dependencies, no credential in any commit, no
+  inline event handlers published, all documented credentials are placeholders.
+
+Each fix was checked adversarially — a hostile script, an inline handler and a
+tracking pixel were injected into a document and each was caught by the
+assertion meant to catch it.
+
 ## [1.2.0] - 2026-09-04
 
 Acted on a full adversarial read of both documents.
@@ -166,6 +203,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.3.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.3.0
 [1.2.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.2.0
 [1.1.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.0.0

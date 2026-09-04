@@ -8,7 +8,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-71_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-79_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -122,6 +122,43 @@ behaviour were checked by hand, and `tests/screen-reader.test.ts` asserts the
 semantics assistive tech reads. Driving NVDA or VoiceOver with a human listener
 is the remaining gap a formal ADA Title II / IITAA review would expect.
 
+## Security
+
+<!-- CONVENTION: newest pass first. When adding a new pass, wrap the one below in
+     <details><summary>Red/blue pass — YYYY-MM-DD</summary> … </details> and put
+     the new pass here, expanded. -->
+
+### Red/blue pass — 2026-09-04
+
+Threat model in one line: **a static site with no server, no database, no
+accounts, and no user input.** Everything below is scoped to that.
+
+**Red — what was found**
+
+| | Finding | Outcome |
+| --- | --- | --- |
+| R1 | A document's own `<script>` is re-emitted onto the published page. That is deliberate — the runbook's copy buttons need it — but it means adding a file to `src/documents/` adds JavaScript to production, and a reviewer skimming 60 KB of hand-written HTML can miss a script tag. | **Fixed.** Scripts are pinned by SHA-256 in [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts). Any new or altered script fails the build until someone approves it deliberately. Inline handlers, `javascript:` URLs, remote scripts, iframes, `object`/`embed`, and unknown outbound origins are refused outright. |
+| R2 | No Content-Security-Policy. | **Fixed**, with a stated limit: the documents carry their own inline `<style>` and one carries an inline `<script>`, so `script-src`/`style-src` keep `'unsafe-inline'` pending build-time hashing. The rest bites — `object-src 'none'`, `base-uri 'none'`, `form-action 'none'`, fonts restricted to the two Google hosts. |
+| R3 | The site could be framed. | **Fixed.** `frame-ancestors 'none'` plus `X-Frame-Options: DENY`. |
+| R4 | No `Permissions-Policy`. | **Fixed.** Camera, microphone, geolocation and cohort tracking denied. |
+| R5 | The runbook publishes the test hostname, nginx paths, config layout and the `forge` login user. | **Accepted.** It is a runbook; the box is documented as temporary and disposable. Worth revisiting if that host outlives the proof of concept. |
+| R6 | Staff first names and roles are public. | **Accepted, by instruction.** No surnames and no personal email addresses — enforced by a test, verified at 0 across all pages. |
+
+**Blue — what held**
+
+- `npm audit`: **0 vulnerabilities**. Three runtime dependencies, one dev dependency, 175 transitive, 2 with install scripts.
+- No adapter, no serverless functions, no database, no authentication, no user input. The published artefact is eight files on a CDN.
+- **No credential pattern in any commit** — full history scanned against AWS, GitHub, Slack, Stripe, Google, private-key and generic-base64 patterns.
+- No `.env`, `.pem`, `.key` or credential file has ever been committed.
+- Every credential in the documents is a placeholder (`YOUR_DB_PASSWORD`, `"the-mailgun-SMTP-password"`).
+- **Zero inline event handlers** on any published page; the portal page ships no JavaScript at all.
+- A build-time test already blocks personal names, unexpected email addresses and credential patterns from reaching published HTML.
+- HSTS with `preload`, `nosniff` and `Referrer-Policy` were already live.
+
+The three fixes were verified adversarially, not assumed: a hostile `<script>`,
+an `onmouseover` handler, and a tracking pixel to an unknown origin were each
+injected into a document, and each was caught by the assertion meant to catch it.
+
 ## Commands
 
 | Command | What it does |
@@ -139,7 +176,7 @@ Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 
 ## Tests
 
-71 tests across three files.
+79 tests across four files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -159,6 +196,11 @@ landmarks, heading order, accessible names, unique ids, anchor integrity, and
 the wiring of the contents disclosure. It is not a substitute for driving NVDA
 or VoiceOver — it cannot tell you whether a page is pleasant to listen to — but
 it does catch the structural faults that make one unusable.
+
+[`tests/document-scripts.test.ts`](tests/document-scripts.test.ts) pins the
+JavaScript each document is allowed to ship, and refuses inline handlers,
+`javascript:` URLs, remote scripts, embedded frames and unknown outbound
+origins. See [Security](#security).
 
 Counts in the tests are derived from the source documents rather than written as
 literals, so editing a document does not break the suite over a number.
