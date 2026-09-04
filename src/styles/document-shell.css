@@ -255,6 +255,13 @@
   .px-progress {
     transition: none;
   }
+
+  /* The documents set scroll-behavior: smooth with no escape hatch. Jumping to
+     a heading from the contents panel should not animate for a reader who has
+     asked the system for less motion. */
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @media print {

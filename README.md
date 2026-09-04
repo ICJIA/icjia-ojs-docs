@@ -30,7 +30,15 @@ before changing any styling.
   </a>
 </p>
 
-<p align="center"><em>The portal at <a href="https://ojs-docs.netlify.app">ojs-docs.netlify.app</a>. Each card's sections, counts, reading time and date are read out of the document itself at build time.</em></p>
+<p align="center"><em>The portal. Each card's sections, counts, reading time and date are read out of the document itself at build time.</em></p>
+
+<p align="center">
+  <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">
+    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, document title, Contents button — above the runbook's own numbered diagnostic steps, code blocks with copy buttons, and a warning callout." width="900">
+  </a>
+</p>
+
+<p align="center"><em>A wrapped document. The header, contents panel and reading-progress bar are added by the build; everything below is the source file, unmodified.</em></p>
 
 ## Adding a document
 

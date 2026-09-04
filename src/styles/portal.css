@@ -108,7 +108,7 @@ body {
 
 .shelf {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
   gap: 24px;
   margin-top: 56px;
   align-items: start;
@@ -308,9 +308,7 @@ body {
   color: var(--paper-dim);
 }
 
-/* Constrain the text, not the rule above it. */
 .colophon p {
-  max-width: var(--measure);
   margin: 0;
 }
 

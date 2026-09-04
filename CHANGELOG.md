@@ -5,6 +5,27 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-09-04
+
+### Changed
+
+- **Two document cards across at most.** Three abreast left each card cramped;
+  a 420px track floor allows two at desktop widths and never three, and still
+  collapses to one on a phone. Verified from 320px to 1440px with no horizontal
+  overflow at any width.
+- **The colophon runs the full width of its rule.** It had been capped at a
+  66-character measure while the rule above it spanned the page, so the text
+  broke mid-line and read as a fault rather than a measure.
+
+### Added
+
+- Screenshots of the portal and of a wrapped document in the README.
+- **Documents now honour `prefers-reduced-motion` for scrolling.** They set
+  `scroll-behavior: smooth` with no escape hatch, so jumping to a heading from
+  the contents panel animated even for a reader who had asked the system for
+  less motion. The shell stylesheet overrides it, as it loads after the
+  document's own.
+
 ## [1.3.0] - 2026-09-04
 
 ### Added
@@ -203,6 +224,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.4.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.4.0
 [1.3.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.3.0
 [1.2.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.2.0
 [1.1.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.1.0
