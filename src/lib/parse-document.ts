@@ -118,6 +118,17 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     if (scrollable.getAttribute('tabindex') === undefined) {
       scrollable.setAttribute('tabindex', '0');
     }
+    // A focus stop that announces nothing is disorienting, so name the code
+    // blocks. `group` is not a landmark, so thirty of them do not clutter the
+    // landmark list. Tables are deliberately left alone: they already carry a
+    // name-bearing role, and overriding it would cost screen-reader users row
+    // and column navigation.
+    if (scrollable.rawTagName.toLowerCase() === 'pre') {
+      if (scrollable.getAttribute('role') === undefined) scrollable.setAttribute('role', 'group');
+      if (scrollable.getAttribute('aria-label') === undefined) {
+        scrollable.setAttribute('aria-label', 'Code block');
+      }
+    }
   }
 
   const title =

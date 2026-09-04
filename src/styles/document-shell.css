@@ -11,6 +11,47 @@
  * the chrome stays in key with each document, including ones added later.
  */
 
+/*
+ * Skip link (WCAG 2.4.1), letting a keyboard or screen-reader user pass the
+ * header and go straight to the document. Off-screen rather than display:none,
+ * because a hidden element cannot take focus; z-index clears the sticky header.
+ */
+.px-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--pencil, #f08a72);
+  color: var(--ink, #14202e);
+  font-family: var(--sans, 'Inter', system-ui, sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 0 0 10px 0;
+  text-decoration: none;
+}
+
+/* Fixed, not absolute: an absolutely positioned skip link is pinned to the top
+   of the document, so a reader who shift-tabs back to it after scrolling would
+   focus something sitting far above the viewport. */
+.px-skip:focus {
+  position: fixed;
+  left: 0;
+  top: 0;
+  outline: 2px solid var(--paper, #efe8da);
+  outline-offset: -4px;
+}
+
+/* The skip target takes focus programmatically and needs no ring of its own,
+   but it must clear the sticky header when scrolled to. */
+.px-doc[tabindex='-1']:focus {
+  outline: none;
+}
+
+.px-doc[tabindex='-1'] {
+  scroll-margin-top: 72px;
+}
+
 .px-bar {
   position: sticky;
   top: 0;

@@ -26,6 +26,7 @@ before changing any styling.
      summary: 'One line about what is inside.',
      audience: 'Written for developers',
      status: 'draft',
+     note: 'Linux only',              // optional qualifier chip; omit if not needed
      order: 3,
    }
    ```
@@ -60,6 +61,7 @@ document apart and the shell reassembles it inside portal chrome:
 | `<script>` contents | re-emitted verbatim at the end of the page |
 | `h2` / `h3` | given ids, which drive the contents panel and card outline |
 | `pre` / `table` | made keyboard focusable, since they scroll |
+| `pre` | given `role="group"` and a label, so the focus stop announces itself |
 
 Because the documents declare global CSS (`body`, `h1,h2,h3`, `a`, `section`),
 every chrome element uses a `px-` class prefix and the chrome stylesheet is
@@ -81,8 +83,10 @@ line. They look removable and are not:
 | --- | --- |
 | `.px-doc * { min-width: 0 }` | Grid and flex items default to `min-width: auto`. One long shell command in a `1fr` track sized the track to the whole command and scrolled the page sideways. This is a no-op for every other box. |
 | `overflow-wrap: anywhere` on inline code | A URL with no break opportunity pushed the runbook 201px past a 320px viewport, failing **1.4.10 Reflow**. Block code in `pre` is deliberately excluded so commands stay copyable. |
-| `tabindex="0"` on `pre` and `table` | Those regions scroll horizontally, and a scrollable region must be reachable by keyboard (**2.1.1**). |
+| `tabindex="0"` on `pre` and `table` | Those regions scroll horizontally, and a scrollable region must be reachable by keyboard (**2.1.1**). `pre` also gets `role="group"` and a label; `table` deliberately does not, because overriding a table's role costs row and column navigation. |
 | `:focus-visible` outlines | **2.4.7**, and it keeps one focus indicator across chrome and document. |
+| Skip links, `position: fixed` when focused | **2.4.1**. Absolute positioning pins them to the top of the document, so one focused after scrolling sits outside the viewport. |
+| Only the card heading is a link | Wrapping the whole card gives it a sixty-word accessible name; labelling that anchor instead fails **2.5.3 Label in Name**. A stretched pseudo-element keeps the card clickable. |
 
 Contrast is tight by design. The accent `--pencil` (`#f08a72`) was chosen as the
 lightest-touch value that clears 4.5:1 against every background it sits on,
@@ -101,8 +105,9 @@ npm run build && npm run preview
 ```
 
 Automated tools cover roughly half of WCAG. Reflow, text spacing and keyboard
-behaviour were checked by hand; screen-reader testing (NVDA / VoiceOver) is the
-remaining gap a formal ADA Title II / IITAA review would expect.
+behaviour were checked by hand, and `tests/screen-reader.test.ts` asserts the
+semantics assistive tech reads. Driving NVDA or VoiceOver with a human listener
+is the remaining gap a formal ADA Title II / IITAA review would expect.
 
 ## Commands
 
@@ -121,7 +126,7 @@ Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 
 ## Tests
 
-35 tests across two files.
+63 tests across three files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -130,10 +135,20 @@ document has no title, headings, stylesheet or script.
 
 [`tests/build-output.test.ts`](tests/build-output.test.ts) builds the site and
 asserts on `dist/` — that every manifest entry produced a page, that each
-document survived the wrap intact (all 30 code blocks, its clipboard handler,
+document survived the wrap intact (every code block, its clipboard handler,
 its webfonts), that the document stylesheet still precedes the chrome's, and
 that no personal name, unexpected email address or credential reached the
 published HTML.
+
+[`tests/screen-reader.test.ts`](tests/screen-reader.test.ts) asserts the
+semantics assistive technology consumes: skip link placement and target,
+landmarks, heading order, accessible names, unique ids, anchor integrity, and
+the wiring of the contents disclosure. It is not a substitute for driving NVDA
+or VoiceOver — it cannot tell you whether a page is pleasant to listen to — but
+it does catch the structural faults that make one unusable.
+
+Counts in the tests are derived from the source documents rather than written as
+literals, so editing a document does not break the suite over a number.
 
 ## Deployment
 

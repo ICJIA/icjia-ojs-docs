@@ -22,6 +22,8 @@ export interface DocumentEntry {
   audience: string;
   /** Where it is in its life: draft, review, final. Free-form, same rule. */
   status: string;
+  /** Optional short qualifier on the card — a platform or scope limit. */
+  note?: string;
   /** Optional explicit ordering. Lower sorts first; unset sorts last. */
   order?: number;
 }
@@ -42,9 +44,10 @@ export const documents: DocumentEntry[] = [
     file: 'forge-droplet-runbook.html',
     question: 'How do I install it?',
     summary:
-      'Installing OJS on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit.',
+      'Installing OJS on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit. Ubuntu commands throughout; none of it applies to Windows.',
     audience: 'Written for developers',
     status: 'draft',
+    note: 'Linux only',
     order: 2,
   },
 ];

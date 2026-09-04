@@ -148,6 +148,7 @@
   </div>
   <div class="frame">
     <h2>Read this first: why the early steps exist</h2>
+    <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -181,6 +182,48 @@
     <tr><td>Firewall rules</td><td><code>ufw allow 22,80,443/tcp &amp;&amp; ufw enable</code></td></tr>
   </table>
   <div class="heads"><b>What's Forge-specific here:</b> only the Brotli breakage in step A. Forge installs nginx from nginx.org's mainline repo and hand-compiles the Brotli module, which is why an apt upgrade orphaned it. Ubuntu's own <code>nginx</code> package with <code>libnginx-mod-brotli</code> (or no Brotli at all) doesn't have that problem. Everything else, including the MTA-STS CPU bug in step 0, is stock Ubuntu behavior and applies to any install.</div>
+</section>
+
+<section>
+  <h2>Getting on the box: SSH access</h2>
+
+  <p><b>You only need SSH if you need the server itself</b> &mdash; the operating system, nginx, PHP, MySQL, or the files on disk. <b>Everything about running the journal is done in the OJS browser admin</b>: users and roles, sections, the review workflow, email templates, appearance, plugins. If the thing you are trying to change has a settings screen, it does not need a shell, and opening one is the wrong move.</p>
+
+  <p>In practice the shell is for the work in this runbook and little else: installing or upgrading OJS, changing PHP or nginx limits, editing <code>config.inc.php</code>, reading server logs, and restoring from backup. <b>Managers and journal administrators are not given shell access</b> and do not need it &mdash; the handoff section near the end of this page is the whole job in a browser.</p>
+
+  <p>There is no password login. The server accepts <b>OpenSSH public keys only</b>, and a key has to be <b>added to the box by hand</b> &mdash; there is no self-service enrolment, and Forge will not do it for you on a server that already exists. <b>Contact IDS to request access</b>, and send the public half of your key.</p>
+
+  <p><b>Access is granted on a need-to-access basis only.</b> A ticket asking for the shell should say what you need to do on the server that cannot be done in the browser. If the task turns out to be a settings screen, IDS will point you at it rather than issue a key &mdash; fewer keys on the box is the point, not an obstacle.</p>
+
+  <div class="step">
+    <div class="n">1</div>
+    <div>
+      <h3>Generate a key, if you don&rsquo;t already have one</h3>
+      <p>Ed25519 is the current default and the right choice. Set a passphrase when prompted: the private key is the entire credential, and an unprotected one on a laptop is a server compromise waiting to happen.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>ssh-keygen -t ed25519 -C "yourname@icjia" -f ~/.ssh/id_ed25519_ojs   <span class="c"># set a passphrase when asked</span></pre></div>
+      <p>That writes two files. <code>id_ed25519_ojs.pub</code> is the public key. <code>id_ed25519_ojs</code>, with no extension, is the private key.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">2</div>
+    <div>
+      <h3>Send IDS the public key &mdash; never the private one</h3>
+      <p>Only the <code>.pub</code> file is shared. The private key never leaves your machine: not in a ticket, not in chat, not in a repository. If it ever does, say so immediately and generate a new pair; a rotated key is a five-minute problem, a leaked one is not.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>cat ~/.ssh/id_ed25519_ojs.pub   <span class="c"># safe to paste into a ticket</span></pre></div>
+      <p>Raise a Freshservice ticket asking for OJS server access and paste that one line into it. IDS appends it to <code>authorized_keys</code> for the <code>forge</code> user. Until someone does that by hand, your connection will be refused &mdash; a new key does nothing on its own.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">3</div>
+    <div>
+      <h3>Connect</h3>
+      <p>The login user is <code>forge</code>, not <code>root</code>. Forge provisions that account, and it is the one that owns the web root everything below refers to.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>ssh -i ~/.ssh/id_ed25519_ojs forge@ojs.icjia.cloud</pre></div>
+      <p><code>Permission denied (publickey)</code> almost always means the key has not been added yet, or you sent a different key from the one you are offering. Confirm with IDS before debugging your own client. When someone leaves the project, tell IDS so their key can be removed &mdash; keys outlive people&rsquo;s involvement unless somebody takes them out.</p>
+    </div>
+  </div>
 </section>
 
 <section>

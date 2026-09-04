@@ -5,6 +5,48 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-09-04
+
+### Added
+
+- Skip links on the portal and every document, so keyboard and screen-reader
+  users can pass the header instead of tabbing through it (**WCAG 2.4.1**). The
+  target takes focus, not just the scroll position.
+- `tests/screen-reader.test.ts`: 28 assertions covering the semantics assistive
+  tech consumes — skip link placement and target, landmarks, heading order,
+  accessible names, unique ids, anchor integrity, and the wiring of the contents
+  disclosure. Each assertion was mutation-tested to confirm it fails when the
+  thing it describes breaks.
+- SSH access section in the developer runbook: OpenSSH keys only, keys added by
+  hand by IDS, access granted on a need-to-access basis, and the boundary
+  between work that needs a shell and work that belongs in the OJS browser
+  admin. Managers and journal administrators are not given shell access.
+- A platform notice at the top of the runbook: the commands are Ubuntu 26.04 and
+  do not transfer to Windows, which would need its own documentation.
+- Optional `note` field on a manifest entry, shown as a qualifier chip. The
+  runbook is flagged **Linux only**.
+
+### Fixed
+
+- The document cards were a single large anchor, giving each an accessible name
+  around sixty words long — unusable in a screen reader's list of links.
+  Labelling the anchor shortened the name but broke **2.5.3 Label in Name**,
+  because the visible text no longer appeared in it. Only the heading is a link
+  now, stretched over the card by a pseudo-element: the name is exactly the
+  visible heading, and the whole card stays clickable.
+- Skip links were positioned absolutely, so one focused after scrolling sat
+  outside the viewport. They are fixed when focused.
+- Code blocks are focusable but announced nothing on arrival. They now carry
+  `role="group"` and a label. Tables are deliberately left alone: overriding a
+  table's role would cost screen-reader users row and column navigation.
+- Section-count numerals on the cards announced as a bare "4". They now read as
+  "4 subsections".
+
+### Changed
+
+- Test counts derive from the source documents rather than literals, so editing
+  a document no longer breaks the suite over a number.
+
 ## [1.0.0] - 2026-09-04
 
 First release. Live at [ojs-docs.netlify.app](https://ojs-docs.netlify.app).
@@ -73,4 +115,5 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.1.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.0.0

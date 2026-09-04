@@ -103,9 +103,10 @@ describe('parseDocument — outline', () => {
       'utf8',
     );
     const r = parseDocument(raw, 'droplet-runbook');
-    expect(r.outline).toHaveLength(15);
-    expect(r.headings.filter((h) => h.depth === 3)).toHaveLength(33);
-    expect(r.outline.reduce((n, s) => n + s.subsections, 0)).toBe(33);
+    expect(r.outline).toHaveLength(countTags(raw, 'h2'));
+    expect(r.headings.filter((h) => h.depth === 3)).toHaveLength(countTags(raw, 'h3'));
+    // Every h3 in this document sits under an h2, so none is orphaned.
+    expect(r.outline.reduce((n, s) => n + s.subsections, 0)).toBe(countTags(raw, 'h3'));
   });
 });
 
@@ -166,19 +167,26 @@ describe('parseDocument — degradation', () => {
   });
 });
 
+/** Count opening tags in raw source, independently of the parser under test. */
+const countTags = (html: string, tag: string) =>
+  (html.match(new RegExp(`<${tag}\\b`, 'g')) ?? []).length;
+
 describe('parseDocument — the real documents', () => {
   const read = (name: string) =>
     readFileSync(fileURLToPath(new URL(`../src/documents/${name}`, import.meta.url)), 'utf8');
 
   it('wraps the droplet runbook without losing its code blocks', () => {
-    const r = parseDocument(read('forge-droplet-runbook.html'), 'droplet-runbook');
+    const raw = read('forge-droplet-runbook.html');
+    const r = parseDocument(raw, 'droplet-runbook');
     expect(r.title).toContain('Laravel Forge');
-    expect(r.sectionCount).toBe(15);
-    expect(r.headings.length).toBe(48);
+    // Counts come from the source rather than a literal, so editing the
+    // document does not break the test — what matters is that nothing is lost.
+    expect(r.sectionCount).toBe(countTags(raw, 'h2'));
+    expect(r.headings.length).toBe(countTags(raw, 'h2') + countTags(raw, 'h3'));
     expect(r.css).toContain('--pencil');
     expect(r.scripts).toContain('clipboard');
-    // all 30 <pre> blocks, and the markup inside them, must survive
-    expect(r.bodyHtml.match(/<pre/g)).toHaveLength(30);
+    // every code block, and the markup inside it, must survive
+    expect(r.bodyHtml.match(/<pre\b/g)).toHaveLength(countTags(raw, 'pre'));
     expect(r.bodyHtml).toContain('mta-sts-daemon');
     expect(r.headLinks).toContain('JetBrains+Mono');
   });
@@ -186,7 +194,7 @@ describe('parseDocument — the real documents', () => {
   it('wraps the proof of concept', () => {
     const r = parseDocument(read('ojs-proof-of-concept.html'), 'ojs-proof-of-concept');
     expect(r.title).toContain('proof of concept');
-    expect(r.sectionCount).toBe(9);
+    expect(r.sectionCount).toBe(countTags(read('ojs-proof-of-concept.html'), 'h2'));
     expect(r.scripts).toBe('');
     expect(r.bodyHtml).toContain('DOI');
     expect(r.headings.some((h) => h.text === 'R&A administrator')).toBe(true);
@@ -206,8 +214,13 @@ describe('parseDocument — accessibility', () => {
   it('makes code blocks and tables keyboard focusable', () => {
     const body = '<pre>long command</pre><table><tr><td>cell</td></tr></table>';
     const r = parseDocument(doc('<title>T</title>', body), 'x');
-    expect(r.bodyHtml).toContain('<pre tabindex="0">');
-    expect(r.bodyHtml).toContain('<table tabindex="0">');
+    // Code blocks are named so the focus stop announces something; tables keep
+    // their own role, which already carries a name and row/column navigation.
+    expect(r.bodyHtml).toMatch(/<pre\b[^>]*tabindex="0"[^>]*>/);
+    expect(r.bodyHtml).toMatch(/<pre\b[^>]*role="group"[^>]*>/);
+    expect(r.bodyHtml).toMatch(/<pre\b[^>]*aria-label="Code block"[^>]*>/);
+    expect(r.bodyHtml).toMatch(/<table\b[^>]*tabindex="0"[^>]*>/);
+    expect(r.bodyHtml).not.toMatch(/<table\b[^>]*role=/);
   });
 
   it('does not override a tabindex the author already set', () => {
@@ -222,7 +235,7 @@ describe('parseDocument — accessibility', () => {
     );
     const r = parseDocument(raw, 'droplet-runbook');
     // Attribute order varies — the tables already carry a class.
-    expect(r.bodyHtml.match(/<pre\b[^>]*tabindex="0"/g)).toHaveLength(30);
-    expect(r.bodyHtml.match(/<table\b[^>]*tabindex="0"/g)).toHaveLength(6);
+    expect(r.bodyHtml.match(/<pre\b[^>]*tabindex="0"/g)).toHaveLength(countTags(raw, 'pre'));
+    expect(r.bodyHtml.match(/<table\b[^>]*tabindex="0"/g)).toHaveLength(countTags(raw, 'table'));
   });
 });

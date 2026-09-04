@@ -32,9 +32,15 @@ describe('build output', () => {
 
   it('keeps each document intact through the wrap', () => {
     const runbook = read('docs/droplet-runbook/index.html');
-    // Content: all thirty code blocks and the markup inside them. Matched on the
-    // full tag — a bare /<pre/ also hits the word inside the inline stylesheet.
-    expect(runbook.match(/<pre\b[^>]*tabindex="0"[^>]*>/g)).toHaveLength(30);
+    // Content: every code block in the source survived, and the markup inside
+    // it. Matched on the full tag — a bare /<pre/ also hits the word inside the
+    // inline stylesheet. Counted from source so editing the document is safe.
+    const runbookSource = readFileSync(
+      fileURLToPath(new URL('../src/documents/forge-droplet-runbook.html', import.meta.url)),
+      'utf8',
+    );
+    const sourcePreCount = (runbookSource.match(/<pre\b/g) ?? []).length;
+    expect(runbook.match(/<pre\b[^>]*tabindex="0"[^>]*>/g)).toHaveLength(sourcePreCount);
     expect(runbook).toContain('mta-sts-daemon');
     // Behaviour: the document's own copy-to-clipboard handler.
     expect(runbook).toContain('navigator.clipboard');
@@ -60,15 +66,31 @@ describe('build output', () => {
     const html = read('docs/droplet-runbook/index.html');
     expect(html).toContain('All documents');
     expect(html).toContain('id="px-panel"');
-    expect(html.match(/href="#/g)).toHaveLength(48);
+    // Scoped to the contents panel: the skip link is an in-page anchor too.
+    // One entry per heading, counted from the source document.
+    const source = readFileSync(
+      fileURLToPath(new URL('../src/documents/forge-droplet-runbook.html', import.meta.url)),
+      'utf8',
+    );
+    const headingCount =
+      (source.match(/<h2\b/g) ?? []).length + (source.match(/<h3\b/g) ?? []).length;
+    const panel = html.slice(html.indexOf('id="px-panel"'), html.indexOf('</nav>'));
+    expect(panel.match(/href="#/g)).toHaveLength(headingCount);
+    expect(html).toContain('href="#px-document"');
   });
 
   it('publishes no personal names, email addresses or credentials', () => {
     for (const entry of documents) {
       const html = read(`docs/${entry.slug}/index.html`);
       expect(html, `${entry.slug} contains a surname`).not.toMatch(/Schweda|Jenkins/);
-      // Role addresses on the service domain are expected; anything else is not.
-      const allowed = new Set(['postmaster@icjia.cloud', 'ojs@icjia.cloud']);
+      // Address-shaped strings that are expected. The first two are role
+      // mailboxes on the service domain; the third is an SSH login (user@host),
+      // not a mailbox. Anything else is treated as a leak.
+      const allowed = new Set([
+        'postmaster@icjia.cloud',
+        'ojs@icjia.cloud',
+        'forge@ojs.icjia.cloud',
+      ]);
       const emails = html.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) ?? [];
       const unexpected = [...new Set(emails)].filter((address) => !allowed.has(address));
       expect(unexpected, `${entry.slug} publishes an unexpected email address`).toEqual([]);

@@ -34,6 +34,7 @@ const hasContents = parsed.headings.length > 0;
   </head>
 
   <body>
+    <a class="px-skip" href="#px-document">Skip to document</a>
     <header class="px-bar">
       <a class="px-back" href="/">All documents</a>
       <span class="px-here">{parsed.title}</span>
@@ -55,7 +56,7 @@ const hasContents = parsed.headings.length > 0;
 
     <TableOfContents headings={parsed.headings} />
 
-    <div class="px-doc">
+    <div class="px-doc" id="px-document" tabindex="-1">
       <Fragment set:html={parsed.bodyHtml} />
     </div>
 

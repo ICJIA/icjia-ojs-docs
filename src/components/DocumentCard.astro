@@ -14,13 +14,27 @@ const shown = parsed.outline.slice(0, VISIBLE_SECTIONS);
 const remaining = parsed.outline.length - shown.length;
 ---
 
-<a class="card" href={`/docs/${doc.slug}`}>
+{/*
+  Only the heading is a link, stretched over the card by a pseudo-element in
+  `portal.css`. Wrapping the whole card in an <a> instead would give it an
+  accessible name around sixty words long — unusable in a screen reader's list
+  of links — and labelling that anchor to shorten it fails 2.5.3 Label in Name,
+  because the visible text would no longer appear in the accessible name. This
+  way the name is exactly the visible heading, and the whole card stays
+  clickable.
+*/}
+<div class="card">
   <div class="card-top">
     <span class="audience">{doc.audience}</span>
-    <span class="status" data-status={doc.status}>{doc.status}</span>
+    <span class="chips">
+      {doc.note && <span class="note">{doc.note}</span>}
+      <span class="status" data-status={doc.status}>{doc.status}</span>
+    </span>
   </div>
 
-  <h2 class="question">{doc.question}</h2>
+  <h2 class="question">
+    <a class="card-link" href={`/docs/${doc.slug}`}>{doc.question}</a>
+  </h2>
   <p class="doc-title">{parsed.title}</p>
   <p class="summary">{doc.summary}</p>
 
@@ -30,12 +44,20 @@ const remaining = parsed.outline.length - shown.length;
         {shown.map((section) => (
           <li>
             <span>{section.text}</span>
-            {section.subsections > 0 && <span class="depth">{section.subsections}</span>}
+            {section.subsections > 0 && (
+              <span class="depth">
+                {section.subsections}
+                {/* Alone, this numeral is announced as a bare "4". */}
+                <span class="sr-only"> subsections</span>
+              </span>
+            )}
           </li>
         ))}
         {remaining > 0 && (
           <li class="more">
-            <span>{remaining} more {remaining === 1 ? 'section' : 'sections'}</span>
+            <span>
+              {remaining} more {remaining === 1 ? 'section' : 'sections'}
+            </span>
           </li>
         )}
       </ul>
@@ -43,4 +65,4 @@ const remaining = parsed.outline.length - shown.length;
   }
 
   <p class="scale">About {parsed.readingMinutes} minutes to read</p>
-</a>
+</div>
