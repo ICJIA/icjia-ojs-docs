@@ -64,5 +64,17 @@ const remaining = parsed.outline.length - shown.length;
     )
   }
 
-  <p class="scale">About {parsed.readingMinutes} minutes to read</p>
+  <p class="scale">
+    About {parsed.readingMinutes} minutes to read
+    {
+      parsed.updated && (
+        <>
+          <span class="sep" aria-hidden="true"> </span>
+          <span class="updated">
+            Updated <time datetime={parsed.updated.iso}>{parsed.updated.label}</time>
+          </span>
+        </>
+      )
+    }
+  </p>
 </div>

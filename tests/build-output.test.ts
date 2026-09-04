@@ -49,7 +49,11 @@ describe('build output', () => {
 
     const poc = read('docs/ojs-proof-of-concept/index.html');
     expect(poc).toContain('Public Knowledge Project');
-    expect(poc.match(/<table/g)).toHaveLength(2);
+    const pocSource = readFileSync(
+      fileURLToPath(new URL('../src/documents/ojs-proof-of-concept.html', import.meta.url)),
+      'utf8',
+    );
+    expect(poc.match(/<table\b/g)).toHaveLength((pocSource.match(/<table\b/g) ?? []).length);
   });
 
   it('emits the document stylesheet before the chrome stylesheet', () => {

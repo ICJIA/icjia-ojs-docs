@@ -112,7 +112,8 @@ describe.each(PAGES)('screen reader semantics — $name', (page) => {
 });
 
 describe('screen reader semantics — the contents disclosure', () => {
-  const doc = () => parsed[documents[1].slug];
+  // By slug, not by position: the manifest order changes when a document is added.
+  const doc = () => parsed['droplet-runbook'];
 
   it('wires the toggle to the panel it controls', () => {
     const toggle = doc().querySelector('#px-toggle');

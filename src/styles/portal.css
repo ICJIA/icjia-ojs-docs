@@ -286,6 +286,18 @@ body {
   color: var(--paper-dim);
 }
 
+/* Last-updated stamp, read out of the document itself. */
+.scale .updated {
+  display: block;
+  margin-top: 4px;
+  color: var(--paper-dim);
+}
+
+.scale .updated time {
+  color: var(--paper);
+  font-weight: 500;
+}
+
 /* ---------- colophon ---------- */
 
 .colophon {

@@ -40,6 +40,16 @@ export const documents: DocumentEntry[] = [
     order: 1,
   },
   {
+    slug: 'ojs-administrator-guide',
+    file: 'ojs-administrator-guide.html',
+    question: 'How do I run the journal?',
+    summary:
+      'Everything the journal administrator does, from first login to publishing an issue. All of it in a browser; no server access needed.',
+    audience: 'Written for the journal administrator',
+    status: 'draft',
+    order: 2,
+  },
+  {
     slug: 'droplet-runbook',
     file: 'forge-droplet-runbook.html',
     question: 'How do I install it?',
@@ -48,6 +58,6 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for developers',
     status: 'draft',
     note: 'Linux only',
-    order: 2,
+    order: 3,
   },
 ];

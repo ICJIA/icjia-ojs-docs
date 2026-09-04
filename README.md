@@ -6,9 +6,9 @@ A dark, static portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
-Two documents are published today — an overview for managers and an installation
-runbook for developers — and the portal is built so that adding a third is a
-one-line change.
+Three documents are published today — an overview for managers, a guide for the
+journal administrator, and an installation runbook for developers — and the
+portal is built so that adding a fourth is a one-line change.
 
 Every page meets **WCAG 2.1 Level AA**. See [Accessibility](#accessibility)
 before changing any styling.
@@ -27,7 +27,7 @@ before changing any styling.
      audience: 'Written for developers',
      status: 'draft',
      note: 'Linux only',              // optional qualifier chip; omit if not needed
-     order: 3,
+     order: 4,
    }
    ```
 
@@ -62,6 +62,7 @@ document apart and the shell reassembles it inside portal chrome:
 | `h2` / `h3` | given ids, which drive the contents panel and card outline |
 | `pre` / `table` | made keyboard focusable, since they scroll |
 | `pre` | given `role="group"` and a label, so the focus stop announces itself |
+| `<time datetime>` | read as the document's last-updated date and shown on its card |
 
 Because the documents declare global CSS (`body`, `h1,h2,h3`, `a`, `section`),
 every chrome element uses a `px-` class prefix and the chrome stylesheet is
@@ -100,8 +101,9 @@ To re-verify after a change, build and serve, then audit both viewports:
 npm run build && npm run preview
 # then point axe-core / Lighthouse / a contrast checker at:
 #   http://localhost:4321/
-#   http://localhost:4321/docs/droplet-runbook
 #   http://localhost:4321/docs/ojs-proof-of-concept
+#   http://localhost:4321/docs/ojs-administrator-guide
+#   http://localhost:4321/docs/droplet-runbook
 ```
 
 Automated tools cover roughly half of WCAG. Reflow, text spacing and keyboard
@@ -126,7 +128,7 @@ Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 
 ## Tests
 
-63 tests across three files.
+71 tests across three files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug

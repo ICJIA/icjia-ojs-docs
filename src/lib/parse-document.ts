@@ -34,6 +34,8 @@ export interface ParsedDocument {
   headings: Heading[];
   /** Top-level sections only, each carrying how many subsections it contains. */
   outline: OutlineSection[];
+  /** The document's own last-updated stamp, read from its first <time datetime>. */
+  updated?: { iso: string; label: string };
   sectionCount: number;
   wordCount: number;
   readingMinutes: number;
@@ -131,6 +133,15 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     }
   }
 
+  // The date is written once, in the document, so the standalone file carries it
+  // and the card cannot disagree with the page.
+  const timeEl = body.querySelector('time[datetime]');
+  const iso = timeEl?.getAttribute('datetime');
+  const updated =
+    iso !== undefined && iso !== null && /^\d{4}-\d{2}-\d{2}$/.test(iso)
+      ? { iso, label: timeEl!.text.replace(/\s+/g, ' ').trim() }
+      : undefined;
+
   const title =
     root.querySelector('title')?.text.trim() ||
     body.querySelector('h1')?.text.replace(/\s+/g, ' ').trim() ||
@@ -147,6 +158,7 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     bodyHtml: body.innerHTML,
     headings,
     outline: toOutline(headings),
+    updated,
     sectionCount: body.querySelectorAll('h2').length,
     wordCount,
     readingMinutes: Math.max(1, Math.ceil(wordCount / WORDS_PER_MINUTE)),

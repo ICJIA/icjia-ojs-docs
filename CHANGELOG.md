@@ -5,6 +5,47 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-09-04
+
+Acted on a full adversarial read of both documents.
+
+### Added
+
+- **A third document, [Running the journal](https://ojs-docs.netlify.app/docs/ojs-administrator-guide/)**, for the journal
+  administrator. The administrator walkthrough had been duplicated in both
+  existing documents and had already drifted — 6 steps against 7, a 7-row role
+  table against 8. It is now written once, and both other documents link to it.
+  That also sharpens them to their real audiences: a non-technical manager, and
+  a skilled Linux developer.
+- **Upgrade and restore procedures** in the runbook. Both were named as IDS
+  duties elsewhere and neither was documented. The upgrade runs from the CLI,
+  which sidesteps all three timeouts that broke the original install.
+- **Last-updated stamp** on every document, read out of the document's own
+  `<time datetime>` by the parser and shown on its card, so the date is written
+  once and cannot disagree with itself.
+- Optional `note` field on a manifest entry; the runbook is flagged **Linux only**.
+- A platform notice at the top of the runbook: the commands are Ubuntu 26.04 and
+  do not transfer to Windows.
+
+### Fixed
+
+- **The runbook told you to switch to PHP 8.3, then handed you an nginx block
+  pointing back at the 8.5 socket.** Anyone following the document in order
+  pasted a config aimed at the PHP that does not work.
+- **The PHP version decision came after the install step**, so the reading order
+  was: run installer, fail, learn why. It is now step C½ in pre-install prep,
+  with the diagnostic kept where the failure appears.
+- Brotli was disabled with `sed -i '6,7s|...'` — editing nginx.conf by line
+  number. Now matched by pattern.
+- `$0 software` was the manager document's headline figure while its own DOI
+  section quoted a Crossref membership. Reframed as `$0 licence`, with a
+  total-cost note in the adoption section.
+- First names carried no role after the personal-name scrub, leaving them
+  unactionable for anyone who did not already know the people. Roles restored
+  without surnames.
+- The SSH section explained `ssh-keygen` and what a `.pub` file is, which is
+  beneath the runbook's audience. Trimmed to the policy that actually matters.
+
 ## [1.1.0] - 2026-09-04
 
 ### Added
@@ -115,5 +156,6 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.2.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.2.0
 [1.1.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.0.0

@@ -31,6 +31,10 @@
   section{margin-top:112px}
 
   /* in one sentence */
+    /* last-updated stamp */
+  .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
+  .updated .lab{font-size:15px;color:var(--paper-dim)}
+  .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
   .plain{
     margin-top:44px;padding:30px 34px;border-left:6px solid var(--pencil);
     background:var(--ink-2);border-radius:0 16px 16px 0;
@@ -253,13 +257,14 @@
       it collects submissions, routes them to reviewers, tracks edits, and publishes the
       finished articles online. Tens of thousands of journals around the world use it.
     </p>
+  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-04">4 September 2026</time></p>
     <div class="plain">
       <b>The question we're answering:</b> would OJS be a good way for ICJIA to publish
       its research? We're setting up a small working copy so staff can see it for themselves
       before anyone commits to anything.
     </div>
     <div class="glance">
-      <div><div class="n">$0<small>software</small></div><p><b>No license to buy.</b> The only cost is a small test server, a few dollars a month.</p></div>
+      <div><div class="n">$0<small>licence</small></div><p><b>The software is free.</b> Running it is not: the test server is a few dollars a month, and a production journal adds hosting, DOI registration, and a Forge subscription. See the cost note below.</p></div>
       <div><div class="n">4<small>of 7 steps</small></div><p><b>OJS is installed.</b> Server built, secured, connected, and the software is running. Email hookup is next.</p></div>
       <div><div class="n">0<small>permanent records</small></div><p><b>Nothing real lives here.</b> A throwaway test at a temporary address that will be erased.</p></div>
     </div>
@@ -326,7 +331,7 @@
   <section>
     <h2>Why this is low risk</h2>
     <div class="why">
-      <div><div class="k">$0 for software</div><p>OJS is <b>open source</b>. There's no license to buy. The test server costs a few dollars a month and can be shut off any time.</p></div>
+      <div><div class="k">No licence to buy</div><p>OJS is <b>open source</b>. The test server costs a few dollars a month and can be switched off any time. Production is not free &mdash; see what it would actually cost, below.</p></div>
       <div><div class="k">Nothing to lose</div><p>The test lives at a <b>temporary address</b> (ojs.icjia.cloud) with made-up content. Nothing is published, indexed, or permanent.</p></div>
       <div><div class="k">Well-trodden ground</div><p>OJS has been in development since 2001 and runs on <b>ordinary web hosting</b>, the same kind IDS already manages for ICJIA's other sites.</p></div>
       <div><div class="k">Same hands</div><p>The test is being built by <b>IDS, which already runs 15+ ICJIA web properties</b>. This is a smaller job than most of them.</p></div>
@@ -378,151 +383,23 @@
   </section>
 
   <section>
-    <h2>Quickstart for the OJS administrator</h2>
-    <p class="muted" style="font-size:22px;max-width:46ch;margin-bottom:30px">IDS installed the software and entered the database details. Everything from here happens in a web browser, using the admin login IDS hands you. Work top to bottom.</p>
-    <ol class="qs">
-      <li>
-        <span class="num">1</span>
-        <div>
-          <h3>Log in and secure the admin account</h3>
-          <p>Go to <b>ojs.icjia.cloud</b> and sign in with the username and password from IDS. First thing: top-right menu → <span class="path">Edit Profile → Password</span> and set your own. Then <span class="path">Profile → Contact</span> and make sure the email is one you read; OJS sends everything there.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">2</span>
-        <div>
-          <h3>Create the journal</h3>
-          <p>A fresh OJS site has no journals. <span class="path">Administration → Hosted Journals → Create Journal.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and never change it), and a language. Everything else can be filled in later.</p>
-          <p>OJS then opens the journal's <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> (title, description) and <b>Contact</b> (principal contact is you; technical contact is IDS). Skip the rest for now.</p>
-          <div class="flag"><b>Leave off during the test:</b> Settings → Distribution → DOIs, and anything labeled indexing or search-engine registration. See the DOI section above.</div>
-        </div>
-      </li>
-      <li>
-        <span class="num">3</span>
-        <div>
-          <h3>Learn the roles before adding people</h3>
-          <table class="access" style="margin:6px 0 0">
-            <tr><th>Role</th><th>What they can do</th><th>Who gets it</th></tr>
-            <tr><td>Site Administrator</td><td>Everything, on every journal.</td><td>You, plus one backup.</td></tr>
-            <tr><td>Journal Manager</td><td>All settings, users, and workflow for one journal.</td><td>Whoever runs the journal day to day.</td></tr>
-            <tr><td>Editor</td><td>Sees every submission; assigns reviewers; decides.</td><td>Editor-in-chief.</td></tr>
-            <tr><td>Section Editor</td><td>Same, but only for submissions assigned to them.</td><td>Associate editors.</td></tr>
-            <tr><td>Reviewer</td><td>Sees only what they're invited to review.</td><td>Anyone who reviews.</td></tr>
-            <tr><td>Author</td><td>Submits and tracks their own manuscripts.</td><td>Anyone who submits.</td></tr>
-          </table>
-          <p style="margin-top:14px">One person can hold several roles. For a small shop, one Manager who is also Editor, plus a few Reviewers, is a complete journal.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">4</span>
-        <div>
-          <h3>Add users</h3>
-          <p>Inside the journal: <span class="path">Users &amp; Roles → Users → Add User.</span> Name, username, email, a temporary password, and tick <b>Send the user a welcome email</b> so they get their login (this also proves email works). Assign roles on the same form. To change roles later, click the person's name → <span class="path">Edit User</span>.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">5</span>
-        <div>
-          <h3>Make a second site administrator</h3>
-          <p>One admin with a forgotten password is the most common OJS problem there is. Create a second account as in step 4, then edit it and look for <b>Site Administrator</b> in the roles list. If it's there, tick it and tell IDS the username. If the list only shows journal roles, file a Freshservice ticket and IDS will grant it.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">6</span>
-        <div>
-          <h3>Run one fake article all the way through</h3>
-          <p>This is the real test. Make yourself a second account as an Author (different email), submit a fake manuscript, then as Editor: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build an issue, publish. Every step sends an email; watch them arrive.</p>
-          <p>By the end you'll know whether the workflow fits how R&amp;A actually works. That's the question this whole exercise exists to answer.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
+  <h2>Who runs it, day to day</h2>
+  <p>Once OJS is installed, running the journal is a browser job: creating it, adding people, moving submissions through review, building issues, publishing. None of it needs server access, and the administrator will not be given any.</p>
+  <p>That work has its own guide so this page can stay about the decision: <b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal &mdash; a guide for the OJS administrator</a></b>. It covers first login, creating the journal, the roles, adding people, naming a backup administrator, and the one end-to-end test that answers whether OJS fits how R&amp;A works. It also draws the line between what the administrator fixes and what needs a ticket.</p>
+  <p class="flag"><b>Two things IDS asks of R&amp;A.</b> Name a backup administrator early &mdash; one admin with a forgotten password is the most common OJS problem there is, and R&amp;A owns that succession. And if the answer turns out to be no, say so the same day: the server bills every month it exists and there is nothing on it worth keeping. A one-line email is enough; no approvals, no paperwork.</p>
+</section>
 
-  <section>
-    <h2>Expectations: try it first, or file a ticket?</h2>
-    <p class="muted" style="font-size:22px;max-width:46ch;margin-bottom:30px">Most questions about OJS are questions about a setting, not about the server. This is how to tell the difference.</p>
-
-    <div class="expect">
-      <div class="first">
-        <h3>Try it first</h3>
-        <p class="sub">The administrator handles these. Most take five minutes.</p>
-        <ul>
-          <li><b>"How do I make OJS do X?"</b> It's almost always a setting. Look in Settings, then search the PKP forum (forum.pkp.sfu.ca) or the OJS user guide. Someone has asked already.</li>
-          <li><b>A user can't log in.</b> Use the "forgot password" link, or reset their password from Users &amp; Roles.</li>
-          <li><b>Someone can't see a submission.</b> Check their role; reviewers and section editors only see what's assigned to them.</li>
-          <li><b>An email went out with the wrong wording.</b> Email templates are editable under Settings → Workflow → Emails.</li>
-          <li><b>The site looks wrong.</b> Theme and appearance settings are under Settings → Website.</li>
-          <li><b>A feature seems to be missing.</b> Many are add-ons ("plugins") you can switch on yourself under Settings → Website → Plugins → Plugin Gallery.</li>
-        </ul>
-      </div>
-      <div class="ticket">
-        <h3>File a ticket</h3>
-        <p class="sub">These need IDS. Nothing in the browser will fix them.</p>
-        <ul>
-          <li><b>The site is down</b> or shows a blank page or an error message instead of OJS. (Check <a href="https://uptime.icjia.app">uptime.icjia.app</a> first; it may already know.)</li>
-          <li><b>No email is sending at all</b>, for anyone, after you've done the quick email check below.</li>
-          <li><b>Uploads are rejected</b> for being too large, when the file is a normal size.</li>
-          <li><b>A new OJS version is out</b> and you want it, or the site says it needs upgrading.</li>
-          <li><b>You need a second site administrator</b> and the role isn't offered in the user form.</li>
-          <li><b>Something needs to change on the web address, its security certificate, or the email setup.</b></li>
-          <li><b>You've broken it</b> and want it restored from backup. It happens; that's what a test server is for.</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="rule">The rule of thumb: <b>if the fix is in a Settings menu, it's yours. If the fix needs someone to log in to the server itself, it's a Freshservice ticket.</b> When in doubt, spend ten minutes looking before filing.</p>
-
-    <div class="ticketbox">
-      <h3>Quick email check (do this before filing)</h3>
-      <ul>
-        <li>Log out, click <b>Forgot your password?</b> on the login page, enter your admin email, and wait.</li>
-        <li><b>Give it up to 15 minutes.</b> Some mail arrives fast; some doesn't. Don't file at minute two.</li>
-        <li><b>Check spam and junk.</b> The state's mail system (DoIT) tags anything from outside as <b>[EXTERNAL]</b>, and OJS mail counts as outside. It's often filtered.</li>
-        <li>If it never arrives, the ticket should say so. IDS can check Mailgun's logs, which show whether the message left our system successfully. <b>Mailgun keeps only 5 days of logs</b>, so report promptly.</li>
-        <li>A message that Mailgun shows as delivered can still be held or dropped on DoIT's side. That's a DoIT question, not an OJS one; IDS will route it.</li>
-      </ul>
-    </div>
-
-    <div class="ticketbox">
-      <h3>Tickets go in Freshservice. A useful one includes:</h3>
-      <p>Please do not email IDS staff directly about OJS. Everything goes through a <b>Freshservice ticket</b>, so the request is tracked, and so anyone on the team can pick it up.</p>
-      <ul>
-        <li>What you were trying to do, and which screen you were on</li>
-        <li>What happened instead, with the exact wording of any error</li>
-        <li>Whether it affects one person or everyone</li>
-        <li>When it started, and whether anything changed right before</li>
-        <li>A screenshot if there's anything to see</li>
-      </ul>
-    </div>
-
-    <h3 style="font-size:32px;font-weight:700;margin:44px 0 18px">Two things IDS asks of R&amp;A</h3>
-    <div class="commit">
-      <div>
-        <h3>Name a backup admin</h3>
-        <p>OJS lives or dies by its admin account. If the main administrator leaves, changes roles, or is out for a month, someone else must already be able to log in with full rights.</p>
-        <p><b>At least one backup admin, two is better.</b> A backup admin is a second person with a full site-administrator login who can run OJS if the main admin is unavailable. Create them early (see step 5 of the Quickstart), and tell IDS who they are. If the main admin's departure is planned, hand over before they go, not after.</p>
-        <span class="ask">R&amp;A owns succession; IDS needs the names</span>
-      </div>
-      <div>
-        <h3>Tell IDS the moment the answer is no</h3>
-        <p>If R&amp;A decides OJS isn't the right fit, that's a perfectly good outcome of a test. But the server keeps billing every month it exists, and there is nothing on it worth keeping.</p>
-        <p><b>Send IDS a note the same day.</b> The server will be shut down and deleted, and the cost stops. No approvals, no paperwork; a one-line email is enough.</p>
-        <span class="ask">Decision made → IDS notified → server gone</span>
-      </div>
-    </div>
-
-    <p class="muted" style="font-size:19px;max-width:60ch;margin-top:22px">Turnaround on the test server is best-effort; it isn't a production system and nothing on it is urgent. A live server would come with a real support agreement, and that's part of the "if we adopt it" conversation.</p>
-  </section>
-
-  <section class="prod">
+<section class="prod">
     <h2>If we decide to adopt it</h2>
     <p class="muted" style="font-size:22px;max-width:44ch;margin-bottom:30px">Five things would need to happen before OJS could host a real journal. None are blockers, and each has a clear owner.</p>
     <div class="needs">
-      <div class="need"><h3>A bigger server</h3><p>The test machine is deliberately tiny. A real journal needs more room. <b>On-premise is preferred</b>, run by someone in R&amp;A or IDS with remote access. AWS is a workable alternative; Karl has run one there.</p><span class="who">Tony decides</span></div>
-      <div class="need"><h3>Linux or Windows</h3><p>OJS is proven on <b>Linux</b>. Windows Server is possible but unfamiliar territory and would need its own evaluation.</p><span class="who">Tony and/or Eric</span></div>
+      <div class="need"><h3>A bigger server</h3><p>The test machine is deliberately tiny. A real journal needs more room. <b>On-premise is preferred</b>, run by someone in R&amp;A or IDS with remote access. AWS is a workable alternative; a colleague has run one there.</p>
+  <p class="flag"><b>What it would actually cost.</b> The software stays free, but a real journal is not a $0 line item. Budget for a production server sized for the load, a Crossref membership if DOIs are wanted (a few hundred dollars a year at ICJIA's size), the Laravel Forge subscription if the server is managed that way, and IDS time for upgrades and backup testing. None of these is large, and none is a surprise &mdash; but &ldquo;free software&rdquo; and &ldquo;free to run&rdquo; are different claims, and only the first one is true.</p>
+<span class="who">Tony, deputy director of IDS, decides</span></div>
+      <div class="need"><h3>Linux or Windows</h3><p>OJS is proven on <b>Linux</b>. Windows Server is possible but unfamiliar territory and would need its own evaluation.</p><span class="who">Tony (deputy director, IDS) and/or Eric (IT specialist)</span></div>
       <div class="need"><h3>An official address</h3><p>We have a contact at DoIT who can create <b>ojs.icjia.illinois.gov</b>. Moving the site from the test address is routine.</p><span class="who">DoIT request</span></div>
       <div class="need"><h3>Approved email</h3><p>Sending from an illinois.gov address means DoIT must <b>authorize the email service</b>. Best raised together with the address request.</p><span class="who">DoIT request</span></div>
-      <div class="need wide"><h3>A verified backup and restore plan</h3><p>The test server gets a <b>full weekly backup</b> from the hosting provider, which is fine for a throwaway. A live journal is an archive of record: it needs <b>enterprise-grade backups</b> with frequent incremental copies, off-site storage, and, most importantly, <b>regular test restores</b> so we know the backups actually work before we ever need them.</p><span class="who">IDS with Tony</span></div>
+      <div class="need wide"><h3>A verified backup and restore plan</h3><p>The test server gets a <b>full weekly backup</b> from the hosting provider, which is fine for a throwaway. A live journal is an archive of record: it needs <b>enterprise-grade backups</b> with frequent incremental copies, off-site storage, and, most importantly, <b>regular test restores</b> so we know the backups actually work before we ever need them.</p><span class="who">IDS with Tony, deputy director</span></div>
     </div>
   </section>
 
