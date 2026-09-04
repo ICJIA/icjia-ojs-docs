@@ -46,6 +46,16 @@ Acted on a full adversarial read of both documents.
 - The SSH section explained `ssh-keygen` and what a `.pub` file is, which is
   beneath the runbook's audience. Trimmed to the policy that actually matters.
 
+### Changed
+
+- Bylines credit the author again, as first name plus role — the same shape used
+  for everyone else named in these documents, and still no surnames. Karl, left
+  as "a colleague" while his role was unknown, is a former R&A center manager;
+  that is the detail that makes the AWS remark useful to a manager weighing it.
+- Dropped "Updated September 2026" from the footers. The last-updated stamp at
+  the top of each document now carries the exact date, and two dates in one
+  document is how they drift apart.
+
 ## [1.1.0] - 2026-09-04
 
 ### Added
