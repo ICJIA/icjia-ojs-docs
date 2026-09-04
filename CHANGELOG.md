@@ -5,6 +5,16 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-09-04
+
+### Changed
+
+- **Outgoing email is working.** The overview's status tracker moves to 5 of 7:
+  step 5 is marked done, the progress bar and its screen-reader label follow,
+  and the headline figure and caption now say a sample run through the workflow
+  is next rather than email. Steps 6 and 7 are untouched &mdash; still planned,
+  not started.
+
 ## [1.6.0] - 2026-09-04
 
 ### Added
@@ -263,6 +273,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.7.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.7.0
 [1.6.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.6.0
 [1.5.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.5.0
 [1.4.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.4.0
