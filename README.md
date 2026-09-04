@@ -24,6 +24,14 @@ portal is built so that adding a fourth is a one-line change.
 Every page meets **WCAG 2.1 Level AA**. See [Accessibility](#accessibility)
 before changing any styling.
 
+<p align="center">
+  <a href="https://ojs-docs.netlify.app">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with three cards side by side — one for managers, one for the journal administrator, one for developers — each showing its sections, reading time and last-updated date." width="900">
+  </a>
+</p>
+
+<p align="center"><em>The portal at <a href="https://ojs-docs.netlify.app">ojs-docs.netlify.app</a>. Each card's sections, counts, reading time and date are read out of the document itself at build time.</em></p>
+
 ## Adding a document
 
 1. Put the HTML file in `src/documents/`.
