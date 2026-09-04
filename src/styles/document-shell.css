@@ -33,7 +33,7 @@
   bottom: -1px;
   height: 2px;
   width: 100%;
-  background: var(--pencil, #e8735a);
+  background: var(--pencil, #f08a72);
   transform: scaleX(0);
   transform-origin: 0 50%;
   will-change: transform;
@@ -49,7 +49,7 @@
 }
 
 .px-bar .px-back:hover {
-  color: var(--pencil, #e8735a);
+  color: var(--pencil, #f08a72);
 }
 
 .px-bar .px-here {
@@ -76,13 +76,13 @@
 
 .px-bar .px-toggle:hover,
 .px-bar .px-toggle[aria-expanded='true'] {
-  border-color: var(--pencil, #e8735a);
-  color: var(--pencil, #e8735a);
+  border-color: var(--pencil, #f08a72);
+  color: var(--pencil, #f08a72);
 }
 
 .px-bar :focus-visible,
 .px-panel :focus-visible {
-  outline: 2px solid var(--pencil, #e8735a);
+  outline: 2px solid var(--pencil, #f08a72);
   outline-offset: 2px;
 }
 
@@ -140,14 +140,33 @@
 }
 
 .px-panel a[aria-current='true'] {
-  color: var(--pencil, #e8735a);
-  border-left-color: var(--pencil, #e8735a);
+  color: var(--pencil, #f08a72);
+  border-left-color: var(--pencil, #f08a72);
 }
 
 /* Anchored headings must clear the sticky header. */
 .px-doc h2[id],
 .px-doc h3[id] {
   scroll-margin-top: 84px;
+}
+
+/*
+ * Code blocks and wide tables are focusable so they can be scrolled by
+ * keyboard; that focus has to be visible. The outline sits inside the element
+ * so it is not clipped by the rounded `overflow: hidden` wrapper around code.
+ */
+.px-doc pre:focus-visible,
+.px-doc table:focus-visible {
+  outline: 2px solid var(--pencil, #f08a72);
+  outline-offset: -2px;
+}
+
+/* Links and the code blocks' copy buttons otherwise fall back to the browser's
+   default ring, which reads as a different design language mid-page. */
+.px-doc a:focus-visible,
+.px-doc button:focus-visible {
+  outline: 2px solid var(--pencil, #f08a72);
+  outline-offset: 2px;
 }
 
 /*
@@ -161,6 +180,18 @@
  */
 .px-doc * {
   min-width: 0;
+}
+
+/*
+ * Long unbreakable strings — a URL or a shell command in inline code — have no
+ * wrap opportunity and push the page wider than the viewport, which breaks
+ * reflow at 320px (WCAG 1.4.10). `anywhere` breaks them only when they would
+ * otherwise overflow, so ordinary prose is unaffected. Block code inside <pre>
+ * is excluded: it scrolls instead, and keeping its lines intact matters when
+ * the reader is copying commands.
+ */
+.px-doc :is(code, kbd, samp):not(pre code) {
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 560px) {

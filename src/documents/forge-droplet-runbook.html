@@ -11,7 +11,7 @@
   :root{
     --ink:#14202e; --ink-2:#1b2a3c; --ink-3:#0f1822; --rule:#2e4056;
     --paper:#efe8da; --paper-dim:#a8b2be;
-    --pencil:#e8735a; --pencil-soft:rgba(232,115,90,.16);
+    --pencil:#f08a72; --pencil-soft:rgba(232,115,90,.16);
     --done:#7fc49b; --done-soft:rgba(127,196,155,.14);
     --warn:#e9c46a; --warn-soft:rgba(233,196,106,.14);
   }
@@ -26,7 +26,7 @@
   p{margin:0 0 1em;max-width:66ch}
   .lede{font-size:clamp(20px,2.3vw,25px);line-height:1.42;max-width:44ch}
   .muted{color:var(--paper-dim)}
-  code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--ink-3);padding:2px 7px;border-radius:6px;border:1px solid var(--rule)}
+  code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--ink-3);padding:2px 7px;border-radius:6px;border:1px solid var(--rule);overflow-wrap:anywhere}
   section{margin-top:96px}
   a{color:var(--pencil)}
 
@@ -83,7 +83,7 @@
 
   /* framing note */
   .frame{margin-top:36px;padding:28px 32px;border-radius:16px;border:1px solid var(--pencil);background:var(--pencil-soft)}
-  .frame h3{font-size:22px;font-weight:700;color:var(--pencil);margin-bottom:10px}
+  .frame h2{font-size:22px;font-weight:700;color:var(--pencil);margin-bottom:10px;line-height:1.2}
   .frame p{font-size:17px;margin:0 0 .8em;max-width:none}
   .frame p:last-child{margin:0}
   .frame b{color:var(--paper);font-weight:600}
@@ -115,7 +115,7 @@
     h3{font-size:21px}
     .lede{font-size:18px}
     .frame,.cause,.two > div{padding:18px 16px}
-    .frame h3{font-size:19px}
+    .frame h2{font-size:19px}
     .step{padding:24px 0;gap:6px}
     .step .n{font-size:36px}
     .step p,.step .look,.step .heads{font-size:15px}
@@ -128,7 +128,7 @@
     footer{font-size:13px}
   }
   @media print{
-    :root{--ink:#fff;--ink-2:#f4f4f4;--ink-3:#f4f4f4;--rule:#ccc;--paper:#111;--paper-dim:#555;--pencil-soft:#fbe4de;--done-soft:#e3f3ea;--warn-soft:#fbf3dc}
+    :root{--ink:#fff;--ink-2:#f4f4f4;--ink-3:#f4f4f4;--rule:#ccc;--paper:#111;--paper-dim:#555;--pencil:#a83d27;--pencil-soft:#fbe4de;--done-soft:#e3f3ea;--warn-soft:#fbf3dc}
     html,body{background:#fff}.page{padding:0;max-width:none}
     .code button{display:none}.step{break-inside:avoid}section{margin-top:48px}
   }
@@ -147,7 +147,7 @@
     <div><b>Worked</b>3–4 Sep 2026</div>
   </div>
   <div class="frame">
-    <h3>Read this first: why the early steps exist</h3>
+    <h2>Read this first: why the early steps exist</h2>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>

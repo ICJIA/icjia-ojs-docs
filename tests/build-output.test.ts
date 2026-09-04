@@ -32,8 +32,9 @@ describe('build output', () => {
 
   it('keeps each document intact through the wrap', () => {
     const runbook = read('docs/droplet-runbook/index.html');
-    // Content: all thirty code blocks and the markup inside them.
-    expect(runbook.match(/<pre/g)).toHaveLength(30);
+    // Content: all thirty code blocks and the markup inside them. Matched on the
+    // full tag — a bare /<pre/ also hits the word inside the inline stylesheet.
+    expect(runbook.match(/<pre\b[^>]*tabindex="0"[^>]*>/g)).toHaveLength(30);
     expect(runbook).toContain('mta-sts-daemon');
     // Behaviour: the document's own copy-to-clipboard handler.
     expect(runbook).toContain('navigator.clipboard');

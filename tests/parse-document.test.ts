@@ -103,10 +103,8 @@ describe('parseDocument — outline', () => {
       'utf8',
     );
     const r = parseDocument(raw, 'droplet-runbook');
-    expect(r.outline).toHaveLength(14);
-    // 34 h3s in the file, but the opening "Read this first" h3 precedes the
-    // first h2, so it belongs to no section and is not counted.
-    expect(r.headings.filter((h) => h.depth === 3)).toHaveLength(34);
+    expect(r.outline).toHaveLength(15);
+    expect(r.headings.filter((h) => h.depth === 3)).toHaveLength(33);
     expect(r.outline.reduce((n, s) => n + s.subsections, 0)).toBe(33);
   });
 });
@@ -175,7 +173,7 @@ describe('parseDocument — the real documents', () => {
   it('wraps the droplet runbook without losing its code blocks', () => {
     const r = parseDocument(read('forge-droplet-runbook.html'), 'droplet-runbook');
     expect(r.title).toContain('Laravel Forge');
-    expect(r.sectionCount).toBe(14);
+    expect(r.sectionCount).toBe(15);
     expect(r.headings.length).toBe(48);
     expect(r.css).toContain('--pencil');
     expect(r.scripts).toContain('clipboard');
@@ -201,5 +199,30 @@ describe('parseDocument — the real documents', () => {
       expect(new Set(ids).size, `${name} has duplicate heading ids`).toBe(ids.length);
       expect(ids.every((id) => id.length > 0)).toBe(true);
     }
+  });
+});
+
+describe('parseDocument — accessibility', () => {
+  it('makes code blocks and tables keyboard focusable', () => {
+    const body = '<pre>long command</pre><table><tr><td>cell</td></tr></table>';
+    const r = parseDocument(doc('<title>T</title>', body), 'x');
+    expect(r.bodyHtml).toContain('<pre tabindex="0">');
+    expect(r.bodyHtml).toContain('<table tabindex="0">');
+  });
+
+  it('does not override a tabindex the author already set', () => {
+    const r = parseDocument(doc('<title>T</title>', '<pre tabindex="-1">x</pre>'), 'x');
+    expect(r.bodyHtml).toContain('tabindex="-1"');
+  });
+
+  it('makes every scrollable region in the real runbook focusable', () => {
+    const raw = readFileSync(
+      fileURLToPath(new URL('../src/documents/forge-droplet-runbook.html', import.meta.url)),
+      'utf8',
+    );
+    const r = parseDocument(raw, 'droplet-runbook');
+    // Attribute order varies — the tables already carry a class.
+    expect(r.bodyHtml.match(/<pre\b[^>]*tabindex="0"/g)).toHaveLength(30);
+    expect(r.bodyHtml.match(/<table\b[^>]*tabindex="0"/g)).toHaveLength(6);
   });
 });

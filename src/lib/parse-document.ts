@@ -110,6 +110,16 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     return { depth: el.rawTagName.toLowerCase() === 'h2' ? 2 : 3, id, text };
   });
 
+  // Code blocks and wide tables scroll horizontally, and a region that scrolls
+  // must be reachable by keyboard alone (WCAG 2.1.1). Neither document marks
+  // them focusable, and which ones actually overflow depends on the viewport,
+  // so every one is made focusable rather than guessing at build time.
+  for (const scrollable of body.querySelectorAll('pre, table')) {
+    if (scrollable.getAttribute('tabindex') === undefined) {
+      scrollable.setAttribute('tabindex', '0');
+    }
+  }
+
   const title =
     root.querySelector('title')?.text.trim() ||
     body.querySelector('h1')?.text.replace(/\s+/g, ' ').trim() ||

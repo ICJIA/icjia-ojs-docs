@@ -180,11 +180,12 @@ body {
   flex: none;
   font-variant-numeric: tabular-nums;
   font-size: 13px;
-  color: var(--rule);
+  /* --rule is a border colour; as text it lands at 1.37:1. */
+  color: var(--paper-dim);
 }
 
 .card:hover .contents .depth {
-  color: var(--paper-dim);
+  color: var(--paper);
 }
 
 .scale {
