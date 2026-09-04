@@ -14,7 +14,7 @@
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
 
-A dark, static portal for the working documents about the ICJIA
+A portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
@@ -60,8 +60,8 @@ before changing any styling.
    ```
 
 That is the whole job. The title, section list, subsection counts, reading time,
-table of contents and route are all read out of the HTML at build time, so they
-cannot drift out of date with the document. The accessibility fixes described
+last-updated date, table of contents and route are all read out of the HTML at
+build time, so they cannot drift out of date with the document. The accessibility fixes described
 below are applied by the wrapper, so a new document inherits them automatically.
 
 The build fails with a clear message if a manifest entry points at a file that
@@ -87,7 +87,7 @@ document apart and the shell reassembles it inside portal chrome:
 | `<style>` contents | inline in `<head>`, **before** the chrome's stylesheet |
 | `<body>` markup | inside the portal shell |
 | `<script>` contents | re-emitted verbatim at the end of the page |
-| `h2` / `h3` | given ids, which drive the contents panel and card outline |
+| `h2` / `h3` | given ids, which drive the contents panel and card outline. An id never begins with a digit, because `#40-…` is not a valid CSS selector |
 | `pre` / `table` | made keyboard focusable, since they scroll |
 | `pre` | given `role="group"` and a label, so the focus stop announces itself |
 | `<time datetime>` | read as the document's last-updated date and shown on its card |
@@ -104,9 +104,9 @@ All pages pass **WCAG 2.1 AA**, verified in production on desktop and mobile
 with axe-core, Lighthouse and a contrast checker — zero violations, 100/100 —
 plus manual checks for the criteria those tools cannot detect.
 
-Four rules in [`src/styles/document-shell.css`](src/styles/document-shell.css)
-and [`parse-document.ts`](src/lib/parse-document.ts) exist purely to hold that
-line. They look removable and are not:
+Eight things in [`src/styles/document-shell.css`](src/styles/document-shell.css),
+[`parse-document.ts`](src/lib/parse-document.ts) and the document shell's inline
+script exist purely to hold that line. They look removable and are not:
 
 | Rule | Why it is there |
 | --- | --- |
@@ -116,6 +116,8 @@ line. They look removable and are not:
 | `:focus-visible` outlines | **2.4.7**, and it keeps one focus indicator across chrome and document. |
 | Skip links, `position: fixed` when focused | **2.4.1**. Absolute positioning pins them to the top of the document, so one focused after scrolling sits outside the viewport. |
 | Only the card heading is a link | Wrapping the whole card gives it a sixty-word accessible name; labelling that anchor instead fails **2.5.3 Label in Name**. A stretched pseudo-element keeps the card clickable. |
+| Contents links drive their own scroll | Native smooth scrolling took about four seconds across the runbook and moved nothing for the first second, so a reader who nudged the wheel cancelled it mid-flight — measured at 399px past the target, behind the header. The animation is bounded and starts within ~90ms. |
+| The landing position is recomputed on arrival | A long document shifts under the animation; one jump finished 251px short, which put the heading back under the header. Trusting the figure from click time reintroduces the bug it fixes. |
 
 Contrast is tight by design. The accent `--pencil` (`#f08a72`) was chosen as the
 lightest-touch value that clears 4.5:1 against every background it sits on,
@@ -163,7 +165,7 @@ accounts, and no user input.** Everything below is scoped to that.
 
 **Blue — what held**
 
-- `npm audit`: **0 vulnerabilities**. Three runtime dependencies, one dev dependency, 175 transitive, 2 with install scripts.
+- `npm audit`: **0 vulnerabilities**. Three runtime dependencies, four dev, 226 transitive, 2 with install scripts.
 - No adapter, no serverless functions, no database, no authentication, no user input. The published artefact is eight files on a CDN.
 - **No credential pattern in any commit** — full history scanned against AWS, GitHub, Slack, Stripe, Google, private-key and generic-base64 patterns.
 - No `.env`, `.pem`, `.key` or credential file has ever been committed.
@@ -172,9 +174,11 @@ accounts, and no user input.** Everything below is scoped to that.
 - A build-time test already blocks personal names, unexpected email addresses and credential patterns from reaching published HTML.
 - HSTS with `preload`, `nosniff` and `Referrer-Policy` were already live.
 
-The three fixes were verified adversarially, not assumed: a hostile `<script>`,
+The guards were verified by attacking them, not assumed. A hostile `<script>`,
 an `onmouseover` handler, and a tracking pixel to an unknown origin were each
-injected into a document, and each was caught by the assertion meant to catch it.
+injected into a document; each was caught by the assertion meant to catch it.
+The shared footer was checked the same way — rewording one and dropping one
+issues link both fail.
 
 ## Commands
 
@@ -249,8 +253,11 @@ src/
 ├── components/         card, contents panel
 ├── styles/             tokens, portal, document chrome
 └── pages/              / and /docs/[slug]
-tests/                  parser and build-output tests
+public/                 favicon, and the banner used as the og:image
+tests/                  parser, build output, screen-reader semantics, script pins
+docs/assets/            README screenshots — not published with the site
 docs/superpowers/specs/ design document
+.github/workflows/      CI
 ```
 
 ## License
