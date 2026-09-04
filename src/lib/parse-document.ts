@@ -107,7 +107,13 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     // An author-written id wins; otherwise derive one and reserve it so later
     // headings with the same text get -1, -2 suffixes.
     const existing = el.getAttribute('id');
-    const id = existing ?? slugger.slug(text || 'section');
+    // A slug can begin with a digit — "40% CPU on an idle box" gives
+    // "40-cpu-on-an-idle-box" — and `#40-...` is not a valid CSS selector, so
+    // querySelector throws on it and no stylesheet can ever target it. The
+    // slugger has already guaranteed uniqueness, and prefixing is deterministic,
+    // so this keeps that guarantee.
+    const base = slugger.slug(text || 'section');
+    const id = existing ?? (/^[a-zA-Z]/.test(base) ? base : `section-${base}`);
     if (!existing) el.setAttribute('id', id);
     return { depth: el.rawTagName.toLowerCase() === 'h2' ? 2 : 3, id, text };
   });

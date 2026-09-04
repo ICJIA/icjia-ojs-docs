@@ -5,6 +5,35 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-09-04
+
+### Fixed
+
+- **A contents link could leave its heading hidden behind the header.** The
+  cause was not the offset, which was correct, but the wait: native smooth
+  scrolling took about four seconds across the runbook and moved nothing at all
+  for the first second. A reader who nudged the wheel in that time cancelled
+  the animation wherever it happened to be &mdash; measured at 399px past the
+  target, squarely behind the header. Contents links now drive the scroll
+  themselves: it starts within about 90ms, always takes the same time whatever
+  the distance, and stops cleanly if the reader takes over.
+- **The landing is verified rather than assumed.** A long document can shift
+  under the animation, and a jump measured 251px short put the heading back
+  under the header. The final position is now recomputed and corrected on
+  arrival.
+- **Smooth scrolling is consistent across all three documents.** Only the
+  runbook set `scroll-behavior: smooth`; the other two jumped.
+- **Keyboard focus follows the jump.** Headings are not focusable, so a
+  keyboard or screen-reader user previously stayed behind in the closed panel.
+- **Heading ids can no longer begin with a digit.** &ldquo;40% CPU on an idle
+  box&rdquo; produced `40-cpu-on-an-idle-box`, and `#40-cpu-on-an-idle-box` is
+  not a valid CSS selector &mdash; `querySelector` throws on it and no rule can
+  target it. That anchor is now `#section-40-cpu-on-an-idle-box`.
+
+Reduced motion is respected throughout, and back and forward still work,
+because a contents click pushes a history entry. Verified over 110 clicks on
+the longest document with none obscured.
+
 ## [1.7.0] - 2026-09-04
 
 ### Changed
@@ -273,6 +302,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.8.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.8.0
 [1.7.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.7.0
 [1.6.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.6.0
 [1.5.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.5.0

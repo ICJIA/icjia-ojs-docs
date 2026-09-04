@@ -68,6 +68,80 @@ const hasContents = parsed.headings.length > 0;
       const toggle = document.getElementById('px-toggle');
       const progress = document.getElementById('px-progress');
 
+      const HEADER_CLEARANCE = 84;
+      const DURATION = 460;
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+      let frame = 0;
+      const stop = () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+      };
+
+      /** Scroll `target` to just below the header, then give it keyboard focus. */
+      const goTo = (target: HTMLElement) => {
+        stop();
+        const root = document.documentElement;
+        const max = root.scrollHeight - window.innerHeight;
+        const to = Math.max(0, Math.min(max, target.getBoundingClientRect().top + window.scrollY - HEADER_CLEARANCE));
+        const from = window.scrollY;
+
+        const land = () => {
+          // Recompute rather than trust the figure from click time. A long
+          // document can shift under the animation — a late webfont, an image,
+          // a frame the browser skipped — and being 250px short puts the
+          // heading back under the header, which is the whole bug. Correcting
+          // at the end costs nothing and makes the landing exact regardless.
+          const settled = Math.max(
+            0,
+            Math.min(
+              root.scrollHeight - window.innerHeight,
+              target.getBoundingClientRect().top + window.scrollY - HEADER_CLEARANCE,
+            ),
+          );
+          if (Math.abs(settled - window.scrollY) > 1) {
+            window.scrollTo({ top: settled, behavior: 'instant' });
+          }
+          // Headings are not focusable, so reading does not otherwise continue
+          // from here for anyone using a keyboard or a screen reader.
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        };
+
+        if (reduceMotion.matches || Math.abs(to - from) < 2) {
+          window.scrollTo({ top: to, behavior: 'instant' });
+          land();
+          return;
+        }
+
+        const started = performance.now();
+        const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const step = (now: number) => {
+          const p = Math.min(1, (now - started) / DURATION);
+          // `instant` matters: the documents set scroll-behavior: smooth, which
+          // would otherwise animate every single frame of this animation.
+          window.scrollTo({ top: from + (to - from) * ease(p), behavior: 'instant' });
+          if (p < 1) frame = requestAnimationFrame(step);
+          else { frame = 0; land(); }
+        };
+        frame = requestAnimationFrame(step);
+      };
+
+      // If the reader takes over, stop immediately rather than fighting them.
+      for (const evt of ['wheel', 'touchstart', 'pointerdown'] as const) {
+        window.addEventListener(evt, stop, { passive: true });
+      }
+      window.addEventListener('keydown', (e) => {
+        if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key)) stop();
+      });
+
+      // Back and forward still work, because the click pushed a history entry.
+      window.addEventListener('popstate', () => {
+        const id = decodeURIComponent(location.hash.slice(1));
+        const target = id && document.getElementById(id);
+        if (target) goTo(target);
+      });
+
       const setOpen = (open: boolean) => {
         if (!panel || !toggle) return;
         panel.hidden = !open;
@@ -78,9 +152,26 @@ const hasContents = parsed.headings.length > 0;
         // `hidden` is typed string | boolean, since it also accepts "until-found".
         toggle.addEventListener('click', () => setOpen(panel.hidden !== false));
 
-        // Choosing a section closes the panel so it does not cover the target.
+        // Choosing a section closes the panel so it does not cover the target,
+        // and the scroll is driven here rather than left to the browser.
+        //
+        // Native fragment navigation under `scroll-behavior: smooth` animates
+        // for about four seconds across a long document, and shows nothing at
+        // all for the first second. A reader who nudges the wheel in that time
+        // cancels the animation wherever it happens to be — which lands the
+        // heading behind the sticky header as often as not. A bounded animation
+        // starts immediately, always takes the same time, and always ends with
+        // the heading clear of the header.
         panel.addEventListener('click', (event) => {
-          if ((event.target as Element).closest('a')) setOpen(false);
+          const link = (event.target as Element).closest('a');
+          if (!link) return;
+          const id = decodeURIComponent((link as HTMLAnchorElement).hash.slice(1));
+          const target = document.getElementById(id);
+          if (!target) return;
+          event.preventDefault();
+          setOpen(false);
+          goTo(target);
+          history.pushState(null, '', `#${id}`);
         });
 
         document.addEventListener('keydown', (event) => {

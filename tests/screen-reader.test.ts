@@ -100,6 +100,16 @@ describe.each(PAGES)('screen reader semantics — $name', (page) => {
     expect([...new Set(duplicates)]).toEqual([]);
   });
 
+  it('uses ids that are valid CSS selectors', () => {
+    // An id beginning with a digit makes `#id` invalid: querySelector throws
+    // and no rule can ever target it.
+    const bad = doc()
+      .querySelectorAll('[id]')
+      .map((el) => el.getAttribute('id') as string)
+      .filter((id) => !/^[A-Za-z][\w-]*$/.test(id));
+    expect(bad).toEqual([]);
+  });
+
   it('resolves every in-page anchor to a real target', () => {
     const ids = new Set(doc().querySelectorAll('[id]').map((el) => el.getAttribute('id')));
     const broken = doc()

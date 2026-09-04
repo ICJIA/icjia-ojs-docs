@@ -200,6 +200,20 @@ describe('parseDocument — the real documents', () => {
     expect(r.headings.some((h) => h.text === 'R&A administrator')).toBe(true);
   });
 
+  it('never starts an id with a digit, so it stays a usable selector', () => {
+    // "40% CPU on an idle box" slugs to "40-cpu-on-an-idle-box", and
+    // `#40-cpu-on-an-idle-box` is not a valid CSS selector: querySelector
+    // throws on it and no stylesheet can target it.
+    const r = parseDocument(doc('<title>T</title>', '<h2>40% CPU on an idle box</h2>'), 'x');
+    expect(r.headings[0].id).toBe('section-40-cpu-on-an-idle-box');
+    expect(() => new Set([r.headings[0].id])).not.toThrow();
+  });
+
+  it('leaves ids that already begin with a letter alone', () => {
+    const r = parseDocument(doc('<title>T</title>', '<h2>The Fixes</h2>'), 'x');
+    expect(r.headings[0].id).toBe('the-fixes');
+  });
+
   it('gives every heading in both documents a unique id', () => {
     for (const name of ['forge-droplet-runbook.html', 'ojs-proof-of-concept.html']) {
       const { headings } = parseDocument(read(name), name);
