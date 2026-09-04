@@ -5,6 +5,7 @@
 <h1 align="center">ICJIA OJS documentation portal</h1>
 
 <p align="center">
+  <a href="https://github.com/ICJIA/icjia-ojs-docs/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/ICJIA/icjia-ojs-docs/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
@@ -187,6 +188,12 @@ injected into a document, and each was caught by the assertion meant to catch it
 | `npm test` | Run the full test suite |
 | `npm run test:watch` | Run tests in watch mode |
 | `npm run check` | Astro type and template diagnostics |
+
+Every one of these runs in CI on pull requests and pushes to `main`
+([`ci.yml`](.github/workflows/ci.yml)). Netlify only runs `npm run build`, so
+without CI nothing would check the pins described under
+[Security](#security) — they exist to catch a change nobody meant to make,
+which means they cannot depend on someone remembering to run them.
 
 Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 

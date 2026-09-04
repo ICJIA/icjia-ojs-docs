@@ -1,0 +1,67 @@
+name: CI
+
+# Netlify only runs `npm run build`, so without this nothing checks the pins:
+# the approved document scripts, the identical footers, and the guard against a
+# personal name, an unexpected email address or a credential reaching published
+# HTML. Those exist to catch a change nobody meant to make, which means they
+# have to run without anyone remembering to run them.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A newer push to the same branch makes an in-flight run irrelevant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      # Build first: the build-output and screen-reader suites assert against
+      # dist/, and build themselves only if it is missing. Building here means
+      # they read this build rather than making a second one.
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Confirm every document produced a page
+        run: |
+          set -euo pipefail
+          missing=0
+          for slug in $(node -e "
+            const s = require('fs').readFileSync('src/content/documents.ts','utf8');
+            for (const m of s.matchAll(/slug: '([^']+)'/g)) console.log(m[1]);
+          "); do
+            if [ -f "dist/docs/$slug/index.html" ]; then
+              echo "  ok      $slug"
+            else
+              echo "  MISSING $slug"; missing=1
+            fi
+          done
+          [ -f dist/index.html ] && echo "  ok      portal" || { echo "  MISSING portal"; missing=1; }
+          exit $missing

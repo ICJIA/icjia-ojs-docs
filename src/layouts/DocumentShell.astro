@@ -75,7 +75,8 @@ const hasContents = parsed.headings.length > 0;
       };
 
       if (panel && toggle) {
-        toggle.addEventListener('click', () => setOpen(panel.hidden));
+        // `hidden` is typed string | boolean, since it also accepts "until-found".
+        toggle.addEventListener('click', () => setOpen(panel.hidden !== false));
 
         // Choosing a section closes the panel so it does not cover the target.
         panel.addEventListener('click', (event) => {

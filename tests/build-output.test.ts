@@ -96,7 +96,7 @@ describe('build output', () => {
         'forge@ojs.icjia.cloud',
       ]);
       const emails = html.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) ?? [];
-      const unexpected = [...new Set(emails)].filter((address) => !allowed.has(address));
+      const unexpected = [...new Set<string>(emails)].filter((address) => !allowed.has(address));
       expect(unexpected, `${entry.slug} publishes an unexpected email address`).toEqual([]);
       expect(html).not.toMatch(/AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|BEGIN [A-Z ]*PRIVATE KEY/);
     }
