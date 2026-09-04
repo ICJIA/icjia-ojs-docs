@@ -1,0 +1,50 @@
+/**
+ * The document manifest.
+ *
+ * This is the only file that changes when a document is added to the portal.
+ * Drop the HTML file into `src/documents/`, append an entry here, and the card,
+ * the route, the table of contents and the statistics all follow automatically.
+ *
+ * Everything derivable from the document itself — title, section names, reading
+ * time — is read out of the HTML at build time and deliberately not repeated
+ * here, so it cannot drift out of date.
+ */
+export interface DocumentEntry {
+  /** URL segment: /docs/<slug> */
+  slug: string;
+  /** Filename within src/documents/ */
+  file: string;
+  /** The question this document's reader is actually asking. Shown as the card's headline. */
+  question: string;
+  /** One line describing what is inside. */
+  summary: string;
+  /** Who it is written for. Free-form; known values get a colour, others fall back. */
+  audience: string;
+  /** Where it is in its life: draft, review, final. Free-form, same rule. */
+  status: string;
+  /** Optional explicit ordering. Lower sorts first; unset sorts last. */
+  order?: number;
+}
+
+export const documents: DocumentEntry[] = [
+  {
+    slug: 'ojs-proof-of-concept',
+    file: 'ojs-proof-of-concept.html',
+    question: 'Should we adopt this?',
+    summary:
+      'What Open Journal Systems does, how far the test setup has got, and what running it for real would take.',
+    audience: 'Written for managers',
+    status: 'draft',
+    order: 1,
+  },
+  {
+    slug: 'droplet-runbook',
+    file: 'forge-droplet-runbook.html',
+    question: 'How do I install it?',
+    summary:
+      'Installing OJS on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit.',
+    audience: 'Written for developers',
+    status: 'draft',
+    order: 2,
+  },
+];

@@ -1,0 +1,140 @@
+---
+import TableOfContents from '../components/TableOfContents.astro';
+import type { PortalDocument } from '../lib/registry.ts';
+// Imported raw so it can be emitted immediately after the document's own CSS.
+// Astro's bundled stylesheets carry no ordering guarantee relative to an inline
+// <style>, and the chrome must win the cascade against the document's global
+// element rules.
+import shellCss from '../styles/document-shell.css?raw';
+
+interface Props {
+  doc: PortalDocument;
+}
+
+const { doc } = Astro.props;
+const { parsed } = doc;
+const hasContents = parsed.headings.length > 0;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{parsed.title}</title>
+    <meta name="description" content={doc.summary} />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {/* The document's own font links, carried over so its typography survives. */}
+    <Fragment set:html={parsed.headLinks} />
+
+    {parsed.css && <style is:inline set:html={parsed.css} />}
+    <style is:inline set:html={shellCss} />
+  </head>
+
+  <body>
+    <header class="px-bar">
+      <a class="px-back" href="/">All documents</a>
+      <span class="px-here">{parsed.title}</span>
+      {
+        hasContents && (
+          <button
+            class="px-toggle"
+            id="px-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="px-panel"
+          >
+            Contents
+          </button>
+        )
+      }
+      <div class="px-progress" id="px-progress"></div>
+    </header>
+
+    <TableOfContents headings={parsed.headings} />
+
+    <div class="px-doc">
+      <Fragment set:html={parsed.bodyHtml} />
+    </div>
+
+    {/* The document's own behaviour — the runbook's copy-to-clipboard buttons. */}
+    {parsed.scripts && <script is:inline set:html={parsed.scripts} />}
+
+    <script>
+      const panel = document.getElementById('px-panel');
+      const toggle = document.getElementById('px-toggle');
+      const progress = document.getElementById('px-progress');
+
+      const setOpen = (open: boolean) => {
+        if (!panel || !toggle) return;
+        panel.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      };
+
+      if (panel && toggle) {
+        toggle.addEventListener('click', () => setOpen(panel.hidden));
+
+        // Choosing a section closes the panel so it does not cover the target.
+        panel.addEventListener('click', (event) => {
+          if ((event.target as Element).closest('a')) setOpen(false);
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && !panel.hidden) {
+            setOpen(false);
+            toggle.focus();
+          }
+        });
+
+        document.addEventListener('click', (event) => {
+          const target = event.target as Node;
+          if (!panel.hidden && !panel.contains(target) && !toggle.contains(target)) {
+            setOpen(false);
+          }
+        });
+      }
+
+      const links = panel ? Array.from(panel.querySelectorAll('a')) : [];
+      const targets = links.map((link) => document.getElementById(link.hash.slice(1)));
+
+      let queued = false;
+
+      const update = () => {
+        queued = false;
+        const root = document.documentElement;
+
+        if (progress) {
+          const scrollable = root.scrollHeight - root.clientHeight;
+          const ratio = scrollable > 0 ? Math.min(1, root.scrollTop / scrollable) : 0;
+          progress.style.transform = `scaleX(${ratio})`;
+        }
+
+        // The current section is the last heading whose top has passed the
+        // header. Headings are in document order, so stop at the first miss.
+        let active = -1;
+        for (let i = 0; i < targets.length; i += 1) {
+          const target = targets[i];
+          if (target && target.getBoundingClientRect().top <= 100) active = i;
+          else break;
+        }
+
+        links.forEach((link, i) => {
+          if (i === active) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      };
+
+      const onScroll = () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(update);
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update();
+    </script>
+  </body>
+</html>

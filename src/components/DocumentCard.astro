@@ -1,0 +1,46 @@
+---
+import type { PortalDocument } from '../lib/registry.ts';
+
+interface Props {
+  doc: PortalDocument;
+}
+
+const { doc } = Astro.props;
+const { parsed } = doc;
+
+/** Enough sections to show the document's shape without turning the card into a list. */
+const VISIBLE_SECTIONS = 5;
+const shown = parsed.outline.slice(0, VISIBLE_SECTIONS);
+const remaining = parsed.outline.length - shown.length;
+---
+
+<a class="card" href={`/docs/${doc.slug}`}>
+  <div class="card-top">
+    <span class="audience">{doc.audience}</span>
+    <span class="status" data-status={doc.status}>{doc.status}</span>
+  </div>
+
+  <h2 class="question">{doc.question}</h2>
+  <p class="doc-title">{parsed.title}</p>
+  <p class="summary">{doc.summary}</p>
+
+  {
+    shown.length > 0 && (
+      <ul class="contents">
+        {shown.map((section) => (
+          <li>
+            <span>{section.text}</span>
+            {section.subsections > 0 && <span class="depth">{section.subsections}</span>}
+          </li>
+        ))}
+        {remaining > 0 && (
+          <li class="more">
+            <span>{remaining} more {remaining === 1 ? 'section' : 'sections'}</span>
+          </li>
+        )}
+      </ul>
+    )
+  }
+
+  <p class="scale">About {parsed.readingMinutes} minutes to read</p>
+</a>

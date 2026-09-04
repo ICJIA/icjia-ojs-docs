@@ -1,0 +1,239 @@
+/* The portal landing page. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--paper);
+  background: var(--ink);
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 72px 40px 112px;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 56px;
+}
+
+.masthead h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-size: clamp(40px, 6.2vw, 74px);
+  line-height: 1.02;
+  max-width: 19ch;
+  margin: 0 0 26px;
+}
+
+.lede {
+  font-size: clamp(19px, 2.2vw, 25px);
+  line-height: 1.45;
+  max-width: 48ch;
+  color: var(--paper-dim);
+  margin: 0;
+}
+
+.lede b {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+/* ---------- the shelf of documents ---------- */
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 24px;
+  margin-top: 56px;
+  align-items: start;
+}
+
+/* A lone document should not stretch the width of the screen. */
+.shelf:has(> :only-child) {
+  grid-template-columns: minmax(0, 620px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 32px 30px 26px;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--pencil);
+  background: #1f3145;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--pencil);
+  outline-offset: 3px;
+}
+
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.audience {
+  font-size: 15px;
+  color: var(--paper-dim);
+}
+
+.status {
+  flex: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--pencil-soft);
+  color: var(--pencil);
+  text-transform: capitalize;
+}
+
+.status[data-status='final'] {
+  background: var(--done-soft);
+  color: var(--done);
+}
+
+.question {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(27px, 3vw, 34px);
+  line-height: 1.12;
+  margin: 0 0 14px;
+  color: var(--paper);
+}
+
+.card:hover .question {
+  color: var(--pencil);
+}
+
+.doc-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 10px;
+  color: var(--paper);
+}
+
+.summary {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--paper-dim);
+  margin: 0 0 26px;
+  max-width: 42ch;
+}
+
+/* Section list. The trailing numeral is each section's subsection count, so a
+   deep document visibly reads denser than a shallow one. */
+.contents {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.contents li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--paper-dim);
+}
+
+.contents .depth {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--rule);
+}
+
+.card:hover .contents .depth {
+  color: var(--paper-dim);
+}
+
+.scale {
+  margin: 18px 0 0;
+  font-size: 15px;
+  color: var(--paper-dim);
+}
+
+.more {
+  color: var(--paper-dim);
+}
+
+/* ---------- colophon ---------- */
+
+.colophon {
+  margin-top: 72px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+  font-size: 15px;
+  color: var(--paper-dim);
+}
+
+/* Constrain the text, not the rule above it. */
+.colophon p {
+  max-width: var(--measure);
+  margin: 0;
+}
+
+.colophon a {
+  color: var(--pencil);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 48px 22px 80px;
+  }
+
+  .card {
+    padding: 26px 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card {
+    transition: none;
+  }
+}

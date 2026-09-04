@@ -1,0 +1,23 @@
+---
+import type { Heading } from '../lib/parse-document.ts';
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+---
+
+{
+  headings.length > 0 && (
+    <nav class="px-panel" id="px-panel" hidden aria-label="Sections in this document">
+      <ol>
+        {headings.map((heading) => (
+          <li class={heading.depth === 2 ? 'px-d2' : 'px-d3'}>
+            <a href={`#${heading.id}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}

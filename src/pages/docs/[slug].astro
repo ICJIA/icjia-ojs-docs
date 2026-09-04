@@ -1,0 +1,15 @@
+---
+import DocumentShell from '../../layouts/DocumentShell.astro';
+import { portalDocuments } from '../../lib/registry.ts';
+
+export function getStaticPaths() {
+  return portalDocuments.map((doc) => ({
+    params: { slug: doc.slug },
+    props: { doc },
+  }));
+}
+
+const { doc } = Astro.props;
+---
+
+<DocumentShell doc={doc} />

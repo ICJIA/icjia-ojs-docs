@@ -1,0 +1,193 @@
+/*
+ * Portal chrome wrapped around a source document.
+ *
+ * This stylesheet is emitted immediately AFTER the document's own <style>, and
+ * every selector is class-based with a `px-` prefix. The documents declare
+ * global element rules — body{}, h1,h2,h3{}, a{}, section{} — so class
+ * specificity (0,1,0) is what keeps the chrome from being restyled by whatever
+ * document it happens to be wrapping.
+ *
+ * Colours are read from the document's own custom properties with fallbacks, so
+ * the chrome stays in key with each document, including ones added later.
+ */
+
+.px-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+  height: 60px;
+  background: var(--ink, #14202e);
+  border-bottom: 1px solid var(--rule, #2e4056);
+  font-family: var(--sans, 'Inter', system-ui, sans-serif);
+  font-size: 15px;
+}
+
+/* Reading progress, drawn along the header's bottom edge. */
+.px-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--pencil, #e8735a);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+.px-bar .px-back {
+  flex: none;
+  color: var(--paper-dim, #a8b2be);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 10px 6px 0;
+  border-radius: 6px;
+}
+
+.px-bar .px-back:hover {
+  color: var(--pencil, #e8735a);
+}
+
+.px-bar .px-here {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--paper, #efe8da);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.px-bar .px-toggle {
+  flex: none;
+  font: inherit;
+  font-weight: 500;
+  color: var(--paper, #efe8da);
+  background: transparent;
+  border: 1px solid var(--rule, #2e4056);
+  border-radius: 999px;
+  padding: 6px 15px;
+  cursor: pointer;
+}
+
+.px-bar .px-toggle:hover,
+.px-bar .px-toggle[aria-expanded='true'] {
+  border-color: var(--pencil, #e8735a);
+  color: var(--pencil, #e8735a);
+}
+
+.px-bar :focus-visible,
+.px-panel :focus-visible {
+  outline: 2px solid var(--pencil, #e8735a);
+  outline-offset: 2px;
+}
+
+/* ---------- contents panel ---------- */
+
+.px-panel {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  z-index: 39;
+  width: min(420px, 100%);
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--ink-2, #1b2a3c);
+  border-left: 1px solid var(--rule, #2e4056);
+  border-bottom: 1px solid var(--rule, #2e4056);
+  padding: 12px 0 20px;
+}
+
+.px-panel[hidden] {
+  display: none;
+}
+
+.px-panel ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.px-panel a {
+  display: block;
+  padding: 8px 26px;
+  color: var(--paper-dim, #a8b2be);
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1.35;
+  border-left: 2px solid transparent;
+}
+
+.px-panel a:hover {
+  color: var(--paper, #efe8da);
+  background: var(--ink-3, #0f1822);
+}
+
+.px-panel .px-d2 a {
+  color: var(--paper, #efe8da);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.px-panel .px-d3 a {
+  padding-left: 42px;
+  font-size: 14px;
+}
+
+.px-panel a[aria-current='true'] {
+  color: var(--pencil, #e8735a);
+  border-left-color: var(--pencil, #e8735a);
+}
+
+/* Anchored headings must clear the sticky header. */
+.px-doc h2[id],
+.px-doc h3[id] {
+  scroll-margin-top: 84px;
+}
+
+/*
+ * Let grid and flex items shrink below their content.
+ *
+ * `min-width` already computes to 0 for ordinary boxes and to `auto` only for
+ * flex and grid items, so this is a no-op everywhere except the items that need
+ * it. Without it, one long unbreakable line — a shell command inside a `1fr`
+ * track — sizes the track to the full command and scrolls the whole page
+ * sideways, instead of scrolling inside its own code block.
+ */
+.px-doc * {
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .px-bar {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .px-bar .px-here {
+    display: none;
+  }
+
+  .px-panel {
+    width: 100%;
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-progress {
+    transition: none;
+  }
+}
+
+@media print {
+  .px-bar,
+  .px-panel {
+    display: none;
+  }
+}

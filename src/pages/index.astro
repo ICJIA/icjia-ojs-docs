@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DocumentCard from '../components/DocumentCard.astro';
+import { portalDocuments } from '../lib/registry.ts';
+---
+
+<BaseLayout
+  title="Open Journal Systems at ICJIA — documentation"
+  description="Working documents for the ICJIA Open Journal Systems test server: what it is, and how it was built."
+>
+  <main class="page">
+    <div class="masthead">
+      <h1>Open Journal Systems, on trial at ICJIA</h1>
+      <p class="lede">
+        A test server is running. One document covers whether to keep it. The other covers how it
+        was built, and how to build the next one.
+      </p>
+    </div>
+
+    <div class="shelf">
+      {portalDocuments.map((doc) => <DocumentCard doc={doc} />)}
+    </div>
+
+    <footer class="colophon">
+      <p>
+        Both documents are drafts, and the server they describe is temporary. Nothing published on
+        it is permanent.
+      </p>
+    </footer>
+  </main>
+</BaseLayout>

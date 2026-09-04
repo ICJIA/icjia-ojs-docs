@@ -1,0 +1,27 @@
+/*
+ * Design tokens, taken from the source documents so the portal reads as the
+ * cover of the same publication rather than a separate site. Changing a value
+ * here changes only the portal; each document carries its own copy.
+ */
+:root {
+  --ink: #14202e;
+  --ink-2: #1b2a3c;
+  --ink-3: #0f1822;
+  --rule: #2e4056;
+
+  --paper: #efe8da;
+  --paper-dim: #a8b2be;
+
+  --pencil: #e8735a;
+  --pencil-soft: rgba(232, 115, 90, 0.16);
+
+  --done: #7fc49b;
+  --done-soft: rgba(127, 196, 155, 0.14);
+
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Manrope', 'Inter', system-ui, sans-serif;
+
+  --measure: 66ch;
+  --page-max: 1160px;
+  --radius: 16px;
+}
