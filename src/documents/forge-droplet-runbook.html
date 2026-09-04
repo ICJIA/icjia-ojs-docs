@@ -157,6 +157,7 @@
   <div class="frame">
     <h2>Read this first: why the early steps exist</h2>
     <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
+    <p><b>Worked through 3&ndash;4 September 2026</b> on the OJS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -796,7 +797,9 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
 </section>
 
 <footer>
-  Chris, lead web developer, IDS · Worked through 3–4 Sep 2026 on the OJS proof-of-concept droplet. Hostname and paths are specific to that box; everything else is general to Forge on DigitalOcean.<br>Source, and a place to raise a correction: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>.
+  <p class="muted">Prepared by Chris, lead web developer, Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
+  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
+  OJS is published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
 </footer>
 
 </main>

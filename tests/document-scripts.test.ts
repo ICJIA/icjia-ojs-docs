@@ -88,3 +88,39 @@ describe('document scripts are pinned', () => {
     }
   });
 });
+
+/**
+ * Every document ends with the same footer: who wrote it, where the source is,
+ * and how to send a correction. It drifted once already — three documents had
+ * three different wordings and three different markup shapes — so it is pinned
+ * rather than left to care.
+ */
+describe('documents share one footer', () => {
+  const footerOf = (name: string) => {
+    const m = /<footer>[\s\S]*?<\/footer>/.exec(read(name));
+    expect(m, `${name} has no <footer>`).not.toBeNull();
+    return m![0];
+  };
+
+  it('is byte-identical in every document', () => {
+    const footers = documents.map((d) => ({ slug: d.slug, footer: footerOf(d.file) }));
+    const first = footers[0];
+    for (const other of footers.slice(1)) {
+      expect(other.footer, `${other.slug} footer differs from ${first.slug}`).toBe(first.footer);
+    }
+  });
+
+  it('names the repository and how to send a correction', () => {
+    for (const entry of documents) {
+      const footer = footerOf(entry.file);
+      expect(footer, `${entry.slug}`).toContain('github.com/ICJIA/icjia-ojs-docs');
+      expect(footer, `${entry.slug} lacks an issues link`).toContain(
+        'github.com/ICJIA/icjia-ojs-docs/issues',
+      );
+      expect(footer.toLowerCase(), `${entry.slug} lacks pull-request wording`).toContain(
+        'pull request',
+      );
+      expect(footer, `${entry.slug} lacks attribution`).toContain('lead web developer');
+    }
+  });
+});

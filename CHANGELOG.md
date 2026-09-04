@@ -5,6 +5,21 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-09-04
+
+### Changed
+
+- **One footer, identical in all three documents.** They had drifted into three
+  different wordings and three different markup shapes. Every document now ends
+  with the same block: who wrote it, a link to the repository, and an invitation
+  to open an issue or send a pull request. Pinned by a test that compares the
+  three byte for byte, because this is exactly the kind of thing that drifts
+  again the moment nobody is looking.
+- The runbook's provenance caveat &mdash; that its hostname and paths are
+  specific to one box &mdash; moved from the footer into the opening callout,
+  where the scope warnings already live. A reader needs that before running the
+  commands, not after.
+
 ## [1.4.0] - 2026-09-04
 
 ### Changed
@@ -224,6 +239,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.5.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.5.0
 [1.4.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.4.0
 [1.3.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.3.0
 [1.2.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.2.0
