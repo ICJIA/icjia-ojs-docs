@@ -5,6 +5,30 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-09-04
+
+### Added
+
+- **CI on every pull request and push to `main`** ([`ci.yml`](.github/workflows/ci.yml)):
+  type check, build, test, then a confirmation that every manifest entry
+  produced a page. Netlify only runs `npm run build`, so until now nothing
+  checked the pins — the approved document scripts, the identical footers, the
+  guard against a personal name or credential reaching published HTML. Those
+  exist to catch a change nobody meant to make, which is exactly the case where
+  nobody thinks to run the tests. A pull request could have added a document
+  with a hostile script and deployed clean.
+- **Branch protection on `main`**, requiring that check to pass. Not enforced
+  for administrators, so direct pushes still work; it is there to stop a
+  contributor's pull request merging red.
+
+### Fixed
+
+- `npm run check` was a documented command that did not work — it prompted to
+  install `@astrojs/check` and `typescript`, which would have hung CI.
+  Installing them surfaced thirteen type errors. Eleven were missing Node
+  types; two were real: a `Set` inferred as `unknown`, and `panel.hidden`
+  typed `string | boolean` because the attribute also accepts `until-found`.
+
 ## [1.5.0] - 2026-09-04
 
 ### Changed
@@ -239,6 +263,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.6.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.6.0
 [1.5.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.5.0
 [1.4.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.4.0
 [1.3.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.3.0
