@@ -162,20 +162,24 @@ them.
 | --- | --- | --- |
 | R1 | The origin guard matched `href="https://…` and nothing else, which is one of at least seven ways to write the same reach. Measured against the old pattern, six forms passed unseen: single-quoted, unquoted, `href = "…"` with spaces, protocol-relative `//host`, `srcset` candidates, and form `action`. A document could have linked anywhere through any of them and the suite would have stayed green. | **Fixed.** The scan now reads `srcset`, `formaction`, `poster`, `action`, `href` and `src`, quoted either way or not at all, with an optional scheme, plus CSS `url()`. Hosts are lowercased (DNS is case-insensitive; the allowlist was not), and userinfo stays attached so `github.com@evil` fails rather than passing as its prefix. Each evasion is pinned as a fixture — 19 new tests. |
 | R2 | The comparison links to two Hub 2.0 drafts on `*.netlify.app`, now allowlisted. Both are temporary by design, so the links rot when the previews come down — and `*.netlify.app` is a shared namespace, so a released site name can be claimed by anyone while the allowlist still blesses the host. | **Accepted, with a review trigger.** Revisit at Hub 2.0 cutover: either repoint at the production addresses or drop the links. Recorded here so the trigger is not left to memory. |
-| R3 | Third-party actions are pinned to floating tags (`actions/checkout@v4`, `actions/setup-node@v4`). `release.yml` runs with `contents: write` and `github.token`, so a moved tag would execute in a job that can create tags and releases. | **Open.** Both are first-party GitHub actions, so exposure is low; SHA-pinning is the cheap standard mitigation and is worth doing. |
+| R3 | Third-party actions are pinned to floating tags (`actions/checkout@v4`, `actions/setup-node@v4`). `release.yml` runs with `contents: write` and `github.token`, so a moved tag would execute in a job that can create tags and releases. | **Fixed.** Both pinned to the commit SHA, with the version in a trailing comment, in `ci.yml` and `release.yml`. No floating tag remains in either workflow. |
 | R4 | `Strict-Transport-Security` is not in [`netlify.toml`](netlify.toml). It is live — verified against the deployed site — but it comes from Netlify's platform default, not from anything in this repository. Moving hosts would drop HSTS silently. | **Accepted.** Noted so it is a known dependency rather than a surprise. |
-| R5 | `actions/checkout@v4` and `actions/setup-node@v4` target Node 20, which GitHub has deprecated and now force-runs on Node 24. | **Open, operational.** Not a vulnerability; it will break when forced runs end. |
+| R5 | `actions/checkout@v4` and `actions/setup-node@v4` target Node 20, which GitHub has deprecated and now force-runs on Node 24. | **Fixed.** Both moved to v7 while being pinned, which runs on Node 24 natively. Neither release changes the inputs used here (`ref`, `fetch-depth`, `node-version-file`). |
 | R6 | Carried forward from the previous pass and unchanged: the runbook publishes the test hostname and `forge` login user (**accepted** — disposable box), and staff first names are public (**accepted, by instruction** — no surnames, enforced by test). | **Accepted.** |
 
 **Blue — what held**
 
-- `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 295 entries in the installed tree, one with an install script (`esbuild`).
+- `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 294 installed packages, one with an install script (`esbuild`).
 - **No credential pattern anywhere in history** — the full log scanned for AWS keys, GitHub classic and fine-grained tokens, Slack, Stripe, Google API keys and private-key headers.
 - No `.env`, `.pem`, `.key`, `.p12` or keystore file has ever been committed, and none exists now.
 - The published artefact is **eight files**. Three email addresses appear, all three explicitly allowlisted with a stated reason — two role mailboxes and one SSH login — and anything else is treated as a leak.
 - `nginx.org` and `ojs.icjia.cloud` appear in published text but **never as an `href`**: prose, not reachable origins. Useful confirmation that the widened scan does not fire on prose.
 - [`release.yml`](.github/workflows/release.yml) was already hardened: the version is validated against strict semver before it reaches a shell, values are passed by environment rather than interpolation, and it refuses a failed CI run, an existing tag, or a missing changelog entry. CI itself runs `contents: read`.
 - All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
+- **Accessibility re-verified after the content changes**, rather than carried
+  forward: axe-core WCAG AA returns **0 violations** on all four pages, and the
+  proof of concept is clean on mobile as well as desktop. Lighthouse
+  accessibility is **100/100** on the portal and on the rewritten document.
 - **The headers are now enforced, not just verified.** They had no test coverage at the time of this pass — deleting the CSP line kept CI green — so [`tests/deployment-config.test.ts`](tests/deployment-config.test.ts) was added the same day, along with the check that the policy and the origin allowlist cannot drift apart. Ten further probes confirmed each new assertion fails when the thing it guards is broken.
 
 **Verified by attack, not assumption**
@@ -245,11 +249,13 @@ issues link both fail.
 | `npm run test:watch` | Run tests in watch mode |
 | `npm run check` | Astro type and template diagnostics |
 
-Every one of these runs in CI on pull requests and pushes to `main`
-([`ci.yml`](.github/workflows/ci.yml)). Netlify only runs `npm run build`, so
-without CI nothing would check the pins described under
-[Security](#security) — they exist to catch a change nobody meant to make,
-which means they cannot depend on someone remembering to run them.
+The checks among these — `npm run check`, `npm run build` and `npm test` — all
+run in CI on pull requests and pushes to `main`
+([`ci.yml`](.github/workflows/ci.yml)); the rest start a server and are for
+local work. Netlify only runs `npm run build`, so without CI nothing would
+check the pins described under [Security](#security) — they exist to catch a
+change nobody meant to make, which means they cannot depend on someone
+remembering to run them.
 
 Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
 
@@ -330,7 +336,8 @@ src/
 ├── styles/             tokens, portal, document chrome
 └── pages/              / and /docs/[slug]
 public/                 favicon, and the banner used as the og:image
-tests/                  parser, build output, screen-reader semantics, script pins
+tests/                  parser, registry, build output, screen-reader semantics,
+                        script pins, deployment config
 docs/assets/            README screenshots — not published with the site
 docs/superpowers/specs/ design document
 .github/workflows/      CI, and automatic tagging on a version bump

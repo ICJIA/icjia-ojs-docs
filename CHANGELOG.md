@@ -5,6 +5,72 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2026-09-05
+
+### Added
+
+- **The proof of concept now answers the question it kept raising.** It described
+  OJS at length without ever addressing what a reader forms in the first
+  paragraph: ICJIA already publishes research through the Research Hub and the
+  Studio behind it, so what is this for? A new section separates three questions
+  — could OJS replace that setup, run alongside it, or could the Studio simply be
+  built out — and answers each.
+
+  The load-bearing point is that the trait ruling OJS out as a replacement is the
+  same one making it valuable as an addition: it is built to assemble reviewed
+  work into issues on a schedule, which is a mismatch against a Hub that publishes
+  continuously and a fair description of a journal. So the affirmative case is
+  concrete — a quarterly, with articles still appearing on the Hub as they are
+  finished, and the Studio's existing DOI field joining the two.
+
+  Figures are live Plausible queries rather than rounded ones, which corrected two
+  claims: eight of the twelve most-visited pages, not nine, and 47% of pages read
+  / 60% of visitors rather than "about half and two-thirds".
+
+- **A TL;DR at the top**, because the audience is managers who will not read to
+  the bottom to learn that nothing has been committed.
+
+- **`tests/deployment-config.test.ts`** — the response headers, the Node floor and
+  the changelog section the release workflow reads had no coverage at all.
+  Deleting the Content-Security-Policy kept CI green. It also holds together two
+  controls that must agree and previously could not tell when they disagreed: the
+  origin allowlist decides what a document may reach, the CSP decides what the
+  browser will fetch, and a host in one but not the other gives a page that passes
+  every other test and breaks in production.
+
+- **`tests/registry.test.ts`** — the README promised the build "fails with a clear
+  message" on a duplicate slug or a missing file, and nothing tested it. Both
+  failures are now provoked and the messages asserted, not just the throw.
+
+- A Netlify deploy-status badge, next to CI.
+
+### Security
+
+- **The origin scan read one of at least seven ways to write a URL.** It matched
+  `href="https://…` and nothing else; single-quoted, unquoted, spaced, protocol-
+  relative `//host`, `srcset` candidates and form `action` all passed unseen. A
+  document could have linked anywhere through any of them with the suite green.
+  The scan now reads every attribute that fetches or navigates, quoted either way
+  or not at all, plus CSS `url()`; hosts are lowercased, and userinfo stays
+  attached so `github.com@evil` fails rather than passing as its prefix. Nineteen
+  fixtures pin the evasions.
+
+- **Third-party actions are pinned to commit SHAs** and moved to v7.
+  `release.yml` runs with `contents: write`, so a moved tag would have executed in
+  a job that can create tags and releases. The upgrade also clears the deprecated
+  Node 20 runtime those versions targeted.
+
+- The 2026-09-05 red/blue pass is recorded in the README, newest first, with the
+  older pass folded away. Every guard was verified by breaking it — twenty-five
+  probes across the documents, the config and the registry, each restored.
+
+### Removed
+
+- **The DOI primer.** R&A authors already know what a DOI is. The safety
+  guarantee it carried is unaffected: the "not permanent" warning states
+  independently that a DOI cannot be recalled, and that none will be issued until
+  a production system exists.
+
 ## [1.9.0] - 2026-09-04
 
 ### Added
