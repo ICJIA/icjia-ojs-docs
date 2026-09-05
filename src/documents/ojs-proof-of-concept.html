@@ -139,26 +139,12 @@
   .warn .shout{font-weight:800;font-family:"Manrope","Inter",system-ui,sans-serif;font-size:clamp(34px,4.6vw,54px);line-height:1.05;margin:26px 0 0;color:var(--paper)}
 
   /* DOI explainer */
-  .doi-ex{font-weight:800;font-family:"Manrope","Inter",system-ui,sans-serif;font-size:clamp(28px,4.2vw,50px);line-height:1.1;margin:0 0 10px;word-break:break-all}
-  .doi-ex .pre{color:var(--pencil)}
-  .doi-ex .suf{color:var(--paper-dim)}
-  .doi-key{font-size:18px;color:var(--paper-dim);margin:0 0 40px;max-width:60ch}
-  .doi-key b{color:var(--paper);font-weight:500}
   .three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .three div{padding:32px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
   .three h3{font-size:30px;line-height:1.15;margin-bottom:12px;font-weight:700}
   .three p{font-size:18px;color:var(--paper-dim);margin:0 0 .8em}
   .three p:last-child{margin:0}
   .three p b{color:var(--paper);font-weight:500}
-  .doi-flow{margin-top:20px;padding:30px 34px;border-radius:18px;border:1px solid var(--rule);background:var(--ink-2)}
-  .doi-flow h3{font-size:30px;font-weight:700;margin-bottom:18px}
-  .doi-flow ol,.doi-flow ul{margin:0;padding:0 0 0 1.3em;font-size:19px;line-height:1.45;max-width:70ch}
-  .doi-flow li{margin-bottom:10px}
-  .doi-flow li::marker{color:var(--pencil);font-weight:600}
-  .doi-flow li.stop{color:var(--pencil);font-weight:600}
-  .doi-flow li.stop::marker{color:var(--pencil)}
-  .doi-flow .line{font-size:18px;color:var(--paper-dim);margin:18px 0 0;max-width:70ch}
-  .doi-flow .line b{color:var(--paper);font-weight:500}
   @media (max-width:900px){.three{grid-template-columns:1fr}}
 
   /* server access table */
@@ -254,7 +240,7 @@
     h2{font-size:clamp(28px,8vw,36px)}
     .lede{font-size:19px}
     .plain{padding:20px 20px;font-size:19px}
-    .glance div,.why div,.split div,.expect div,.need,.commit div,.ticketbox,.three div,.doi-flow,.stage{padding:20px 18px}
+    .glance div,.why div,.split div,.expect div,.need,.commit div,.ticketbox,.three div,.stage{padding:20px 18px}
     .glance .n{font-size:40px}
     .stage .n{font-size:44px}
     .score .big{font-size:72px}
@@ -265,7 +251,6 @@
     .warn{padding:24px 20px}
     .warn p{font-size:18px}
     .warn .shout{font-size:28px}
-    .doi-ex{font-size:26px}
     .qs li{padding:18px 16px}
     .qs h3,.split h3,.expect h3,.need h3,.three h3,.why .k,.commit h3{font-size:22px}
     .rule{padding:18px 20px;font-size:18px}
@@ -473,40 +458,6 @@
     <p>Published research carries a <b>DOI</b>, a permanent identifier that libraries, citations, and search engines rely on forever. A DOI cannot be recalled once issued.</p>
     <p>If anything were published from this test server, the world would point to a temporary address on a machine we intend to delete. <b>No DOIs will be issued, and nothing will be indexed or announced, until a production system exists.</b></p>
     <p class="shout">Nothing on the test server is real, published, or permanent.</p>
-  </section>
-
-  <section>
-    <h2>What a DOI is, and why we're careful with them</h2>
-    <p class="doi-ex"><span class="pre">10.12345</span>/<span class="suf">icjia.2026.001</span></p>
-    <p class="doi-key">A DOI, or <b>Digital Object Identifier</b>, is a permanent ID for a published article. The <b>first part</b> identifies the publisher; the <b>second</b> identifies the article. Anyone, anywhere, can type it into doi.org and land on the article, no matter where the article lives.</p>
-    <div class="three">
-      <div><h3>The problem it solves</h3><p>Web addresses break. Sites get redesigned, moved, or shut down, and every citation pointing at the old link dies.</p><p>A DOI separates <b>what an article is</b> from <b>where it currently sits</b>. Move the article, update one record, and every citation ever written still works.</p></div>
-      <div><h3>Why research depends on it</h3><p>Google Scholar, citation counts, reference managers, and library catalogs all key on the DOI. Many journals require DOIs in reference lists. Funders and indexes treat DOI assignment as the mark of a real journal.</p><p><b>For ICJIA it's how our research gets found, cited, and counted.</b></p></div>
-      <div><h3>Why it can't be undone</h3><p>Issuing a DOI is a <b>promise to keep it working forever</b>. It's registered with a nonprofit called Crossref under the publisher's name. You can update where it points; you can never delete it.</p><p>A DOI issued from a test server would point at a machine we plan to erase, with ICJIA's name attached.</p></div>
-    </div>
-    <div class="doi-flow">
-      <h3>How OJS handles DOIs</h3>
-      <ol>
-        <li>ICJIA joins Crossref (the nonprofit that runs the DOI registry) and receives a publisher prefix. At ICJIA's size, membership is a few hundred dollars a year.</li>
-        <li>An editor turns on DOIs in the journal settings and picks a naming pattern.</li>
-        <li>OJS generates a DOI for each article automatically. At this point it exists only inside our system.</li>
-        <li class="stop">OJS sends the article's details to Crossref, and the DOI becomes real and permanent. This step will not be turned on during the test.</li>
-        <li>The DOI appears on the article page. If the site ever moves, one update to Crossref redirects every citation to the new address.</li>
-      </ol>
-      <p class="line"><b>Steps 1 through 3 are safe to explore.</b> Step 4 requires a Crossref account and credentials that the test server simply won't have, so nothing can be registered by accident. For the same reason, the test won't be submitted to Google Scholar, DOAJ, or any other index.</p>
-    </div>
-
-    <div class="doi-flow">
-      <h3>What can carry a DOI</h3>
-      <p class="line" style="margin:0 0 16px">More than one might expect. OJS treats each article as its own citable object, and a setting decides how far down that goes:</p>
-      <ul>
-        <li><b>Each article.</b> The standard practice, and the one that matters. Every paper gets its own permanent link, so it can be cited directly rather than through the issue it sat in.</li>
-        <li><b>A single file inside an article.</b> A dataset, or the PDF as distinct from the web version, can carry its own DOI &mdash; meaning <b>a dataset can be separately citable</b>, not merely an attachment.</li>
-        <li><b>A whole issue.</b> One identifier for a volume or number as a unit.</li>
-        <li><b>The journal itself.</b> A single identifier standing for the periodical overall.</li>
-      </ul>
-      <p class="line">The <b>prefix</b> is the part Crossref assigns and it always identifies ICJIA. The <b>suffix</b> names the item, and OJS can build it automatically from a pattern &mdash; giving something like <b>icjia.vol1issue2.article5</b> &mdash; or an editor can type one in by hand for a particular article.</p>
-    </div>
   </section>
 
   <section>
