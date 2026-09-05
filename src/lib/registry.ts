@@ -23,11 +23,19 @@ const byFilename = new Map(
 /**
  * Join the manifest to the parsed documents, failing the build loudly on the
  * two mistakes that are easy to make when adding a document.
+ *
+ * Takes its sources as arguments rather than reaching for the glob directly, so
+ * that the two failures can be provoked in a test. They are the whole point of
+ * the function, and a guard nobody has watched fail is a guard nobody has
+ * tested.
  */
-function buildRegistry(): PortalDocument[] {
+export function joinManifest(
+  entries: readonly DocumentEntry[],
+  sources: ReadonlyMap<string, string>,
+): PortalDocument[] {
   const seen = new Set<string>();
 
-  const joined = documents.map((entry) => {
+  const joined = entries.map((entry) => {
     if (seen.has(entry.slug)) {
       throw new Error(
         `Duplicate slug "${entry.slug}" in src/content/documents.ts. Each document needs its own URL.`,
@@ -35,9 +43,9 @@ function buildRegistry(): PortalDocument[] {
     }
     seen.add(entry.slug);
 
-    const raw = byFilename.get(entry.file);
+    const raw = sources.get(entry.file);
     if (raw === undefined) {
-      const available = [...byFilename.keys()].sort().join(', ') || '(none)';
+      const available = [...sources.keys()].sort().join(', ') || '(none)';
       throw new Error(
         `Document "${entry.slug}" points at src/documents/${entry.file}, which does not exist. ` +
           `Available files: ${available}`,
@@ -52,7 +60,7 @@ function buildRegistry(): PortalDocument[] {
   );
 }
 
-export const portalDocuments: PortalDocument[] = buildRegistry();
+export const portalDocuments: PortalDocument[] = joinManifest(documents, byFilename);
 
 export const getDocument = (slug: string): PortalDocument | undefined =>
   portalDocuments.find((doc) => doc.slug === slug);

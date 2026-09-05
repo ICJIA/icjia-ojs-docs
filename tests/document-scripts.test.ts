@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseDocument } from '../src/lib/parse-document.ts';
 import { documents } from '../src/content/documents.ts';
+import { ALLOWED_ORIGINS } from './allowed-origins.ts';
 
 /**
  * A document's own `<script>` is re-emitted onto the published page, because the
@@ -21,19 +22,6 @@ const read = (name: string) =>
   readFileSync(fileURLToPath(new URL(`../src/documents/${name}`, import.meta.url)), 'utf8');
 
 const sha256 = (s: string) => createHash('sha256').update(s, 'utf8').digest('hex').slice(0, 16);
-
-/** Every origin a document is allowed to reach. Adding one is a deliberate act. */
-const ALLOWED_ORIGINS = [
-  'fonts.googleapis.com',
-  'fonts.gstatic.com',
-  'pkp.sfu.ca',
-  'forum.pkp.sfu.ca',
-  'github.com',
-  'ojs-docs.netlify.app',
-  'copperhead-hub-20.netlify.app',
-  'studio-2026.netlify.app',
-  'uptime.icjia.app',
-];
 
 /**
  * Attributes that can make a browser fetch or navigate somewhere, and CSS

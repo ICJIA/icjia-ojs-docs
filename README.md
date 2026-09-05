@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-106_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-127_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -176,6 +176,7 @@ them.
 - `nginx.org` and `ojs.icjia.cloud` appear in published text but **never as an `href`**: prose, not reachable origins. Useful confirmation that the widened scan does not fire on prose.
 - [`release.yml`](.github/workflows/release.yml) was already hardened: the version is validated against strict semver before it reaches a shell, values are passed by environment rather than interpolation, and it refuses a failed CI run, an existing tag, or a missing changelog entry. CI itself runs `contents: read`.
 - All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
+- **The headers are now enforced, not just verified.** They had no test coverage at the time of this pass — deleting the CSP line kept CI green — so [`tests/deployment-config.test.ts`](tests/deployment-config.test.ts) was added the same day, along with the check that the policy and the origin allowlist cannot drift apart. Ten further probes confirmed each new assertion fails when the thing it guards is broken.
 
 **Verified by attack, not assumption**
 
@@ -262,7 +263,7 @@ a version has no tag.
 
 ## Tests
 
-106 tests across four files.
+127 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -282,6 +283,19 @@ landmarks, heading order, accessible names, unique ids, anchor integrity, and
 the wiring of the contents disclosure. It is not a substitute for driving NVDA
 or VoiceOver — it cannot tell you whether a page is pleasant to listen to — but
 it does catch the structural faults that make one unusable.
+
+[`tests/deployment-config.test.ts`](tests/deployment-config.test.ts) covers what
+the published site depends on that is not code: the six response headers in
+[`netlify.toml`](netlify.toml), the Node floor, and the changelog section the
+release workflow reads. It also holds the two halves of the origin rule
+together — what a document may reach is decided in the test suite, what the
+browser will actually fetch is decided by the CSP, and nothing else notices when
+they drift apart. A host allowed in one but missing from the other gives a page
+that passes every other test and breaks in production.
+
+[`tests/registry.test.ts`](tests/registry.test.ts) provokes the two manifest
+mistakes the build promises to catch — a duplicate slug and an entry pointing at
+a file that is not there — and asserts the message, not just the throw.
 
 [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts) pins the
 JavaScript each document is allowed to ship, and refuses inline handlers,
