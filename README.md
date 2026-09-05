@@ -9,7 +9,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-87_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-106_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -147,7 +147,55 @@ is the remaining gap a formal ADA Title II / IITAA review would expect.
      <details><summary>Red/blue pass — YYYY-MM-DD</summary> … </details> and put
      the new pass here, expanded. -->
 
-### Red/blue pass — 2026-09-04
+### Red/blue pass — 2026-09-05
+
+Threat model unchanged: **a static site with no server, no database, no
+accounts, and no user input.** This pass re-ran every check from the previous
+one and concentrated on what has changed since — a new comparison section
+carrying the first outbound links added in months, and the guard that vets
+them.
+
+**Red — what was found**
+
+| | Finding | Outcome |
+| --- | --- | --- |
+| R1 | The origin guard matched `href="https://…` and nothing else, which is one of at least seven ways to write the same reach. Measured against the old pattern, six forms passed unseen: single-quoted, unquoted, `href = "…"` with spaces, protocol-relative `//host`, `srcset` candidates, and form `action`. A document could have linked anywhere through any of them and the suite would have stayed green. | **Fixed.** The scan now reads `srcset`, `formaction`, `poster`, `action`, `href` and `src`, quoted either way or not at all, with an optional scheme, plus CSS `url()`. Hosts are lowercased (DNS is case-insensitive; the allowlist was not), and userinfo stays attached so `github.com@evil` fails rather than passing as its prefix. Each evasion is pinned as a fixture — 19 new tests. |
+| R2 | The comparison links to two Hub 2.0 drafts on `*.netlify.app`, now allowlisted. Both are temporary by design, so the links rot when the previews come down — and `*.netlify.app` is a shared namespace, so a released site name can be claimed by anyone while the allowlist still blesses the host. | **Accepted, with a review trigger.** Revisit at Hub 2.0 cutover: either repoint at the production addresses or drop the links. Recorded here so the trigger is not left to memory. |
+| R3 | Third-party actions are pinned to floating tags (`actions/checkout@v4`, `actions/setup-node@v4`). `release.yml` runs with `contents: write` and `github.token`, so a moved tag would execute in a job that can create tags and releases. | **Open.** Both are first-party GitHub actions, so exposure is low; SHA-pinning is the cheap standard mitigation and is worth doing. |
+| R4 | `Strict-Transport-Security` is not in [`netlify.toml`](netlify.toml). It is live — verified against the deployed site — but it comes from Netlify's platform default, not from anything in this repository. Moving hosts would drop HSTS silently. | **Accepted.** Noted so it is a known dependency rather than a surprise. |
+| R5 | `actions/checkout@v4` and `actions/setup-node@v4` target Node 20, which GitHub has deprecated and now force-runs on Node 24. | **Open, operational.** Not a vulnerability; it will break when forced runs end. |
+| R6 | Carried forward from the previous pass and unchanged: the runbook publishes the test hostname and `forge` login user (**accepted** — disposable box), and staff first names are public (**accepted, by instruction** — no surnames, enforced by test). | **Accepted.** |
+
+**Blue — what held**
+
+- `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 295 entries in the installed tree, one with an install script (`esbuild`).
+- **No credential pattern anywhere in history** — the full log scanned for AWS keys, GitHub classic and fine-grained tokens, Slack, Stripe, Google API keys and private-key headers.
+- No `.env`, `.pem`, `.key`, `.p12` or keystore file has ever been committed, and none exists now.
+- The published artefact is **eight files**. Three email addresses appear, all three explicitly allowlisted with a stated reason — two role mailboxes and one SSH login — and anything else is treated as a leak.
+- `nginx.org` and `ojs.icjia.cloud` appear in published text but **never as an `href`**: prose, not reachable origins. Useful confirmation that the widened scan does not fire on prose.
+- [`release.yml`](.github/workflows/release.yml) was already hardened: the version is validated against strict semver before it reaches a shell, values are passed by environment rather than interpolation, and it refuses a failed CI run, an existing tag, or a missing changelog entry. CI itself runs `contents: read`.
+- All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
+
+**Verified by attack, not assumption**
+
+Ten payloads were planted in a real document one at a time, each run against
+the full suite. All ten were caught, and the document restored clean.
+
+| Attack | Caught by |
+| --- | --- |
+| Hostile inline `<script>` exfiltrating cookies | script SHA pin |
+| Inline `onmouseover` handler | inline-handler guard |
+| `javascript:` URL | `javascript:` guard |
+| Remote `<script src>` | remote-script guard |
+| `<iframe>` | iframe guard |
+| `<object data>` | object/embed guard |
+| Tracking pixel to an unknown origin | origin scan |
+| Protocol-relative link `//evil.example` | origin scan — **would have passed before R1** |
+| Single-quoted unknown origin | origin scan — **would have passed before R1** |
+| Form posting offsite | origin scan — **would have passed before R1** |
+
+<details>
+<summary><b>Red/blue pass — 2026-09-04</b></summary>
 
 Threat model in one line: **a static site with no server, no database, no
 accounts, and no user input.** Everything below is scoped to that.
@@ -180,6 +228,8 @@ injected into a document; each was caught by the assertion meant to catch it.
 The shared footer was checked the same way — rewording one and dropping one
 issues link both fail.
 
+</details>
+
 ## Commands
 
 | Command | What it does |
@@ -211,7 +261,7 @@ a version has no tag.
 
 ## Tests
 
-87 tests across four files.
+106 tests across four files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -235,7 +285,10 @@ it does catch the structural faults that make one unusable.
 [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts) pins the
 JavaScript each document is allowed to ship, and refuses inline handlers,
 `javascript:` URLs, remote scripts, embedded frames and unknown outbound
-origins. See [Security](#security).
+origins. The origin scan is itself pinned against the ways a URL can be
+written — quoting, spacing, protocol-relative, `srcset`, form actions — so the
+guard is held to the evasions rather than to today's content. See
+[Security](#security).
 
 Counts in the tests are derived from the source documents rather than written as
 literals, so editing a document does not break the suite over a number.
