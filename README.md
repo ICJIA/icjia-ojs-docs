@@ -6,6 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/ICJIA/icjia-ojs-docs/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/ICJIA/icjia-ojs-docs/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://app.netlify.com/projects/ojs-docs/deploys"><img alt="Netlify status" src="https://api.netlify.com/api/v1/badges/f549dd2f-fb32-4e89-9373-624a6b0d7101/deploy-status"></a>
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
