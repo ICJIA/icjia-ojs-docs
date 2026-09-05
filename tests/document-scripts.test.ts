@@ -78,6 +78,8 @@ describe('document scripts are pinned', () => {
       'forum.pkp.sfu.ca',
       'github.com',
       'ojs-docs.netlify.app',
+      'copperhead-hub-20.netlify.app',
+      'studio-2026.netlify.app',
       'uptime.icjia.app',
     ];
     for (const entry of documents) {
