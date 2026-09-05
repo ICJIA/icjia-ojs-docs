@@ -42,6 +42,17 @@
   }
   .plain b{color:var(--pencil);font-weight:600}
 
+  /* tl;dr */
+  section.tldr-sec{margin-top:64px}
+  .tldr{padding:34px 38px;border-radius:20px;background:var(--ink-2);border:1px solid var(--rule)}
+  .tldr h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:4px}
+  .tldr .sub{font-size:17px;color:var(--paper-dim);margin:0 0 24px}
+  .tldr ul{margin:0;padding-left:1.15em;font-size:19px;line-height:1.45;color:var(--paper-dim);max-width:78ch}
+  .tldr li{margin-bottom:13px}
+  .tldr li::marker{color:var(--pencil);font-weight:700}
+  .tldr li b{color:var(--paper);font-weight:600}
+  .tldr .close{margin:24px 0 0;font-size:18px;color:var(--pencil);max-width:78ch}
+
   /* pipeline: what OJS does */
   .pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
   .stage{background:var(--ink-2);border:1px solid var(--rule);border-radius:18px;padding:30px 26px 26px;position:relative}
@@ -141,7 +152,7 @@
   .three p b{color:var(--paper);font-weight:500}
   .doi-flow{margin-top:20px;padding:30px 34px;border-radius:18px;border:1px solid var(--rule);background:var(--ink-2)}
   .doi-flow h3{font-size:30px;font-weight:700;margin-bottom:18px}
-  .doi-flow ol{margin:0;padding:0 0 0 1.3em;font-size:19px;line-height:1.45;max-width:70ch}
+  .doi-flow ol,.doi-flow ul{margin:0;padding:0 0 0 1.3em;font-size:19px;line-height:1.45;max-width:70ch}
   .doi-flow li{margin-bottom:10px}
   .doi-flow li::marker{color:var(--pencil);font-weight:600}
   .doi-flow li.stop{color:var(--pencil);font-weight:600}
@@ -294,6 +305,22 @@
     </div>
   </header>
 
+  <section class="tldr-sec">
+    <div class="tldr">
+      <h2>TL;DR &mdash; the short version</h2>
+      <p class="sub">Six lines. Everything after this is the supporting detail, to be read only if you want it.</p>
+      <ul>
+        <li><b>What this is.</b> A working test copy of OJS &mdash; free software for running a peer-reviewed journal &mdash; set up at a temporary address so staff can see it before anyone commits to anything.</li>
+        <li><b>Where it stands.</b> Five of seven steps done: installed, secured, and sending email. Nothing real is published, no DOIs are registered, and the server gets erased at the end.</li>
+        <li><b>It is not a replacement for the Research Hub.</b> OJS is a journal expressed as software. The Hub publishes articles, datasets, and dashboards, and is the most-read part of ICJIA's website &mdash; 60% of all visitors. Replacing it would move roughly 540 web addresses and give up years of search standing.</li>
+        <li><b>It could run alongside</b> as a peer-reviewed journal in its own right. The Studio already has a box for a DOI, so journal articles could still be listed on the Hub.</li>
+        <li><b>Or the Studio could be built out instead.</b> Reviewers, rounds, and deadlines are additions to something that already exists. Issuing DOIs is not &mdash; that is a permanent commitment to Crossref no matter who builds it.</li>
+        <li><b>The actual decision</b> is not which tool. It is whether ICJIA wants to run a peer-reviewed journal at all. The software is the easy part; an editorial board, reviewers willing to work for free, and a steady stream of submissions are not.</li>
+      </ul>
+      <p class="close">Nothing has been committed, and nothing on the test server can be made permanent by accident.</p>
+    </div>
+  </section>
+
   <section>
     <h2>What OJS does</h2>
     <div class="pipe">
@@ -351,12 +378,30 @@
     <div class="qa">
       <h3>Could OJS replace the Hub and Studio outright?</h3>
       <span class="verdict">No</span>
-      <p>The Hub publishes three kinds of content &mdash; <b>articles, datasets, and interactive dashboards</b> &mdash; with centers, projects, and staff pages around them. OJS is built around one: the article that goes through review and lands in an issue. In OJS a dataset can only be a file clipped to an article, and dashboards have no place at all.</p>
+      <p><b>OJS is not a general publishing tool that happens to suit journals. It is a journal, expressed as software.</b> That assumption runs all the way down, and it is the most important thing to understand about it:</p>
       <ul>
-        <li>The Hub publishes <b>continuously</b> &mdash; an article goes up when it's ready. OJS is organized around <b>volumes and issues</b>, which is a different rhythm and a different editorial calendar.</li>
+        <li><b>You have to create a journal before you can create anything else.</b> There is no neutral starting point. OJS asks you to set up a journal site first, and everything afterwards hangs off it.</li>
+        <li><b>Content is filed into issues and sections.</b> Articles go into volumes and numbers, and within those into sections &mdash; Articles, Reviews, Editorials. That is the filing cabinet, and there isn't a second one.</li>
+        <li><b>People are given journal roles</b> &mdash; Journal Manager, Editor, Section Editor, Reviewer, Author &mdash; and what each person can do follows from the role they hold.</li>
+        <li><b>The finish line is an issue.</b> The whole pipeline is built to end in a table of contents, with DOIs assigned and the issue's details sent out to indexes. It is designed to produce a periodical, on a schedule.</li>
+      </ul>
+      <p>Set that against what the Hub publishes: <b>articles, datasets, and interactive dashboards</b>, with centers, projects, and staff pages around them, each going up when it is ready. In OJS a dataset lives as a file attached to an article. To be fair to it, that file <b>can carry its own DOI and be cited in its own right</b> &mdash; a genuine strength &mdash; but it still cannot stand as an entry of its own the way it does on the Hub. A dashboard has nowhere to live at all, and nothing publishes without an issue to publish into.</p>
+      <p>Then there is the cost of moving:</p>
+      <ul>
         <li><b>Every web address would change.</b> OJS builds its own address structure, so all of the Hub's roughly 540 pages would move. Forwarding old addresses to new ones carries some of the search standing across, but only if every single one is mapped correctly and kept that way permanently &mdash; and the climb back still takes months. Set against the figures above, this is the most expensive item on this page.</li>
       </ul>
-      <p>Replacement would trade two of three content types, the site's whole structure, and its hard-won search standing for a review workflow. <b>That trade isn't worth making, and nothing in this test proposes it.</b></p>
+      <p>Replacement would trade two of the Hub's three kinds of content, the site's whole structure, and its hard-won search standing for a review workflow &mdash; and would require ICJIA to start describing its research as a periodical, which it isn't. <b>That trade isn't worth making, and nothing in this test proposes it.</b></p>
+    </div>
+
+    <div class="qa">
+      <h3>If a journal isn't the shape, what is?</h3>
+      <p>Worth a moment, because it clarifies what OJS is actually for. The nonprofit behind OJS &mdash; the Public Knowledge Project &mdash; hit this same limit themselves, and answered it by building sister tools that share the same underlying workflow, each shaped for a different kind of output:</p>
+      <ul>
+        <li><b>OPS (Open Preprint Systems)</b> &mdash; for posting research promptly, without formal peer review and without waiting for an issue to be assembled. Of the three, the closest to how the Hub already works.</li>
+        <li><b>OMP (Open Monograph Press)</b> &mdash; for books, edited volumes, and monographs.</li>
+      </ul>
+      <p>And for a broad collection of independent papers and institutional output &mdash; a library of what an agency has produced, rather than a periodical &mdash; the category built for that job is repository software such as <b>DSpace</b> or <b>Invenio</b>. That is the shelf the Hub currently occupies, in a form built for ICJIA's own readers.</p>
+      <p>None of these is being proposed here. The point is narrower, and worth stating plainly: <b>OJS is the industry standard for running a peer-reviewed periodical, and that is the one job it should be judged on.</b> Choosing it means choosing to publish a journal.</p>
     </div>
 
     <div class="qa">
@@ -441,6 +486,18 @@
         <li>The DOI appears on the article page. If the site ever moves, one update to Crossref redirects every citation to the new address.</li>
       </ol>
       <p class="line"><b>Steps 1 through 3 are safe to explore.</b> Step 4 requires a Crossref account and credentials that the test server simply won't have, so nothing can be registered by accident. For the same reason, the test won't be submitted to Google Scholar, DOAJ, or any other index.</p>
+    </div>
+
+    <div class="doi-flow">
+      <h3>What can carry a DOI</h3>
+      <p class="line" style="margin:0 0 16px">More than one might expect. OJS treats each article as its own citable object, and a setting decides how far down that goes:</p>
+      <ul>
+        <li><b>Each article.</b> The standard practice, and the one that matters. Every paper gets its own permanent link, so it can be cited directly rather than through the issue it sat in.</li>
+        <li><b>A single file inside an article.</b> A dataset, or the PDF as distinct from the web version, can carry its own DOI &mdash; meaning <b>a dataset can be separately citable</b>, not merely an attachment.</li>
+        <li><b>A whole issue.</b> One identifier for a volume or number as a unit.</li>
+        <li><b>The journal itself.</b> A single identifier standing for the periodical overall.</li>
+      </ul>
+      <p class="line">The <b>prefix</b> is the part Crossref assigns and it always identifies ICJIA. The <b>suffix</b> names the item, and OJS can build it automatically from a pattern &mdash; giving something like <b>icjia.vol1issue2.article5</b> &mdash; or an editor can type one in by hand for a particular article.</p>
     </div>
   </section>
 
