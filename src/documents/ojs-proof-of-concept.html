@@ -54,6 +54,30 @@
   .today{margin-top:34px;font-size:22px;color:var(--paper-dim);max-width:50ch}
   .today b{color:var(--paper);font-weight:500}
 
+  /* research hub comparison */
+  .hub-lede{font-size:23px;color:var(--paper-dim);max-width:70ch;margin-bottom:36px}
+  .hub-lede b{color:var(--paper);font-weight:500}
+  .same{margin-top:22px;padding:26px 30px;border-radius:16px;background:var(--ink-2);border:1px solid var(--rule)}
+  .same h3{font-size:24px;font-weight:700;margin-bottom:12px}
+  .same ul{margin:0;padding-left:1.1em;font-size:18px;color:var(--paper-dim)}
+  .same li{margin-bottom:8px}
+  .same li::marker{color:var(--pencil)}
+  .same li b{color:var(--paper);font-weight:500}
+  .same .close{font-size:19px;color:var(--paper);margin:18px 0 0;max-width:70ch}
+  .qa{margin-top:20px;padding:30px 34px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
+  .qa h3{font-size:28px;line-height:1.15;font-weight:700;margin-bottom:14px}
+  .qa .verdict{display:inline-block;font-size:15px;font-weight:700;letter-spacing:.02em;padding:7px 14px;
+               border-radius:999px;margin-bottom:18px;background:var(--pencil-soft);
+               border:1px solid var(--pencil);color:var(--pencil)}
+  .qa .verdict.yes{background:var(--done-soft);border-color:var(--done);color:var(--done)}
+  .qa p{font-size:18px;color:var(--paper-dim);margin:0 0 .9em;max-width:74ch}
+  .qa p:last-child{margin-bottom:0}
+  .qa p b{color:var(--paper);font-weight:500}
+  .qa ul{margin:0 0 .9em;padding-left:1.1em;font-size:18px;color:var(--paper-dim);max-width:74ch}
+  .qa li{margin-bottom:9px}
+  .qa li::marker{color:var(--pencil)}
+  .qa li b{color:var(--paper);font-weight:500}
+
   /* progress */
   .score{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;margin-bottom:14px}
   .score .big{font-weight:800;font-family:"Manrope","Inter",system-ui,sans-serif;font-size:clamp(96px,14vw,160px);line-height:.9}
@@ -282,6 +306,98 @@
   </section>
 
   <section>
+    <h2>How this relates to the Research Hub</h2>
+    <p class="hub-lede">ICJIA already publishes research, through the <b>Research Hub</b> and the <b>Studio</b> behind it. So the fair question about OJS isn't whether it's good software &mdash; it is &mdash; but what it would actually do for R&amp;A that the current setup doesn't. Three versions of that question are worth separating: could OJS <b>replace</b> the Hub and Studio, could it <b>run alongside</b> them, or could the <b>Studio be built out</b> to do the same job? What follows answers each, including where the current setup falls short.</p>
+
+    <div class="three">
+      <div><h3>The Hub</h3><p>The public site at <b>icjia.illinois.gov/researchhub</b>, running since 2019. It publishes <b>articles, datasets, and interactive dashboards</b>.</p><p>It is the most-read part of ICJIA's website &mdash; <b>47% of all pages read</b> and <b>60% of all visitors</b> over the past year. Eight of the twelve most-visited pages on the whole site are Hub articles.</p><p>Said honestly: the software that stores its content <b>stopped getting security updates in 2022</b>.</p></div>
+      <div><h3>The Studio</h3><p>The staff tool behind the Hub. R&amp;A writers work in a plain-language editor, <b>see the page exactly as it will appear</b>, attach files, and save a draft.</p><p>Work moves <b>created &rarr; submitted &rarr; published</b>. A manager looks at what's waiting and publishes it. The public Hub has no editing features at all; every change starts in the Studio.</p><p>Said honestly: review is <b>a single step</b> &mdash; one approval, with no reviewer comments kept on the record.</p></div>
+      <div><h3>Hub 2.0</h3><p>A rebuild of both, on a current content system &mdash; <b>built and working, but not published</b>, still under review and consideration, much like this test. Working drafts are up for internal review: the <a href="https://copperhead-hub-20.netlify.app/researchhub/">public site</a> and the <a href="https://studio-2026.netlify.app/login">new Studio</a> (choose &ldquo;editor&rdquo;; no password needed).</p><p>Same job, same web addresses. <b>This proof-of-concept doesn't affect it</b> either way.</p></div>
+    </div>
+
+    <div class="same">
+      <h3>Where the two are the same</h3>
+      <ul>
+        <li>Both <b>split the work the same way</b>: a private tool for writing and editing, a separate public site for reading.</li>
+        <li>Both put a draft <b>in front of an editor</b> before anything goes live.</li>
+        <li>Both keep track of authors, summaries, topics, and attached files, and both let a writer see the finished page before it goes out.</li>
+        <li>Both produce a public, searchable library of ICJIA research that stays put and can be cited.</li>
+      </ul>
+      <p class="close">The shape is the same. <b>The difference is what happens in the middle step</b> &mdash; and what comes out the other end.</p>
+    </div>
+
+    <div class="qa">
+      <h3>What the Hub has already earned</h3>
+      <p>Before weighing any change, it's worth being clear about what the current setup is worth. These are live figures for <b>icjia.illinois.gov</b> over the past twelve months.</p>
+      <table class="access">
+        <thead><tr><th>Past 12 months</th><th>Whole site</th><th>Research Hub</th></tr></thead>
+        <tbody>
+          <tr><td>Visitors</td><td>58,300</td><td>34,800 &mdash; <b>60%</b></td></tr>
+          <tr><td>Pages read</td><td>440,500</td><td>207,100 &mdash; <b>47%</b></td></tr>
+          <tr><td>Visits</td><td>139,200</td><td>87,900 &mdash; <b>63%</b></td></tr>
+          <tr><td>Average time per visit</td><td>10m 23s</td><td><b>15m 7s</b></td></tr>
+          <tr><td>Visitors arriving from Google</td><td>25,500</td><td>21,500 &mdash; <b>84%</b></td></tr>
+        </tbody>
+      </table>
+      <p>Three things stand out, and all three are about <b>being found</b>:</p>
+      <ul>
+        <li><b>Eight of the ten pages people most often arrive on are Hub articles.</b> Only the homepage draws more, and the five after it are all Hub articles. Readers don't come through the front door and browse &mdash; they land on an article straight from a search.</li>
+        <li><b>The Hub earns nearly all of the agency's search traffic.</b> Google sends 25,500 visitors a year to the whole site; 21,500 of them come to the Hub. It is the Hub's single largest source, ahead of everything else.</li>
+        <li><b>They stay.</b> A Hub visit averages just over fifteen minutes, against ten for the site as a whole. People arrive and actually read.</li>
+      </ul>
+      <p>That standing took years to build, and it is attached to <b>the web addresses themselves</b>, not to the writing on them. Google ranks <i>a page at an address</i>. Move an article to a new address and, as far as a search engine is concerned, it is a new page: it has to be found again, judged again, and climb again &mdash; a process measured in months. Every link, bookmark, syllabus, and citation pointing at the old address is affected at the same time.</p>
+    </div>
+
+    <div class="qa">
+      <h3>Could OJS replace the Hub and Studio outright?</h3>
+      <span class="verdict">No</span>
+      <p>The Hub publishes three kinds of content &mdash; <b>articles, datasets, and interactive dashboards</b> &mdash; with centers, projects, and staff pages around them. OJS is built around one: the article that goes through review and lands in an issue. In OJS a dataset can only be a file clipped to an article, and dashboards have no place at all.</p>
+      <ul>
+        <li>The Hub publishes <b>continuously</b> &mdash; an article goes up when it's ready. OJS is organized around <b>volumes and issues</b>, which is a different rhythm and a different editorial calendar.</li>
+        <li><b>Every web address would change.</b> OJS builds its own address structure, so all of the Hub's roughly 540 pages would move. Forwarding old addresses to new ones carries some of the search standing across, but only if every single one is mapped correctly and kept that way permanently &mdash; and the climb back still takes months. Set against the figures above, this is the most expensive item on this page.</li>
+      </ul>
+      <p>Replacement would trade two of three content types, the site's whole structure, and its hard-won search standing for a review workflow. <b>That trade isn't worth making, and nothing in this test proposes it.</b></p>
+    </div>
+
+    <div class="qa">
+      <h3>Could OJS run alongside, as an addition?</h3>
+      <span class="verdict yes">Yes &mdash; this is the realistic option</span>
+      <p>This is what the test server is actually exploring. OJS would host <b>a peer-reviewed journal as a publication in its own right</b>: its own address, its own ISSN (the standard number that identifies a journal, much as an ISBN identifies a book), an editorial board, and DOIs registered in ICJIA's name. The Hub carries on unchanged.</p>
+      <p>The two join up more easily than expected. <b>The Studio already has a box for a DOI.</b> An article published in the journal can be listed on the Hub carrying the DOI that OJS issued &mdash; so the agency's most-read site still puts the work in front of readers, and the citation points at the permanent identifier. Nothing new has to be built for that; the box is already there.</p>
+      <p>The cost is unavoidable: <b>a second system</b> to run, keep updated, back up, and staff, on top of the one R&amp;A already has. What that takes is listed under &ldquo;If we decide to adopt it,&rdquo; below.</p>
+    </div>
+
+    <div class="qa">
+      <h3>Could the Studio be built out to do what OJS does?</h3>
+      <span class="verdict">Much of it &mdash; but not the parts that matter most</span>
+      <p>Closer than it looks. The Studio already has user accounts and roles, a draft-to-published sequence, a required approval step, lists of authors and topics it keeps track of, drafts and previews, and attached files. The new Studio adds the ability to <b>highlight a passage and leave a comment on it</b>. From that base, inviting several reviewers, running rounds with deadlines, sending reminders, and hiding names so reviewers and authors don't see each other are <b>additions to something that already exists</b>, not a new product from scratch.</p>
+      <p>Two things don't yield to that:</p>
+      <ul>
+        <li><b>Issuing DOIs is a commitment, not a feature.</b> The programming needed to send one to Crossref is small. What isn't small is the rest: the membership, the annual fee, the identifier registered in ICJIA's name, and the permanent promise to keep every DOI working. Those are the same whichever tool sends the request &mdash; and OJS has that path built and proven already.</li>
+        <li><b>Getting listed by Google Scholar, DOAJ, and library catalogues</b> means describing every article in the precise formats each service expects, and keeping up as those change. It can be built, but it is fiddly, unglamorous, never quite finished &mdash; and those services already recognize OJS on sight.</li>
+      </ul>
+      <p>And the counterweight: <b>anything built into the Studio, ICJIA maintains forever.</b> The review machinery inside OJS is maintained by the nonprofit that makes it, at no cost to us. Building our own trades a hosting burden for a development burden. Neither is free.</p>
+    </div>
+
+    <div class="qa">
+      <h3>What the rebuild already fixes</h3>
+      <p>Hub 2.0 is the other proposal on the table, and it is worth seeing plainly, because it answers several of the current setup's weaknesses without any of the costs above.</p>
+      <ul>
+        <li><b>It gets off unsupported software.</b> The program storing the Hub's content stopped receiving security updates in 2022, and the Hub currently sits tangled inside the main website's code. The rebuild moves it onto current, supported software and stands it on its own. The Studio is likewise rebuilt off tools no longer being maintained.</li>
+        <li><b>Reviewer comments finally go on the record.</b> The new Studio lets a reviewer highlight a passage and leave a comment on it, kept with the draft. That is exactly what today's single approval step lacks &mdash; and, as above, what any fuller review process would be built on.</li>
+        <li><b>The web addresses don't change.</b> Keeping every existing address working is a firm requirement, checked automatically before launch. The whole search-standing problem never arises.</li>
+        <li><b>Readers can search inside documents.</b> Not just titles and summaries but the words inside published PDF reports, opening a long report at the first match.</li>
+        <li><b>Accessibility is checked on every single change,</b> automatically, against the standards the agency is required to meet &mdash; plus a full manual walkthrough already completed. Today that checking happens only now and then, by hand.</li>
+        <li><b>It has been tested, and attacked on purpose.</b> 946 automatic checks run over it whenever anything changes, and four separate security reviews had testers actively trying to break in. Nothing critical was found.</li>
+        <li><b>There is far less to break into.</b> The public site is built ahead of time and handed out as fixed files, with no live database or passwords sitting behind it &mdash; quicker for readers and much harder to attack.</li>
+      </ul>
+      <p>It is <b>built and working, waiting on a decision</b> &mdash; the same position as this OJS test. The two are not rivals. One modernizes how ICJIA publishes what it already publishes; the other asks whether the agency wants to publish something it doesn't yet.</p>
+    </div>
+
+    <p class="rule"><b>The software is the easy part.</b> A journal needs an editorial board, reviewers willing to work for free, and a steady stream of submissions &mdash; none of which a test server can tell us we have. So the question for R&amp;A isn't which tool: it's whether the agency wants to run a peer-reviewed journal at all. If it does, OJS alongside the Hub is the cheapest correct way. If what's wanted is more rigor on Hub content, that belongs in the Studio, not in a second system.</p>
+  </section>
+
+  <section>
     <h2>Where the setup stands</h2>
     <div class="score">
       <div class="big">5<span> of 7</span></div>
@@ -329,7 +445,7 @@
   </section>
 
   <section>
-    <h2>Why this is low risk</h2>
+    <h2>Why this test setup is low risk</h2>
     <div class="why">
       <div><div class="k">No licence to buy</div><p>OJS is <b>open source</b>. The test server costs a few dollars a month and can be switched off any time. Production is not free &mdash; see what it would actually cost, below.</p></div>
       <div><div class="k">Nothing to lose</div><p>The test lives at a <b>temporary address</b> (ojs.icjia.cloud) with made-up content. Nothing is published, indexed, or permanent.</p></div>

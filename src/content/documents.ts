@@ -34,7 +34,7 @@ export const documents: DocumentEntry[] = [
     file: 'ojs-proof-of-concept.html',
     question: 'Should we adopt this?',
     summary:
-      'What Open Journal Systems does, how far the test setup has got, and what running it for real would take.',
+      'What Open Journal Systems does, where the test setup stands, and what running it for real would take.',
     audience: 'Written for managers',
     status: 'draft',
     order: 1,
