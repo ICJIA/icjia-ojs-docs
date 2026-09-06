@@ -5,6 +5,41 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-09-06
+
+### Added
+
+- **"Could the Studio just be extended instead?" — answered with numbers rather
+  than loyalty.** The document argued at length about replacing the Hub without
+  ever asking the fair inverse: if the objection to the in-house platform were
+  written down as requirements, could Hub 2.0 and Studio 2.0 meet them? A new
+  section estimates it item by item.
+
+  The estimate is grounded rather than guessed. The public Hub 2.0 and Studio 2.0
+  previews are Nuxt applications, and the Hub **already injects schema.org JSON-LD**
+  into its pages — so the machinery for machine-readable head metadata exists and
+  is in use. The pages carry **no `citation_` tags at all**, which is precisely
+  why Hub articles are invisible to Google Scholar. That gap is a missing
+  template, not a missing capability.
+
+  Item by item: Google Scholar tags are **days** against machinery already
+  present, and worth doing whatever else is decided. Versioning and an OAI-PMH
+  endpoint are **weeks** each. Peer review is **months** and is the one thing that
+  should not be built, because it is exactly what OJS is. And DOIs are not a
+  software decision at all — the Crossref membership, the fee, the prefix and the
+  permanent promise to keep every DOI resolving are identical whichever system
+  deposits them, so **adopting OJS does not buy ICJIA a DOI**.
+
+  The counterweight is stated with equal force: everything built in-house is
+  maintained in-house permanently, a first implementation lacks the battle-testing
+  thousands of installations bought, and adding code makes the bus-factor problem
+  worse rather than better.
+
+  The section closes on the point that makes the rest usable: **a preference
+  cannot be met, tested or costed — by anyone, including a vendor — but a
+  requirements list can.** Scored against a written list, the answer comes out
+  one-sided in neither direction, which is the argument for writing it down.
+
 ## [1.13.1] - 2026-09-06
 
 ### Fixed

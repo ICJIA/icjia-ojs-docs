@@ -265,7 +265,7 @@
   <section class="tldr-sec">
     <div class="tldr">
       <h2>TL;DR &mdash; the short version</h2>
-      <p class="sub">Nine lines. Everything after this is the supporting detail, to be read only if you want it.</p>
+      <p class="sub">Ten lines. Everything after this is the supporting detail, to be read only if you want it.</p>
       <ul>
         <li><b>The decision on the table.</b> Not whether to run OPS beside the Research Hub, but whether ICJIA could <b>retire the Hub</b> and publish on OJS or OPS instead &mdash; off-the-shelf software maintained by other people, rather than a platform the agency maintains itself.</li>
         <li><b>The answer to that.</b> <b>No &mdash; but the instinct behind it is sound and is aimed at the wrong target.</b> Replacing the Hub would cost 84% of the agency's search traffic, force six years of research to be filed as either invented journal issues or &ldquo;preprints&rdquo;, and leave the dashboards with nowhere to live &mdash; so the in-house platform would survive anyway, alongside a PHP application and a database. That is more to maintain, not less. The real fix for the maintenance worry is Hub&nbsp;2.0, which is built and waiting.</li>
@@ -275,6 +275,7 @@
         <li><b>How OPS differs from the Research Hub.</b> Less than you would hope. Both post individual pieces continuously, as each is ready. OPS adds versioning, DOIs and scholarly indexing; it gives up the Hub's datasets, dashboards and hard-won web addresses.</li>
         <li><b>Where Hub&nbsp;2.0 fits.</b> Not a third option: it is the next version of the Hub, built and awaiting a decision. A major upgrade &mdash; current platform, far better security, new capability &mdash; but the same publishing model, same content, same web addresses. Which is why it settles nothing about OJS or OPS, in either direction. (Internally it is codenamed &ldquo;Copperhead&rdquo;.)</li>
         <li><b>The honest verdict on adding it.</b> <b>OPS is the closest of the three to what ICJIA already does &mdash; which is exactly why it is the hardest of the three to justify.</b> The Hub already posts research continuously and is read far more widely than a new preprint server would be.</li>
+        <li><b>Could the Studio just be extended instead?</b> For most of it, <b>yes, and more cheaply than assumed</b> &mdash; Google Scholar tags are days of work against machinery Hub&nbsp;2.0 already has, versioning and harvesting are weeks. Peer review is the exception and should not be built. DOIs are not a software choice at all: the membership and the permanent commitment are the same whichever system deposits them, so <b>adopting OJS does not buy ICJIA a DOI</b>.</li>
         <li><b>Where it is worth a second look.</b> Not as a place to publish, but as the missing front half of a journal: somewhere a working paper can get a citable identifier and a date stamp while it waits for review. That is a narrow job, and OPS does it properly.</li>
       </ul>
       <p class="close">Read on for the side-by-side comparison, the overlap with the Hub stated plainly, and what is actually running today.</p>
@@ -527,6 +528,71 @@
 
     <div class="rule">
       <b>So: right instinct, wrong target.</b> The worry &mdash; that ICJIA depends on software only ICJIA maintains, and that it stopped being patched in 2022 &mdash; is legitimate and urgent. But the fix for it is <b>Hub&nbsp;2.0</b>, which rebuilds the Hub on a current, supported, mainstream platform and is already built and waiting for a decision. That addresses the security and maintenance problem directly, keeps the readership and the web addresses, and keeps datasets and dashboards as publications. Moving the content into OJS or OPS would address the same problem indirectly, at the price of the agency's search standing, two of its three kinds of content, and an honest description of its own research.
+    </div>
+  </section>
+
+  <section>
+    <h2>Could the Studio be built out instead?</h2>
+    <p class="intro">The previous section asked whether to replace the Hub. This one asks the fair inverse, and it is the more useful question: <b>if the objection to the in-house platform were written down as a list of requirements, could Hub&nbsp;2.0 and Studio&nbsp;2.0 be extended to meet them?</b></p>
+    <p class="intro" style="margin-top:-16px"><b>Mostly yes &mdash; and more cheaply than is generally assumed.</b> One item cannot sensibly be built in-house, one is misattributed to the software entirely, and the rest are ordinary work.</p>
+
+    <div class="qa">
+      <h3>What this estimate is based on, and what it is not</h3>
+      <p>These are effort <b>bands</b> for a developer already familiar with the codebase, not quotes. They are drawn from the public Hub&nbsp;2.0 and Studio&nbsp;2.0 previews rather than from the source, so treat them as an order of magnitude and nothing finer.</p>
+      <p>Two observations from those previews do matter, though, because they change the shape of the answer. Hub&nbsp;2.0 is a <b>Nuxt</b> application that <b>already injects structured data</b> into its pages &mdash; schema.org JSON-LD identifying the agency and the site. So the machinery for putting machine-readable metadata in a page head exists and is in use. And the pages currently carry <b>no <code>citation_</code> tags at all</b>, which is exactly why Hub articles are invisible to Google Scholar. That gap is a missing template, not a missing capability.</p>
+    </div>
+
+    <table class="map">
+      <thead>
+        <tr><th>Requirement</th><th>What it takes in-house</th><th>Rough effort</th><th>Does adopting OJS/OPS avoid it?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Be findable in Google Scholar</b></td>
+          <td>Emit the standard <code>citation_title</code>, <code>citation_author</code>, <code>citation_publication_date</code>, <code>citation_pdf_url</code> tags in the article template. The Hub already injects JSON-LD by the same mechanism; this is more tags through machinery that exists</td>
+          <td class="unchanged"><b>Days</b></td>
+          <td>Yes, it comes as standard &mdash; but this is the cheapest item on the list to add, and the highest-leverage. It is worth doing to the Hub whatever else is decided</td>
+        </tr>
+        <tr>
+          <td><b>Keep prior versions citable</b></td>
+          <td>Store versions rather than overwriting; give each a stable address; show readers which version they are on and link the others. A data-model and routing change, not research</td>
+          <td><b>Weeks</b></td>
+          <td>Yes &mdash; and OPS's implementation is better than a first in-house attempt would be, because thousands of servers have exercised it</td>
+        </tr>
+        <tr>
+          <td><b>Issue DOIs</b></td>
+          <td>Deposit metadata to Crossref &mdash; a documented XML submission over HTTPS. The code is genuinely small</td>
+          <td><b>Weeks</b> for the pipeline</td>
+          <td><b>No &mdash; and this is the one most often got wrong.</b> The membership, the annual fee, the prefix registered in ICJIA's name and the permanent promise to keep every DOI resolving are identical whichever software deposits them. <b>Adopting OJS does not buy ICJIA a DOI.</b> What it buys is a deposit pipeline somebody else maintains against Crossref's schema changes</td>
+        </tr>
+        <tr>
+          <td><b>Let aggregators harvest the catalogue</b></td>
+          <td>A read-only OAI-PMH endpoint over content the Hub already holds. A well-specified, closed-ended protocol</td>
+          <td><b>Weeks</b></td>
+          <td>Yes, built in</td>
+        </tr>
+        <tr>
+          <td><b>Run genuine peer review</b></td>
+          <td>Reviewer invitations, multiple rounds, deadlines and reminders, recommendation versus decision, and anonymity in both directions. This is a product, not a feature</td>
+          <td><b>Months</b>, and permanently thereafter</td>
+          <td><b>Yes &mdash; and this is the one not to build.</b> It is precisely what OJS is, refined over twenty-five years across thousands of journals. Rebuilding it in-house would be the expensive mistake this page most wants to prevent</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="qa">
+      <h3>The honest counterweight</h3>
+      <p>Everything above is buildable. That is not the same as saying it should be built, and the argument against has real weight:</p>
+      <ul>
+        <li><b>Every feature added in-house is maintained in-house, permanently.</b> Crossref's schema changes; Google Scholar's inclusion rules change; a bespoke depositor that nobody has touched in three years is the 2022 problem happening again in a different place.</li>
+        <li><b>Battle-testing is not a feature you can schedule.</b> OJS and OPS have had their edge cases found by thousands of installations. A first in-house implementation of versioning or DOI deposit will have bugs those found years ago.</li>
+        <li><b>The bus factor does not go away by adding code to it.</b> It gets slightly worse with each addition.</li>
+      </ul>
+      <p><b>Which is why the list matters more than the verdict.</b> Some of these requirements clearly favour buying &mdash; peer review is not a close call. Some clearly favour building &mdash; Scholar tags are a template change against machinery already in the codebase, and no procurement will happen faster. And one, DOIs, is not a software decision at all: it is a membership and a permanent institutional commitment that ICJIA must make or not make regardless of which system is running.</p>
+    </div>
+
+    <div class="rule">
+      <b>So the practical recommendation is a specification, not a preference.</b> &ldquo;We would rather have off-the-shelf software&rdquo; cannot be met, tested, or costed &mdash; by anyone, including a vendor. <b>&ldquo;Every article must carry a DOI that resolves in perpetuity; prior versions must remain citable at stable addresses; article pages must carry Google Scholar citation tags; the catalogue must be harvestable&rdquo;</b> is a list, and any of the three options &mdash; extend the Studio, adopt OJS, adopt OPS &mdash; can be scored against it honestly, item by item. On the evidence above, that scoring would not come out one-sided in either direction, which is the strongest argument for doing it properly.
     </div>
   </section>
 
