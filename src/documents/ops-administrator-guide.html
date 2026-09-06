@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Running the journal: a guide for the OJS administrator</title>
+<title>Posting a preprint: a guide for the OPS moderator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -251,162 +251,152 @@
 <main class="page">
 
 <header>
-  <h1>Running the journal</h1>
-  <p class="lede">Everything the OJS administrator does, from first login to publishing an issue &mdash; all of it in a web browser.</p>
+  <h1>Running the preprint server</h1>
+  <p class="lede">Everything the OPS moderator does, from first login to posting a preprint &mdash; all of it in a web browser.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-06">6 September 2026</time></p>
   <div class="plain">You do not need a server login, and you will not be given one. <b>If a task has a settings screen, it is yours.</b> If it needs someone to log in to the machine itself, it is a ticket.</div>
 </header>
 
 <section>
   <h2>Before you start</h2>
-  <p>IDS installs the software, connects the database, and hands you an administrator username and password. From that point the journal is yours to run.</p>
-  <p>This guide is written for the person in R&amp;A administering the journal. It assumes no server knowledge and asks for none.</p>
-  <p><b>Two applications are installed on the test machine, and they were two separate installations.</b> Open Journal Systems runs the journal at one web address; <b>Open Preprint Systems (OPS)</b> runs a preprint server at another. They do different jobs, and each has its own database, its own uploaded files, and its own user accounts. This guide covers the journal only.</p>
-  <p>Three companion documents cover the rest: a <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof-of-concept overview</a> explaining what the two systems are and what adopting them would take, a guide to <a href="https://ojs-docs.netlify.app/docs/ops-administrator-guide/">running the preprint server</a> for whoever moderates it, and a <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">server runbook</a> for the developers who build the machine. If you end up running both, read the preprint guide next &mdash; it is short, because it covers only what differs.</p>
-  <p><b>One word to watch.</b> In OPS, &ldquo;server&rdquo; means a <b>preprint server</b> &mdash; the equivalent of a journal in OJS &mdash; not a computer. The role you would be given there is <b>Preprint Server Manager</b>, and it is the OPS counterpart of Journal Manager here. Everywhere in <em>this</em> guide, &ldquo;server&rdquo; means the machine, which is the thing you do not need a login for.</p>
-  <p class="flag"><b>While this is a test:</b> nothing you do here is permanent, published, or indexed. Break things freely &mdash; that is what a test server is for.</p>
+  <p><b>Two applications are installed on the test machine, and they were two separate installations.</b> Open Journal Systems runs at one web address and <b>Open Preprint Systems (OPS)</b> at another. Each has its own database, its own folder of uploaded files, and its own user accounts. Installing the second did not extend the first, and nothing you change in one appears in the other. This guide covers the second one.</p>
+  <p>The journal has its own guide: <a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal</a>. Two further documents cover the rest: <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">what OPS is and how it differs</a> from OJS and the Research Hub, and a <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">server runbook</a> for the developers who build the machine.</p>
+  <p>This guide is written for the person moderating the preprint server. It assumes no server knowledge and asks for none. It also assumes you have <b>not</b> read the journal guide cover to cover, and says which parts of it to borrow rather than repeating them here.</p>
+
+  <div class="rule"><b>One word to watch, before anything else.</b> In OPS, &ldquo;server&rdquo; means a <b>preprint server</b> &mdash; a publication, and the exact counterpart of a journal in OJS. It is the thing you create in step 2, and it is what the role <b>Preprint Server Manager</b> refers to. The other kind of server, the computer everything runs on, is the one you do not need a login for. Every use of the word below is the first kind unless it says otherwise.</div>
+
+  <p style="margin-top:34px">While this is a test, nothing you do here is permanent, posted, or indexed. Break things freely &mdash; that is what a test server is for.</p>
+</section>
+
+<section>
+  <h2>What carries over from the journal guide</h2>
+  <p>OJS and OPS are built by the same people from the same code, so most of the screens are the same screens. That is why this guide is short: where the journal guide already covers something, it is linked rather than restated, and the two cannot drift apart.</p>
+
+  <div class="split">
+    <div>
+      <h3>Read the journal guide for these</h3>
+      <p class="muted">Identical in OPS. Same screens, same wording, same answers.</p>
+      <ul>
+        <li><b>Adding users and changing their roles.</b> <b>Users &amp; Roles &rarr; Users &rarr; Add User</b>, exactly as described there.</li>
+        <li><b>Editing email templates</b>, themes, and pages, under <b>Settings</b>.</li>
+        <li><b>Switching on add-ons</b> from the plugin gallery.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Try it first, or file a ticket?</a></b> The dividing line is the same one: if the fix is in a Settings menu it is yours, if it needs a login to the machine it is a ticket.</li>
+        <li><b>The quick email check</b> before reporting anything about mail, including the 15-minute wait and the <b>[EXTERNAL]</b> tag the state's mail system adds.</li>
+        <li><b>Filing a useful ticket</b>, and what to look at when something breaks.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Ignore the journal guide for these</h3>
+      <p class="muted">Absent from OPS. Not hidden, not switched off &mdash; not there.</p>
+      <ul>
+        <li><b>Reviewers.</b> There is no review stage to invite anyone into, so no rounds, no deadlines, and no anonymity settings.</li>
+        <li><b>Editors and Section Editors.</b> The editorial decision those roles exist to make does not happen here.</li>
+        <li><b>Copyediting and production.</b> One stage covers the whole journey.</li>
+        <li><b>Issues and volumes.</b> Nothing waits to be gathered into anything; a preprint goes up on its own.</li>
+        <li><b>Step 6 of that guide</b> &mdash; running one article through review. The equivalent test here is a different shape, and it is the section after next.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule"><b>The one-line difference:</b> OJS moves a submission through four stages and publishes it inside an issue. OPS has one stage, one person screening it, and posts it on its own. Everything else on this page follows from that.</div>
 </section>
 
 <section>
   <h2>Getting started</h2>
-  <p>Work top to bottom. The whole sequence takes an afternoon, and step 6 is the one that actually answers whether OJS fits how R&amp;A works.</p>
+  <p>Work top to bottom. It is a shorter list than the journal's, and step 5 is the one people skip and then wish they had not.</p>
 
   <ol class="qs">
     <li>
       <span class="num">1</span>
       <div>
         <h3>Log in and secure the admin account</h3>
-        <p>Sign in with the username and password IDS gave you. First thing: top-right menu &rarr; <span class="path">Edit Profile &rarr; Password</span> and set your own. Then <span class="path">Profile &rarr; Contact</span> and make sure the email is one you actually read; OJS sends every notification there.</p>
+        <p>Sign in with the username and password IDS gave you &mdash; the ones for <b>OPS</b>, which are not the OJS ones even if you have both. Top-right menu &rarr; <span class="path">Edit Profile &rarr; Password</span> and set your own. Then <span class="path">Profile &rarr; Contact</span> and check the email address is one you actually read; every notification goes there.</p>
       </div>
     </li>
     <li>
       <span class="num">2</span>
       <div>
-        <h3>Create the journal</h3>
-        <p>A fresh OJS site has no journals. <span class="path">Administration &rarr; Hosted Journals &rarr; Create Journal.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and <b>never change it later</b>), and a language. Everything else can be filled in afterwards.</p>
-        <p>OJS then drops you into the journal&rsquo;s <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> (title, ISSN if you have one, description) and <b>Contact</b> (principal contact is you; technical contact is IDS). Skip the rest for now.</p>
-        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labelled indexing or search-engine registration. A DOI cannot be withdrawn once issued, and nothing on a temporary server should carry one. The <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof-of-concept overview</a> explains why at length.</p>
+        <h3>Create the preprint server</h3>
+        <p>A fresh OPS site has no servers on it, the way a fresh OJS site has no journals. <span class="path">Administration &rarr; Hosted Servers &rarr; Create Server.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and <b>never change it later</b>), and a language.</p>
+        <p>OPS then opens the <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> and <b>Contact</b> &mdash; principal contact is you, technical contact is IDS. Everything else can wait.</p>
+        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labelled indexing or search-engine registration. OPS can issue a DOI of its own, and <b>a DOI cannot be withdrawn once issued</b>. Nothing on a temporary address should carry one.</p>
       </div>
     </li>
     <li>
       <span class="num">3</span>
       <div>
         <h3>Learn the roles before adding people</h3>
-        <p>Roles decide what each person can see. Getting them right at the start saves a lot of confused email later.</p>
+        <p>Shorter than the journal's list, because the editorial roles have nothing to do here. The four that matter:</p>
         <table class="access">
           <tr><th>Role</th><th>What they can do</th><th>Who gets it</th></tr>
-          <tr><td>Site Administrator</td><td>Everything, on every journal, plus site settings and creating journals.</td><td>You, and one backup (step 5).</td></tr>
-          <tr><td>Journal Manager</td><td>All settings, users, and workflow for one journal. Cannot create journals.</td><td>Whoever runs the journal day to day &mdash; often you.</td></tr>
-          <tr><td>Editor</td><td>Sees every submission; assigns reviewers; makes decisions.</td><td>Editor-in-chief or managing editor.</td></tr>
-          <tr><td>Section Editor</td><td>Same as Editor, but only for submissions assigned to them.</td><td>Associate editors, topic leads.</td></tr>
-          <tr><td>Reviewer</td><td>Sees only the submissions they are invited to review.</td><td>Anyone who reviews. Can be created when inviting.</td></tr>
-          <tr><td>Author</td><td>Submits and tracks their own manuscripts.</td><td>Anyone who registers.</td></tr>
-          <tr><td>Reader</td><td>Gets issue-published notifications. No editorial access.</td><td>Subscribers to announcements.</td></tr>
+          <tr><td>Site Administrator</td><td>Everything, on every preprint server, plus site settings and creating servers.</td><td>You, and one backup (step 4).</td></tr>
+          <tr><td>Preprint Server Manager</td><td>All settings, users, and workflow for one server. The counterpart of Journal Manager in OJS.</td><td>Whoever runs the server day to day &mdash; often you.</td></tr>
+          <tr><td>Moderator</td><td>Sees every submission; checks it is in scope and appropriate; posts it or declines it.</td><td>The person doing the screening. This is the working role.</td></tr>
+          <tr><td>Author</td><td>Submits, tracks, and posts new versions of their own work.</td><td>Anyone who registers.</td></tr>
         </table>
-        <p>One person can hold several roles. For a small shop, one Manager who is also Editor, plus a few Reviewers, is a complete journal.</p>
+        <p><b>A moderator is not an editor.</b> The job is to confirm the piece belongs here and is fit to be public &mdash; not to judge whether the research is sound. That judgement is what peer review is for, and OPS deliberately does not do it.</p>
       </div>
     </li>
     <li>
       <span class="num">4</span>
       <div>
-        <h3>Add users</h3>
-        <p>Inside the journal: <span class="path">Users &amp; Roles &rarr; Users &rarr; Add User.</span> Name, username, email, and a temporary password. Tick <b>Send the user a welcome email</b> so they get their login &mdash; this also proves outgoing mail is working. Assign roles on the same form.</p>
-        <p>To change someone&rsquo;s roles later: same screen, click their name &rarr; <span class="path">Edit User</span>. People can also register themselves; <span class="path">Settings &rarr; Users &amp; Roles &rarr; Site Access</span> controls whether that is allowed and which roles they may pick.</p>
+        <h3>Add users, and name a backup administrator here too</h3>
+        <p>Add people as the journal guide describes; the screen is the same. Tick <b>Send the user a welcome email</b> so they get their login, which also proves outgoing mail is working from this application.</p>
+        <p class="flag"><b>The trap:</b> a backup administrator on OJS is <b>not</b> a backup administrator on OPS. Create the second admin in each, and tell IDS both usernames. The last section on this page says why.</p>
       </div>
     </li>
     <li>
       <span class="num">5</span>
       <div>
-        <h3>Create a second site administrator</h3>
-        <p>One admin account with a forgotten password is the single most common OJS support request. Make a backup admin now, before you need one, and tell IDS the username.</p>
-        <p class="flag"><b>If you also run the preprint server:</b> do this twice. OJS and OPS keep separate lists of users, so a backup administrator here is not a backup administrator there. The account has to be created in each, and tell IDS both usernames.</p>
-        <p>Create the user as in step 4, then edit them and look for <b>Site Administrator</b> in the roles list. If it is there, tick it and you are done. If the list only offers journal roles, the role has to be granted on the server &mdash; file a ticket and IDS will run it. The new admin then logs out and back in to see the <span class="path">Administration</span> menu.</p>
-      </div>
-    </li>
-    <li>
-      <span class="num">6</span>
-      <div>
-        <h3>Run one article all the way through</h3>
-        <p>This is the real test. Make yourself a second account as an Author with a different email address and submit a fake manuscript. Then, back as the editor: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build an issue, and publish it. Every step sends an email; watch them arrive.</p>
-        <p>By the end you will know whether the workflow fits how R&amp;A actually works. <b>That is the question this whole exercise exists to answer.</b></p>
-      </div>
-    </li>
-    <li>
-      <span class="num">7</span>
-      <div>
-        <h3>Name a backup admin, and tell IDS who it is</h3>
-        <p>If the main administrator leaves, changes roles, or is out for a month, someone else must already be able to log in with full rights. At least one backup, two is better. If a departure is planned, hand over <b>before</b> they go, not after.</p>
+        <h3>Write down what the server accepts</h3>
+        <p>This is the step with no equivalent in the journal guide, and the one that makes moderation possible. A moderator screens for <b>scope</b> &mdash; so somebody has to have written the scope down. Put it in the server's description and in the submission checklist, under <span class="path">Settings</span>.</p>
+        <p>Answer three things in plain language: what subject matter belongs here, what stage a piece has to be at to be posted (finished work, not drafts), and who may submit. Without it, every borderline submission becomes an argument, and the moderator has nothing to point at when declining one.</p>
       </div>
     </li>
   </ol>
 </section>
 
 <section>
-  <h2>Try it first, or file a ticket?</h2>
-  <p>Most questions about OJS turn out to be questions about a setting, not about the server. This is how to tell the difference.</p>
+  <h2>The one run that matters</h2>
+  <p>The journal guide asks you to push one article through review, because that is the question OJS has to answer. OPS has a different question, and it is answered by posting the <b>same</b> preprint twice.</p>
+
+  <ol class="steps">
+    <li class="step next"><span class="mark">1</span><span class="t">Submit as an author<small>Make yourself a second account with a different email address, and submit a made-up paper. There is no review stage to enter; it lands directly in the only stage there is.</small></span><span class="s">To do</span></li>
+    <li class="step next"><span class="mark">2</span><span class="t">Moderate it<small>Back as yourself: check it is in scope against what you wrote in step 5, tidy the title, authors and abstract, and post it &mdash; or decline it, which opens a discussion thread if there is anything to say.</small></span><span class="s">To do</span></li>
+    <li class="step next"><span class="mark">3</span><span class="t">Look at what the public sees<small>The date stamp, the abstract, the attached file. This is the whole publication; there is no issue coming later.</small></span><span class="s">To do</span></li>
+    <li class="step next"><span class="mark">4</span><span class="t">Post a second version<small>As the author, submit a revision of the same piece. Then check the part that matters: the earlier version is still there, still reachable, and still says what it said.</small></span><span class="s">To do</span></li>
+  </ol>
+
+  <div class="rule"><b>Step 4 is the point of the exercise.</b> Versions that stay citable are the one thing OPS does that neither the Research Hub nor a folder of PDFs can. If that behaves the way you expect, OPS works. If it does not, nothing else about it matters.</div>
+
+  <p style="margin-top:34px">Every step sends email; watch it arrive. If none of it does, run the quick email check from the journal guide before filing anything.</p>
+</section>
+
+<section>
+  <h2>Two accounts, not one</h2>
+  <p>Worth its own section because it catches everybody, and because nothing on screen warns you about it.</p>
 
   <div class="split">
     <div>
-      <h3>Try it first</h3>
-      <p class="muted">You handle these. Most take five minutes.</p>
+      <h3>What is separate</h3>
       <ul>
-        <li><b>&ldquo;How do I make OJS do X?&rdquo;</b> Almost always a setting. Look in <span class="path">Settings</span>, then search the PKP forum (forum.pkp.sfu.ca) or the OJS user guide. Someone has asked already.</li>
-        <li><b>A user cannot log in.</b> Use the &ldquo;forgot password&rdquo; link, or reset it from <span class="path">Users &amp; Roles</span>.</li>
-        <li><b>Someone cannot see a submission.</b> Check their role; reviewers and section editors only see what is assigned to them.</li>
-        <li><b>An email went out with the wrong wording.</b> Templates are editable under <span class="path">Settings &rarr; Workflow &rarr; Emails</span>.</li>
-        <li><b>The site looks wrong.</b> Theme and appearance live under <span class="path">Settings &rarr; Website</span>.</li>
-        <li><b>A feature seems to be missing.</b> Many are add-ons you can switch on yourself under <span class="path">Settings &rarr; Website &rarr; Plugins &rarr; Plugin Gallery</span>.</li>
+        <li><b>Logins.</b> OJS and OPS keep separate lists of users. An account on one is not an account on the other, even with the same name and the same email address.</li>
+        <li><b>Passwords.</b> Changing one does not change the other. So do resets.</li>
+        <li><b>Roles.</b> Being a Site Administrator on the journal grants nothing here.</li>
+        <li><b>Content.</b> Separate databases and separate files. A preprint cannot be moved into the journal by a setting; it would be submitted again.</li>
       </ul>
     </div>
     <div>
-      <h3>File a ticket</h3>
-      <p class="muted">These need IDS. Nothing in the browser will fix them.</p>
+      <h3>What is shared</h3>
       <ul>
-        <li>The site is down, blank, or showing an error instead of OJS. (Check uptime.icjia.app first; it may already know.)</li>
-        <li>No email is sending at all, for anyone, after the check below.</li>
-        <li>Uploads are rejected for being too large when the file is a normal size.</li>
-        <li>A new OJS version is out, or the site says it needs upgrading. (OJS and OPS ship on the same release train, so this normally means both.)</li>
-        <li>You need a second site administrator and the role is not offered in the user form.</li>
-        <li>Something needs to change on the web address, its certificate, or the email setup.</li>
-        <li>You have broken it and want it restored from backup. It happens; that is what a test server is for.</li>
+        <li><b>The machine</b>, and therefore any outage. If one is down, suspect both.</li>
+        <li><b>Outgoing mail.</b> Both send as the same address, so a message from the two looks identical in your inbox. <b>Check which application a notification came from before acting on it</b> &mdash; the link in the message is the reliable tell.</li>
+        <li><b>IDS</b>, and the same ticket queue.</li>
       </ul>
     </div>
   </div>
 
-  <p class="rule">The rule of thumb: <b>if the fix is in a Settings menu, it is yours. If the fix needs someone to log in to the server itself, it is a ticket.</b> When in doubt, spend ten minutes looking before filing.</p>
-</section>
-
-<section>
-  <h2>Quick email check</h2>
-  <p>Do this before filing anything about email. It resolves most reports on its own.</p>
-  <ol class="qs">
-    <li><span class="num">1</span><div><p>Log out, click <b>Forgot your password?</b> on the login page, enter your admin email, and wait.</p></div></li>
-    <li><span class="num">2</span><div><p>Give it up to 15 minutes. Some mail arrives fast; some does not. Do not file at minute two.</p></div></li>
-    <li><span class="num">3</span><div><p>Check spam and junk. The state&rsquo;s mail system tags anything from outside as <b>[EXTERNAL]</b>, and OJS mail counts as outside. It is often filtered.</p></div></li>
-    <li><span class="num">4</span><div><p>If it never arrives, say so in the ticket. IDS can check the mail provider&rsquo;s logs, which show whether the message left our system. Those logs are kept for only five days, so report promptly.</p></div></li>
-  </ol>
-  <p>A message the provider shows as delivered can still be held on the state&rsquo;s side. That is a DoIT question rather than an OJS one, and IDS will route it.</p>
-</section>
-
-<section>
-  <h2>Filing a useful ticket</h2>
-  <p class="flag"><b>Please do not email IDS staff directly about OJS.</b> Everything goes through a <b>Freshservice ticket</b>, so the request is tracked and anyone on the team can pick it up.</p>
-  <p>A useful ticket includes:</p>
-  <ul>
-    <li>What you were trying to do, and which screen you were on</li>
-    <li>What happened instead, with the exact wording of any error</li>
-    <li>Whether it affects one person or everyone</li>
-    <li>When it started, and whether anything changed right before</li>
-    <li>A screenshot if there is anything to see</li>
-  </ul>
-  <p>Turnaround on the test server is best-effort; it is not a production system and nothing on it is urgent. A live journal would come with a real support agreement, and that is part of the adoption conversation.</p>
-</section>
-
-<section>
-  <h2>When something breaks</h2>
-  <p>Two places to look before calling IDS. <span class="path">Administration &rarr; Administrative Functions &rarr; System Information</span> shows versions and settings, which is the first thing a ticket will be asked for. The PKP community forum at <b>forum.pkp.sfu.ca</b> has nearly every question already answered, usually by someone who hit it in the same version.</p>
-  <p>For server-side problems &mdash; site down, no email at all, uploads rejected &mdash; it is an IDS issue. For &ldquo;how do I make OJS do X&rdquo;, it is almost always a setting.</p>
-  <p>One thing to check before filing either kind: the journal and the preprint server run on the <b>same machine</b>, so a server-side fault usually takes out both. If OJS is down, open OPS as well &mdash; the answer tells IDS a great deal, and it belongs in the ticket. A fault in only one of them is almost never the machine.</p>
+  <div class="rule"><b>The practical rule:</b> whoever administers both needs an account on each, created separately and kept in step by hand. Decide up front whether that is one person or two &mdash; it is easier to answer now than after somebody leaves.</div>
 </section>
 
 <footer>

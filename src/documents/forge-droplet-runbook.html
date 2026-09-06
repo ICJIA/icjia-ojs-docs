@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Installing OJS on a newly provisioned DigitalOcean droplet via Laravel Forge</title>
+<title>Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -145,19 +145,21 @@
 <main class="page">
 
 <header>
-  <h1>Installing OJS on a newly provisioned DigitalOcean droplet via Laravel Forge</h1>
-  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, hardening, backups, and adding OPS as a second site.</p>
+  <h1>Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge</h1>
+  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean, carrying <b>two separate installations</b> on one box: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, then OPS as a second site &mdash; and the hardening, memory tuning, backups, upgrades and restores that from then on have to cover both.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-06">6 September 2026</time></p>
   <div class="meta">
     <div><b>Ubuntu 26.04</b>DigitalOcean, 2 GB / 2 vCPU</div>
     <div><b>Forge-provisioned</b>nginx mainline, PHP 8.5, MySQL 8.4</div>
     <div><b>Symptom</b>Port 80 closed; CPU at 40% idle</div>
+    <div><b>Ends with</b>OJS + OPS 3.5.0-5, separate DBs</div>
     <div><b>Worked</b>3–6 Sep 2026</div>
   </div>
   <div class="frame">
     <h2>Read this first: why the early steps exist</h2>
     <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
     <p><b>Worked through 3&ndash;6 September 2026</b> on the OJS/OPS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
+    <p><b>Two applications end up on this box, and they are two separate installations.</b> OJS and OPS are the same codebase geared for different jobs, but they do not share an install: separate web addresses, separate nginx sites, <b>separate databases</b> (their table names collide), separate files directories and separate user tables. Read the runbook front to back for the first one; the <b>&ldquo;Adding OPS as a second site&rdquo;</b> section near the end is the delta for the other. From that point on, everything operational &mdash; memory, backups, upgrades, restores &mdash; is a two-application job, and the sections below say so where it matters.</p>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -689,35 +691,48 @@ top -bo %MEM | head -14</pre></div>
 <section>
   <h2>Backups on the dev box</h2>
   <p><b>What's on now:</b> DigitalOcean's built-in droplet backups, on the <b>weekly</b> schedule, not daily. That's deliberate for a dev box: a full-image snapshot once a week is enough to recover from a wrecked server, and daily would double the (small) backup line item for content that's all fake. It's a whole-disk image, restored from the DO control panel (droplet → Backups → Restore), and it's the only backup in place at the moment.</p>
-  <p>The script below adds a nightly, application-level layer on top of that: a database dump plus the files directory, kept on the box for two weeks. It's cheap, it's restorable without touching the DO panel, and it means a Tuesday mistake doesn't cost you back to the previous weekend's image. Enough for a throwaway. Production needs off-box copies, retention, and a documented restore, which is the "verified backup strategy" item on the manager one-pager. Three things need capturing: the database, the files directory (everything uploaded), and <code>config.inc.php</code> plus <code>public/</code> (site logos, journal styles). The OJS code itself is reproducible from the tarball.</p>
-  <div class="code"><div class="bar"><span>bash — /usr/local/bin/ojs-backup</span><button>Copy</button></div><pre>#!/usr/bin/env bash
+  <p>The script below adds a nightly, application-level layer on top of that: a database dump plus the files directory, kept on the box for two weeks. It's cheap, it's restorable without touching the DO panel, and it means a Tuesday mistake doesn't cost you back to the previous weekend's image. Enough for a throwaway. Production needs off-box copies, retention, and a documented restore, which is the "verified backup strategy" item on the manager one-pager. Three things need capturing: the database, the files directory (everything uploaded), and <code>config.inc.php</code> plus <code>public/</code> (site logos, journal styles). The application code itself is reproducible from the tarball.</p>
+  <p><b>Times two, since the OPS install.</b> There are now two applications on this box and they share nothing that matters here &mdash; separate databases, separate files directories, separate configs. A backup that names <code>ojs</code> and stops silently omits the whole preprint server, and nothing reports it until a restore is attempted. The script below therefore takes an application name and is called once per app; a third would be one more line. If you installed the earlier OJS-only version, it was called <code>ojs-backup</code> &mdash; replace it and update the crontab line, rather than adding a second script beside it.</p>
+  <div class="code"><div class="bar"><span>bash — /usr/local/bin/pkp-backup</span><button>Copy</button></div><pre>#!/usr/bin/env bash
 set -euo pipefail
 STAMP=$(date +%F)
 DEST=/home/forge/backups
 mkdir -p "$DEST"
-mysqldump --single-transaction --routines --triggers ojs | gzip &gt; "$DEST/ojs-db-$STAMP.sql.gz"
-tar -czf "$DEST/ojs-files-$STAMP.tar.gz"  -C /home/forge ojs-files
-tar -czf "$DEST/ojs-config-$STAMP.tar.gz" -C /home/forge/ojs.icjia.cloud config.inc.php public
+
+<span class="c"># $1 = app name, which is also the database name and the &lt;app&gt;-files prefix</span>
+<span class="c"># $2 = web root under /home/forge, where config.inc.php and public/ live</span>
+backup_app() {
+  local app=$1 site=$2
+  mysqldump --single-transaction --routines --triggers "$app" | gzip &gt; "$DEST/$app-db-$STAMP.sql.gz"
+  tar -czf "$DEST/$app-files-$STAMP.tar.gz"  -C /home/forge "$app-files"
+  tar -czf "$DEST/$app-config-$STAMP.tar.gz" -C "/home/forge/$site" config.inc.php public
+}
+
+backup_app ojs ojs.icjia.cloud
+backup_app ops ops.icjia.cloud                 <span class="c"># drop this line only if OPS is actually gone</span>
+
 find "$DEST" -type f -mtime +14 -delete        <span class="c"># two weeks of dailies on dev</span></pre></div>
-  <div class="code"><div class="bar"><span>bash — install it</span><button>Copy</button></div><pre>sudo chmod 750 /usr/local/bin/ojs-backup
+  <div class="code"><div class="bar"><span>bash — install it</span><button>Copy</button></div><pre>sudo chmod 750 /usr/local/bin/pkp-backup
 <span class="c"># mysqldump reads ~/.my.cnf, so the password lives in one 600 file, not in the script or crontab:</span>
 printf '[client]\nuser=forge\npassword=YOUR_DB_PASSWORD\n' &gt; ~/.my.cnf &amp;&amp; chmod 600 ~/.my.cnf
-(crontab -l 2&gt;/dev/null; echo '15 3 * * * /usr/local/bin/ojs-backup') | crontab -
-/usr/local/bin/ojs-backup &amp;&amp; ls -lh /home/forge/backups   <span class="c"># prove it once by hand</span></pre></div>
-  <p><code>--single-transaction</code> gives a consistent InnoDB snapshot without locking tables, which is all OJS uses. Together with the weekly DO image you have two independent layers: nightly app-level dumps on the box for the everyday "I broke the journal" case, and the weekly whole-disk image for the "the box is gone" case. Quarterly, restore the dump into a scratch database (<code>CREATE DATABASE ojs_restore; zcat … | mysql ojs_restore</code>) and untar the files archive somewhere; if both open cleanly, the backup is real.</p>
+(crontab -l 2&gt;/dev/null; echo '15 3 * * * /usr/local/bin/pkp-backup') | crontab -
+/usr/local/bin/pkp-backup &amp;&amp; ls -lh /home/forge/backups   <span class="c"># six files: db, files, config × two apps</span></pre></div>
+  <p><code>--single-transaction</code> gives a consistent InnoDB snapshot without locking tables, which is all OJS and OPS use. Together with the weekly DO image you have two independent layers: nightly app-level dumps on the box for the everyday "I broke the journal" case, and the weekly whole-disk image for the "the box is gone" case. Quarterly, restore a dump into a scratch database (<code>CREATE DATABASE ojs_restore; zcat … | mysql ojs_restore</code>) and untar the files archive somewhere; if both open cleanly, the backup is real.</p>
+  <p><b>Check the count, not just the exit code.</b> A good night leaves <b>six</b> files, three per application. The failure worth designing against is not the script erroring &mdash; it is the script succeeding while covering only one app. Rehearse the restore against <b>OPS</b> at least every other quarter, precisely because it is the one nobody thinks about.</p>
 </section>
 
 <section>
-  <h2>Upgrading OJS</h2>
+  <h2>Upgrading OJS and OPS</h2>
   <p>The next real task after install, and the one most likely to be done by someone who did not do the install. Run the upgrade <b>from the command line</b>, not the browser: the CLI is not behind nginx or PHP-FPM, so none of the three timeouts that broke the install apply to it. That single choice removes errors 8 and 9 from the table above.</p>
+  <p><b>It is now two upgrades, not one.</b> PKP ships OJS and OPS on the same release train &mdash; 3.5.0-5 landed for both on the same day &mdash; so a new version almost always means both applications need doing. The steps below are written for OJS; run them again for OPS, substituting <code>ops</code> for <code>ojs</code> throughout (database, files directory, web root, tarball) and downloading the OPS tarball rather than the OJS one. <b>Do them one at a time and verify each before starting the next</b>, so that if the second goes wrong you are debugging one upgrade rather than two.</p>
 
   <div class="step">
     <div class="n">U1</div>
     <div>
       <h3>Back up first, and prove the backup exists</h3>
-      <p>Not the weekly droplet image &mdash; an application-level backup you can restore selectively. Run the script from the backups section and look at what it produced before going further.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>/usr/local/bin/ojs-backup
-ls -lh /home/forge/backups | tail -3</pre></div>
+      <p>Not the weekly droplet image &mdash; an application-level backup you can restore selectively. Run the script from the backups section and look at what it produced before going further. It backs up both applications, which is what you want here: an upgrade that goes wrong on one is a good moment to still have the other.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>/usr/local/bin/pkp-backup
+ls -lh /home/forge/backups | tail -6          <span class="c"># expect today's date on all six</span></pre></div>
     </div>
   </div>
 
@@ -774,6 +789,7 @@ curl -sI https://ojs.icjia.cloud/index.php/index/login | head -1   <span class="
 <section>
   <h2>Restoring from backup</h2>
   <p>A backup nobody has restored is a hypothesis. Do this once now, and once a quarter after, into a scratch database so the real one is never at risk.</p>
+  <p>The commands below say <code>ojs</code>. <b>Every one of them has an <code>ops</code> twin</b> &mdash; same shape, different database, files directory and web root. Substitute throughout, and alternate which application you rehearse against so both get exercised.</p>
 
   <div class="step">
     <div class="n">R1</div>
@@ -792,7 +808,7 @@ mysql -u forge -p -e 'DROP DATABASE ojs_restore;'</pre></div>
     <div class="n">R2</div>
     <div>
       <h3>Real restore, on the same box</h3>
-      <p>For &ldquo;the journal is wrecked but the machine is fine&rdquo;. Take the site offline first, as in U3.</p>
+      <p>For &ldquo;the journal is wrecked but the machine is fine&rdquo;. Take the site offline first, as in U3. Only the wrecked application needs restoring &mdash; the other shares nothing with it and should be left alone.</p>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>mysql -u forge -p -e 'DROP DATABASE ojs; CREATE DATABASE ojs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
 zcat /home/forge/backups/ojs-db-&lt;date&gt;.sql.gz | mysql -u forge -p ojs
 rm -rf /home/forge/ojs-files &amp;&amp; tar -xzf /home/forge/backups/ojs-files-&lt;date&gt;.tar.gz -C /home/forge
@@ -807,7 +823,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
     <div class="n">R3</div>
     <div>
       <h3>Whole-machine loss</h3>
-      <p>If the droplet itself is gone, restore the weekly DigitalOcean image from the control panel (droplet &rarr; Backups &rarr; Restore), then apply the newest application backup over it with R2 &mdash; the image may be up to a week older than the nightly dumps. Afterwards re-check the two things a restored image gets wrong: that <code>nginx</code> is still held (<code>apt-mark showhold</code>), and that the site&rsquo;s certificate has not expired while the image sat idle.</p>
+      <p>If the droplet itself is gone, restore the weekly DigitalOcean image from the control panel (droplet &rarr; Backups &rarr; Restore), then apply the newest application backup over it with R2 &mdash; the image may be up to a week older than the nightly dumps. <b>Do R2 twice, once per application</b>; the whole-disk image restores both, but both are equally stale and both need the newer dumps laid over them. Afterwards re-check the three things a restored image gets wrong: that <code>nginx</code> is still held (<code>apt-mark showhold</code>), that <b>both</b> sites&rsquo; certificates have not expired while the image sat idle, and that the low-memory MySQL setting survived (<code>performance_schema</code> should still be <code>OFF</code>, or the box will swap under two apps).</p>
     </div>
   </div>
 </section>
@@ -825,7 +841,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
     <li><span class="box"></span><span>Mail is post-install: confirm the Mailgun domain shows verified with DKIM before <code>config.inc.php</code> exists.</span></li>
     <li><span class="box"></span><span>After install: <code>chmod 640 config.inc.php</code>, add the nginx denies, set <code>force_ssl</code>, decide job-runner vs cron.</span></li>
     <li><span class="box"></span><span>Two apps on 2 GB: <code>performance_schema = OFF</code> for MySQL and disable the unused <code>php8.5-fpm</code> pool; check <code>free -m</code> for swap creep.</span></li>
-    <li><span class="box"></span><span>Install the backup cron and run it once by hand before handing over the admin login.</span></li>
+    <li><span class="box"></span><span>Install the backup cron and run it once by hand before handing over the admin login. <b>Count the output files</b> &mdash; three per application, so six with OJS and OPS both installed.</span></li>
     <li><span class="box"></span><span>OJS 3.5.0-5 does not run on PHP 8.5. Install 8.3 from the sury PPA by hand (step J½) and point <code>fastcgi_pass</code> at it before running the installer.</span></li>
   </ul>
 </section>

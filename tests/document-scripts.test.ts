@@ -56,6 +56,7 @@ const externalHosts = (html: string): string[] => {
 const APPROVED: Record<string, string> = {
   'ojs-proof-of-concept': '',
   'ojs-administrator-guide': '',
+  'ops-administrator-guide': '',
   'ops-preprint-server': '',
   // The clipboard handler for the runbook's code blocks.
   'droplet-runbook': '8d273e6aeb271b28',

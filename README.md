@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/banner.png" alt="Open Journal Systems, on trial at ICJIA — four working documents: what it is, how to run the journal, how the server was built, and where the preprint server fits alongside it." width="100%">
+  <img src="public/banner.png" alt="Open Journal Systems, on trial at ICJIA — five working documents: what OJS and OPS are, how to run each of them, how the server was built, and how the two fit together." width="100%">
 </p>
 
 <h1 align="center">ICJIA OJS documentation portal</h1>
@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-154_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-165_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -19,17 +19,24 @@ A portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
-Four documents are published today — an overview for managers, a guide for the
-journal administrator, an installation runbook for developers, and a comparison
-of the preprint server against the journal and the Research Hub — and the portal
-is built so that adding a fifth is a one-line change.
+Five documents are published today — an overview for managers, a guide for the
+journal administrator, a shorter one for the preprint server moderator, an
+installation runbook for developers, and a comparison of the preprint server
+against the journal and the Research Hub. The fifth was added as advertised: one
+entry in the manifest, and the card, the route, the contents and the statistics
+followed on their own.
+
+Two applications are described here, and they were two separate installations.
+**OJS** runs the journal; **OPS** runs a preprint server beside it on the same
+machine, with its own database, its own uploaded files and its own accounts.
+Every document says which of the two it is about.
 
 Every page meets **WCAG 2.1 Level AA**. See [Accessibility](#accessibility)
 before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app">
-    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with four cards — two for managers, one for the journal administrator, one for developers — each showing its sections, reading time and last-updated date." width="900">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with five cards — two for managers, one for the journal administrator, one for the preprint server moderator, one for developers — each showing its sections, reading time and last-updated date." width="900">
   </a>
 </p>
 
@@ -37,7 +44,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">
-    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, document title, Contents button — above the runbook's own numbered diagnostic steps, code blocks with copy buttons, and a warning callout." width="900">
+    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own numbered diagnostic steps and code blocks with copy buttons." width="900">
   </a>
 </p>
 
@@ -135,6 +142,7 @@ npm run build && npm run preview
 #   http://localhost:4321/
 #   http://localhost:4321/docs/ojs-proof-of-concept
 #   http://localhost:4321/docs/ojs-administrator-guide
+#   http://localhost:4321/docs/ops-administrator-guide
 #   http://localhost:4321/docs/droplet-runbook
 #   http://localhost:4321/docs/ops-preprint-server
 ```
@@ -332,7 +340,7 @@ a version has no tag.
 
 ## Tests
 
-154 tests across six files.
+165 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug

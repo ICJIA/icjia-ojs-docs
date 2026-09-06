@@ -5,6 +5,73 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2026-09-06
+
+### Added
+
+- **A fifth document: "How do I run the preprint server?"** OJS and OPS are two
+  separate installations doing two different jobs, and only one of them had an
+  administrator guide. The other guide's spine is an article moving through
+  review into an issue — none of which exists in OPS — so the preprint moderator
+  was being asked to read past Reviewers, Section Editors and issue-building to
+  find the parts that applied to them.
+
+  It is deliberately short. Roughly seventy per cent of the journal guide
+  transfers verbatim, because the two share their settings screens, their user
+  management and their email templates; that part is **linked, not restated**, so
+  the two cannot drift apart. What is left is what genuinely differs: creating a
+  *server* rather than a journal, the roles that do not exist and the Moderator
+  that does, writing down the scope a moderator screens against, the one run that
+  matters (submit, moderate, post, then post a second version), and the separate
+  accounts. Nine minutes against the journal guide's ten.
+
+### Fixed
+
+- **The nightly backup covered one of the two applications.** `ojs-backup` dumped
+  the `ojs` database, `ojs-files` and the OJS config, and had done since before
+  OPS existed. The preprint server — its database, its uploads, its config — was
+  not backed up at all, and nothing reported it: the script exited zero every
+  night. Renamed `pkp-backup` and rewritten to take an application name and run
+  once per app, so adding a third is one line. A good night now leaves six files,
+  three per application, and the runbook says to check the count rather than the
+  exit code.
+
+  The same one-application assumption ran through the sections that depend on it.
+  "Upgrading OJS" is now "Upgrading OJS and OPS" and says that PKP ships both on
+  the same release train, so a new version almost always means two upgrades, done
+  one at a time and verified separately. "Restoring from backup" notes that every
+  command has an `ops` twin, that only the wrecked application needs restoring,
+  and that whole-machine recovery means running the real restore twice. The
+  whole-machine checklist also now re-checks the low-memory MySQL setting, which
+  a restored image silently loses and which two applications on 2 GB depend on.
+
+### Changed
+
+- **All five documents now say that two systems are installed, and which one they
+  are about.** The runbook is retitled "Installing OJS **and OPS**…" and its lede
+  says the box carries two separate installations. The proof of concept gains a
+  line in its TL;DR (six to seven), says in its header that two systems are
+  installed and that it is about the journal, records the second install under
+  "Where the setup stands", and warns that adopting both means two applications,
+  two databases, two sets of logins and two upgrade cycles — including in the
+  backup item under "If we decide to adopt it". The journal guide stops
+  apologising for not covering OPS and points at the new guide instead, notes
+  that a backup administrator has to be created in *each* application, and adds
+  the diagnostic that a fault in only one of the two is almost never the machine.
+
+  None of the three assumes the reader knows how to administer either system.
+
+- **The portal, banner and README follow.** The portal lede describes five
+  documents and both installations. The banner carries a fifth shelf row; its
+  titles drop from 25px to 22px so the row fits above the footer rule, and every
+  `textLength` was re-measured against the real webfonts rather than estimated.
+  Reading times move with the edits: 22→24, 9→10 and 40→42 minutes, with the new
+  guide at 9. README screenshots recaptured — the portal one had shown four
+  cards.
+
+- **Portal colophon:** "corrections are wanted rather than merely tolerated" loses
+  the "merely".
+
 ## [1.15.1] - 2026-09-06
 
 ### Fixed

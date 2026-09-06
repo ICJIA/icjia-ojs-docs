@@ -50,15 +50,25 @@ export const documents: DocumentEntry[] = [
     order: 2,
   },
   {
+    slug: 'ops-administrator-guide',
+    file: 'ops-administrator-guide.html',
+    question: 'How do I run the preprint server?',
+    summary:
+      'What the OPS moderator does, from first login to posting a preprint. A short companion to the journal guide: only what differs, with the shared screens linked rather than repeated.',
+    audience: 'Written for the preprint server moderator',
+    status: 'draft',
+    order: 3,
+  },
+  {
     slug: 'droplet-runbook',
     file: 'forge-droplet-runbook.html',
     question: 'How do I install it?',
     summary:
-      'Installing OJS on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit. Ubuntu commands throughout; none of it applies to Windows.',
+      'Installing OJS and then OPS as a second site on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit. Ubuntu commands throughout; none of it applies to Windows.',
     audience: 'Written for developers',
     status: 'draft',
     note: 'Linux only',
-    order: 3,
+    order: 4,
   },
   {
     slug: 'ops-preprint-server',
@@ -68,6 +78,6 @@ export const documents: DocumentEntry[] = [
       'A preprint server now runs beside the journal. What OPS is, how it differs from OJS and the Research Hub — and whether the Hub could be retired in favour of off-the-shelf software.',
     audience: 'Written for managers',
     status: 'draft',
-    order: 4,
+    order: 5,
   },
 ];
