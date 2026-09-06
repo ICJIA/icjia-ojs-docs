@@ -8,6 +8,15 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = (p: string) => fileURLToPath(new URL(`../dist/${p}`, import.meta.url));
 const read = (p: string) => readFileSync(dist(p), 'utf8');
 
+/** The named and numeric entities Astro emits when escaping interpolated text. */
+const decode = (html: string) =>
+  html
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+
 describe('build output', () => {
   beforeAll(() => {
     execFileSync('npm', ['run', 'build'], { cwd: root, stdio: 'pipe' });
@@ -15,7 +24,11 @@ describe('build output', () => {
 
   it('builds the portal page', () => {
     expect(existsSync(dist('index.html'))).toBe(true);
-    const html = read('index.html');
+    // Astro escapes the text it interpolates, so a question containing an
+    // apostrophe or an ampersand reaches the page as an entity. Compare against
+    // the decoded text, or this asserts on the escaping rather than on whether
+    // the card was rendered.
+    const html = decode(read('index.html'));
     for (const entry of documents) {
       expect(html, `card missing for ${entry.slug}`).toContain(`/docs/${entry.slug}`);
       expect(html).toContain(entry.question);
@@ -88,12 +101,17 @@ describe('build output', () => {
       const html = read(`docs/${entry.slug}/index.html`);
       expect(html, `${entry.slug} contains a surname`).not.toMatch(/Schweda|Jenkins/);
       // Address-shaped strings that are expected. The first two are role
-      // mailboxes on the service domain; the third is an SSH login (user@host),
-      // not a mailbox. Anything else is treated as a leak.
+      // mailboxes on the service domain — `ojs@` is the SMTP credential both
+      // apps authenticate with, `admin@` the envelope sender they send as. The
+      // third is an SSH login (user@host), not a mailbox. The fourth is not an
+      // address at all: it is the illustrative From: header in the runbook's
+      // explanation of why `force_dmarc_compliant_from` is needed, and belongs
+      // to nobody. Anything else is treated as a leak.
       const allowed = new Set([
-        'postmaster@icjia.cloud',
         'ojs@icjia.cloud',
+        'admin@icjia.cloud',
         'forge@ojs.icjia.cloud',
+        'editor@illinois.gov',
       ]);
       const emails = html.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) ?? [];
       const unexpected = [...new Set<string>(emails)].filter((address) => !allowed.has(address));

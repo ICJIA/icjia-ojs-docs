@@ -60,4 +60,14 @@ export const documents: DocumentEntry[] = [
     note: 'Linux only',
     order: 3,
   },
+  {
+    slug: 'ops-preprint-server',
+    file: 'ops-preprint-server.html',
+    question: "What's the difference?",
+    summary:
+      'A preprint server now runs beside the journal. What Open Preprint Systems is, how it differs from OJS and the Research Hub, and whether it earns its place.',
+    audience: 'Written for managers',
+    status: 'draft',
+    order: 4,
+  },
 ];

@@ -146,18 +146,18 @@
 
 <header>
   <h1>Installing OJS on a newly provisioned DigitalOcean droplet via Laravel Forge</h1>
-  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, hardening, and backups.</p>
-  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-04">4 September 2026</time></p>
+  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, hardening, backups, and adding OPS as a second site.</p>
+  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-06">6 September 2026</time></p>
   <div class="meta">
     <div><b>Ubuntu 26.04</b>DigitalOcean, 2 GB / 2 vCPU</div>
     <div><b>Forge-provisioned</b>nginx mainline, PHP 8.5, MySQL 8.4</div>
     <div><b>Symptom</b>Port 80 closed; CPU at 40% idle</div>
-    <div><b>Worked</b>3–4 Sep 2026</div>
+    <div><b>Worked</b>3–6 Sep 2026</div>
   </div>
   <div class="frame">
     <h2>Read this first: why the early steps exist</h2>
     <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
-    <p><b>Worked through 3&ndash;4 September 2026</b> on the OJS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
+    <p><b>Worked through 3&ndash;6 September 2026</b> on the OJS/OPS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -565,7 +565,7 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
     <div class="n">F</div>
     <div>
       <h3>Set up the sending domain in Mailgun first</h3>
-      <p>On this project the <b>root domain</b> <code>icjia.cloud</code> was already set up in Mailgun (MX → <code>mxa</code>/<code>mxb.mailgun.org</code>, SPF at <code>@</code>). Before relying on it, open Sending → Domains in Mailgun and confirm it shows <b>verified</b> with a green check on the <b>DKIM</b> record (a TXT at <code>&lt;selector&gt;._domainkey.icjia.cloud</code>); SPF alone gets mail sent but not trusted. Then under the domain's settings create or copy an <b>SMTP credential</b>: the login is <code>postmaster@icjia.cloud</code> and the password is specific to SMTP. It is <b>not</b> the API key.</p>
+      <p>On this project the <b>root domain</b> <code>icjia.cloud</code> was already set up in Mailgun (MX → <code>mxa</code>/<code>mxb.mailgun.org</code>, SPF at <code>@</code>). Before relying on it, open Sending → Domains in Mailgun and confirm it shows <b>verified</b> with a green check on the <b>DKIM</b> record (a TXT at <code>&lt;selector&gt;._domainkey.icjia.cloud</code>); SPF alone gets mail sent but not trusted. Then on the domain's <b>SMTP Credentials</b> tab, <b>Add new SMTP user</b> and create a dedicated login for OJS (<code>ojs@icjia.cloud</code>). Don't reset <code>postmaster@</code>: another mailer uses it. The password is shown once; it is <b>not</b> the API key. The envelope sender stays <code>admin@icjia.cloud</code> because that address already has an inbound Route; the SMTP login and the envelope sender are independent, and any address on the verified domain works for either.</p>
       <div class="heads"><b>Inbound consequence:</b> with MX at the root pointing to Mailgun, replies to <code>ojs@icjia.cloud</code> land in Mailgun's receiving side and vanish unless a <b>Route</b> (Receiving → Routes) forwards them to a real mailbox. Fine for one-way system mail; add the Route if editors should be able to reply.</div>
       <div class="heads"><b>Free/sandbox tier</b> only delivers to addresses you pre-authorize. A verified custom domain (paid plan) is needed for real testing with colleagues.</div>
     </div>
@@ -577,17 +577,19 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
       <h3>Edit config.inc.php after the installer finishes</h3>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>nano ~/ojs.icjia.cloud/config.inc.php     <span class="c"># find the [email] section</span></pre></div>
       <div class="code"><div class="bar"><span>ini — config.inc.php [email]</span><button>Copy</button></div><pre>[email]
-smtp = On
+default = smtp                 <span class="c">; 3.4+ selects the transport here; the old "smtp = On" is gone</span>
 smtp_server = smtp.mailgun.org
 smtp_port = 587
 smtp_auth = tls
-smtp_username = postmaster@icjia.cloud
-smtp_password = "the-mailgun-SMTP-password"
+smtp_username = ojs@icjia.cloud
+smtp_password = "the-ojs-SMTP-credential-password"
 smtp_suppress_cert_check = Off
 
-default_envelope_sender = ojs@icjia.cloud
-force_default_envelope_sender = On</pre></div>
-      <p><b>Port 587 pairs with <code>tls</code></b>; port 465 pairs with <code>ssl</code>. Mailgun accepts both. <code>force_default_envelope_sender = On</code> keeps the envelope sender on the verified domain even when OJS sends "on behalf of" an editor with an unrelated address, which is what keeps SPF/DKIM aligned.</p>
+allow_envelope_sender = On     <span class="c">; gate: without this the two lines below are ignored</span>
+default_envelope_sender = admin@icjia.cloud
+force_default_envelope_sender = On
+force_dmarc_compliant_from = On <span class="c">; rewrite From to the envelope sender, editor's address → Reply-To. Needed because staff mail is @illinois.gov, which Mailgun can't sign for</span></pre></div>
+      <p><b>Port 587 pairs with <code>tls</code></b>; port 465 pairs with <code>ssl</code>. Mailgun accepts both. <code>force_default_envelope_sender = On</code> keeps the envelope sender on the verified domain even when OJS sends "on behalf of" an editor with an unrelated address, which is what keeps SPF aligned. <code>force_dmarc_compliant_from = On</code> does the same for the visible From header: without it, a review invitation goes out "From: editor@illinois.gov" via Mailgun, fails illinois.gov's DMARC, and gets junked or rejected, including by DoIT's own gateway. With it, From is <code>admin@icjia.cloud</code> and the editor lands in Reply-To. Both settings are gated behind <code>allow_envelope_sender = On</code>.</p>
       <div class="heads"><b>Protect the file:</b> it now holds DB and SMTP passwords. <code>chmod 640</code> it and confirm the explicit nginx deny from step K is in place (<code>curl -sI https://ojs.icjia.cloud/config.inc.php</code> → 403). Nginx never executes <code>.htaccess</code>, so OJS's shipped Apache rules are inert here.</div>
     </div>
   </div>
@@ -612,6 +614,36 @@ force_default_envelope_sender = On</pre></div>
 SELECT user_group_id FROM user_groups WHERE context_id = 0 AND role_id = 1;
 INSERT INTO user_user_groups (user_id, user_group_id) VALUES (&lt;user_id&gt;, &lt;user_group_id&gt;);</pre></div>
   <p>The new administrator logs out and back in to see the <code>Administration</code> menu. And before handing anything over, run the backup script once by hand and confirm it produced files &mdash; a handover without a working backup is a handover of risk.</p>
+</section>
+
+<section>
+  <h2>Adding OPS as a second site (same box, same MySQL)</h2>
+  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta.</p>
+  <table class="map">
+    <tr><th>Step</th><th>What</th><th>Note</th></tr>
+    <tr><td>DNS + Forge site</td><td>A record for <code>ops.icjia.cloud</code>; Forge → New Site, web dir <code>/</code>; Let's Encrypt</td><td>Same as OJS; Forge assigns a new site ID (3368831 here)</td></tr>
+    <tr><td>nginx, before anything else</td><td>Apply all five OJS edits to the fresh site file: <code>\.php(/|$)</code> + <code>PATH_INFO</code>/<code>SCRIPT_FILENAME</code>, 8.3 socket, <code>fastcgi_read_timeout 600</code>, <code>client_max_body_size 64M</code>, the two <code>deny</code> locations</td><td>Fastest: copy the block from the OJS site file, fix the site ID in <code>error_log</code>/<code>include</code></td></tr>
+    <tr><td>PHP / FPM</td><td>Nothing</td><td>The 8.3 pool and ini limits are server-wide; the site inherits them via <code>fastcgi_pass</code></td></tr>
+    <tr><td>Database</td><td><code>CREATE DATABASE ops CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></td><td><b>Separate database</b>, same server. OJS and OPS use overlapping table names; sharing one DB would corrupt both</td></tr>
+    <tr><td>Tarball</td><td>Download on the Mac, <code>scp</code> to <code>/home/forge/ops.icjia.cloud/</code>, <code>tar -xzf … --strip-components=1</code></td><td>PKP's front end still refuses the droplet; don't rediscover it</td></tr>
+    <tr><td>Files dir</td><td><code>mkdir -p /home/forge/ops-files</code></td><td>Its own, outside the web root</td></tr>
+    <tr><td>Installer</td><td>Same form; database <code>ops</code>; files dir <code>/home/forge/ops-files</code></td><td>Finished first try on the success page. Verify: <code>SELECT product,major,minor,revision,build FROM versions WHERE product_type='core'</code> → <code>ops 3 5 0 5</code></td></tr>
+    <tr><td>Mail</td><td>Same eleven-line <code>[email]</code> block, reusing the <code>ojs@icjia.cloud</code> SMTP login; envelope sender <code>admin@</code></td><td>Lost-password test delivered first try. Add an <code>ops@</code> credential in Mailgun later if the two apps ever need to be revoked independently</td></tr>
+    <tr><td>Users</td><td>Separate user tables</td><td>The R&amp;A admin needs a login on each app; decide up front whether the same person owns both</td></tr>
+  </table>
+
+  <h3 style="margin-top:32px">Memory with two apps on 2 GB</h3>
+  <p>After the second install: 952 MB used, <b>267 MB in swap</b> at idle. MySQL was resident at ~525 MB with <code>innodb_buffer_pool_size</code> already at the 128 MB default; the bulk was <code>performance_schema</code>. Two changes brought it to 870 MB used, 31 MB swap, 1.1 GB available:</p>
+  <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>sudo tee /etc/mysql/mysql.conf.d/zz-lowmem.cnf &gt; /dev/null &lt;&lt; 'EOF'
+[mysqld]
+performance_schema = OFF
+EOF
+sudo systemctl restart mysql                    <span class="c"># mysqld 525 MB → ~300 MB RES</span>
+
+sudo systemctl disable --now php8.5-fpm         <span class="c"># nothing points at the 8.5 socket; frees its master + idle workers</span>
+free -m
+top -bo %MEM | head -14</pre></div>
+  <p>Don't lower <code>innodb_buffer_pool_size</code> below the default; 128 MB is already the floor for two small InnoDB databases. If swap creeps up again, <code>journalctl --vacuum-size=100M</code> and <code>SystemMaxUse=100M</code> in <code>/etc/systemd/journald.conf</code> is the next lever. Beyond that, it's a bigger droplet, which is the production conversation anyway.</p>
 </section>
 
 <section>
@@ -792,6 +824,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
     <li><span class="box"></span><span>Delete the readiness page. Rotate any credential that touched a chat, ticket, or screenshot.</span></li>
     <li><span class="box"></span><span>Mail is post-install: confirm the Mailgun domain shows verified with DKIM before <code>config.inc.php</code> exists.</span></li>
     <li><span class="box"></span><span>After install: <code>chmod 640 config.inc.php</code>, add the nginx denies, set <code>force_ssl</code>, decide job-runner vs cron.</span></li>
+    <li><span class="box"></span><span>Two apps on 2 GB: <code>performance_schema = OFF</code> for MySQL and disable the unused <code>php8.5-fpm</code> pool; check <code>free -m</code> for swap creep.</span></li>
     <li><span class="box"></span><span>Install the backup cron and run it once by hand before handing over the admin login.</span></li>
     <li><span class="box"></span><span>OJS 3.5.0-5 does not run on PHP 8.5. Install 8.3 from the sury PPA by hand (step J½) and point <code>fastcgi_pass</code> at it before running the installer.</span></li>
   </ul>

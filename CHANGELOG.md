@@ -5,6 +5,67 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2026-09-06
+
+### Added
+
+- **A fourth document: the preprint server.** Open Preprint Systems is now
+  installed beside OJS on the test droplet, and it raises a question the other
+  three do not answer — ICJIA now has three ways to put research on the web, so
+  what actually separates them? `ops-preprint-server.html` compares OJS, OPS and
+  the draft Research Hub 2.0 ("Copperhead") across the questions that decide the
+  matter: the unit of publication, what has to happen before something is public,
+  whether there are formal reviewers, permanent identifiers, versioning, and who
+  has to run it.
+
+  It states a verdict rather than leaving the reader to infer one, and the verdict
+  is not flattering to the new arrival. OPS overlaps the Research Hub on all four
+  of the things the Hub already does, which makes it the hardest of the three to
+  justify on its own; the place it is clearly right is the front half of a journal
+  — a working paper posted, dated, versioned and citable while it waits for
+  review. That makes OPS contingent on the quarterly rather than a separate
+  decision, and the document says so.
+
+  Claims about how OPS behaves are taken from PKP's own documentation, not
+  inferred from OJS: one workflow stage rather than four, moderation rather than
+  review, no issues, versions that stay citable, and metadata that labels every
+  item a preprint permanently — which is the specific reason it cannot stand in
+  for the Hub.
+
+### Changed
+
+- **The three existing documents are updated to 6 September 2026.** The droplet
+  runbook gains the second-site procedure for OPS (separate database, the nginx
+  block copied from OJS, its own files directory) and the memory tuning two
+  applications on one 2 GB box turned out to need — `performance_schema = OFF`
+  and disabling the unused PHP 8.5 pool, together worth 267 MB of swap. Its
+  Mailgun section moves to the OJS 3.5 form: `default = smtp` replaces
+  `smtp = On`, and `force_dmarc_compliant_from` is added with the reason it is
+  needed, which is that staff mail is `@illinois.gov` and Mailgun cannot sign for
+  it. The proof of concept moves step 6 from planned to ready to start.
+
+- **The banner reflects four documents**, and its reading times are re-derived
+  from the documents rather than left at the figures they had when it was drawn —
+  the proof of concept had grown from 9 minutes to 21.
+
+### Fixed
+
+- **The portal-page test asserted on HTML escaping rather than on rendering.** It
+  compared each card's question against the built HTML literally, so any question
+  containing an apostrophe or an ampersand failed — Astro escapes what it
+  interpolates. The comparison now decodes first. Verified both ways: the guard
+  still fails when a card genuinely stops rendering, and the raw page does not
+  contain the unescaped form.
+
+### Security
+
+- **Two address-shaped strings added to the publication allowlist**, which refuses
+  anything it does not recognise. `admin@icjia.cloud` is the envelope sender both
+  applications send as; `editor@illinois.gov` is not an address at all but the
+  illustrative `From:` header in the runbook's explanation of DMARC alignment, and
+  belongs to nobody. `postmaster@icjia.cloud` is dropped — the runbook now
+  explicitly leaves that mailbox alone, because another mailer uses it.
+
 ## [1.10.0] - 2026-09-05
 
 ### Added
