@@ -11,7 +11,7 @@
   :root{
     --ink:#14202e; --ink-2:#1b2a3c; --ink-3:#0f1822; --rule:#2e4056;
     --paper:#efe8da; --paper-dim:#a8b2be;
-    --pencil:#f08a72; --pencil-soft:rgba(232,115,90,.16);
+    --pencil:#e8735a; --pencil-soft:rgba(232,115,90,.16);
     --done:#7fc49b; --done-soft:rgba(127,196,155,.14);
     --warn:#e9c46a; --warn-soft:rgba(233,196,106,.14);
   }
@@ -26,15 +26,11 @@
   p{margin:0 0 1em;max-width:66ch}
   .lede{font-size:clamp(20px,2.3vw,25px);line-height:1.42;max-width:44ch}
   .muted{color:var(--paper-dim)}
-  code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--ink-3);padding:2px 7px;border-radius:6px;border:1px solid var(--rule);overflow-wrap:anywhere}
+  code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--ink-3);padding:2px 7px;border-radius:6px;border:1px solid var(--rule)}
   section{margin-top:96px}
   a{color:var(--pencil)}
 
   /* meta strip */
-    /* last-updated stamp */
-  .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
-  .updated .lab{font-size:15px;color:var(--paper-dim)}
-  .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
   .meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:40px 0 0}
   .meta div{padding:22px 20px 22px 0;font-size:15px;color:var(--paper-dim)}
   .meta div + div{padding-left:20px;border-left:1px solid var(--rule)}
@@ -86,11 +82,8 @@
   @media (max-width:820px){.two{grid-template-columns:1fr}.map td:first-child{white-space:normal}}
 
   /* framing note */
-  /* inline caution inside a step */
-  .note{margin:14px 0;padding:12px 16px;border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:0 10px 10px 0;font-size:16px;color:var(--paper);max-width:none}
-  .note code{background:var(--ink-3)}
   .frame{margin-top:36px;padding:28px 32px;border-radius:16px;border:1px solid var(--pencil);background:var(--pencil-soft)}
-  .frame h2{font-size:22px;font-weight:700;color:var(--pencil);margin-bottom:10px;line-height:1.2}
+  .frame h3{font-size:22px;font-weight:700;color:var(--pencil);margin-bottom:10px}
   .frame p{font-size:17px;margin:0 0 .8em;max-width:none}
   .frame p:last-child{margin:0}
   .frame b{color:var(--paper);font-weight:600}
@@ -122,7 +115,7 @@
     h3{font-size:21px}
     .lede{font-size:18px}
     .frame,.cause,.two > div{padding:18px 16px}
-    .frame h2{font-size:19px}
+    .frame h3{font-size:19px}
     .step{padding:24px 0;gap:6px}
     .step .n{font-size:36px}
     .step p,.step .look,.step .heads{font-size:15px}
@@ -135,7 +128,7 @@
     footer{font-size:13px}
   }
   @media print{
-    :root{--ink:#fff;--ink-2:#f4f4f4;--ink-3:#f4f4f4;--rule:#ccc;--paper:#111;--paper-dim:#555;--pencil:#a83d27;--pencil-soft:#fbe4de;--done-soft:#e3f3ea;--warn-soft:#fbf3dc}
+    :root{--ink:#fff;--ink-2:#f4f4f4;--ink-3:#f4f4f4;--rule:#ccc;--paper:#111;--paper-dim:#555;--pencil-soft:#fbe4de;--done-soft:#e3f3ea;--warn-soft:#fbf3dc}
     html,body{background:#fff}.page{padding:0;max-width:none}
     .code button{display:none}.step{break-inside:avoid}section{margin-top:48px}
   }
@@ -146,18 +139,15 @@
 
 <header>
   <h1>Installing OJS on a newly provisioned DigitalOcean droplet via Laravel Forge</h1>
-  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, hardening, and backups.</p>
-  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-04">4 September 2026</time></p>
+  <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, hardening, backups, and adding OPS as a second site.</p>
   <div class="meta">
     <div><b>Ubuntu 26.04</b>DigitalOcean, 2 GB / 2 vCPU</div>
     <div><b>Forge-provisioned</b>nginx mainline, PHP 8.5, MySQL 8.4</div>
     <div><b>Symptom</b>Port 80 closed; CPU at 40% idle</div>
-    <div><b>Worked</b>3–4 Sep 2026</div>
+    <div><b>Worked</b>3–6 Sep 2026</div>
   </div>
   <div class="frame">
-    <h2>Read this first: why the early steps exist</h2>
-    <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
-    <p><b>Worked through 3&ndash;4 September 2026</b> on the OJS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
+    <h3>Read this first: why the early steps exist</h3>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -194,46 +184,6 @@
 </section>
 
 <section>
-  <h2>Getting on the box: SSH access</h2>
-
-  <p><b>You only need SSH if you need the server itself</b> &mdash; the operating system, nginx, PHP, MySQL, or the files on disk. <b>Everything about running the journal is done in the OJS browser admin</b>: users and roles, sections, the review workflow, email templates, appearance, plugins. If the thing you are trying to change has a settings screen, it does not need a shell, and opening one is the wrong move.</p>
-
-  <p>In practice the shell is for the work in this runbook and little else: installing or upgrading OJS, changing PHP or nginx limits, editing <code>config.inc.php</code>, reading server logs, and restoring from backup. <b>Managers and journal administrators are not given shell access</b> and do not need it &mdash; the handoff section near the end of this page is the whole job in a browser.</p>
-
-  <p>There is no password login. The server accepts <b>OpenSSH public keys only</b>, and a key has to be <b>added to the box by hand</b> &mdash; there is no self-service enrolment, and Forge will not do it for you on a server that already exists. <b>Contact IDS to request access</b>, and send the public half of your key.</p>
-
-  <p><b>Access is granted on a need-to-access basis only.</b> A ticket asking for the shell should say what you need to do on the server that cannot be done in the browser. If the task turns out to be a settings screen, IDS will point you at it rather than issue a key &mdash; fewer keys on the box is the point, not an obstacle.</p>
-
-  <div class="step">
-    <div class="n">1</div>
-    <div>
-      <h3>Send IDS a public key</h3>
-      <p>Ed25519, passphrase-protected. Send the <code>.pub</code> half and nothing else; if a private key is ever exposed, say so and rotate rather than hoping.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>ssh-keygen -t ed25519 -C "yourname@icjia" -f ~/.ssh/id_ed25519_ojs
-cat ~/.ssh/id_ed25519_ojs.pub</pre></div>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">2</div>
-    <div>
-      <h3>Wait for it to be installed</h3>
-      <p>Raise a Freshservice ticket and paste the public key into it. IDS appends it to <code>authorized_keys</code> for the <code>forge</code> user by hand; there is no enrolment endpoint and Forge will not do it on an existing server. Until someone does that, the key does nothing and your connection is refused.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">3</div>
-    <div>
-      <h3>Connect</h3>
-      <p>The login user is <code>forge</code>, not <code>root</code>; it owns the web root everything below refers to.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>ssh -i ~/.ssh/id_ed25519_ojs forge@ojs.icjia.cloud</pre></div>
-      <p><code>Permission denied (publickey)</code> here almost always means the key is not on the box yet rather than anything wrong with your client &mdash; check with IDS before debugging locally. <b>When someone leaves the project, tell IDS so their key can be removed.</b> Keys outlive involvement unless somebody takes them out.</p>
-    </div>
-  </div>
-</section>
-
-<section>
   <h2>What was actually wrong</h2>
   <div class="causes">
     <div class="cause">
@@ -264,7 +214,7 @@ cat ~/.ssh/id_ed25519_ojs.pub</pre></div>
     <div>
       <h3>Confirm it's mta-sts-daemon, then remove it</h3>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>top -bn1 | head -12                        <span class="c"># look for mta-sts-daemon near the top, with low TIME+ but high %CPU</span></pre></div>
-      <p><code>postfix-mta-sts-resolver</code> exists only to hand MTA-STS policies to a <b>local Postfix sending mail</b>. Its default sqlite cache backend spins in a tight timeout loop in python-aiosqlite (Ubuntu bug open since 2023). OJS sends through Mailgun over SMTP, so local Postfix isn't in the picture and the daemon is dead weight.</p>
+      <p><code>postfix-mta-sts-resolver</code> exists only to hand MTA-STS policies to a <b>local Postfix sending mail</b>. Its default sqlite cache backend spins in a tight timeout loop in python-aiosqlite (Ubuntu bug open since 2023). OJS will send through Mailgun over SMTP, so local Postfix isn't in the picture and the daemon is dead weight.</p>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>sudo apt purge postfix-mta-sts-resolver
 sudo apt autoremove                        <span class="c"># drops the orphaned python3-aio* libs it pulled in</span>
 top -bn1 | head -5                         <span class="c"># idle should climb past 95% within a minute</span></pre></div>
@@ -324,8 +274,8 @@ sudo systemctl status nginx --no-pager | head -5</pre></div>
     <div>
       <h3>Disable the broken Brotli module, start nginx, pin the version</h3>
       <p>Brotli is optional compression; gzip still works. Rebuilding the module against the new nginx is possible but breaks again on the next upgrade.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>grep -n brotli /etc/nginx/nginx.conf          <span class="c"># expect two load_module lines; the sed below matches them, not their numbers</span>
-sudo sed -i '/^[[:space:]]*load_module.*brotli/s|^|# |' /etc/nginx/nginx.conf
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>grep -n brotli /etc/nginx/nginx.conf          <span class="c"># usually lines 6–7, both load_module</span>
+sudo sed -i '6,7s|^|# |' /etc/nginx/nginx.conf
 sudo nginx -t
 sudo systemctl start nginx
 sudo systemctl enable nginx
@@ -344,7 +294,7 @@ cd nginx-1.31.5
 sudo ./configure --with-compat --add-dynamic-module=../ngx_brotli
 sudo make modules
 sudo cp objs/ngx_http_brotli_*_module.so /etc/nginx/modules/
-sudo sed -i '/^# *load_module.*brotli/s|^# ||' /etc/nginx/nginx.conf   <span class="c"># un-comment the two load_module lines</span>
+sudo sed -i '6,7s|^# ||' /etc/nginx/nginx.conf   <span class="c"># un-comment the two load_module lines</span>
 sudo nginx -t &amp;&amp; sudo systemctl reload nginx</pre></div>
       <p>The catch is durability: this <code>.so</code> is again tied to 1.31.5, so the next nginx package upgrade re-breaks it unless nginx stays on hold. Forge's own approach on a fresh provision is exactly this build, which is why the hold matters either way.</p>
     </div>
@@ -377,29 +327,9 @@ grep -n Unattended-Upgrade /etc/apt/apt.conf.d/50unattended-upgrades | head</pre
   </div>
 
   <div class="step">
-    <div class="n">C½</div>
-    <div>
-      <h3>Match PHP to what OJS supports &mdash; before you run the installer</h3>
-      <p><b>Do this before unpacking the tarball.</b> Forge provisions the newest PHP its Ubuntu release offers, which is routinely newer than the PHP any OJS release was tested against, and the installer fails in a way that does not name the cause. On this box it was <code>Fatal error: Smarty Compiler: Syntax error in template "app:installinstall.tpl" … unknown tag 'translate'</code>. That tag is registered in <code>PKPTemplateManager::initialize()</code>; seeing it unregistered means initialization aborted earlier, and on PHP 8.5 (newer than anything OJS 3.5.0-5 was tested on) that's a version incompatibility in the vendored Smarty/Laravel components. Fix: run the site on <b>PHP 8.3</b>: inside 3.5's support window, security-supported through end of 2027. Not 8.1 — it's EOL.</p>
-      <p>Forge only offered 8.5 for this Ubuntu release, but the sury PPA it provisioned from carries 8.3, so install it manually, mirroring the 8.5 extension set Forge chose:</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>apt-cache policy php8.3-fpm | head -3
-sudo apt install -y $(dpkg -l | awk '/^ii  php8\.5/ {print $2}' | sed 's/8\.5/8.3/')
-<span class="c"># Forge's pool runs FPM as forge, stock pool runs as www-data; copy Forge's:</span>
-sudo cp /etc/php/8.5/fpm/pool.d/www.conf /etc/php/8.3/fpm/pool.d/www.conf
-sudo sed -i 's/php8\.5-fpm\.sock/php8.3-fpm.sock/' /etc/php/8.3/fpm/pool.d/www.conf
-sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 64M/; s/^post_max_size = .*/post_max_size = 64M/; s/^max_execution_time = .*/max_execution_time = 300/' /etc/php/8.3/fpm/php.ini
-sudo systemctl enable --now php8.3-fpm &amp;&amp; sudo systemctl restart php8.3-fpm
-ls -l /var/run/php/php8.3-fpm.sock</pre></div>
-      <p>Then change <code>fastcgi_pass</code> in the site's PHP location to <code>unix:/var/run/php/php8.3-fpm.sock</code>, <code>sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code>, clear <code>cache/t_compile/*</code> and <code>cache/t_cache/*</code>, reload the installer.</p>
-      <div class="heads"><b>Forge doesn't know 8.3 exists.</b> Its site settings will still say 8.5, and if anyone changes the site's PHP version in the Forge UI it will rewrite <code>fastcgi_pass</code> back to the 8.5 socket. Fine on dev; worth a comment in the nginx file so the next person understands why the socket doesn't match the dashboard.</div>
-    </div>
-  </div>
-
-  <div class="step">
     <div class="n">D</div>
     <div>
       <h3>Raise PHP upload and timeout limits</h3>
-      <p class="note">Do this for the PHP version you settled on in C½. The paths below say 8.5; if you switched to 8.3, use <code>/etc/php/8.3/</code> throughout.</p>
       <p>Defaults were <code>upload_max_filesize = 2M</code>, <code>post_max_size = 8M</code>, <code>max_execution_time = 30</code>. Editing through Forge's UI did not land in <code>php.ini</code>; editing the file directly did.</p>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>grep -n '^upload_max_filesize\|^post_max_size\|^max_execution_time' /etc/php/8.5/fpm/php.ini
 sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 64M/' /etc/php/8.5/fpm/php.ini
@@ -513,9 +443,26 @@ curl -sI https://ojs.icjia.cloud/config.inc.php | head -1    <span class="c"># m
     </div>
   </div>
 
-  <p class="note"><b>If you skipped step C½ and ran the installer on the newest PHP</b>, this is the error: <code>Smarty Compiler: Syntax error in template "app:installinstall.tpl" … unknown tag 'translate'</code>. The tag is registered in <code>PKPTemplateManager::initialize()</code>, so seeing it unregistered means initialization aborted earlier &mdash; the real fault is above it in the log. Go back to C½, switch PHP, clear <code>cache/t_compile/*</code> and <code>cache/t_cache/*</code>, then drop and recreate the database before rerunning.</p>
+  <div class="step">
+    <div class="n">J½</div>
+    <div>
+      <h3>PHP 8.5 broke the installer; install 8.3 by hand</h3>
+      <p>Symptom: <code>Fatal error: Smarty Compiler: Syntax error in template "app:installinstall.tpl" … unknown tag 'translate'</code>. That tag is registered in <code>PKPTemplateManager::initialize()</code>; seeing it unregistered means initialization aborted earlier, and on PHP 8.5 (newer than anything OJS 3.5.0-5 was tested on) that's a version incompatibility in the vendored Smarty/Laravel components. Fix: run the site on <b>PHP 8.3</b>: inside 3.5's support window, security-supported through end of 2027. Not 8.1 — it's EOL.</p>
+      <p>Forge only offered 8.5 for this Ubuntu release, but the sury PPA it provisioned from carries 8.3, so install it manually, mirroring the 8.5 extension set Forge chose:</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>apt-cache policy php8.3-fpm | head -3
+sudo apt install -y $(dpkg -l | awk '/^ii  php8\.5/ {print $2}' | sed 's/8\.5/8.3/')
+<span class="c"># Forge's pool runs FPM as forge, stock pool runs as www-data; copy Forge's:</span>
+sudo cp /etc/php/8.5/fpm/pool.d/www.conf /etc/php/8.3/fpm/pool.d/www.conf
+sudo sed -i 's/php8\.5-fpm\.sock/php8.3-fpm.sock/' /etc/php/8.3/fpm/pool.d/www.conf
+sudo sed -i 's/^upload_max_filesize = .*/upload_max_filesize = 64M/; s/^post_max_size = .*/post_max_size = 64M/; s/^max_execution_time = .*/max_execution_time = 300/' /etc/php/8.3/fpm/php.ini
+sudo systemctl enable --now php8.3-fpm &amp;&amp; sudo systemctl restart php8.3-fpm
+ls -l /var/run/php/php8.3-fpm.sock</pre></div>
+      <p>Then change <code>fastcgi_pass</code> in the site's PHP location to <code>unix:/var/run/php/php8.3-fpm.sock</code>, <code>sudo nginx -t &amp;&amp; sudo systemctl reload nginx</code>, clear <code>cache/t_compile/*</code> and <code>cache/t_cache/*</code>, reload the installer.</p>
+      <div class="heads"><b>Forge doesn't know 8.3 exists.</b> Its site settings will still say 8.5, and if anyone changes the site's PHP version in the Forge UI it will rewrite <code>fastcgi_pass</code> back to the 8.5 socket. Fine on dev; worth a comment in the nginx file so the next person understands why the socket doesn't match the dashboard.</div>
+    </div>
+  </div>
 
-<div class="step">
+  <div class="step">
     <div class="n">K</div>
     <div>
       <h3>Post-install config.inc.php settings</h3>
@@ -543,7 +490,7 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
       <p>If routes collapse to the home page, widen the PHP location to match path-info URLs and pass <code>PATH_INFO</code> explicitly; the only edits to Forge's block are the first line and the two trailing <code>fastcgi_param</code>s:</p>
       <div class="code"><div class="bar"><span>nginx — replaces the location ~ \.php$ block</span><button>Copy</button></div><pre>location ~ \.php(/|$) {
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;   <span class="c"># 8.3, not the 8.5 Forge still shows in its UI</span>
+    fastcgi_pass unix:/var/run/php/php8.5-fpm.sock;
     fastcgi_index index.php;
     include fastcgi_params;
     include forge_fastcgi_defaults;
@@ -559,13 +506,12 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
 <section>
   <h2>Post-install: outgoing mail via Mailgun</h2>
   <p>The OJS installer never asks about email. Mail is configured <b>after</b> install by editing <code>config.inc.php</code> in the OJS root. No restart needed; PHP reads the file on each request. There is no UI for these settings.</p>
-  <p class="note"><b>Done on this box.</b> Outgoing mail is configured and sending as of 4 September 2026. The steps below are what to repeat on the next server; the values in them are the ones this one uses.</p>
 
   <div class="step">
     <div class="n">F</div>
     <div>
       <h3>Set up the sending domain in Mailgun first</h3>
-      <p>On this project the <b>root domain</b> <code>icjia.cloud</code> was already set up in Mailgun (MX → <code>mxa</code>/<code>mxb.mailgun.org</code>, SPF at <code>@</code>). Before relying on it, open Sending → Domains in Mailgun and confirm it shows <b>verified</b> with a green check on the <b>DKIM</b> record (a TXT at <code>&lt;selector&gt;._domainkey.icjia.cloud</code>); SPF alone gets mail sent but not trusted. Then under the domain's settings create or copy an <b>SMTP credential</b>: the login is <code>postmaster@icjia.cloud</code> and the password is specific to SMTP. It is <b>not</b> the API key.</p>
+      <p>On this project the <b>root domain</b> <code>icjia.cloud</code> was already set up in Mailgun (MX → <code>mxa</code>/<code>mxb.mailgun.org</code>, SPF at <code>@</code>). Before relying on it, open Sending → Domains in Mailgun and confirm it shows <b>verified</b> with a green check on the <b>DKIM</b> record (a TXT at <code>&lt;selector&gt;._domainkey.icjia.cloud</code>); SPF alone gets mail sent but not trusted. Then on the domain's <b>SMTP Credentials</b> tab, <b>Add new SMTP user</b> and create a dedicated login for OJS (<code>ojs@icjia.cloud</code>). Don't reset <code>postmaster@</code>: another mailer uses it. The password is shown once; it is <b>not</b> the API key. The envelope sender stays <code>admin@icjia.cloud</code> because that address already has an inbound Route; the SMTP login and the envelope sender are independent, and any address on the verified domain works for either.</p>
       <div class="heads"><b>Inbound consequence:</b> with MX at the root pointing to Mailgun, replies to <code>ojs@icjia.cloud</code> land in Mailgun's receiving side and vanish unless a <b>Route</b> (Receiving → Routes) forwards them to a real mailbox. Fine for one-way system mail; add the Route if editors should be able to reply.</div>
       <div class="heads"><b>Free/sandbox tier</b> only delivers to addresses you pre-authorize. A verified custom domain (paid plan) is needed for real testing with colleagues.</div>
     </div>
@@ -577,17 +523,19 @@ curl -sI https://ojs.icjia.cloud/cache/fc-locale-en.php | head -1 <span class="c
       <h3>Edit config.inc.php after the installer finishes</h3>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>nano ~/ojs.icjia.cloud/config.inc.php     <span class="c"># find the [email] section</span></pre></div>
       <div class="code"><div class="bar"><span>ini — config.inc.php [email]</span><button>Copy</button></div><pre>[email]
-smtp = On
+default = smtp                 <span class="c">; 3.4+ selects the transport here; the old "smtp = On" is gone</span>
 smtp_server = smtp.mailgun.org
 smtp_port = 587
 smtp_auth = tls
-smtp_username = postmaster@icjia.cloud
-smtp_password = "the-mailgun-SMTP-password"
+smtp_username = ojs@icjia.cloud
+smtp_password = "the-ojs-SMTP-credential-password"
 smtp_suppress_cert_check = Off
 
-default_envelope_sender = ojs@icjia.cloud
-force_default_envelope_sender = On</pre></div>
-      <p><b>Port 587 pairs with <code>tls</code></b>; port 465 pairs with <code>ssl</code>. Mailgun accepts both. <code>force_default_envelope_sender = On</code> keeps the envelope sender on the verified domain even when OJS sends "on behalf of" an editor with an unrelated address, which is what keeps SPF/DKIM aligned.</p>
+allow_envelope_sender = On     <span class="c">; gate: without this the two lines below are ignored</span>
+default_envelope_sender = admin@icjia.cloud
+force_default_envelope_sender = On
+force_dmarc_compliant_from = On <span class="c">; rewrite From to the envelope sender, editor's address → Reply-To. Needed because staff mail is @illinois.gov, which Mailgun can't sign for</span></pre></div>
+      <p><b>Port 587 pairs with <code>tls</code></b>; port 465 pairs with <code>ssl</code>. Mailgun accepts both. <code>force_default_envelope_sender = On</code> keeps the envelope sender on the verified domain even when OJS sends "on behalf of" an editor with an unrelated address, which is what keeps SPF aligned. <code>force_dmarc_compliant_from = On</code> does the same for the visible From header: without it, a review invitation goes out "From: editor@illinois.gov" via Mailgun, fails illinois.gov's DMARC, and gets junked or rejected, including by DoIT's own gateway. With it, From is <code>admin@icjia.cloud</code> and the editor lands in Reply-To. Both settings are gated behind <code>allow_envelope_sender = On</code>.</p>
       <div class="heads"><b>Protect the file:</b> it now holds DB and SMTP passwords. <code>chmod 640</code> it and confirm the explicit nginx deny from step K is in place (<code>curl -sI https://ojs.icjia.cloud/config.inc.php</code> → 403). Nginx never executes <code>.htaccess</code>, so OJS's shipped Apache rules are inert here.</div>
     </div>
   </div>
@@ -605,13 +553,113 @@ force_default_envelope_sender = On</pre></div>
 </section>
 
 <section>
-  <h2>Handoff</h2>
-  <p>Once the installer finishes and mail is working, the rest belongs to the journal administrator in R&amp;A and happens entirely in a browser. Hand over the admin username and password, and point them at <b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal</a></b> &mdash; first login, creating the journal, roles, users, backup administrator, and an end-to-end test submission. Do not walk them through it here; that guide is the single copy and it is kept current.</p>
-  <p>Two things stay with IDS. If the <b>Site Administrator</b> role is not offered in the user form when they create a backup admin, it has to be granted directly in the database:</p>
-  <div class="code"><div class="bar"><span>sql &mdash; run by IDS, not the administrator</span><button>Copy</button></div><pre>SELECT user_id, username FROM users;
+  <h2>Handoff: getting started as the OJS administrator</h2>
+  <p>This part is for the R&amp;A person taking over. IDS installed the software and entered the database details; <b>everything from here is done in the browser</b>, no server access needed. The admin account created during install is yours. Work top to bottom.</p>
+
+  <div class="step">
+    <div class="n">1</div>
+    <div>
+      <h3>Log in and secure the admin account</h3>
+      <p>Go to <code>https://ojs.icjia.cloud</code> and sign in with the admin username and password IDS gave you. First thing: top-right menu → <b>Edit Profile → Password</b> and set your own. Then <b>Profile → Contact</b> and make sure the email is one you actually read; OJS sends notifications there.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">2</div>
+    <div>
+      <h3>Create the journal</h3>
+      <p>A fresh OJS site has no journals. <b>Administration → Hosted Journals → Create Journal.</b> Give it a title, a short path (this becomes part of every URL, e.g. <code>/index.php/icjia-research</code>, so keep it short and don't change it later), and choose the language. That's enough to start; everything else is editable.</p>
+      <p>Once it exists, OJS drops you into the journal's <b>Settings wizard</b> (Settings → Journal). Fill in <b>Masthead</b> (title, ISSN if any, description), <b>Contact</b> (a principal contact and a technical contact — put IDS as technical), and skip the rest for now.</p>
+      <div class="heads"><b>Leave off for the test:</b> Settings → Distribution → DOIs, and any "Indexing" or "Search engine" options. See the DOI section of the companion one-pager for why. Nothing on this server is meant to be permanent.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">3</div>
+    <div>
+      <h3>Understand the roles before adding people</h3>
+      <table class="map">
+        <tr><th>Role</th><th>What they can do</th><th>Who gets it</th></tr>
+        <tr><td>Site Administrator</td><td>Everything, on every journal, plus site settings and hosted-journal creation.</td><td>You, and one backup (see step 5).</td></tr>
+        <tr><td>Journal Manager</td><td>All settings, users, and workflow for one journal. Can't create journals.</td><td>The person who runs the journal day to day. Often the same as you.</td></tr>
+        <tr><td>Editor</td><td>Sees every submission; assigns reviewers; makes decisions.</td><td>Editor-in-chief or managing editor.</td></tr>
+        <tr><td>Section Editor</td><td>Same as Editor, but only for submissions assigned to them.</td><td>Associate editors, topic leads.</td></tr>
+        <tr><td>Reviewer</td><td>Sees only submissions they're invited to review.</td><td>Anyone who reviews. Can be created on the fly when inviting.</td></tr>
+        <tr><td>Author</td><td>Submits and tracks their own manuscripts.</td><td>Anyone who registers. Self-registration can be turned off.</td></tr>
+        <tr><td>Reader</td><td>Gets issue-published notifications. No editorial access.</td><td>Subscribers to announcements.</td></tr>
+      </table>
+      <p>A person can hold several roles. For a small shop, one person as Manager + Editor and a few Reviewers is a complete journal.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">4</div>
+    <div>
+      <h3>Add normal users</h3>
+      <p>From inside the journal: <b>Users &amp; Roles → Users → Add User.</b> Fill in name, username, email, and a temporary password; tick <b>"Send the user a welcome email"</b> so they get login details (this also proves Mailgun is working). Assign roles on the same form. Users can also self-register at the site's Register link; each journal's Settings → Users &amp; Roles → Site Access controls whether that's allowed and which roles registrants may pick.</p>
+      <p>To change someone's roles later: same screen, click their name → <b>Edit User</b>, adjust the role checkboxes.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">5</div>
+    <div>
+      <h3>Create a second site administrator</h3>
+      <p>One admin account with a forgotten password is the most common OJS support request. Make a backup admin now, and give IDS the username.</p>
+      <p>Create the user as in step 4 (or at <b>Administration → Users</b> if your version shows it). Then edit the user and look for <b>Site Administrator</b> in the roles list. If it's there, tick it — done. If the list only shows journal roles, the role must be granted in the database; send this to IDS and they'll run it:</p>
+      <div class="code"><div class="bar"><span>sql — run by IDS, not the admin</span><button>Copy</button></div><pre>SELECT user_id, username FROM users;
 SELECT user_group_id FROM user_groups WHERE context_id = 0 AND role_id = 1;
 INSERT INTO user_user_groups (user_id, user_group_id) VALUES (&lt;user_id&gt;, &lt;user_group_id&gt;);</pre></div>
-  <p>The new administrator logs out and back in to see the <code>Administration</code> menu. And before handing anything over, run the backup script once by hand and confirm it produced files &mdash; a handover without a working backup is a handover of risk.</p>
+      <p>The new admin logs out and back in and sees the Administration menu.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">6</div>
+    <div>
+      <h3>Run one submission all the way through</h3>
+      <p>This is the actual test. Make a second account for yourself as an Author (a different email), submit a fake article, then switch back to your editor account and: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build the issue, and publish it. Every step generates emails; watch them arrive.</p>
+      <p>By the end you'll know whether the workflow fits how R&amp;A actually works, and that's the question this whole exercise exists to answer.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">7</div>
+    <div>
+      <h3>When something breaks</h3>
+      <p>Two places to look before calling IDS: <b>Administration → Administrative Functions → System Information</b> shows versions and settings, and the <b>PKP community forum</b> at forum.pkp.sfu.ca has nearly every question already answered. For server-side problems (site down, emails not sending at all, uploads rejected) it's an IDS issue; for "how do I make OJS do X" it's usually a setting.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Adding OPS as a second site (same box, same MySQL)</h2>
+  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta.</p>
+  <table class="map">
+    <tr><th>Step</th><th>What</th><th>Note</th></tr>
+    <tr><td>DNS + Forge site</td><td>A record for <code>ops.icjia.cloud</code>; Forge → New Site, web dir <code>/</code>; Let's Encrypt</td><td>Same as OJS; Forge assigns a new site ID (3368831 here)</td></tr>
+    <tr><td>nginx, before anything else</td><td>Apply all five OJS edits to the fresh site file: <code>\.php(/|$)</code> + <code>PATH_INFO</code>/<code>SCRIPT_FILENAME</code>, 8.3 socket, <code>fastcgi_read_timeout 600</code>, <code>client_max_body_size 64M</code>, the two <code>deny</code> locations</td><td>Fastest: copy the block from the OJS site file, fix the site ID in <code>error_log</code>/<code>include</code></td></tr>
+    <tr><td>PHP / FPM</td><td>Nothing</td><td>The 8.3 pool and ini limits are server-wide; the site inherits them via <code>fastcgi_pass</code></td></tr>
+    <tr><td>Database</td><td><code>CREATE DATABASE ops CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></td><td><b>Separate database</b>, same server. OJS and OPS use overlapping table names; sharing one DB would corrupt both</td></tr>
+    <tr><td>Tarball</td><td>Download on the Mac, <code>scp</code> to <code>/home/forge/ops.icjia.cloud/</code>, <code>tar -xzf … --strip-components=1</code></td><td>PKP's front end still refuses the droplet; don't rediscover it</td></tr>
+    <tr><td>Files dir</td><td><code>mkdir -p /home/forge/ops-files</code></td><td>Its own, outside the web root</td></tr>
+    <tr><td>Installer</td><td>Same form; database <code>ops</code>; files dir <code>/home/forge/ops-files</code></td><td>Finished first try on the success page. Verify: <code>SELECT product,major,minor,revision,build FROM versions WHERE product_type='core'</code> → <code>ops 3 5 0 5</code></td></tr>
+    <tr><td>Mail</td><td>Same eleven-line <code>[email]</code> block</td><td>Reuse the <code>ojs@icjia.cloud</code> SMTP login or add <code>ops@</code> in Mailgun for independent revocation; envelope sender stays <code>admin@</code></td></tr>
+    <tr><td>Users</td><td>Separate user tables</td><td>The R&amp;A admin needs a login on each app; decide up front whether the same person owns both</td></tr>
+  </table>
+
+  <h3 style="margin-top:32px">Memory with two apps on 2 GB</h3>
+  <p>After the second install: 952 MB used, <b>267 MB in swap</b> at idle. MySQL was resident at ~525 MB with <code>innodb_buffer_pool_size</code> already at the 128 MB default; the bulk was <code>performance_schema</code>. Two changes brought it to 870 MB used, 31 MB swap, 1.1 GB available:</p>
+  <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>sudo tee /etc/mysql/mysql.conf.d/zz-lowmem.cnf &gt; /dev/null &lt;&lt; 'EOF'
+[mysqld]
+performance_schema = OFF
+EOF
+sudo systemctl restart mysql                    <span class="c"># mysqld 525 MB → ~300 MB RES</span>
+
+sudo systemctl disable --now php8.5-fpm         <span class="c"># nothing points at the 8.5 socket; frees its master + idle workers</span>
+free -m
+top -bo %MEM | head -14</pre></div>
+  <p>Don't lower <code>innodb_buffer_pool_size</code> below the default; 128 MB is already the floor for two small InnoDB databases. If swap creeps up again, <code>journalctl --vacuum-size=100M</code> and <code>SystemMaxUse=100M</code> in <code>/etc/systemd/journald.conf</code> is the next lever. Beyond that, it's a bigger droplet, which is the production conversation anyway.</p>
 </section>
 
 <section>
@@ -676,111 +724,6 @@ printf '[client]\nuser=forge\npassword=YOUR_DB_PASSWORD\n' &gt; ~/.my.cnf &amp;&
 </section>
 
 <section>
-  <h2>Upgrading OJS</h2>
-  <p>The next real task after install, and the one most likely to be done by someone who did not do the install. Run the upgrade <b>from the command line</b>, not the browser: the CLI is not behind nginx or PHP-FPM, so none of the three timeouts that broke the install apply to it. That single choice removes errors 8 and 9 from the table above.</p>
-
-  <div class="step">
-    <div class="n">U1</div>
-    <div>
-      <h3>Back up first, and prove the backup exists</h3>
-      <p>Not the weekly droplet image &mdash; an application-level backup you can restore selectively. Run the script from the backups section and look at what it produced before going further.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>/usr/local/bin/ojs-backup
-ls -lh /home/forge/backups | tail -3</pre></div>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">U2</div>
-    <div>
-      <h3>Read the release notes for the version you are moving to</h3>
-      <p>Check the new release&rsquo;s <code>docs/README.md</code> and its PHP requirement before anything else. The PHP trap from step C½ recurs on every upgrade: a release can drop support for the version you are running, or still not support the newest one installed.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>php -v                                        <span class="c"># what the CLI will run the upgrade with</span>
-php -r 'echo PHP_VERSION, "\n";'</pre></div>
-      <p class="note">The CLI PHP and the web PHP are different binaries and can be different versions. If the site runs on 8.3 via <code>fastcgi_pass</code>, run the upgrade with <code>php8.3</code> explicitly, or you will upgrade the database using one version and serve it with another.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">U3</div>
-    <div>
-      <h3>Take the site offline, unpack alongside, and keep your state</h3>
-      <p>OJS has no maintenance mode. Return a 503 from nginx so nobody submits into a half-upgraded database.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>cd /home/forge
-wget https://pkp.sfu.ca/ojs/download/ojs-&lt;new-version&gt;.tar.gz
-tar -xzf ojs-&lt;new-version&gt;.tar.gz            <span class="c"># unpacks to ojs-&lt;new-version&gt;/</span>
-cp ojs.icjia.cloud/config.inc.php ojs-&lt;new-version&gt;/config.inc.php
-cp -r ojs.icjia.cloud/public/. ojs-&lt;new-version&gt;/public/
-mv ojs.icjia.cloud ojs.old-$(date +%F) &amp;&amp; mv ojs-&lt;new-version&gt; ojs.icjia.cloud</pre></div>
-      <p>The files directory is outside the web root and is not touched by any of this, which is the point of putting it there. Keep <code>ojs.old-*</code> until the upgrade is verified &mdash; it is the fastest rollback there is.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">U4</div>
-    <div>
-      <h3>Run the upgrade and clear the caches</h3>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>cd /home/forge/ojs.icjia.cloud
-php8.3 tools/upgrade.php check                <span class="c"># reports the version gap without writing</span>
-php8.3 tools/upgrade.php upgrade
-rm -rf cache/t_compile/* cache/t_cache/* cache/*.php</pre></div>
-      <p>The upgrade is not idempotent. If it fails part-way, restore the database from U1 and start again rather than rerunning it over a half-migrated schema.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">U5</div>
-    <div>
-      <h3>Verify, then remove the 503</h3>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>grep -n 'installed' config.inc.php
-mysql -u forge -p -e "SELECT major,minor,revision,build FROM ojs.versions WHERE product_type='core' ORDER BY date_installed DESC LIMIT 1;"
-curl -sI https://ojs.icjia.cloud/index.php/index/login | head -1   <span class="c"># 200</span></pre></div>
-      <p>Then load a published article, an editorial queue, and the admin dashboard in a browser before declaring it done. A version row alone does not prove the front end works.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>Restoring from backup</h2>
-  <p>A backup nobody has restored is a hypothesis. Do this once now, and once a quarter after, into a scratch database so the real one is never at risk.</p>
-
-  <div class="step">
-    <div class="n">R1</div>
-    <div>
-      <h3>Rehearsal: restore into a scratch database</h3>
-      <p>Proves the dump is readable and complete without touching the live site. This is the quarterly test the manager one-pager commits IDS to.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>mysql -u forge -p -e 'CREATE DATABASE ojs_restore CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
-zcat /home/forge/backups/ojs-db-&lt;date&gt;.sql.gz | mysql -u forge -p ojs_restore
-mysql -u forge -p -e "SELECT COUNT(*) AS submissions FROM ojs_restore.submissions;"
-tar -tzf /home/forge/backups/ojs-files-&lt;date&gt;.tar.gz | head       <span class="c"># archive opens and has content</span>
-mysql -u forge -p -e 'DROP DATABASE ojs_restore;'</pre></div>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">R2</div>
-    <div>
-      <h3>Real restore, on the same box</h3>
-      <p>For &ldquo;the journal is wrecked but the machine is fine&rdquo;. Take the site offline first, as in U3.</p>
-      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>mysql -u forge -p -e 'DROP DATABASE ojs; CREATE DATABASE ojs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
-zcat /home/forge/backups/ojs-db-&lt;date&gt;.sql.gz | mysql -u forge -p ojs
-rm -rf /home/forge/ojs-files &amp;&amp; tar -xzf /home/forge/backups/ojs-files-&lt;date&gt;.tar.gz -C /home/forge
-tar -xzf /home/forge/backups/ojs-config-&lt;date&gt;.tar.gz -C /home/forge/ojs.icjia.cloud
-chmod 640 /home/forge/ojs.icjia.cloud/config.inc.php
-rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud/cache/t_cache/*</pre></div>
-      <p class="note">The database, the files directory and <code>config.inc.php</code> must come from the <b>same</b> backup run. A database expecting a galley file the archive does not contain will show broken downloads that look like a permissions fault.</p>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="n">R3</div>
-    <div>
-      <h3>Whole-machine loss</h3>
-      <p>If the droplet itself is gone, restore the weekly DigitalOcean image from the control panel (droplet &rarr; Backups &rarr; Restore), then apply the newest application backup over it with R2 &mdash; the image may be up to a week older than the nightly dumps. Afterwards re-check the two things a restored image gets wrong: that <code>nginx</code> is still held (<code>apt-mark showhold</code>), and that the site&rsquo;s certificate has not expired while the image sat idle.</p>
-    </div>
-  </div>
-</section>
-
-<section>
   <h2>Next-droplet checklist</h2>
   <ul class="check">
     <li><span class="box"></span><span><b>First thing:</b> <code>top</code>. If <code>mta-sts-daemon</code> is burning CPU, purge <code>postfix-mta-sts-resolver</code> before doing anything else.</span></li>
@@ -798,9 +741,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
 </section>
 
 <footer>
-  <p class="muted">Prepared by Chris, lead web developer, Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
-  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
-  OJS is published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+  Chris Schweda · Innovation &amp; Digital Services, ICJIA · Worked through 3–6 Sep 2026 on the OJS/OPS proof-of-concept droplet. Hostname and paths are specific to that box; everything else is general to Forge on DigitalOcean.
 </footer>
 
 </main>
