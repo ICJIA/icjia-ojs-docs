@@ -42,6 +42,13 @@
   }
   .plain b{color:var(--pencil);font-weight:600}
 
+  /* one word, two meanings — flagged before either is used in anger */
+  .wordnote{margin:26px 0 0;padding:18px 22px;border-left:3px solid var(--rule);
+            background:var(--ink-2);border-radius:0 12px 12px 0;
+            font-size:17px;line-height:1.45;color:var(--paper-dim);max-width:64ch}
+  .wordnote b{color:var(--paper);font-weight:600}
+  .wordnote .k{color:var(--pencil);font-weight:600}
+
   /* at a glance */
   .glance{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
   .glance div{padding:26px 26px 22px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
@@ -255,6 +262,11 @@
       research on OJS or OPS instead &mdash; off-the-shelf software, maintained by other people?
       And if not, is OPS worth having anyway?
     </div>
+    <p class="wordnote"><span class="k">A note on the word &ldquo;server&rdquo;.</span> It does two
+      different jobs on this page, and they are easy to confuse. A <b>preprint server</b> is a kind of
+      publication &mdash; it is to OPS what a <b>journal</b> is to OJS, and it is what the role
+      &ldquo;Preprint Server Manager&rdquo; refers to. A <b>server</b> on its own is the computer
+      everything runs on. Nothing here asks you to think about the computer.</p>
     <div class="glance">
       <div><div class="n">20<small>minutes</small></div><p><b>That is how long the second install took.</b> Same underlying software, same server &mdash; and with the OJS problems already solved, OPS hit none of them.</p></div>
       <div><div class="n">1<small>stage</small></div><p><b>The whole difference in one number.</b> OJS moves a submission through review, copyediting and production. OPS has one stage: a moderator looks at it and posts it.</p></div>

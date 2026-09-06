@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.1] - 2026-09-06
+
+### Fixed
+
+- **"Server" means two different things, and nothing said so.** In OPS a
+  *preprint server* is a kind of publication — it is to OPS what a journal is to
+  OJS, and it is what the role "Preprint Server Manager" refers to. Everywhere
+  else in these documents a server is the computer. The collision is worst
+  exactly where it will be met: the administrator guide says "You do not need a
+  server login" twelve lines from where it now sends the reader to OPS, and uses
+  the word twelve times, always meaning the machine. The preprint document is no
+  better — its own headline calls OPS a preprint server two sentences before the
+  lede mentions the test server it runs on.
+
+  Both now say which is which. The administrator guide gets a short note where
+  the OPS scope paragraph already sits, naming Preprint Server Manager as the
+  counterpart of Journal Manager and confirming that "server" in that guide
+  always means the machine. The preprint document gets the same warning in its
+  header, before either sense is used in anger.
+
 ## [1.15.0] - 2026-09-06
 
 ### Fixed
