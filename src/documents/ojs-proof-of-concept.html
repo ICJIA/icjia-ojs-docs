@@ -11,7 +11,7 @@
   :root{
     --ink:#14202e; --ink-2:#1b2a3c; --rule:#2e4056;
     --paper:#efe8da; --paper-dim:#aab4c0;
-    --pencil:#e8735a; --pencil-soft:rgba(232,115,90,.18);
+    --pencil:#f08a72; --pencil-soft:rgba(232,115,90,.18);
     --done:#7fc49b; --done-soft:rgba(127,196,155,.16);
   }
   *{box-sizing:border-box}
@@ -31,12 +31,27 @@
   section{margin-top:112px}
 
   /* in one sentence */
+    /* last-updated stamp */
+  .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
+  .updated .lab{font-size:15px;color:var(--paper-dim)}
+  .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
   .plain{
     margin-top:44px;padding:30px 34px;border-left:6px solid var(--pencil);
     background:var(--ink-2);border-radius:0 16px 16px 0;
     font-size:clamp(22px,2.4vw,28px);line-height:1.4;max-width:40ch;
   }
   .plain b{color:var(--pencil);font-weight:600}
+
+  /* tl;dr */
+  section.tldr-sec{margin-top:64px}
+  .tldr{padding:34px 38px;border-radius:20px;background:var(--ink-2);border:1px solid var(--rule)}
+  .tldr h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:4px}
+  .tldr .sub{font-size:17px;color:var(--paper-dim);margin:0 0 24px}
+  .tldr ul{margin:0;padding-left:1.15em;font-size:19px;line-height:1.45;color:var(--paper-dim);max-width:78ch}
+  .tldr li{margin-bottom:13px}
+  .tldr li::marker{color:var(--pencil);font-weight:700}
+  .tldr li b{color:var(--paper);font-weight:600}
+  .tldr .close{margin:24px 0 0;font-size:18px;color:var(--pencil);max-width:78ch}
 
   /* pipeline: what OJS does */
   .pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
@@ -49,6 +64,30 @@
   }
   .today{margin-top:34px;font-size:22px;color:var(--paper-dim);max-width:50ch}
   .today b{color:var(--paper);font-weight:500}
+
+  /* research hub comparison */
+  .hub-lede{font-size:23px;color:var(--paper-dim);max-width:70ch;margin-bottom:36px}
+  .hub-lede b{color:var(--paper);font-weight:500}
+  .same{margin-top:22px;padding:26px 30px;border-radius:16px;background:var(--ink-2);border:1px solid var(--rule)}
+  .same h3{font-size:24px;font-weight:700;margin-bottom:12px}
+  .same ul{margin:0;padding-left:1.1em;font-size:18px;color:var(--paper-dim)}
+  .same li{margin-bottom:8px}
+  .same li::marker{color:var(--pencil)}
+  .same li b{color:var(--paper);font-weight:500}
+  .same .close{font-size:19px;color:var(--paper);margin:18px 0 0;max-width:70ch}
+  .qa{margin-top:20px;padding:30px 34px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
+  .qa h3{font-size:28px;line-height:1.15;font-weight:700;margin-bottom:14px}
+  .qa .verdict{display:inline-block;font-size:15px;font-weight:700;letter-spacing:.02em;padding:7px 14px;
+               border-radius:999px;margin-bottom:18px;background:var(--pencil-soft);
+               border:1px solid var(--pencil);color:var(--pencil)}
+  .qa .verdict.yes{background:var(--done-soft);border-color:var(--done);color:var(--done)}
+  .qa p{font-size:18px;color:var(--paper-dim);margin:0 0 .9em;max-width:74ch}
+  .qa p:last-child{margin-bottom:0}
+  .qa p b{color:var(--paper);font-weight:500}
+  .qa ul{margin:0 0 .9em;padding-left:1.1em;font-size:18px;color:var(--paper-dim);max-width:74ch}
+  .qa li{margin-bottom:9px}
+  .qa li::marker{color:var(--pencil)}
+  .qa li b{color:var(--paper);font-weight:500}
 
   /* progress */
   .score{display:flex;align-items:baseline;gap:22px;flex-wrap:wrap;margin-bottom:14px}
@@ -100,26 +139,12 @@
   .warn .shout{font-weight:800;font-family:"Manrope","Inter",system-ui,sans-serif;font-size:clamp(34px,4.6vw,54px);line-height:1.05;margin:26px 0 0;color:var(--paper)}
 
   /* DOI explainer */
-  .doi-ex{font-weight:800;font-family:"Manrope","Inter",system-ui,sans-serif;font-size:clamp(28px,4.2vw,50px);line-height:1.1;margin:0 0 10px;word-break:break-all}
-  .doi-ex .pre{color:var(--pencil)}
-  .doi-ex .suf{color:var(--paper-dim)}
-  .doi-key{font-size:18px;color:var(--paper-dim);margin:0 0 40px;max-width:60ch}
-  .doi-key b{color:var(--paper);font-weight:500}
   .three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .three div{padding:32px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
   .three h3{font-size:30px;line-height:1.15;margin-bottom:12px;font-weight:700}
   .three p{font-size:18px;color:var(--paper-dim);margin:0 0 .8em}
   .three p:last-child{margin:0}
   .three p b{color:var(--paper);font-weight:500}
-  .doi-flow{margin-top:20px;padding:30px 34px;border-radius:18px;border:1px solid var(--rule);background:var(--ink-2)}
-  .doi-flow h3{font-size:30px;font-weight:700;margin-bottom:18px}
-  .doi-flow ol{margin:0;padding:0 0 0 1.3em;font-size:19px;line-height:1.45;max-width:70ch}
-  .doi-flow li{margin-bottom:10px}
-  .doi-flow li::marker{color:var(--pencil);font-weight:600}
-  .doi-flow li.stop{color:var(--pencil);font-weight:600}
-  .doi-flow li.stop::marker{color:var(--pencil)}
-  .doi-flow .line{font-size:18px;color:var(--paper-dim);margin:18px 0 0;max-width:70ch}
-  .doi-flow .line b{color:var(--paper);font-weight:500}
   @media (max-width:900px){.three{grid-template-columns:1fr}}
 
   /* server access table */
@@ -215,7 +240,7 @@
     h2{font-size:clamp(28px,8vw,36px)}
     .lede{font-size:19px}
     .plain{padding:20px 20px;font-size:19px}
-    .glance div,.why div,.split div,.expect div,.need,.commit div,.ticketbox,.three div,.doi-flow,.stage{padding:20px 18px}
+    .glance div,.why div,.split div,.expect div,.need,.commit div,.ticketbox,.three div,.stage{padding:20px 18px}
     .glance .n{font-size:40px}
     .stage .n{font-size:44px}
     .score .big{font-size:72px}
@@ -226,7 +251,6 @@
     .warn{padding:24px 20px}
     .warn p{font-size:18px}
     .warn .shout{font-size:28px}
-    .doi-ex{font-size:26px}
     .qs li{padding:18px 16px}
     .qs h3,.split h3,.expect h3,.need h3,.three h3,.why .k,.commit h3{font-size:22px}
     .rule{padding:18px 20px;font-size:18px}
@@ -235,7 +259,7 @@
     footer{font-size:14px}
   }
   @media print{
-    :root{--ink:#fff;--ink-2:#f3f3f3;--rule:#cfcfcf;--paper:#111;--paper-dim:#555;--pencil-soft:#fbe4de;--done-soft:#e3f3ea}
+    :root{--ink:#fff;--ink-2:#f3f3f3;--rule:#cfcfcf;--paper:#111;--paper-dim:#555;--pencil:#a83d27;--pencil-soft:#fbe4de;--done-soft:#e3f3ea}
     html,body{background:#fff}
     .page{padding:0;max-width:none}
     section{margin-top:56px;break-inside:avoid}
@@ -253,17 +277,34 @@
       it collects submissions, routes them to reviewers, tracks edits, and publishes the
       finished articles online. Tens of thousands of journals around the world use it.
     </p>
+  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-04">4 September 2026</time></p>
     <div class="plain">
       <b>The question we're answering:</b> would OJS be a good way for ICJIA to publish
       its research? We're setting up a small working copy so staff can see it for themselves
       before anyone commits to anything.
     </div>
     <div class="glance">
-      <div><div class="n">$0<small>software</small></div><p><b>No license to buy.</b> The only cost is a small test server, a few dollars a month.</p></div>
-      <div><div class="n">5<small>of 7 steps</small></div><p><b>Technical setup is done.</b> Server, software, and email are all working. What's left is trying it out.</p></div>
+      <div><div class="n">$0<small>licence</small></div><p><b>The software is free.</b> Running it is not: the test server is a few dollars a month, and a production journal adds hosting, DOI registration, and a Forge subscription. See the cost note below.</p></div>
+      <div><div class="n">5<small>of 7 steps</small></div><p><b>OJS is installed and sending email.</b> Server built, secured, connected, the software running, and outgoing mail working. A full test run through the workflow is next.</p></div>
       <div><div class="n">0<small>permanent records</small></div><p><b>Nothing real lives here.</b> A throwaway test at a temporary address that will be erased.</p></div>
     </div>
   </header>
+
+  <section class="tldr-sec">
+    <div class="tldr">
+      <h2>TL;DR &mdash; the short version</h2>
+      <p class="sub">Six lines. Everything after this is the supporting detail, to be read only if you want it.</p>
+      <ul>
+        <li><b>What this is.</b> A working test copy of OJS &mdash; free software for running a peer-reviewed journal &mdash; set up at a temporary address so staff can see it before anyone commits to anything.</li>
+        <li><b>Where it stands.</b> Five of seven steps done: installed, secured, and sending email. Nothing real is published, no DOIs are registered, and the server gets erased at the end.</li>
+        <li><b>It is not a replacement for the Research Hub.</b> OJS is a journal expressed as software. The Hub publishes articles, datasets, and dashboards, and is the most-read part of ICJIA's website &mdash; 60% of all visitors. Replacing it would move roughly 540 web addresses and give up years of search standing.</li>
+        <li><b>But it could be genuinely useful alongside it &mdash; say, as a quarterly.</b> The Hub keeps publishing articles as they are finished; four times a year a selection is gathered into a peer-reviewed issue with an ISSN and a DOI on every paper. The same issue-based design that makes OJS a poor replacement is what makes it a good addition.</li>
+        <li><b>Or the Studio could be built out instead.</b> Reviewers, rounds, and deadlines are additions to something that already exists. Issuing DOIs is not &mdash; that is a permanent commitment to Crossref no matter who builds it.</li>
+        <li><b>The actual decision</b> is not which tool. It is whether ICJIA wants to publish a peer-reviewed journal &mdash; which would raise the standing of research the agency already produces. The software is the easy part; an editorial board, reviewers willing to work for free, and a steady stream of submissions are not.</li>
+      </ul>
+      <p class="close">Nothing has been committed, and nothing on the test server can be made permanent by accident.</p>
+    </div>
+  </section>
 
   <section>
     <h2>What OJS does</h2>
@@ -277,10 +318,128 @@
   </section>
 
   <section>
+    <h2>How this relates to the Research Hub</h2>
+    <p class="hub-lede">ICJIA already publishes research, through the <b>Research Hub</b> and the <b>Studio</b> behind it. So the fair question about OJS isn't whether it's good software &mdash; it is &mdash; but what it would actually do for R&amp;A that the current setup doesn't. Three versions of that question are worth separating: could OJS <b>replace</b> the Hub and Studio, could it <b>run alongside</b> them, or could the <b>Studio be built out</b> to do the same job? What follows answers each, including where the current setup falls short.</p>
+
+    <div class="three">
+      <div><h3>The Hub</h3><p>The public site at <b>icjia.illinois.gov/researchhub</b>, running since 2019. It publishes <b>articles, datasets, and interactive dashboards</b>.</p><p>It is the most-read part of ICJIA's website &mdash; <b>47% of all pages read</b> and <b>60% of all visitors</b> over the past year. Eight of the twelve most-visited pages on the whole site are Hub articles.</p><p>Said honestly: the software that stores its content <b>stopped getting security updates in 2022</b>.</p></div>
+      <div><h3>The Studio</h3><p>The staff tool behind the Hub. R&amp;A writers work in a plain-language editor, <b>see the page exactly as it will appear</b>, attach files, and save a draft.</p><p>Work moves <b>created &rarr; submitted &rarr; published</b>. A manager looks at what's waiting and publishes it. The public Hub has no editing features at all; every change starts in the Studio.</p><p>Said honestly: review is <b>a single step</b> &mdash; one approval, with no reviewer comments kept on the record.</p></div>
+      <div><h3>Hub 2.0</h3><p>A rebuild of both, on a current content system &mdash; <b>built and working, but not published</b>, still under review and consideration, much like this test. Working drafts are up for internal review: the <a href="https://copperhead-hub-20.netlify.app/researchhub/">public site</a> and the <a href="https://studio-2026.netlify.app/login">new Studio</a> (choose &ldquo;editor&rdquo;; no password needed).</p><p>Internally the work is codenamed <b>&ldquo;Copperhead&rdquo;</b>, which is why that word appears on the drafts. Readers never see it: at launch it simply becomes the Research Hub again, same name, same web addresses.</p><p><b>This proof-of-concept doesn't affect it</b> either way.</p></div>
+    </div>
+
+    <div class="same">
+      <h3>Where the two are the same</h3>
+      <ul>
+        <li>Both <b>split the work the same way</b>: a private tool for writing and editing, a separate public site for reading.</li>
+        <li>Both put a draft <b>in front of an editor</b> before anything goes live.</li>
+        <li>Both keep track of authors, summaries, topics, and attached files, and both let a writer see the finished page before it goes out.</li>
+        <li>Both produce a public, searchable library of ICJIA research that stays put and can be cited.</li>
+      </ul>
+      <p class="close">The shape is the same. <b>The difference is what happens in the middle step</b> &mdash; and what comes out the other end.</p>
+    </div>
+
+    <div class="qa">
+      <h3>What the Hub has already earned</h3>
+      <p>Before weighing any change, it's worth being clear about what the current setup is worth. These are live figures for <b>icjia.illinois.gov</b> over the past twelve months.</p>
+      <table class="access">
+        <thead><tr><th>Past 12 months</th><th>Whole site</th><th>Research Hub</th></tr></thead>
+        <tbody>
+          <tr><td>Visitors</td><td>58,300</td><td>34,800 &mdash; <b>60%</b></td></tr>
+          <tr><td>Pages read</td><td>440,500</td><td>207,100 &mdash; <b>47%</b></td></tr>
+          <tr><td>Visits</td><td>139,200</td><td>87,900 &mdash; <b>63%</b></td></tr>
+          <tr><td>Average time per visit</td><td>10m 23s</td><td><b>15m 7s</b></td></tr>
+          <tr><td>Visitors arriving from Google</td><td>25,500</td><td>21,500 &mdash; <b>84%</b></td></tr>
+        </tbody>
+      </table>
+      <p>Three things stand out, and all three are about <b>being found</b>:</p>
+      <ul>
+        <li><b>Eight of the ten pages people most often arrive on are Hub articles.</b> Only the homepage draws more, and the five after it are all Hub articles. Readers don't come through the front door and browse &mdash; they land on an article straight from a search.</li>
+        <li><b>The Hub earns nearly all of the agency's search traffic.</b> Google sends 25,500 visitors a year to the whole site; 21,500 of them come to the Hub. It is the Hub's single largest source, ahead of everything else.</li>
+        <li><b>They stay.</b> A Hub visit averages just over fifteen minutes, against ten for the site as a whole. People arrive and actually read.</li>
+      </ul>
+      <p>That standing took years to build, and it is attached to <b>the web addresses themselves</b>, not to the writing on them. Google ranks <i>a page at an address</i>. Move an article to a new address and, as far as a search engine is concerned, it is a new page: it has to be found again, judged again, and climb again &mdash; a process measured in months. Every link, bookmark, syllabus, and citation pointing at the old address is affected at the same time.</p>
+    </div>
+
+    <div class="qa">
+      <h3>Could OJS replace the Hub and Studio outright?</h3>
+      <span class="verdict">No</span>
+      <p><b>OJS is not a general publishing tool that happens to suit journals. It is a journal, expressed as software.</b> That assumption runs all the way down, and it is the most important thing to understand about it:</p>
+      <ul>
+        <li><b>You have to create a journal before you can create anything else.</b> There is no neutral starting point. OJS asks you to set up a journal site first, and everything afterwards hangs off it.</li>
+        <li><b>Content is filed into issues and sections.</b> Articles go into volumes and numbers, and within those into sections &mdash; Articles, Reviews, Editorials. That is the filing cabinet, and there isn't a second one.</li>
+        <li><b>People are given journal roles</b> &mdash; Journal Manager, Editor, Section Editor, Reviewer, Author &mdash; and what each person can do follows from the role they hold.</li>
+        <li><b>The finish line is an issue.</b> The whole pipeline is built to end in a table of contents, with DOIs assigned and the issue's details sent out to indexes. It is designed to produce a periodical, on a schedule.</li>
+      </ul>
+      <p>Set that against what the Hub publishes: <b>articles, datasets, and interactive dashboards</b>, with centers, projects, and staff pages around them, each going up when it is ready. In OJS a dataset lives as a file attached to an article. To be fair to it, that file <b>can carry its own DOI and be cited in its own right</b> &mdash; a genuine strength &mdash; but it still cannot stand as an entry of its own the way it does on the Hub. A dashboard has nowhere to live at all, and nothing publishes without an issue to publish into.</p>
+      <p>Then there is the cost of moving:</p>
+      <ul>
+        <li><b>Every web address would change.</b> OJS builds its own address structure, so all of the Hub's roughly 540 pages would move. Forwarding old addresses to new ones carries some of the search standing across, but only if every single one is mapped correctly and kept that way permanently &mdash; and the climb back still takes months. Set against the figures above, this is the most expensive item on this page.</li>
+      </ul>
+      <p>Replacement would trade two of the Hub's three kinds of content, the site's whole structure, and its hard-won search standing for a review workflow &mdash; and would require ICJIA to describe all of its research as a periodical, which it isn't. <b>That trade isn't worth making, and nothing in this test proposes it.</b></p>
+      <p>But read that list again with fresh eyes, because <b>every one of those traits is a mismatch only against the Hub.</b> Judged on its own terms, a system built to assemble reviewed work into issues on a schedule is not a limitation at all &mdash; it is a description of a journal, which is the next question.</p>
+    </div>
+
+    <div class="qa">
+      <h3>If a journal isn't the shape, what is?</h3>
+      <p>Worth a moment, because it clarifies what OJS is actually for. The nonprofit behind OJS &mdash; the Public Knowledge Project &mdash; hit this same limit themselves, and answered it by building sister tools that share the same underlying workflow, each shaped for a different kind of output:</p>
+      <ul>
+        <li><b>OPS (Open Preprint Systems)</b> &mdash; for posting research promptly, without formal peer review and without waiting for an issue to be assembled. Of the three, the closest to how the Hub already works.</li>
+        <li><b>OMP (Open Monograph Press)</b> &mdash; for books, edited volumes, and monographs.</li>
+      </ul>
+      <p>And for a broad collection of independent papers and institutional output &mdash; a library of what an agency has produced, rather than a periodical &mdash; the category built for that job is repository software such as <b>DSpace</b> or <b>Invenio</b>. That is the shelf the Hub currently occupies, in a form built for ICJIA's own readers.</p>
+      <p>None of these is being proposed here. The point is narrower, and worth stating plainly: <b>OJS is the industry standard for running a peer-reviewed periodical, and that is the one job it should be judged on.</b> Choosing it means choosing to publish a journal.</p>
+    </div>
+
+    <div class="qa">
+      <h3>Could OJS run alongside, as an addition?</h3>
+      <span class="verdict yes">Yes &mdash; and this is the possibility worth taking seriously</span>
+      <p><b>Here is the turn.</b> The very thing that rules OJS out as a replacement &mdash; that it is built to produce a periodical, in issues, on a schedule &mdash; is precisely what would make it worth having as an addition.</p>
+      <p>The Hub already does the thing OJS does poorly: publishing individual articles, continuously, each one as it is finished. It should carry on doing exactly that. What the Hub does <i>not</i> do, and cannot easily be made to do, is gather that work into a formal, peer-reviewed volume that the scholarly world recognizes as such.</p>
+      <p><b>So picture a quarterly.</b> Nothing about the Hub changes:</p>
+      <ul>
+        <li>Research keeps appearing on the Hub as it always has &mdash; article by article, as each is ready, reaching the readers it already reaches.</li>
+        <li><b>Four times a year, a selection is assembled into a reviewed issue</b> of an ICJIA journal: an editorial board, outside reviewers, an ISSN (the standard number identifying a periodical, as an ISBN identifies a book), and a DOI on every article.</li>
+        <li>The two are not rivals. <b>The Studio already has a box for a DOI</b>, so the Hub can list the article carrying the identifier the journal issued. A reader finds the work either way, and the citation points somewhere permanent. Nothing new has to be built for that; the box is already there.</li>
+      </ul>
+      <p><b>Why this could genuinely matter to R&amp;A.</b> Hub articles are widely read &mdash; the figures above make that plain &mdash; but they are not peer-reviewed, carry no DOI, and are largely invisible to Google Scholar, citation counts, and library catalogues. That is a real ceiling on work the agency has already paid to produce. A quarterly would put a portion of it over that line: formally reviewed, permanently identified, properly indexed, and citable as scholarship rather than as a government web page. It would also give the unit a publishing rhythm and a standing invitation to outside authors, which the Hub's continuous model never creates on its own.</p>
+      <p>The costs stay real and are set out below: <b>a second system</b> to run, keep updated, back up, and staff &mdash; and, harder than any of that, an editorial board and reviewers willing to do the work.</p>
+    </div>
+
+    <div class="qa">
+      <h3>Could the Studio be built out to do what OJS does?</h3>
+      <span class="verdict">Much of it &mdash; but not the parts that matter most</span>
+      <p>Closer than it looks. The Studio already has user accounts and roles, a draft-to-published sequence, a required approval step, lists of authors and topics it keeps track of, drafts and previews, and attached files. The new Studio adds the ability to <b>highlight a passage and leave a comment on it</b>. From that base, inviting several reviewers, running rounds with deadlines, sending reminders, and hiding names so reviewers and authors don't see each other are <b>additions to something that already exists</b>, not a new product from scratch.</p>
+      <p>Two things don't yield to that:</p>
+      <ul>
+        <li><b>Issuing DOIs is a commitment, not a feature.</b> The programming needed to send one to Crossref is small. What isn't small is the rest: the membership, the annual fee, the identifier registered in ICJIA's name, and the permanent promise to keep every DOI working. Those are the same whichever tool sends the request &mdash; and OJS has that path built and proven already.</li>
+        <li><b>Getting listed by Google Scholar, DOAJ, and library catalogues</b> means describing every article in the precise formats each service expects, and keeping up as those change. It can be built, but it is fiddly, unglamorous, never quite finished &mdash; and those services already recognize OJS on sight.</li>
+      </ul>
+      <p>And the counterweight: <b>anything built into the Studio, ICJIA maintains forever.</b> The review machinery inside OJS is maintained by the nonprofit that makes it, at no cost to us. Building our own trades a hosting burden for a development burden. Neither is free.</p>
+    </div>
+
+    <div class="qa">
+      <h3>What the draft Hub 2.0/Studio 2.0 &ldquo;Copperhead&rdquo; rebuild fixes</h3>
+      <p>Hub 2.0 is the other proposal on the table, and it is worth seeing plainly, because it answers several of the current setup's weaknesses without any of the costs above.</p>
+      <ul>
+        <li><b>It gets off unsupported software.</b> The program storing the Hub's content stopped receiving security updates in 2022, and the Hub currently sits tangled inside the main website's code. The rebuild moves it onto current, supported software and stands it on its own. The Studio is likewise rebuilt off tools no longer being maintained.</li>
+        <li><b>Reviewer comments finally go on the record.</b> The new Studio lets a reviewer highlight a passage and leave a comment on it, kept with the draft. That is exactly what today's single approval step lacks &mdash; and, as above, what any fuller review process would be built on.</li>
+        <li><b>The web addresses don't change.</b> Keeping every existing address working is a firm requirement, checked automatically before launch. The whole search-standing problem never arises.</li>
+        <li><b>Readers can search inside documents.</b> Not just titles and summaries but the words inside published PDF reports, opening a long report at the first match.</li>
+        <li><b>Accessibility is checked on every single change,</b> automatically, against the standards the agency is required to meet &mdash; plus a full manual walkthrough already completed. Today that checking happens only now and then, by hand.</li>
+        <li><b>It has been tested, and attacked on purpose.</b> 946 automatic checks run over it whenever anything changes, and four separate security reviews had testers actively trying to break in. Nothing critical was found.</li>
+        <li><b>There is far less to break into.</b> The public site is built ahead of time and handed out as fixed files, with no live database or passwords sitting behind it &mdash; quicker for readers and much harder to attack.</li>
+      </ul>
+      <p>It is <b>built and working, waiting on a decision</b> &mdash; the same position as this OJS test. The two are not rivals. One modernizes how ICJIA publishes what it already publishes; the other asks whether the agency wants to publish something it doesn't yet.</p>
+    </div>
+
+    <p class="rule"><b>The question for R&amp;A isn't which tool. It's whether ICJIA wants to publish a peer-reviewed journal</b> &mdash; a quarterly of the agency's own research, reviewed and citable, on top of the Hub rather than instead of it. If that is worth having, OJS alongside the Hub is the cheapest correct way to get it, and this test server is the sensible way to find out. If what's actually wanted is more rigor on Hub content, that belongs in the Studio, not in a second system. Either way the software is the easy part: the editorial board, the reviewers willing to work for free, and the steady stream of submissions are what a test server can't tell us we have.</p>
+  </section>
+
+  <section>
     <h2>Where the setup stands</h2>
     <div class="score">
       <div class="big">5<span> of 7</span></div>
-      <p class="cap">steps complete. Everything technical is finished and tested. The remaining two steps are hands-on evaluation by R&amp;A.</p>
+      <p class="cap">steps complete. OJS is installed, verified, and sending email; running a sample article through review is next.</p>
     </div>
     <div class="bar" role="img" aria-label="5 of 7 steps complete"><i></i></div>
     <ol class="steps">
@@ -288,8 +447,8 @@
       <li class="step done"><span class="mark">✓</span><span class="t">Secure and tune it<small>Firewall, intrusion blocking, the padlock (https) on the web address, and a fix for a known bug that was wasting processing power.</small></span><span class="s">Done</span></li>
       <li class="step done"><span class="mark">✓</span><span class="t">Create the database<small>The storage where OJS will keep every article, review, and user account. Tested and connected.</small></span><span class="s">Done</span></li>
       <li class="step done"><span class="mark">✓</span><span class="t">Install OJS<small>Software loaded, connected to the database, and confirmed running at ojs.icjia.cloud.</small></span><span class="s">Done</span></li>
-      <li class="step done"><span class="mark">✓</span><span class="t">Connect email<small>OJS sends through our existing email service. Tested end to end.</small></span><span class="s">Done</span></li>
-      <li class="step now"><span class="mark">6</span><span class="t">Run a sample article through review<small>A fake submission, real workflow, start to finish. This is R&amp;A's step; see the Quickstart below.</small></span><span class="s">Ready to start</span></li>
+      <li class="step done"><span class="mark">✓</span><span class="t">Connect email<small>OJS now sends reviewer invitations, decisions, and password resets.</small></span><span class="s">Done</span></li>
+      <li class="step next"><span class="mark">6</span><span class="t">Run a sample article through review<small>A fake submission, real workflow, start to finish.</small></span><span class="s">Planned</span></li>
       <li class="step next"><span class="mark">7</span><span class="t">Demo for R&amp;A and IDS<small>Then decide together whether it's worth taking further.</small></span><span class="s">Planned</span></li>
     </ol>
   </section>
@@ -302,31 +461,9 @@
   </section>
 
   <section>
-    <h2>What a DOI is, and why we're careful with them</h2>
-    <p class="doi-ex"><span class="pre">10.12345</span>/<span class="suf">icjia.2026.001</span></p>
-    <p class="doi-key">A DOI, or <b>Digital Object Identifier</b>, is a permanent ID for a published article. The <b>first part</b> identifies the publisher; the <b>second</b> identifies the article. Anyone, anywhere, can type it into doi.org and land on the article, no matter where the article lives.</p>
-    <div class="three">
-      <div><h3>The problem it solves</h3><p>Web addresses break. Sites get redesigned, moved, or shut down, and every citation pointing at the old link dies.</p><p>A DOI separates <b>what an article is</b> from <b>where it currently sits</b>. Move the article, update one record, and every citation ever written still works.</p></div>
-      <div><h3>Why research depends on it</h3><p>Google Scholar, citation counts, reference managers, and library catalogs all key on the DOI. Many journals require DOIs in reference lists. Funders and indexes treat DOI assignment as the mark of a real journal.</p><p><b>For ICJIA it's how our research gets found, cited, and counted.</b></p></div>
-      <div><h3>Why it can't be undone</h3><p>Issuing a DOI is a <b>promise to keep it working forever</b>. It's registered with a nonprofit called Crossref under the publisher's name. You can update where it points; you can never delete it.</p><p>A DOI issued from a test server would point at a machine we plan to erase, with ICJIA's name attached.</p></div>
-    </div>
-    <div class="doi-flow">
-      <h3>How OJS handles DOIs</h3>
-      <ol>
-        <li>ICJIA joins Crossref (the nonprofit that runs the DOI registry) and receives a publisher prefix. At ICJIA's size, membership is a few hundred dollars a year.</li>
-        <li>An editor turns on DOIs in the journal settings and picks a naming pattern.</li>
-        <li>OJS generates a DOI for each article automatically. At this point it exists only inside our system.</li>
-        <li class="stop">OJS sends the article's details to Crossref, and the DOI becomes real and permanent. This step will not be turned on during the test.</li>
-        <li>The DOI appears on the article page. If the site ever moves, one update to Crossref redirects every citation to the new address.</li>
-      </ol>
-      <p class="line"><b>Steps 1 through 3 are safe to explore.</b> Step 4 requires a Crossref account and credentials that the test server simply won't have, so nothing can be registered by accident. For the same reason, the test won't be submitted to Google Scholar, DOAJ, or any other index.</p>
-    </div>
-  </section>
-
-  <section>
-    <h2>Why this is low risk</h2>
+    <h2>Why this test setup is low risk</h2>
     <div class="why">
-      <div><div class="k">$0 for software</div><p>OJS is <b>open source</b>. There's no license to buy. The test server costs a few dollars a month and can be shut off any time.</p></div>
+      <div><div class="k">No licence to buy</div><p>OJS is <b>open source</b>. The test server costs a few dollars a month and can be switched off any time. Production is not free &mdash; see what it would actually cost, below.</p></div>
       <div><div class="k">Nothing to lose</div><p>The test lives at a <b>temporary address</b> (ojs.icjia.cloud) with made-up content. Nothing is published, indexed, or permanent.</p></div>
       <div><div class="k">Well-trodden ground</div><p>OJS has been in development since 2001 and runs on <b>ordinary web hosting</b>, the same kind IDS already manages for ICJIA's other sites.</p></div>
       <div><div class="k">Same hands</div><p>The test is being built by <b>IDS, which already runs 15+ ICJIA web properties</b>. This is a smaller job than most of them.</p></div>
@@ -378,157 +515,31 @@
   </section>
 
   <section>
-    <h2>Quickstart for the OJS administrator</h2>
-    <p class="muted" style="font-size:22px;max-width:46ch;margin-bottom:30px">IDS installed the software and entered the database details. Everything from here happens in a web browser, using the admin login IDS hands you. Work top to bottom.</p>
-    <ol class="qs">
-      <li>
-        <span class="num">1</span>
-        <div>
-          <h3>Log in and secure the admin account</h3>
-          <p>Go to <b>ojs.icjia.cloud</b> and sign in with the username and password from IDS. First thing: top-right menu → <span class="path">Edit Profile → Password</span> and set your own. Then <span class="path">Profile → Contact</span> and make sure the email is one you read; OJS sends everything there.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">2</span>
-        <div>
-          <h3>Create the journal</h3>
-          <p>A fresh OJS site has no journals. <span class="path">Administration → Hosted Journals → Create Journal.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and never change it), and a language. Everything else can be filled in later.</p>
-          <p>OJS then opens the journal's <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> (title, description) and <b>Contact</b> (principal contact is you; technical contact is IDS). Skip the rest for now.</p>
-          <div class="flag"><b>Leave off during the test:</b> Settings → Distribution → DOIs, and anything labeled indexing or search-engine registration. See the DOI section above.</div>
-        </div>
-      </li>
-      <li>
-        <span class="num">3</span>
-        <div>
-          <h3>Learn the roles before adding people</h3>
-          <table class="access" style="margin:6px 0 0">
-            <tr><th>Role</th><th>What they can do</th><th>Who gets it</th></tr>
-            <tr><td>Site Administrator</td><td>Everything, on every journal.</td><td>You, plus one backup.</td></tr>
-            <tr><td>Journal Manager</td><td>All settings, users, and workflow for one journal.</td><td>Whoever runs the journal day to day.</td></tr>
-            <tr><td>Editor</td><td>Sees every submission; assigns reviewers; decides.</td><td>Editor-in-chief.</td></tr>
-            <tr><td>Section Editor</td><td>Same, but only for submissions assigned to them.</td><td>Associate editors.</td></tr>
-            <tr><td>Reviewer</td><td>Sees only what they're invited to review.</td><td>Anyone who reviews.</td></tr>
-            <tr><td>Author</td><td>Submits and tracks their own manuscripts.</td><td>Anyone who submits.</td></tr>
-          </table>
-          <p style="margin-top:14px">One person can hold several roles. For a small shop, one Manager who is also Editor, plus a few Reviewers, is a complete journal.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">4</span>
-        <div>
-          <h3>Add users</h3>
-          <p>Inside the journal: <span class="path">Users &amp; Roles → Users → Add User.</span> Name, username, email, a temporary password, and tick <b>Send the user a welcome email</b> so they get their login (this also proves email works). Assign roles on the same form. To change roles later, click the person's name → <span class="path">Edit User</span>.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">5</span>
-        <div>
-          <h3>Make a second site administrator</h3>
-          <p>One admin with a forgotten password is the most common OJS problem there is. Create a second account as in step 4, then edit it and look for <b>Site Administrator</b> in the roles list. If it's there, tick it and tell IDS the username. If the list only shows journal roles, file a Freshservice ticket and IDS will grant it.</p>
-        </div>
-      </li>
-      <li>
-        <span class="num">6</span>
-        <div>
-          <h3>Run one fake article all the way through</h3>
-          <p>This is the real test. Make yourself a second account as an Author (different email), submit a fake manuscript, then as Editor: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build an issue, publish. Every step sends an email; watch them arrive.</p>
-          <p>By the end you'll know whether the workflow fits how R&amp;A actually works. That's the question this whole exercise exists to answer.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
+  <h2>Who runs it, day to day</h2>
+  <p>Once OJS is installed, running the journal is a browser job: creating it, adding people, moving submissions through review, building issues, publishing. None of it needs server access, and the administrator will not be given any.</p>
+  <p>That work has its own guide so this page can stay about the decision: <b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal &mdash; a guide for the OJS administrator</a></b>. It covers first login, creating the journal, the roles, adding people, naming a backup administrator, and the one end-to-end test that answers whether OJS fits how R&amp;A works. It also draws the line between what the administrator fixes and what needs a ticket.</p>
+  <p class="flag"><b>Two things IDS asks of R&amp;A.</b> Name a backup administrator early &mdash; one admin with a forgotten password is the most common OJS problem there is, and R&amp;A owns that succession. And if the answer turns out to be no, say so the same day: the server bills every month it exists and there is nothing on it worth keeping. A one-line email is enough; no approvals, no paperwork.</p>
+</section>
 
-  <section>
-    <h2>Expectations: try it first, or file a ticket?</h2>
-    <p class="muted" style="font-size:22px;max-width:46ch;margin-bottom:30px">Most questions about OJS are questions about a setting, not about the server. This is how to tell the difference.</p>
-
-    <div class="expect">
-      <div class="first">
-        <h3>Try it first</h3>
-        <p class="sub">The administrator handles these. Most take five minutes.</p>
-        <ul>
-          <li><b>"How do I make OJS do X?"</b> It's almost always a setting. Look in Settings, then search the PKP forum (forum.pkp.sfu.ca) or the OJS user guide. Someone has asked already.</li>
-          <li><b>A user can't log in.</b> Use the "forgot password" link, or reset their password from Users &amp; Roles.</li>
-          <li><b>Someone can't see a submission.</b> Check their role; reviewers and section editors only see what's assigned to them.</li>
-          <li><b>An email went out with the wrong wording.</b> Email templates are editable under Settings → Workflow → Emails.</li>
-          <li><b>The site looks wrong.</b> Theme and appearance settings are under Settings → Website.</li>
-          <li><b>A feature seems to be missing.</b> Many are add-ons ("plugins") you can switch on yourself under Settings → Website → Plugins → Plugin Gallery.</li>
-        </ul>
-      </div>
-      <div class="ticket">
-        <h3>File a ticket</h3>
-        <p class="sub">These need IDS. Nothing in the browser will fix them.</p>
-        <ul>
-          <li><b>The site is down</b> or shows a blank page or an error message instead of OJS. (Check <a href="https://uptime.icjia.app">uptime.icjia.app</a> first; it may already know.)</li>
-          <li><b>No email is sending at all</b>, for anyone, after you've done the quick email check below.</li>
-          <li><b>Uploads are rejected</b> for being too large, when the file is a normal size.</li>
-          <li><b>A new OJS version is out</b> and you want it, or the site says it needs upgrading.</li>
-          <li><b>You need a second site administrator</b> and the role isn't offered in the user form.</li>
-          <li><b>Something needs to change on the web address, its security certificate, or the email setup.</b></li>
-          <li><b>You've broken it</b> and want it restored from backup. It happens; that's what a test server is for.</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="rule">The rule of thumb: <b>if the fix is in a Settings menu, it's yours. If the fix needs someone to log in to the server itself, it's a Freshservice ticket.</b> When in doubt, spend ten minutes looking before filing.</p>
-
-    <div class="ticketbox">
-      <h3>Quick email check (do this before filing)</h3>
-      <ul>
-        <li>Log out, click <b>Forgot your password?</b> on the login page, enter your admin email, and wait.</li>
-        <li><b>Give it up to 15 minutes.</b> Some mail arrives fast; some doesn't. Don't file at minute two.</li>
-        <li><b>Check spam and junk.</b> The state's mail system (DoIT) tags anything from outside as <b>[EXTERNAL]</b>, and OJS mail counts as outside. It's often filtered.</li>
-        <li>If it never arrives, the ticket should say so. IDS can check Mailgun's logs, which show whether the message left our system successfully. <b>Mailgun keeps only 5 days of logs</b>, so report promptly.</li>
-        <li>A message that Mailgun shows as delivered can still be held or dropped on DoIT's side. That's a DoIT question, not an OJS one; IDS will route it.</li>
-      </ul>
-    </div>
-
-    <div class="ticketbox">
-      <h3>Tickets go in Freshservice. A useful one includes:</h3>
-      <ul>
-        <li>What you were trying to do, and which screen you were on</li>
-        <li>What happened instead, with the exact wording of any error</li>
-        <li>Whether it affects one person or everyone</li>
-        <li>When it started, and whether anything changed right before</li>
-        <li>A screenshot if there's anything to see</li>
-      </ul>
-    </div>
-
-    <h3 style="font-size:32px;font-weight:700;margin:44px 0 18px">Two things IDS asks of R&amp;A</h3>
-    <div class="commit">
-      <div>
-        <h3>Name a backup admin</h3>
-        <p>OJS lives or dies by its admin account. If the main administrator leaves, changes roles, or is out for a month, someone else must already be able to log in with full rights.</p>
-        <p><b>At least one backup admin, two is better.</b> A backup admin is a second person with a full site-administrator login who can run OJS if the main admin is unavailable. Create them early (see step 5 of the Quickstart), and tell IDS who they are. If the main admin's departure is planned, hand over before they go, not after.</p>
-        <span class="ask">R&amp;A owns succession; IDS needs the names</span>
-      </div>
-      <div>
-        <h3>Tell IDS the moment the answer is no</h3>
-        <p>If R&amp;A decides OJS isn't the right fit, that's a perfectly good outcome of a test. But the server keeps billing every month it exists, and there is nothing on it worth keeping.</p>
-        <p><b>Send IDS a note the same day.</b> The server will be shut down and deleted, and the cost stops. No approvals, no paperwork; a one-line email is enough.</p>
-        <span class="ask">Decision made → IDS notified → server gone</span>
-      </div>
-    </div>
-
-    <p class="muted" style="font-size:19px;max-width:60ch;margin-top:22px">Turnaround on the test server is best-effort; it isn't a production system and nothing on it is urgent. A live server would come with a real support agreement, and that's part of the "if we adopt it" conversation.</p>
-  </section>
-
-  <section class="prod">
+<section class="prod">
     <h2>If we decide to adopt it</h2>
     <p class="muted" style="font-size:22px;max-width:44ch;margin-bottom:30px">Five things would need to happen before OJS could host a real journal. None are blockers, and each has a clear owner.</p>
     <div class="needs">
-      <div class="need"><h3>A bigger server</h3><p>The test machine is deliberately tiny. A real journal needs more room. <b>On-premise is preferred</b>, run by someone in R&amp;A or IDS with remote access. AWS is a workable alternative; Karl G. has run one there.</p><span class="who">Tony Jenkins decides</span></div>
-      <div class="need"><h3>Linux or Windows</h3><p>OJS is proven on <b>Linux</b>. Windows Server is possible but unfamiliar territory and would need its own evaluation.</p><span class="who">Tony Jenkins and/or Eric</span></div>
+      <div class="need"><h3>A bigger server</h3><p>The test machine is deliberately tiny. A real journal needs more room. <b>On-premise is preferred</b>, run by someone in R&amp;A or IDS with remote access. AWS is a workable alternative; Karl, a former R&amp;A center manager, has run one there.</p>
+  <p class="flag"><b>What it would actually cost.</b> The software stays free, but a real journal is not a $0 line item. Budget for a production server sized for the load, a Crossref membership if DOIs are wanted (a few hundred dollars a year at ICJIA's size), the Laravel Forge subscription if the server is managed that way, and IDS time for upgrades and backup testing. None of these is large, and none is a surprise &mdash; but &ldquo;free software&rdquo; and &ldquo;free to run&rdquo; are different claims, and only the first one is true.</p>
+<span class="who">Tony, deputy director of IDS, decides</span></div>
+      <div class="need"><h3>Linux or Windows</h3><p>OJS is proven on <b>Linux</b>. Windows Server is possible but unfamiliar territory and would need its own evaluation.</p><span class="who">Tony (deputy director, IDS) and/or Eric (IT specialist)</span></div>
       <div class="need"><h3>An official address</h3><p>We have a contact at DoIT who can create <b>ojs.icjia.illinois.gov</b>. Moving the site from the test address is routine.</p><span class="who">DoIT request</span></div>
       <div class="need"><h3>Approved email</h3><p>Sending from an illinois.gov address means DoIT must <b>authorize the email service</b>. Best raised together with the address request.</p><span class="who">DoIT request</span></div>
-      <div class="need wide"><h3>A verified backup and restore plan</h3><p>The test server gets a <b>full weekly backup</b> from the hosting provider, which is fine for a throwaway. A live journal is an archive of record: it needs <b>enterprise-grade backups</b> with frequent incremental copies, off-site storage, and, most importantly, <b>regular test restores</b> so we know the backups actually work before we ever need them.</p><span class="who">IDS with Tony Jenkins</span></div>
+      <div class="need wide"><h3>A verified backup and restore plan</h3><p>The test server gets a <b>full weekly backup</b> from the hosting provider, which is fine for a throwaway. A live journal is an archive of record: it needs <b>enterprise-grade backups</b> with frequent incremental copies, off-site storage, and, most importantly, <b>regular test restores</b> so we know the backups actually work before we ever need them.</p><span class="who">IDS with Tony, deputy director</span></div>
     </div>
   </section>
 
   <footer>
-    Prepared by Chris Schweda, Innovation &amp; Digital Services, Illinois Criminal Justice Information Authority. Updated September 2026.
-    OJS is published by the Public Knowledge Project (pkp.sfu.ca).
-  </footer>
+  <p class="muted">Prepared by Chris, lead web developer, Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
+  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
+  OJS is published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+</footer>
 
 </main>
 </body>
