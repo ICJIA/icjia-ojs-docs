@@ -194,3 +194,66 @@ describe('documents share one footer', () => {
     }
   });
 });
+
+/**
+ * Two conventions the manager-facing documents carry, both of which drifted
+ * before this test existed.
+ *
+ * The first is the requirement itself: a document written for managers opens
+ * with a TL;DR, because the audience will not read to the bottom to find out
+ * that nothing has been committed. Tying this to `audience` rather than to a
+ * list of slugs means a new manager document inherits the requirement instead
+ * of quietly skipping it.
+ *
+ * The second is that the TL;DR says how long it is — "Six lines", "Nine
+ * lines" — and that number is written by hand next to a list that gets edited.
+ * It was wrong within a day of being introduced: two bullets were added to a
+ * seven-line summary and the count went to eight. A stated count that lies is
+ * worse than no count, because it is the first sentence a sceptical reader
+ * checks.
+ */
+describe('manager documents open with an accurate TL;DR', () => {
+  const NUMBERS = [
+    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+    'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
+    'nineteen', 'twenty',
+  ];
+
+  const forManagers = documents.filter((d) => /manager/i.test(d.audience));
+
+  /** The `.tldr` block: its stated line count, and how many bullets it actually has. */
+  const tldrOf = (file: string) => {
+    const raw = read(file);
+    const open = raw.indexOf('<div class="tldr">');
+    if (open === -1) return null;
+    const block = raw.slice(open, raw.indexOf('</ul>', open));
+    const sub = /<p class="sub">([\s\S]*?)<\/p>/.exec(block)?.[1] ?? '';
+    const stated = /^\s*([A-Za-z]+)\s+lines\b/.exec(sub.replace(/<[^>]+>/g, ''));
+    return {
+      statedWord: stated?.[1]?.toLowerCase(),
+      stated: stated ? NUMBERS.indexOf(stated[1].toLowerCase()) : -1,
+      actual: (block.match(/<li>/g) ?? []).length,
+    };
+  };
+
+  it('covers at least one document, or it is asserting nothing', () => {
+    expect(forManagers.length).toBeGreaterThan(0);
+  });
+
+  it.each(forManagers)('$slug has a TL;DR', (entry) => {
+    expect(tldrOf(entry.file), `${entry.slug} is written for managers but has no TL;DR block`).not.toBeNull();
+  });
+
+  it.each(forManagers)('$slug states its own length correctly', (entry) => {
+    const tldr = tldrOf(entry.file);
+    expect(tldr).not.toBeNull();
+    expect(
+      tldr!.stated,
+      `${entry.slug}: the TL;DR opens with "${tldr!.statedWord} lines", which is not a number word one to twenty`,
+    ).toBeGreaterThan(-1);
+    expect(
+      tldr!.stated,
+      `${entry.slug}: the TL;DR says "${tldr!.statedWord} lines" but carries ${tldr!.actual}`,
+    ).toBe(tldr!.actual);
+  });
+});

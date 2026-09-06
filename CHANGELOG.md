@@ -5,6 +5,29 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.1] - 2026-09-06
+
+### Fixed
+
+- **The preprint document's TL;DR said "Eight lines" and carried nine.** Two
+  bullets were added to a seven-line summary and the count went up by one. It is
+  the first sentence a sceptical reader checks, so a stated count that lies is
+  worse than no count at all.
+
+### Added
+
+- **The TL;DR convention is now pinned** in `tests/document-scripts.test.ts`, in
+  two parts. A document whose `audience` mentions managers must open with a
+  TL;DR — tied to the manifest rather than to a list of slugs, so a new
+  manager-facing document inherits the requirement instead of quietly skipping
+  it. And the length it claims must match the number of bullets it carries,
+  because that number is hand-written next to a list that gets edited, and it
+  drifted within a day of being introduced.
+
+  Verified three ways: a wrong number fails, adding a bullet without touching the
+  count fails with the two figures named, and removing the block fails with the
+  reason.
+
 ## [1.13.0] - 2026-09-06
 
 ### Added
