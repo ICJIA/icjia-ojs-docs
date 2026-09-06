@@ -63,7 +63,7 @@ export const documents: DocumentEntry[] = [
   {
     slug: 'ops-preprint-server',
     file: 'ops-preprint-server.html',
-    question: "What's the difference?",
+    question: "What's the difference between OJS and OPS?",
     summary:
       'A preprint server now runs beside the journal. What Open Preprint Systems is, how it differs from OJS and the Research Hub, and whether it earns its place.',
     audience: 'Written for managers',

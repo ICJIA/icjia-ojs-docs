@@ -5,6 +5,67 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-09-06
+
+### Changed
+
+- **The preprint document leads with the distinction, not the evidence.** The
+  comparison was correct and unreadable: a manager met a twelve-row table before
+  meeting the point it was making, and the three names — OJS, OPS, Copperhead —
+  are easy enough to confuse that "too much to process" was the likely response,
+  followed by ignoring all of it.
+
+  A new opening section, **Three names. Two jobs.**, answers it in about five
+  seconds: the Hub is for *getting research read*, OPS for *getting research
+  cited*, OJS for *getting research reviewed*. Each carries the thing it is not,
+  and the first carries the correction that matters most — Copperhead is the Hub
+  rebuilt, not a third system. The detailed table now says plainly that it can be
+  skimmed or skipped.
+
+- **The Hub is treated as two things, because it is.** The comparison separates
+  the Research Hub running today from the Hub 2.0 rebuild, and the new column
+  answers the question a manager actually has by saying "same" nearly the whole
+  way down: Copperhead changes the software underneath — which stopped receiving
+  security updates in 2022 — without changing what the Hub publishes or how. Two
+  rows carry the two real differences. The overlap section, now *Where OJS, OPS
+  and the Hub overlap*, states the consequence directly: three of the four are
+  continuous publishers doing the same job, and only OJS does a different one.
+
+- **The card question is "What's the difference between OJS and OPS?"** The
+  banner's fourth row carries it over two lines; condensing it to one would have
+  left it visibly narrower than the three rows above.
+
+### Fixed
+
+- **Netlify published without running the checks.** The build command was
+  `npm run build` alone, so neither the type check nor the test suite gated a
+  deploy. A required status check gates a *merge*, not a push, so a direct push
+  to `main` deployed before CI had reported anything and stayed deployed if CI
+  then went red — only the release tag was ever conditioned on a green run. The
+  command is now `npm run check && npm run build && npm test`, building before
+  testing because the build-output and screen-reader suites assert against
+  `dist/` and build it themselves only when it is missing.
+
+### Added
+
+- **Six assertions pinning the deploy command** in
+  `tests/deployment-config.test.ts`, so it cannot quietly revert: that each of
+  the three steps runs, that the build precedes the test, and that the steps are
+  chained with `&&` rather than `;`, which would ignore earlier failures. Each
+  was verified by breaking what it guards.
+
+### Security
+
+- **Red/blue pass — 2026-09-06**, recorded in the README with the previous pass
+  collapsed beneath it. It asked one question: do guards written for three
+  documents actually extend to a fourth? Ten payloads were planted in the new
+  document one at a time — inline handler, `javascript:` URL, remote script,
+  iframe, object, tracking pixel, protocol-relative link, single-quoted origin,
+  offsite form action, unexpected email address — and all ten were caught by the
+  assertion meant to catch them, with the document restored byte-identical.
+  `npm audit` clean, no credential pattern anywhere in history, all six headers
+  live, and accessibility verified on the new page rather than carried forward.
+
 ## [1.11.0] - 2026-09-06
 
 ### Added

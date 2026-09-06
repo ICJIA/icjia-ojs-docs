@@ -1,5 +1,15 @@
 [build]
-  command = "npm run build"
+  # Not just `npm run build`. Netlify publishes on every push to main, and a
+  # required status check gates a *merge*, not a push — so a direct push to main
+  # deployed here before CI had reported anything, and stayed deployed if CI
+  # then went red. Only the release tag was gated on CI, never the deploy.
+  #
+  # Running the same three steps in the same order as ci.yml closes that: a
+  # failing type check or test now fails the deploy instead of publishing. The
+  # order matters — the build-output and screen-reader suites assert against
+  # dist/ and build it themselves only if it is missing, so building before
+  # testing means they read this build rather than racing to make their own.
+  command = "npm run check && npm run build && npm test"
   publish = "dist"
 
 [build.environment]

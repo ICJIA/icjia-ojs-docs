@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-137_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-143_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -150,7 +150,63 @@ is the remaining gap a formal ADA Title II / IITAA review would expect.
      <details><summary>Red/blue pass — YYYY-MM-DD</summary> … </details> and put
      the new pass here, expanded. -->
 
-### Red/blue pass — 2026-09-05
+### Red/blue pass — 2026-09-06
+
+Threat model unchanged: **a static site with no server, no database, no
+accounts, and no user input.** This pass covers what changed since the last
+one — a fourth document, the first added since the guards were written, and
+the two address-shaped strings the runbook's new Mailgun section introduced.
+The question it set out to answer is narrow: *do the guards actually apply to a
+document nobody had written when they were built?*
+
+**Red — what was found**
+
+| | Finding | Outcome |
+| --- | --- | --- |
+| R1 | **Netlify published without running the checks.** The build command was `npm run build` alone, so neither the type check nor the test suite gated a deploy. This is worse than it sounds, because a required status check gates a *merge*, not a push: a direct push to `main` deployed here before CI had reported anything, and stayed deployed if CI then went red. Only the release tag was ever conditioned on a green run. | **Fixed.** The build command is now `npm run check && npm run build && npm test`, in that order — building before testing, because the build-output and screen-reader suites assert against `dist/` and build it themselves only when it is missing. Pinned in [`tests/deployment-config.test.ts`](tests/deployment-config.test.ts) with six assertions, including that the steps are chained with `&&` rather than `;`, which would ignore earlier failures. |
+| R2 | Branch protection on `main` requires the `verify` status check but sets `enforce_admins: false`, so an administrator's direct push bypasses it with a warning and no other consequence. | **Accepted, and now harmless.** The rule is correctly configured — the CI job really is named `verify` — and required checks are a pull-request mechanism by design. With R1 fixed the deploy itself now runs the same checks, so a bypassed push no longer means an unverified publish. Worth revisiting only if a second person gains write access. |
+| R3 | The runbook's new Mailgun section publishes two further address-shaped strings: `admin@icjia.cloud`, the envelope sender both applications send as, and `editor@illinois.gov`, the illustrative `From:` header in the explanation of why `force_dmarc_compliant_from` is needed. | **Accepted, and allowlisted with a reason each.** The first is a role mailbox on the service domain; the second is not an address at all and belongs to nobody. `postmaster@icjia.cloud` was dropped from the allowlist in the same change, because the runbook now explicitly leaves that mailbox alone. |
+| R4 | Carried forward from 2026-09-05 and unchanged: the two Hub 2.0 drafts on `*.netlify.app` are temporary by design and sit in a shared namespace (**accepted**, revisit at Hub 2.0 cutover); `Strict-Transport-Security` is a Netlify platform default rather than anything in this repository (**accepted**); the runbook publishes the test hostname and `forge` login user (**accepted** — disposable box); staff first names are public (**accepted, by instruction** — enforced by test). | **Accepted.** |
+
+**Blue — what held**
+
+- `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 385 in the tree, 226 installed, one with an install script (`esbuild`).
+- **No credential pattern anywhere in history** — the full log scanned for AWS keys, GitHub classic and fine-grained tokens, Slack, Stripe, Google API keys and private-key headers. Zero matches.
+- No `.env`, `.pem`, `.key`, `.p12` or keystore file has ever been committed, and none exists now.
+- The published artefact is **nine files**. Four address-shaped strings appear, all four allowlisted with a stated reason; no surname appears on any page.
+- All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
+- Every outbound origin in the new document — `pkp.sfu.ca`, `github.com`, the two Google Fonts hosts and the two Hub 2.0 previews — was already on the allowlist. The document ships **no JavaScript**, and is pinned as shipping none.
+- **Accessibility verified on the new page rather than assumed:** axe-core WCAG AA **0 violations** on desktop and mobile, Lighthouse accessibility **100/100**, no sideways scroll at a true 320px viewport with the comparison table scrollable and keyboard reachable, and the 1.4.12 text-spacing override clips nothing.
+
+**Verified by attack, not assumption**
+
+The point of this pass. Ten payloads were planted in the **new** document one at
+a time, each run against the full suite — the question being whether guards
+written for three documents actually extend to a fourth. All ten were caught by
+the assertion meant to catch them, and the document was restored byte-identical.
+
+| Attack | Caught by |
+| --- | --- |
+| Inline `onmouseover` handler | inline-handler guard |
+| `javascript:` URL | `javascript:` guard |
+| Remote `<script src>` | remote-script guard |
+| `<iframe>` | iframe guard |
+| `<object data>` | object/embed guard |
+| Tracking pixel to an unknown origin | origin scan |
+| Protocol-relative link `//evil.example` | origin scan |
+| Single-quoted unknown origin | origin scan |
+| Form posting offsite | origin scan |
+| Unexpected email address | name/address/credential guard |
+
+The six new deployment assertions were verified the same way, by breaking what
+they guard: a bare `npm run build` fails four of them, `;` instead of `&&` fails
+the chaining one alone, and testing before building fails the ordering one alone
+— no over-firing.
+
+<details>
+<summary><b>Red/blue pass — 2026-09-05</b></summary>
+
+
 
 Threat model unchanged: **a static site with no server, no database, no
 accounts, and no user input.** This pass re-ran every check from the previous
@@ -201,6 +257,8 @@ the full suite. All ten were caught, and the document restored clean.
 | Protocol-relative link `//evil.example` | origin scan — **would have passed before R1** |
 | Single-quoted unknown origin | origin scan — **would have passed before R1** |
 | Form posting offsite | origin scan — **would have passed before R1** |
+
+</details>
 
 <details>
 <summary><b>Red/blue pass — 2026-09-04</b></summary>
@@ -271,7 +329,7 @@ a version has no tag.
 
 ## Tests
 
-137 tests across six files.
+143 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug

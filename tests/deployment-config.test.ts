@@ -163,3 +163,58 @@ describe('release inputs', () => {
     ).toBe(true);
   });
 });
+
+/**
+ * Netlify is the only thing that actually publishes, and for a long time it ran
+ * `npm run build` alone. That mattered more than it looked: a required status
+ * check gates a *merge*, not a push, so a direct push to `main` deployed before
+ * CI had reported anything — and stayed deployed if CI then went red. Only the
+ * release tag was ever gated on a green run, never the deploy itself.
+ *
+ * So the build command is now part of the deployment contract, and pinned here.
+ * Reverting it to a bare build is a deliberate act, not a quiet one.
+ */
+describe('the deploy runs the checks, not just the build', () => {
+  const buildCommand = /^\s*command\s*=\s*"([^"]*)"/m.exec(netlifyToml)?.[1] ?? '';
+
+  it('declares a build command at all', () => {
+    expect(buildCommand, 'netlify.toml has no [build] command').not.toBe('');
+  });
+
+  it.each(['npm run check', 'npm run build', 'npm test'])(
+    'runs %s before publishing',
+    (step) => {
+      expect(
+        buildCommand,
+        `netlify.toml publishes without running "${step}", so a failure there still reaches production:\n  ${buildCommand}`,
+      ).toContain(step);
+    },
+  );
+
+  /**
+   * Order is not cosmetic. The build-output and screen-reader suites assert
+   * against `dist/` and build it themselves only when it is missing, so testing
+   * before building leaves them racing to produce their own copy. Building
+   * first means both read the artefact that is about to be published.
+   */
+  it('builds before it tests, so the suites assert on the published artefact', () => {
+    const build = buildCommand.indexOf('npm run build');
+    const test = buildCommand.indexOf('npm test');
+    expect(build, 'no build step').toBeGreaterThan(-1);
+    expect(test, 'no test step').toBeGreaterThan(-1);
+    expect(build, `netlify.toml tests before it builds:\n  ${buildCommand}`).toBeLessThan(test);
+  });
+
+  /**
+   * `&&` and not `;` — chaining with a semicolon runs every step and exits with
+   * the status of the last one, which would publish a build whose type check
+   * had already failed.
+   */
+  it('chains the steps so any failure stops the deploy', () => {
+    expect(
+      buildCommand.includes(';'),
+      `netlify.toml chains build steps with ";", which ignores earlier failures:\n  ${buildCommand}`,
+    ).toBe(false);
+    expect(buildCommand).toContain('&&');
+  });
+});
