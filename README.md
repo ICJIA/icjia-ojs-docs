@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-148_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-154_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -312,9 +312,12 @@ issues link both fail.
 The checks among these — `npm run check`, `npm run build` and `npm test` — all
 run in CI on pull requests and pushes to `main`
 ([`ci.yml`](.github/workflows/ci.yml)); the rest start a server and are for
-local work. Netlify only runs `npm run build`, so without CI nothing would
-check the pins described under [Security](#security) — they exist to catch a
-change nobody meant to make, which means they cannot depend on someone
+local work. All three also run on Netlify, because the deploy command is
+`npm run check && npm run build && npm test` rather than a bare build — a
+required status check gates a *merge*, not a push, so a direct push to `main`
+used to reach production before CI had reported anything. CI still matters: it
+reports on pull requests, and it is what gates the release tag. Both exist so
+the pins described under [Security](#security) cannot depend on someone
 remembering to run them.
 
 Requires Node 22.12 or newer; the version used here is pinned in `.nvmrc`.
@@ -329,7 +332,7 @@ a version has no tag.
 
 ## Tests
 
-148 tests across six files.
+154 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -352,8 +355,11 @@ it does catch the structural faults that make one unusable.
 
 [`tests/deployment-config.test.ts`](tests/deployment-config.test.ts) covers what
 the published site depends on that is not code: the six response headers in
-[`netlify.toml`](netlify.toml), the Node floor, and the changelog section the
-release workflow reads. It also holds the two halves of the origin rule
+[`netlify.toml`](netlify.toml), the Node floor, the changelog section the
+release workflow reads, the deploy command itself — that it runs the checks and
+not just the build, in that order, chained with `&&` rather than `;` — and the
+banner, whose reading times are compared against the figures the build derives
+because every number on it is written by hand. It also holds the two halves of the origin rule
 together — what a document may reach is decided in the test suite, what the
 browser will actually fetch is decided by the CSP, and nothing else notices when
 they drift apart. A host allowed in one but missing from the other gives a page
@@ -366,7 +372,9 @@ a file that is not there — and asserts the message, not just the throw.
 [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts) pins the
 JavaScript each document is allowed to ship, and refuses inline handlers,
 `javascript:` URLs, remote scripts, embedded frames and unknown outbound
-origins. The origin scan is itself pinned against the ways a URL can be
+origins. It also holds two writing conventions: every document ends with the
+same footer, and a document written for managers opens with a TL;DR whose stated
+length matches the number of lines it actually carries. The origin scan is itself pinned against the ways a URL can be
 written — quoting, spacing, protocol-relative, `srcset`, form actions — so the
 guard is held to the evasions rather than to today's content. See
 [Security](#security).
@@ -376,9 +384,13 @@ literals, so editing a document does not break the suite over a number.
 
 ## Deployment
 
-Netlify builds with `npm run build` and publishes `dist/`, as configured in
-[`netlify.toml`](netlify.toml). The output is plain static files — no adapter,
-no serverless functions — served from the domain root.
+Netlify builds with `npm run check && npm run build && npm test` and publishes
+`dist/`, as configured in [`netlify.toml`](netlify.toml). The build precedes the
+test deliberately: the build-output and screen-reader suites assert against
+`dist/` and build it themselves only when it is missing, so building first means
+they read the artefact that is about to be published. A failing type check or
+test fails the deploy. The output is plain static files — no adapter, no
+serverless functions — served from the domain root.
 
 Document URLs are canonical with a trailing slash (`/docs/droplet-runbook/`).
 The un-slashed form redirects, so prefer the trailing-slash form when sharing a

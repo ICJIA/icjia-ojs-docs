@@ -5,6 +5,78 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2026-09-06
+
+### Fixed
+
+- **The proof of concept said OPS was not being proposed. It is installed.** The
+  sentence "None of these is being proposed here" was written before the preprint
+  server existed and had quietly become false. It now says what is actually true —
+  OPS has since been installed on the same test server, has its own write-up, and
+  nothing has been posted to it — while OMP and repository software remain
+  genuinely not proposed.
+
+- **Jargon audit of the three non-developer documents.** The runbook is written
+  for a highly technical reader and is left alone deliberately. The other three
+  are for people with no technical background, and the preprint document had
+  drifted badly — mostly in the estimation section, which read as though it had
+  been written for a developer.
+
+  Removed or replaced: `OAI-PMH`, `JSON-LD`, `schema.org`, the framework name,
+  `MySQL`, `PHP`, `droplet`, `codebase`, `citation_` tag names, "data model",
+  "routing", "endpoint", "deposit pipeline", "upstream", "URL structure",
+  "structured data" and "bus factor". Each became the plain-language thing it
+  actually means — "a server somebody has to keep updated, backed up and
+  secured"; "letting library catalogues collect the listings automatically";
+  "usually one person understands it".
+
+  Two terms are now defined on first use rather than assumed: **DOI** ("a
+  permanent identifying number for a piece of research, the way an ISBN
+  identifies a book, which keeps working even if the web address changes") and
+  **Crossref** ("the non-profit that registers those permanent numbers"). DOI
+  appeared twenty-four times in the preprint document without ever being
+  explained.
+
+  The administrator guide came through clean: every technical-looking term in it
+  is either an on-screen label the reader will literally see
+  (`Settings → Website → Plugins`) or explained in place.
+
+### Added
+
+- **A disclaimer on the portal and in every document footer.** These are written
+  from a close reading of the official OJS and OPS documentation and from a
+  working test installation, not from experience of running either in
+  production. Some of it will be wrong and some will date; the documents are in
+  flux and that is fine. What is not fine is leaving an error in place once
+  someone has spotted it.
+
+- **Cross-links between all four documents.** Three of them already linked to
+  each other; the preprint document linked to none and nothing linked to it. The
+  proof of concept and the runbook now point at it, it points back at all three,
+  and the administrator guide gained a scope note: it covers OJS, most of it
+  transfers to OPS because the two share their settings, user management and
+  email templates, and what does not transfer is every part about reviewers and
+  issues — plus the warning that the two keep separate accounts.
+
+- **The README and the og:image are brought back in step.** The banner is the
+  `og:image` for every page, so it is what every link preview shows; both README
+  screenshots still showed three cards. `docs/assets/portal.png` is recaptured
+  with four cards and the new disclaimer, and `docs/assets/runbook.png` with it.
+
+  Two claims in the README had gone stale in the same change that made them
+  wrong: "Netlify only runs `npm run build`" and "Netlify builds with
+  `npm run build`" both predate the deploy running the checks. The same sentence
+  was in `ci.yml`'s header comment, which now explains why the duplication
+  between CI and the deploy is deliberate. The per-test-file descriptions were
+  updated for what those files now cover.
+
+- **The banner's figures are derived and pinned.** Every number on it is copied
+  by hand from something the build calculates, and it drifted four separate times
+  in one day of editing. `tests/deployment-config.test.ts` now compares each
+  advertised reading time against the figure the portal derives, and holds the
+  banner's test count to the README badge. The failure message carries the
+  re-render command.
+
 ## [1.14.0] - 2026-09-06
 
 ### Added

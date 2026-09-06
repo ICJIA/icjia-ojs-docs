@@ -1,10 +1,14 @@
 name: CI
 
-# Netlify only runs `npm run build`, so without this nothing checks the pins:
-# the approved document scripts, the identical footers, and the guard against a
-# personal name, an unexpected email address or a credential reaching published
-# HTML. Those exist to catch a change nobody meant to make, which means they
-# have to run without anyone remembering to run them.
+# Runs the same three steps Netlify now runs on every deploy, in the same order.
+# The duplication is deliberate: this reports on pull requests, before anything
+# is merged, and it is what the release workflow waits on before tagging.
+#
+# Between them they hold the pins — the approved document scripts, the identical
+# footers, and the guard against a personal name, an unexpected email address or
+# a credential reaching published HTML. Those exist to catch a change nobody
+# meant to make, which means they cannot depend on anyone remembering to run
+# them.
 
 on:
   push:

@@ -618,7 +618,7 @@ INSERT INTO user_user_groups (user_id, user_group_id) VALUES (&lt;user_id&gt;, &
 
 <section>
   <h2>Adding OPS as a second site (same box, same MySQL)</h2>
-  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta.</p>
+  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta &mdash; for what OPS is for, and how it differs from OJS and the Research Hub, see <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">the preprint server write-up</a>.</p>
   <table class="map">
     <tr><th>Step</th><th>What</th><th>Note</th></tr>
     <tr><td>DNS + Forge site</td><td>A record for <code>ops.icjia.cloud</code>; Forge → New Site, web dir <code>/</code>; Let's Encrypt</td><td>Same as OJS; Forge assigns a new site ID (3368831 here)</td></tr>
@@ -832,6 +832,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
 
 <footer>
   <p class="muted">Prepared by Chris, lead web developer, Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
+  Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
   Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
   OJS is published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
 </footer>

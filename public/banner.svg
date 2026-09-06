@@ -39,17 +39,17 @@
 
     <text class="sans" x="704" y="134" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
     <text class="display" x="704" y="164" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="262" lengthAdjust="spacingAndGlyphs">Should we adopt this?</text>
-    <text class="sans num" x="1128" y="164" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">21 min</text>
+    <text class="sans num" x="1128" y="164" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">22 min</text>
     <rect x="704" y="188" width="424" height="1" fill="#2e4056"/>
 
     <text class="sans" x="704" y="218" font-size="15" fill="#a8b2be" textLength="200" lengthAdjust="spacingAndGlyphs">For the journal administrator</text>
     <text class="display" x="704" y="248" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="291" lengthAdjust="spacingAndGlyphs">How do I run the journal?</text>
-    <text class="sans num" x="1128" y="248" font-size="19" fill="#f08a72" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs">8 min</text>
+    <text class="sans num" x="1128" y="248" font-size="19" fill="#f08a72" text-anchor="end" textLength="50" lengthAdjust="spacingAndGlyphs">9 min</text>
     <rect x="704" y="272" width="424" height="1" fill="#2e4056"/>
 
     <text class="sans" x="704" y="302" font-size="15" fill="#a8b2be" textLength="106" lengthAdjust="spacingAndGlyphs">For developers</text>
     <text class="display" x="704" y="332" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="213" lengthAdjust="spacingAndGlyphs">How do I install it?</text>
-    <text class="sans num" x="1128" y="332" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">39 min</text>
+    <text class="sans num" x="1128" y="332" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">40 min</text>
     <rect x="704" y="356" width="424" height="1" fill="#2e4056"/>
 
     <!-- Two lines: this question does not fit the column on one, and condensing
@@ -57,7 +57,7 @@
     <text class="sans" x="704" y="386" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
     <text class="display" x="704" y="416" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="244" lengthAdjust="spacingAndGlyphs">What&#8217;s the difference</text>
     <text class="display" x="704" y="446" font-size="25" letter-spacing="-0.5" fill="#efe8da" textLength="232" lengthAdjust="spacingAndGlyphs">between OJS and OPS?</text>
-    <text class="sans num" x="1128" y="416" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">33 min</text>
+    <text class="sans num" x="1128" y="416" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">35 min</text>
     <rect x="704" y="470" width="424" height="1" fill="#2e4056"/>
   </g>
 
@@ -66,6 +66,6 @@
   <text class="sans" x="72" y="536" font-size="17" fill="#a8b2be" textLength="57" lengthAdjust="spacingAndGlyphs">Astro 7</text>
   <text class="sans" x="196" y="536" font-size="17" fill="#a8b2be" textLength="46" lengthAdjust="spacingAndGlyphs">Static</text>
   <text class="sans" x="310" y="536" font-size="17" fill="#7fc49b" textLength="107" lengthAdjust="spacingAndGlyphs">WCAG 2.1 AA</text>
-  <text class="sans" x="480" y="536" font-size="17" fill="#a8b2be" textLength="70" lengthAdjust="spacingAndGlyphs">148 tests</text>
+  <text class="sans" x="480" y="536" font-size="17" fill="#a8b2be" textLength="70" lengthAdjust="spacingAndGlyphs">154 tests</text>
   <text class="sans" x="1128" y="536" font-size="17" fill="#a8b2be" text-anchor="end" textLength="159" lengthAdjust="spacingAndGlyphs">ojs-docs.netlify.app</text>
 </svg>

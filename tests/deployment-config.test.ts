@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { documents } from '../src/content/documents.ts';
+import { parseDocument } from '../src/lib/parse-document.ts';
 import { ALLOWED_ORIGINS } from './allowed-origins.ts';
 
 /**
@@ -216,5 +217,67 @@ describe('the deploy runs the checks, not just the build', () => {
       `netlify.toml chains build steps with ";", which ignores earlier failures:\n  ${buildCommand}`,
     ).toBe(false);
     expect(buildCommand).toContain('&&');
+  });
+});
+
+/**
+ * The banner is the project's shop window — it is what GitHub and every link
+ * preview show — and every figure on it is copied by hand from something the
+ * build derives. That has now drifted four separate times in a single day of
+ * editing: a document grows by a paragraph, its reading time ticks up, and the
+ * banner quietly keeps advertising the old number.
+ *
+ * Nothing else notices, because the banner is an image. So the figures are
+ * derived here and compared, which is the same rule the rest of this suite
+ * follows: counts come from the source, never from a literal someone remembered
+ * to update.
+ */
+describe('the banner tells the truth about the documents', () => {
+  const banner = root('public/banner.svg');
+
+  /** Every "<n> min" the banner advertises, in the order the shelf lists them. */
+  const bannerMinutes = [...banner.matchAll(/>(\d+) min</g)].map((m) => Number(m[1]));
+
+  /** The same figure the portal derives, per document, in manifest order. */
+  const derived = documents
+    .slice()
+    .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
+    .map((d) => ({
+      slug: d.slug,
+      minutes: parseDocument(
+        readFileSync(fileURLToPath(new URL(`../src/documents/${d.file}`, import.meta.url)), 'utf8'),
+        d.slug,
+      ).readingMinutes,
+    }));
+
+  it('shows one reading time per document', () => {
+    expect(
+      bannerMinutes.length,
+      `public/banner.svg advertises ${bannerMinutes.length} reading times for ${derived.length} documents`,
+    ).toBe(derived.length);
+  });
+
+  it.each(derived.map((d, i) => ({ ...d, i })))(
+    'advertises $slug as $minutes min',
+    ({ slug, minutes, i }) => {
+      expect(
+        bannerMinutes[i],
+        `public/banner.svg says "${bannerMinutes[i]} min" for ${slug}, which now reads in ${minutes}. ` +
+          `Update the SVG and re-render: rsvg-convert -w 1200 -h 630 public/banner.svg -o public/banner.png`,
+      ).toBe(minutes);
+    },
+  );
+
+  it('advertises the real test count', () => {
+    const claimed = /(\d+) tests</.exec(banner)?.[1];
+    expect(claimed, 'public/banner.svg no longer states a test count').toBeDefined();
+    // Derived from the suite itself would be circular, so this is pinned to the
+    // README badge instead — the two are written together and drift together.
+    const badge = /tests-(\d+)_passing/.exec(root('README.md'))?.[1];
+    expect(badge, 'README.md no longer carries a tests badge').toBeDefined();
+    expect(
+      claimed,
+      `banner.svg says ${claimed} tests, README badge says ${badge}`,
+    ).toBe(badge);
   });
 });
