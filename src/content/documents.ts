@@ -65,7 +65,7 @@ export const documents: DocumentEntry[] = [
     file: 'ops-preprint-server.html',
     question: "What's the difference between OJS and OPS?",
     summary:
-      'A preprint server now runs beside the journal. What Open Preprint Systems is, how it differs from OJS and the Research Hub, and whether it earns its place.',
+      'A preprint server now runs beside the journal. What OPS is, how it differs from OJS and the Research Hub — and whether the Hub could be retired in favour of off-the-shelf software.',
     audience: 'Written for managers',
     status: 'draft',
     order: 4,

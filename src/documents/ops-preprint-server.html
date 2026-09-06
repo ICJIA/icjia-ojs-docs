@@ -114,7 +114,10 @@
      inside the measure on a laptop. Below 901px it scrolls, as before. */
   .map{width:100%;border-collapse:collapse;margin:8px 0 26px;font-size:16px}
   .map th,.map td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
-  .map td.same{color:var(--done)}
+  /* A row where Hub 2.0 changes nothing. Green so the column reads at a glance,
+     but the cell still spells the answer out — "Same" on its own left readers
+     asking "same as what?". */
+  .map td.unchanged{color:var(--done)}
   .map th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-dim);font-weight:600}
   .map td{color:var(--paper-dim)}
   .map td:first-child{color:var(--paper);font-weight:500}
@@ -145,6 +148,22 @@
 
   .rule{margin-top:22px;padding:26px 30px;border-radius:16px;background:var(--pencil-soft);border:1px solid var(--pencil);font-size:clamp(20px,2.2vw,24px);line-height:1.4}
   .rule b{color:var(--pencil);font-weight:600}
+
+  /* for and against, side by side */
+  .balance{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+  .balance div{padding:30px 32px;border-radius:18px;background:var(--ink-2);border:1px solid var(--rule)}
+  .balance .for{border-color:var(--done)}
+  .balance .against{border-color:var(--pencil)}
+  .balance h3{font-size:24px;font-weight:700;margin-bottom:14px}
+  .balance .for h3{color:var(--done)}
+  .balance .against h3{color:var(--pencil)}
+  .balance ul{margin:0;padding-left:1.1em;font-size:18px;color:var(--paper-dim)}
+  .balance li{margin-bottom:12px}
+  .balance li:last-child{margin-bottom:0}
+  .balance .for li::marker{color:var(--done)}
+  .balance .against li::marker{color:var(--pencil)}
+  .balance li b{color:var(--paper);font-weight:500}
+  @media (max-width:900px){.balance{grid-template-columns:1fr}}
 
   /* status */
   .steps{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:12px}
@@ -227,11 +246,14 @@
       <b>Open Preprint Systems (OPS)</b> is now running alongside OJS on the same test server.
       It is built by the same people, from the same code, and it does a deliberately smaller job:
       it posts finished research publicly, straight away, without waiting for peer review or an issue.
+      The question it forces is not whether to run it beside the Research Hub, but whether it could
+      replace it.
     </p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-06">6 September 2026</time></p>
     <div class="plain">
-      <b>The question this answers:</b> ICJIA now has three ways to put research on the web.
-      What is actually different between them, and does the third one earn its place?
+      <b>The question this answers:</b> could ICJIA retire the Research Hub and publish its
+      research on OJS or OPS instead &mdash; off-the-shelf software, maintained by other people?
+      And if not, is OPS worth having anyway?
     </div>
     <div class="glance">
       <div><div class="n">20<small>minutes</small></div><p><b>That is how long the second install took.</b> Same codebase, same server, same database engine &mdash; with the OJS problems already solved, OPS hit none of them.</p></div>
@@ -243,14 +265,16 @@
   <section class="tldr-sec">
     <div class="tldr">
       <h2>TL;DR &mdash; the short version</h2>
-      <p class="sub">Seven lines. Everything after this is the supporting detail, to be read only if you want it.</p>
+      <p class="sub">Eight lines. Everything after this is the supporting detail, to be read only if you want it.</p>
       <ul>
+        <li><b>The decision on the table.</b> Not whether to run OPS beside the Research Hub, but whether ICJIA could <b>retire the Hub</b> and publish on OJS or OPS instead &mdash; off-the-shelf software maintained by other people, rather than a platform the agency maintains itself.</li>
+        <li><b>The answer to that.</b> <b>No &mdash; but the instinct behind it is sound and is aimed at the wrong target.</b> Replacing the Hub would cost 84% of the agency's search traffic, force six years of research to be filed as either invented journal issues or &ldquo;preprints&rdquo;, and leave the dashboards with nowhere to live &mdash; so the in-house platform would survive anyway, alongside a PHP application and a database. That is more to maintain, not less. The real fix for the maintenance worry is Hub&nbsp;2.0, which is built and waiting.</li>
         <li><b>What was installed.</b> Open Preprint Systems 3.5.0-5, the preprint sibling of OJS, on the same droplet and the same MySQL server. Separate database, separate logins, its own address. It took twenty minutes and hit nothing.</li>
         <li><b>What a preprint is.</b> A finished paper posted publicly before &mdash; or instead of &mdash; formal peer review. It is timestamped, permanently citable, and can be replaced by a newer version without losing the old one.</li>
         <li><b>How OPS differs from OJS.</b> No issues, no volumes, no peer-review rounds, no copyediting. An author submits, a moderator screens it for scope, and it goes up. OJS is a journal; OPS is a noticeboard with a records office attached.</li>
         <li><b>How OPS differs from the Research Hub.</b> Less than you would hope. Both post individual pieces continuously, as each is ready. OPS adds versioning, DOIs and scholarly indexing; it gives up the Hub's datasets, dashboards and hard-won web addresses.</li>
-        <li><b>Where Hub 2.0 &ldquo;Copperhead&rdquo; fits.</b> It is not a third option. It is the Hub you already have, rebuilt on software that still receives security updates &mdash; same content, same continuous publishing, same web addresses. It settles nothing about OJS or OPS, in either direction.</li>
-        <li><b>The honest verdict.</b> <b>OPS is the closest of the three to what ICJIA already does &mdash; which is exactly why it is the hardest of the three to justify.</b> The Hub already posts research continuously and is read far more widely than a new preprint server would be.</li>
+        <li><b>Where Hub&nbsp;2.0 fits.</b> Not a third option: it is the next version of the Hub, built and awaiting a decision. A major upgrade &mdash; current platform, far better security, new capability &mdash; but the same publishing model, same content, same web addresses. Which is why it settles nothing about OJS or OPS, in either direction. (Internally it is codenamed &ldquo;Copperhead&rdquo;.)</li>
+        <li><b>The honest verdict on adding it.</b> <b>OPS is the closest of the three to what ICJIA already does &mdash; which is exactly why it is the hardest of the three to justify.</b> The Hub already posts research continuously and is read far more widely than a new preprint server would be.</li>
         <li><b>Where it is worth a second look.</b> Not as a place to publish, but as the missing front half of a journal: somewhere a working paper can get a citable identifier and a date stamp while it waits for review. That is a narrow job, and OPS does it properly.</li>
       </ul>
       <p class="close">Read on for the side-by-side comparison, the overlap with the Hub stated plainly, and what is actually running today.</p>
@@ -262,11 +286,11 @@
     <p class="intro">Before any detail: the three names in this document are easy to mix up, and one of them is not a new system at all. This is the whole distinction, and the rest of the page is only evidence for it.</p>
     <div class="quick">
       <div class="row key">
-        <div class="who">The Research Hub<small>Including Hub&nbsp;2.0, codenamed Copperhead</small></div>
+        <div class="who">The Research Hub<small>Both the version running today and Hub&nbsp;2.0, the rebuild waiting behind it</small></div>
         <div>
           <p class="job">Getting research read.</p>
           <p>Where ICJIA research reaches people, and by a wide margin: <b>60% of everyone who visits the agency's website.</b> Articles, datasets and dashboards, each published as it is finished.</p>
-          <p class="not"><b>Copperhead is this, rebuilt &mdash; not a third system.</b> Same content, same continuous publishing, same name and web addresses. What changes is the software underneath, which stopped getting security updates in 2022. It changes the plumbing, not the publishing.</p>
+          <p class="not"><b>Hub&nbsp;2.0 is this same thing, rebuilt &mdash; not a third system.</b> It is a major upgrade and overdue: a modern, supported platform with substantially better security and new capability throughout, replacing one that has had no security updates since 2022. What it deliberately does <b>not</b> change is the publishing model &mdash; same kinds of content, same continuous posting, same name, same web addresses. So it belongs in this row, next to today's Hub, however much better built it is.</p>
         </div>
       </div>
       <div class="row">
@@ -287,7 +311,7 @@
       </div>
     </div>
     <div class="rule">
-      <b>If you read nothing else on this page:</b> Copperhead is the Hub you already have, rebuilt &mdash; it settles nothing about the other two, in either direction. OPS and OJS are <b>additions</b>. And only OJS does something no version of the Hub can be adjusted into doing.
+      <b>If you read nothing else on this page:</b> Hub&nbsp;2.0 is the Hub you already have, rebuilt and much improved &mdash; which is why it settles nothing about the other two, in either direction. OPS and OJS are <b>additions</b> to whichever Hub is running. And only OJS does something no version of the Hub can be adjusted into doing.
     </div>
   </section>
 
@@ -338,7 +362,7 @@
 
   <section>
     <h2>The four systems, side by side</h2>
-    <p class="intro">Four columns rather than three, because the Hub appears twice &mdash; the version running today and the rebuild waiting behind it. Seeing them side by side is the quickest way to confirm what the last section claimed: that they belong in the same place.</p>
+    <p class="intro">Four columns rather than three, because the Hub appears twice &mdash; the version running today and the rebuild waiting behind it. Hub&nbsp;2.0 is much the better piece of software &mdash; that is not in question here. What the columns show is narrower: on the questions this page asks, the two Hubs answer the same way.</p>
     <div class="cols">
       <div>
         <h3>The Research Hub</h3>
@@ -347,9 +371,10 @@
         <p>The most-read part of the agency's website: 60% of all visitors, 47% of all pages read. The software storing its content stopped getting security updates in 2022.</p>
       </div>
       <div>
-        <h3>Research Hub 2.0</h3>
-        <span class="tag">Draft, under review</span>
-        <p><b>The same Hub, rebuilt on current software.</b> Codenamed <b>Copperhead</b> internally; at launch it is simply the Research Hub again, same name, same web addresses. The new Studio adds the ability to comment on a passage.</p>
+        <h3>Hub 2.0</h3>
+        <span class="tag">Built, not yet in production</span>
+        <p><b>The next Research Hub.</b> Today's Hub dates from 2019 and its underlying software has had no security updates since 2022. Hub&nbsp;2.0 rebuilds both it and the Studio on a current, supported platform &mdash; a substantial upgrade in security and capability, including the ability for an editor to comment on a specific passage.</p>
+        <p>Internally it is codenamed <b>Copperhead</b>, which is why that word appears on the drafts. Readers never see it: at launch it is simply the Research Hub again, same name, same web addresses.</p>
         <p>Built and working, not published. Drafts are up for internal review: the <a href="https://copperhead-hub-20.netlify.app/researchhub/">public site</a> and the <a href="https://studio-2026.netlify.app/login">new Studio</a> (choose &ldquo;editor&rdquo;; no password needed).</p>
       </div>
       <div>
@@ -365,22 +390,22 @@
         <p>Running on the test server. Five of seven proof-of-concept steps complete.</p>
       </div>
     </div>
-    <div class="rule" style="margin-bottom:28px"><b>Skim this or skip it &mdash; the decision does not depend on it.</b> One thing is worth catching, though: the <b>Research Hub 2.0</b> column says &ldquo;same&rdquo; almost the whole way down. That is not a shortcoming. It is what a rebuild is supposed to look like.</div>
+    <div class="rule" style="margin-bottom:28px"><b>Skim this or skip it &mdash; the decision does not depend on it.</b> One thing is worth catching, though: on the questions this page asks, the <b>Hub&nbsp;2.0</b> column mostly reads &ldquo;no change&rdquo;. That is not a verdict on Hub&nbsp;2.0 &mdash; it is a substantial upgrade, and the one row where it differs is the one that matters most. It simply means these are not the questions Hub&nbsp;2.0 set out to answer.</div>
     <table class="map">
       <thead>
-        <tr><th>Question</th><th>Research Hub (today)</th><th>Research Hub 2.0</th><th>OPS</th><th>OJS</th></tr>
+        <tr><th>Question</th><th>The Research Hub<br>(running today)</th><th>Hub 2.0<br>(built, not yet in production)</th><th>OPS</th><th>OJS</th></tr>
       </thead>
       <tbody>
-        <tr><td>What is the unit of publication?</td><td>An article, dataset or dashboard, standing alone</td><td class="same">Same</td><td>A preprint, standing alone</td><td>An article, inside an issue</td></tr>
-        <tr><td>What has to happen before it is public?</td><td>One manager approves the draft</td><td class="same">Same, plus comments on a passage</td><td>One moderator confirms it is in scope</td><td>Peer review, an editorial decision, copyediting, and an issue to go into</td></tr>
-        <tr><td>Are there formal reviewers?</td><td>No</td><td class="same">No &mdash; commenting on a passage is closer than before, but it is not review</td><td>No. Screening only</td><td><b>Yes</b> &mdash; invited, tracked, with rounds and deadlines</td></tr>
-        <tr><td>Permanent identifiers (DOIs)?</td><td>A box to record one issued elsewhere. It does not issue them</td><td class="same">Same</td><td><b>Yes</b>, per preprint, and it can point at the journal version later</td><td><b>Yes</b>, per article and per issue</td></tr>
-        <tr><td>Versions kept on the record?</td><td>No. The current page replaces the last</td><td class="same">Same</td><td><b>Yes, and expected</b> &mdash; every version stays citable</td><td>Supported, but exceptional &mdash; a correction to the version of record</td></tr>
-        <tr><td>Datasets and dashboards?</td><td><b>Yes</b> &mdash; first-class, and a large part of why the Hub is read as much as it is</td><td class="same">Same</td><td>No. A dataset is a file attached to a preprint; a dashboard has nowhere to live</td><td>Same limitation as OPS</td></tr>
-        <tr><td>Indexed as scholarship?</td><td>No &mdash; found by Google very well, but largely invisible to Google Scholar</td><td class="same">Same</td><td><b>Yes</b>, as preprints</td><td><b>Yes</b> &mdash; Crossref, Google Scholar, library catalogues</td></tr>
-        <tr><td>Is the software current?</td><td><b>No</b> &mdash; no security updates since 2022</td><td><b>Yes</b> &mdash; this is the reason Copperhead exists</td><td>Yes &mdash; 3.5.0-5, long-term support</td><td>Yes &mdash; 3.5.0-5, long-term support</td></tr>
-        <tr><td>Who has to run it?</td><td>Staff who already do it, and a server</td><td class="same">Same</td><td>A moderator and a server</td><td>An editorial board, reviewers, a journal manager, and a server</td></tr>
-        <tr><td>Where does it stand?</td><td>Live. 60% of the agency's visitors</td><td>Built and working, not published</td><td>Test install, nothing posted</td><td>Test install, five of seven steps</td></tr>
+        <tr><td>What is the unit of publication?</td><td>An article, dataset or dashboard, standing alone</td><td class="unchanged">No change &mdash; an article, dataset or dashboard, standing alone</td><td>A preprint, standing alone</td><td>An article, inside an issue</td></tr>
+        <tr><td>What has to happen before it is public?</td><td>One manager approves the draft</td><td>One manager still approves the draft, exactly as now. What is new is that they can highlight a passage and leave a comment on it first</td><td>One moderator confirms it is in scope</td><td>Peer review, an editorial decision, copyediting, and an issue to go into</td></tr>
+        <tr><td>Are there formal reviewers?</td><td>No</td><td>Still no. Commenting on a passage is closer than a single yes-or-no, but it is one colleague's note, not an outside expert's assessment</td><td>No. Screening only</td><td><b>Yes</b> &mdash; invited, tracked, with rounds and deadlines</td></tr>
+        <tr><td>Permanent identifiers (DOIs)?</td><td>Not really. The Studio has a field where staff can paste in a DOI that some other organisation has already issued &mdash; it is easy to miss, and rarely used. The Hub cannot create one</td><td class="unchanged">No change &mdash; the same field, and still no way to issue a DOI of its own</td><td><b>Yes</b>, per preprint, and it can point at the journal version later</td><td><b>Yes</b>, per article and per issue</td></tr>
+        <tr><td>Versions kept on the record?</td><td>No. Updating an article replaces it; the earlier text is gone</td><td class="unchanged">No change &mdash; updating an article still replaces it</td><td><b>Yes, and expected</b> &mdash; every version stays citable</td><td>Supported, but exceptional &mdash; a correction to the version of record</td></tr>
+        <tr><td>Datasets and dashboards?</td><td><b>Yes</b> &mdash; first-class, and a large part of why the Hub is read as much as it is</td><td class="unchanged">No change &mdash; still first-class, still a large part of the readership</td><td>No. A dataset is a file attached to a preprint; a dashboard has nowhere to live</td><td>Same limitation as OPS</td></tr>
+        <tr><td>Indexed as scholarship?</td><td>No &mdash; found by Google very well, but largely invisible to Google Scholar</td><td class="unchanged">No change &mdash; still found by Google, still largely invisible to Google Scholar</td><td><b>Yes</b>, as preprints</td><td><b>Yes</b> &mdash; Crossref, Google Scholar, library catalogues</td></tr>
+        <tr><td>Is the software current?</td><td><b>No</b> &mdash; no security updates since 2022</td><td><b>Yes &mdash; and this is the single reason Hub 2.0 exists</b></td><td>Yes &mdash; 3.5.0-5, long-term support</td><td>Yes &mdash; 3.5.0-5, long-term support</td></tr>
+        <tr><td>Who has to run it?</td><td>Staff who already do it, and a server</td><td class="unchanged">No change &mdash; the same staff, doing the same job</td><td>A moderator and a server</td><td>An editorial board, reviewers, a journal manager, and a server</td></tr>
+        <tr><td>Where does it stand?</td><td>Live. 60% of the agency's visitors</td><td>Built and working, awaiting a decision</td><td>Test install, nothing posted</td><td>Test install, five of seven steps</td></tr>
       </tbody>
     </table>
   </section>
@@ -390,11 +415,11 @@
     <p class="intro">This is the section that decides the matter, so here it is in one sentence: <b>three of the four do the same job, and only OJS does a different one.</b> The Hub as it runs today, the Hub 2.0 rebuild and OPS are all <b>continuous publishers</b> &mdash; work goes public when it is finished, approved by one person. OJS is the odd one out: it gathers reviewed work into issues, on a schedule.</p>
 
     <div class="qa">
-      <h3>First: Copperhead is not a separate option</h3>
-      <span class="verdict yes">It is the Hub, rebuilt &mdash; not a different way of publishing</span>
-      <p>This is the point most easily misread, so it is worth being blunt about. <b>Research Hub 2.0 does not sit in a third place on this page.</b> It publishes the same three kinds of content, continuously, with the same single approval, under the same name, at the same web addresses. Every row of the table above says &ldquo;same&rdquo; except two.</p>
-      <p>What it does change is the foundation, and that change is the whole reason it exists: <b>current, supported software</b> in place of a system that stopped receiving security updates in 2022. The new Studio also lets an editor highlight a passage and leave a comment on it, which is a real improvement on a single yes-or-no approval &mdash; but it is a better conversation, not peer review.</p>
-      <p>So for the purposes of this comparison, <b>Hub 1.0 and Hub 2.0 fall in the same place.</b> That is not a criticism of Copperhead. Fixing the foundation was the job, and it is the most urgent of anything described on this page. It simply means choosing it is not choosing a different publishing model &mdash; which is exactly why it settles nothing about OJS or OPS, in either direction.</p>
+      <h3>First: Hub 2.0 is not a separate option</h3>
+      <span class="verdict yes">A major upgrade to the Hub &mdash; but not a different way of publishing</span>
+      <p>This is the point most easily misread, so it is worth being blunt about. <b>Hub&nbsp;2.0 does not sit in a third place on this page.</b> It publishes the same three kinds of content, continuously, with the same single approval, under the same name, at the same web addresses. On the questions this page asks, most of its column reads &ldquo;no change&rdquo;.</p>
+      <p><b>None of which is a criticism &mdash; it would be a bad misreading of this page to take it as one.</b> Today's Hub dates from 2019 and has had no security updates since 2022, which makes replacing it the most urgent thing described anywhere on this page. Hub&nbsp;2.0 is a substantial rebuild: a current, supported platform, materially better security, and new capability throughout, including letting an editor highlight a passage and leave a comment on it &mdash; a real improvement on a single yes-or-no approval, though a better conversation rather than peer review.</p>
+      <p>The point is narrower: <b>on the question this page is about &mdash; how ICJIA publishes &mdash; today's Hub and Hub&nbsp;2.0 fall in the same place.</b> Hub&nbsp;2.0 is a better, safer, more capable version of the same publishing model, which is exactly what it was meant to be. And that is why it settles nothing about OJS or OPS in either direction: whichever Hub is running, the two questions in the next box are answered the same way.</p>
     </div>
 
     <div class="same">
@@ -413,29 +438,108 @@
       <p>Everything else is detail. If you remember nothing else from this page, remember these two.</p>
       <ul>
         <li><b>1. Is the work formally reviewed by outside experts?</b><br>
-        <b>Only OJS.</b> Not the Hub today, not Hub 2.0, not OPS. A manager's approval, a moderator's screening and a comment on a passage are all useful, and none of them is peer review. This is the single thing no version of the Hub can be adjusted into providing without becoming a journal.</li>
+        <b>Only OJS.</b> Not today's Hub, not Hub&nbsp;2.0, not OPS. A manager's approval, a moderator's screening and a comment on a passage are all useful, and none of them is peer review. This is the single thing no version of the Hub can be adjusted into providing without becoming a journal.</li>
         <li><b>2. Is it registered as scholarship?</b> &mdash; a permanent identifier, versions that stay citable, and visibility to Google Scholar and citation counts.<br>
-        <b>OJS and OPS, yes. Neither version of the Hub.</b> Hub articles are read by tens of thousands of people and are close to invisible to the scholarly record. That is a real ceiling on work the agency has already paid to produce, and Copperhead does not lift it.</li>
+        <b>OJS and OPS, yes. Neither version of the Hub.</b> Hub articles are read by tens of thousands of people and are close to invisible to the scholarly record. That is a real ceiling on work the agency has already paid to produce, and Hub&nbsp;2.0 does not set out to lift it.</li>
       </ul>
       <p>There is a third thing, and it runs the other way: <b>only the Hub has readers.</b> 60% of the agency's visitors, 84% of its search traffic, fifteen minutes a visit, and roughly 540 web addresses ranked by Google over six years. Neither OJS nor OPS starts with any of that, and neither can hold a dataset or a dashboard as a publication in its own right. Two of the Hub's three kinds of content do not survive a move to either one.</p>
     </div>
 
     <div class="rule">
-      <b>So where does each fall?</b> The <b>Hub</b>, in both versions, is where ICJIA's research reaches people &mdash; and Copperhead is that same job on software that is still supported. <b>OPS</b> is the Hub's shape plus a scholarly record: versions, DOIs, indexing, minus the datasets, dashboards and readers. <b>OJS</b> is the only one that reviews anything, and the only one that produces a periodical.
+      <b>So where does each fall?</b> The <b>Hub</b>, in both versions, is where ICJIA's research reaches people &mdash; and <b>Hub&nbsp;2.0</b> is that same job done on a current, secure, more capable platform. <b>OPS</b> is the Hub's shape plus a scholarly record: versions, DOIs, indexing, minus the datasets, dashboards and readers. <b>OJS</b> is the only one that reviews anything, and the only one that produces a periodical.
     </div>
 
   </section>
 
   <section>
-    <h2>So does ICJIA need it?</h2>
+    <h2>Can we retire the Hub and just use OJS or OPS?</h2>
+    <p class="intro">This is the question behind the question, and it deserves a straight answer rather than a defensive one. The instinct runs: <b>ICJIA maintains a publishing platform it built itself. Off-the-shelf software is maintained by other people. Why not move the research into OJS or OPS and stop maintaining anything?</b></p>
+    <p class="intro" style="margin-top:-16px"><b>The short answer: the instinct is sound, and it is aimed at the wrong target.</b> What follows is why &mdash; including the parts that favour replacing it.</p>
+
     <div class="qa">
-      <h3>As a replacement for the Research Hub?</h3>
+      <h3>First, the case for it &mdash; put as strongly as it deserves</h3>
+      <p>This is not a straw man. In-house software has a specific and well-known failure mode, and ICJIA is living inside an example of it right now.</p>
+      <ul>
+        <li><b>A bespoke tool has a bus factor of one.</b> The people who can confidently change it are the people who wrote it. When they move on, the knowledge goes with them and what remains is a system nobody wants to touch.</li>
+        <li><b>Nobody patches it on a schedule.</b> The clearest evidence is on this page already: the software behind today's Hub <b>stopped receiving security updates in 2022</b>. That is exactly what the instinct is worried about, and it is not hypothetical.</li>
+        <li><b>You cannot hire for it.</b> There is no market of people who already know an agency's internal tool, no documentation but your own, and no community to ask.</li>
+        <li><b>Off-the-shelf outlives its adopters.</b> PKP has been developing OJS since 2001 and maintains it with a community of thousands of journals. Security fixes arrive because other people need them, not because someone here had time.</li>
+      </ul>
+      <p>Any honest version of this document has to concede all four. The question is not whether those risks are real &mdash; they are &mdash; but whether moving the Research Hub into OJS or OPS actually removes them.</p>
+    </div>
+
+    <div class="balance">
+      <div class="for">
+        <h3>What replacing it would genuinely buy</h3>
+        <ul>
+          <li><b>Security maintained by strangers, on a schedule.</b> The single strongest argument, and it is a good one.</li>
+          <li><b>Documentation you did not have to write</b>, and staff you can actually recruit or contract for.</li>
+          <li><b>No bespoke application code</b> to review, inherit, or explain to an auditor.</li>
+          <li><b>Standards for free.</b> DOIs, Crossref deposits, OAI-PMH harvesting and Google Scholar indexing are built in, and each would be real work to add to anything home-grown.</li>
+        </ul>
+      </div>
+      <div class="against">
+        <h3>What it would cost</h3>
+        <ul>
+          <li><b>Someone else's model of the work.</b> OJS assumes a journal; OPS assumes preprints. Neither assumes articles, datasets and dashboards. You cannot configure your way out of a data model.</li>
+          <li><b>The customisation trap.</b> Closing that gap means plugins, themes and patches &mdash; which is in-house code again, only now wedged into somebody else's codebase and re-broken by every upgrade. This is the failure mode people underestimate: <b>off-the-shelf plus customisation is frequently worse than in-house</b>, because you own the custom part <em>and</em> you are tied to an upstream release cycle you do not control.</li>
+          <li><b>Upgrades stop being optional.</b> An in-house tool changes when ICJIA decides. A major OJS or OPS release is a migration with a deadline attached, because staying behind means losing security support &mdash; the very thing the move was meant to fix.</li>
+          <li><b>Bugs become someone else's queue.</b> A defect in your own tool is a fix. A defect upstream is an issue report and a wait, or a local patch you now maintain forever.</li>
+          <li><b>You still run the server &mdash; and it is more server, not less.</b> Off-the-shelf is not managed. OJS and OPS are PHP applications with a MySQL database on a box somebody has to patch, back up, tune and certificate. The sibling <b>droplet runbook</b> is the honest price list: a long document that exists because the first build hit error after error, and that already needed memory tuning to hold two of these applications on one small server.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa">
+      <h3>What would happen to search traffic?</h3>
+      <span class="verdict">The largest single risk, and the hardest to undo</span>
+      <p>The Hub earns <b>21,500 of the 25,500 visitors Google sends the whole agency each year &mdash; 84%.</b> That standing is attached to the web addresses themselves, not to the writing on them, and it took six years to build.</p>
+      <ul>
+        <li><b>Every address would change.</b> OJS and OPS impose their own URL structure &mdash; paths of the shape <code>/index.php/&lt;name&gt;/article/view/&lt;number&gt;</code> &mdash; and roughly <b>540</b> Hub pages would move into it. Google treats a moved page as a new page: found again, judged again, ranked again.</li>
+        <li><b>Redirects help, and do not make it free.</b> A correctly mapped permanent redirect carries most of a page's standing across, but only if every single one is mapped and kept working permanently, and the climb back is still measured in months. One unmapped address is one article that starts from nothing.</li>
+        <li><b>The references you do not control.</b> Those addresses are sitting in citations, syllabi, bookmarks, and other agencies' pages. Redirects protect them only for as long as the redirects are maintained &mdash; which is now a permanent obligation, not a one-off task.</li>
+        <li><b>A different index is not the same index.</b> OJS and OPS would improve visibility in <b>Google Scholar, Crossref and library catalogues</b>, which the Hub barely reaches. That is a genuine gain. But it is a different audience from the one arriving through ordinary web search, and it is much smaller. Trading 84% of the agency's search traffic for scholarly indexing is a trade, not an upgrade.</li>
+      </ul>
+    </div>
+
+    <div class="qa">
+      <h3>How would moving the back catalogue actually work?</h3>
+      <span class="verdict">Mechanically tractable. Structurally, it does not fit</span>
+      <p>The technical half is the easy half, and worth saying plainly so it is not treated as the obstacle: <b>OJS ships tools for bulk-loading existing content</b>, so importing several hundred articles is a scripting job, not a research project.</p>
+      <p>The structural half is where it fails, and it fails differently depending on which system you pick:</p>
+      <ul>
+        <li><b>Into OJS, every article needs an issue.</b> There is no way to publish without one. Six years of continuous output would have to be filed into invented retrospective volumes and numbers &mdash; a fiction, permanently recorded in the metadata, describing work that was never issued that way.</li>
+        <li><b>Into OPS, every article becomes a preprint.</b> Not a label you can change: it is what the software is, and it is written into everything OPS emits. ICJIA's finished, authoritative research would be permanently and machine-readably described as provisional. That is not a mismatch; it is a false statement about the work.</li>
+        <li><b>Datasets stop being publications.</b> In both systems a dataset is a file attached to something else. It can still carry its own DOI &mdash; a real strength &mdash; but it stops being an entry a reader can find on its own.</li>
+        <li><b>Dashboards have nowhere to go at all.</b> There is no version of this migration where an interactive dashboard lives in OJS or OPS.</li>
+      </ul>
+      <p><b>Which produces the decisive practical objection.</b> Because the dashboards cannot move, and the datasets do not survive intact, ICJIA would not be retiring its in-house platform &mdash; it would be keeping a reduced one for the content that could not leave, <em>and</em> running a PHP application and database next to it. The stated goal is fewer systems to maintain. The result is more.</p>
+    </div>
+
+    <div class="qa">
+      <h3>One thing to watch while deciding</h3>
+      <p>There is a bias at work here, it runs in both directions, and it is worth naming because it operates quietly and feels like judgement rather than assumption.</p>
+      <p>The familiar one is <b>&ldquo;not invented here&rdquo;</b> &mdash; preferring your own tool because it is yours. The one more likely to matter in this decision is its mirror: <b>assuming software that was bought or downloaded is inherently more serious than software built in-house.</b></p>
+      <p>That assumption is not reliable. Off-the-shelf software is not automatically more correct, better tested, or cheaper to run by virtue of having come from outside &mdash; it is <em>differently</em> maintained, and the sibling runbook is a fair record of what that costs in practice: a long document that exists because a standard installation of standard software hit error after error, on a box that then needed tuning by hand. Meanwhile the Hub's results are not a matter of opinion or advocacy. Sixty per cent of the agency's visitors, 84% of its search traffic, fifteen minutes a visit &mdash; those are measurements.</p>
+      <p>None of which makes the in-house platform above criticism. Its most serious problem is stated plainly several times on this page: <b>the software behind today's Hub has had no security updates since 2022</b>, and that is a real and urgent fault, which is precisely what Hub&nbsp;2.0 was built to fix.</p>
+      <p><b>The fair test is the same test, applied to both:</b> what does it do well, what does it do badly, what does it cost to run, and what happens when it breaks? Applied evenly, it is what the rest of this page has tried to do. Applied unevenly &mdash; scrutinising the in-house tool and waving the downloaded one through because it came from outside &mdash; it produces a decision that looks rigorous and is not.</p>
+    </div>
+
+    <div class="rule">
+      <b>So: right instinct, wrong target.</b> The worry &mdash; that ICJIA depends on software only ICJIA maintains, and that it stopped being patched in 2022 &mdash; is legitimate and urgent. But the fix for it is <b>Hub&nbsp;2.0</b>, which rebuilds the Hub on a current, supported, mainstream platform and is already built and waiting for a decision. That addresses the security and maintenance problem directly, keeps the readership and the web addresses, and keeps datasets and dashboards as publications. Moving the content into OJS or OPS would address the same problem indirectly, at the price of the agency's search standing, two of its three kinds of content, and an honest description of its own research.
+    </div>
+  </section>
+
+  <section>
+    <h2>If not instead of the Hub, is OPS worth having alongside it?</h2>
+    <div class="qa">
+      <h3>Short version of the section above</h3>
       <span class="verdict">No &mdash; for the same reasons as OJS, and one more</span>
       <p>Everything the proof of concept says about OJS replacing the Hub applies here: the datasets and dashboards have nowhere to go, and every one of roughly 540 web addresses would move, at a cost the traffic figures make plain.</p>
       <p>OPS adds a reason of its own. Its metadata declares every item a <b>preprint</b> &mdash; that is not a setting, it is what the software is. Publishing ICJIA's finished, authoritative research as preprints would describe the agency's work as provisional when it is not. That is worse than a technical mismatch; it is a factually wrong claim about the work, made permanently and machine-readably.</p>
     </div>
     <div class="qa">
-      <h3>As a place to post research alongside the Hub?</h3>
+      <h3>So is it worth having at all?</h3>
       <span class="verdict">Hard to justify on its own</span>
       <p>This is the honest answer, and it is not the flattering one. The Hub already does continuous posting, and does it for an audience OPS would have to build from nothing. Running a second continuous-posting system means a second thing to keep patched, backed up, and staffed &mdash; in exchange for versioning and indexing that a smaller change to the Studio might also deliver.</p>
       <p><b>Where the argument gets interesting is not publication at all &mdash; it is the front half of a journal.</b> If ICJIA ever runs the quarterly the proof of concept describes, there is a real gap between &ldquo;a working paper exists&rdquo; and &ldquo;an issue comes out six months later.&rdquo; OPS fills exactly that gap: the paper gets posted, dated, versioned and citable straight away, and when the reviewed version appears in the journal, the preprint points at it. That is the job OPS was built for, and the one place it is clearly the right tool rather than a near-duplicate of something ICJIA already owns.</p>

@@ -5,6 +5,79 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-09-06
+
+### Added
+
+- **The question the document was avoiding: could the Hub be retired entirely?**
+  The decision on the table is not whether to run OPS beside the Research Hub —
+  it is whether the in-house platform could be dropped in favour of off-the-shelf
+  software maintained by other people. That question now leads, and it is
+  answered rather than deflected.
+
+  The case *for* replacement is put first and at full strength, because it is a
+  good one: a bespoke tool has a bus factor of one, nobody patches it on a
+  schedule, you cannot hire for it, and the clearest evidence is on the page
+  already — the software behind today's Hub has had no security updates since
+  2022. Against that: off-the-shelf encodes someone else's model of the work, the
+  gap gets closed with plugins and patches that are in-house code again but now
+  re-broken by every upgrade, upgrades stop being optional, bugs become someone
+  else's queue, and it is *more* server to run rather than less — for which the
+  sibling runbook is the honest price list.
+
+  Two sub-questions get their own treatment because they are the ones that get
+  asked. **Search traffic:** roughly 540 addresses would move into OJS's own URL
+  structure, and the Hub earns 84% of the agency's Google traffic; redirects carry
+  most of that across only if every one is mapped and maintained permanently, and
+  the climb back is measured in months — while the scholarly indexing gained is a
+  different and much smaller audience. **Migration:** bulk import is a scripting
+  job, but into OJS every article needs an invented retrospective issue, into OPS
+  every article becomes a "preprint" — permanently and machine-readably wrong
+  about finished work — datasets stop being publications, and dashboards cannot
+  move at all. So the in-house platform survives anyway, now beside a PHP
+  application and a database. The stated goal is fewer systems; the result is
+  more.
+
+- **A note on how the decision gets made.** The bias runs both ways and is worth
+  naming: "not invented here" is the familiar one, but its mirror — assuming
+  bought or downloaded software is inherently more serious than software built
+  in-house — is the one more likely to operate here. The section argues from
+  measurements rather than provenance, states the Hub's genuine and urgent fault
+  plainly, and asks that the same four questions be put to both.
+
+
+
+### Changed
+
+- **"Same" was doing no work in the comparison table.** Every unchanged cell in
+  the Hub 2.0 column read `Same`, which prompts the obvious question — same as
+  what? — and makes a reader scan back across the row to answer it. Each cell now
+  states the answer in full: "No change — an article, dataset or dashboard,
+  standing alone", and so on. The colour still marks the column at a glance; the
+  words no longer depend on the reader reconstructing them.
+
+- **The Hub's DOI field is explained rather than alluded to.** The row said the
+  Hub has "a box to record one issued elsewhere", which assumes the reader knows
+  the field exists. Most do not. It now says what it is: a field in the Studio
+  where staff can paste a DOI another organisation has already issued, easy to
+  miss and rarely used, with no ability to create one.
+
+- **Hub 2.0 is the name; Copperhead is the codename.** The document led with the
+  codename, which almost no reader outside the team knows. "Hub 2.0" now leads
+  everywhere, with Copperhead appearing twice — once to explain why that word is
+  on the drafts, and once in the summary. The status is stated as built but not
+  yet in production, rather than merely "draft".
+
+- **Hub 2.0 is credited properly.** Framing it as "the plumbing, not the
+  publishing" was accurate about the publishing model and unfair as a summary: it
+  reads as though the rebuild adds little. It is a substantial upgrade — a
+  current, supported platform with materially better security and new capability,
+  replacing software that has had no security updates since 2022 — and replacing
+  today's Hub is the most urgent thing this document touches. The narrower claim
+  is the one that was actually meant, and is now the one made: on the questions
+  *this page* asks, the two Hubs answer the same way, which is why Hub 2.0
+  settles nothing about OJS or OPS in either direction.
+
 ## [1.12.0] - 2026-09-06
 
 ### Changed
