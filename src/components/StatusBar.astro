@@ -1,0 +1,21 @@
+---
+import pkg from '../../package.json';
+
+/**
+ * The status bar at the foot of every page. The version is read from
+ * package.json at build time so it cannot disagree with the release, and the
+ * commit comes from Netlify's COMMIT_REF when the build runs there.
+ */
+const repo = 'https://github.com/ICJIA/icjia-ojs-docs';
+const version = pkg.version;
+const commit = process.env.COMMIT_REF?.slice(0, 7);
+---
+
+<footer class="px-status" aria-label="Site version and source">
+  <span class="px-status-item"><span class="px-status-key">Version</span><a href={`${repo}/releases/tag/v${version}`}>v{version}</a></span>
+  <span class="px-status-item"><span class="px-status-key">Source</span><a href={repo}>github.com/ICJIA/icjia-ojs-docs</a></span>
+  {commit && (
+    <span class="px-status-item"><span class="px-status-key">Build</span><a href={`${repo}/commit/${commit}`}>{commit}</a></span>
+  )}
+  <span class="px-status-item"><span class="px-status-key">Changes</span><a href={`${repo}/blob/main/CHANGELOG.md`}>changelog</a></span>
+</footer>

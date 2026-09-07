@@ -5,6 +5,18 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.0] - 2026-09-07
+
+### Added
+
+- **A status bar at the foot of every page:** the version, read from
+  `package.json` at build time so it cannot disagree with the release and
+  linked to that release; a link to the repository; the commit, when Netlify
+  built it; and the changelog. One component used by both shells, with its
+  stylesheet inlined after the chrome on document pages so it wins the cascade
+  against each document's own `footer` rule. The build test asserts the
+  version the portal states.
+
 ## [1.21.1] - 2026-09-07
 
 ### Added
@@ -1107,6 +1119,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.22.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.22.0
 [1.21.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.1
 [1.21.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.0
 [1.20.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.20.0

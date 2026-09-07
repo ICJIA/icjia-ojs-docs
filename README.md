@@ -410,6 +410,12 @@ they read the artefact that is about to be published. A failing type check or
 test fails the deploy. The output is plain static files — no adapter, no
 serverless functions — served from the domain root.
 
+Every page ends in a status bar: the version, read from `package.json` at build
+time so it cannot disagree with the release; a link to this repository; the
+commit, when Netlify built it (from `COMMIT_REF`); and the changelog. It is one
+component, [`src/components/StatusBar.astro`](src/components/StatusBar.astro),
+used by both shells, and the build test asserts the version it states.
+
 Document URLs are canonical with a trailing slash (`/docs/droplet-runbook/`).
 The un-slashed form redirects, so prefer the trailing-slash form when sharing a
 link.
@@ -422,7 +428,7 @@ src/
 ├── content/            the document manifest
 ├── lib/                parsing and the document registry
 ├── layouts/            portal and document shells
-├── components/         card, contents panel
+├── components/         card, contents panel, status bar
 ├── styles/             tokens, portal, document chrome
 └── pages/              / and /docs/[slug]
 public/                 favicon, and the banner used as the og:image

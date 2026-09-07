@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { documents } from '../src/content/documents.ts';
+import pkg from '../package.json';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = (p: string) => fileURLToPath(new URL(`../dist/${p}`, import.meta.url));
@@ -29,6 +30,9 @@ describe('build output', () => {
     // the decoded text, or this asserts on the escaping rather than on whether
     // the card was rendered.
     const html = decode(read('index.html'));
+    // The status bar states the release it belongs to, read from package.json.
+    expect(html, 'status bar does not carry the package.json version').toContain(`v${pkg.version}`);
+    expect(html).toContain('github.com/ICJIA/icjia-ojs-docs');
     for (const entry of documents) {
       expect(html, `card missing for ${entry.slug}`).toContain(`/docs/${entry.slug}`);
       expect(html).toContain(entry.question);

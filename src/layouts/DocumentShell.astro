@@ -6,6 +6,8 @@ import type { PortalDocument } from '../lib/registry.ts';
 // <style>, and the chrome must win the cascade against the document's global
 // element rules.
 import shellCss from '../styles/document-shell.css?raw';
+import statusCss from '../styles/status-bar.css?raw';
+import StatusBar from '../components/StatusBar.astro';
 
 interface Props {
   doc: PortalDocument;
@@ -31,6 +33,7 @@ const hasContents = parsed.headings.length > 0;
 
     {parsed.css && <style is:inline set:html={parsed.css} />}
     <style is:inline set:html={shellCss} />
+    <style is:inline set:html={statusCss} />
   </head>
 
   <body>
@@ -61,6 +64,8 @@ const hasContents = parsed.headings.length > 0;
     </div>
 
     {/* The document's own behaviour — the runbook's copy-to-clipboard buttons. */}
+    <StatusBar />
+
     {parsed.scripts && <script is:inline set:html={parsed.scripts} />}
 
     <script>

@@ -1,0 +1,62 @@
+/* The status bar at the foot of every page. Loaded by both shells: bundled on the
+   portal, inlined after the chrome on document pages so it wins the cascade. */
+
+/*
+ * Foot of every page, portal and documents alike: the version, the repository,
+ * the commit when Netlify built it, and the changelog. Every property a source
+ * document's bare `footer {}` rule sets is set again here, so the bar looks the
+ * same under each document's own stylesheet.
+ */
+.px-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 28px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 18px 40px 28px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--paper-dim);
+}
+
+.px-status-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.px-status-key {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.px-status a {
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  font-variant-numeric: tabular-nums;
+}
+
+.px-status a:hover,
+.px-status a:focus-visible {
+  color: var(--pencil);
+  border-bottom-color: var(--pencil);
+}
+
+.px-status a:focus-visible {
+  outline: 2px solid var(--pencil);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .px-status {
+    padding: 14px 22px 24px;
+    gap: 4px 18px;
+  }
+}
