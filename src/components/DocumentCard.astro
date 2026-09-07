@@ -39,6 +39,20 @@ const remaining = parsed.outline.length - shown.length;
   <p class="summary">{doc.summary}</p>
 
   {
+    doc.live && doc.live.length > 0 && (
+      <p class="live">
+        <span class="live-label">See it live</span>
+        {doc.live.map((l) => (
+          <a class="live-link" href={l.href}>
+            {l.label}
+            <small>{new URL(l.href).host}</small>
+          </a>
+        ))}
+      </p>
+    )
+  }
+
+  {
     shown.length > 0 && (
       <ul class="contents">
         {shown.map((section) => (

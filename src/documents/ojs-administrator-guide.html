@@ -35,6 +35,15 @@
   .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
   .updated .lab{font-size:15px;color:var(--paper-dim)}
   .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
+  /* see it live */
+  .see{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin:22px 0 0;padding:18px 22px;border-radius:14px;border:1px solid var(--rule);background:var(--ink-2);font-size:17px;line-height:1.4;color:var(--paper-dim);max-width:none}
+  .see .k{font-weight:700;color:var(--paper)}
+  .see a{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--pencil);background:var(--pencil-soft);color:var(--pencil);font-weight:600;text-decoration:none;white-space:nowrap}
+  .see a small{font-weight:400;font-size:.85em;color:var(--paper-dim)}
+  .see a:hover,.see a:focus-visible{background:var(--pencil);color:var(--ink)}
+  .see a:hover small,.see a:focus-visible small{color:var(--ink)}
+  .see .why{flex-basis:100%;font-size:15px;margin:0}
+  .see .why a{display:inline;padding:0;border:0;background:none;color:var(--pencil);font-weight:500;text-decoration:underline;white-space:normal}
   .plain{
     margin-top:44px;padding:30px 34px;border-left:6px solid var(--pencil);
     background:var(--ink-2);border-radius:0 16px 16px 0;
@@ -265,6 +274,7 @@
   <h1>Running the journal</h1>
   <p class="lede">Everything the OJS administrator does, from first login to publishing an issue &mdash; all of it in a web browser.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
+  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both are up now. The public pages need no login; your administrator screens need the login IDS sent you.</span></p>
   <div class="plain">You do not need a server login, and you will not be given one. <b>If a task has a settings screen, it is yours.</b> If it needs someone to log in to the machine itself, it is a ticket.</div>
 </header>
 

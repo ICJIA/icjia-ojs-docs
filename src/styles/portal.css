@@ -351,8 +351,64 @@ body {
   max-width: 42ch;
 }
 
-/* Section list. The trailing numeral is each section's subsection count, so a
-   deep document visibly reads denser than a shallow one. */
+/* "See it live": the running thing itself, one click away, because a manager's
+   first question is "how can I see this?". Raised above the stretched card link
+   so the chips are clickable in their own right. */
+.live {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 22px;
+  font-size: 14px;
+}
+
+.live-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.live-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--pencil);
+  background: var(--pencil-soft);
+  color: var(--pencil);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.live-link small {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--paper-dim);
+}
+
+.live-link:hover,
+.live-link:focus-visible {
+  background: var(--pencil);
+  color: var(--ink);
+}
+
+.live-link:hover small,
+.live-link:focus-visible small {
+  color: var(--ink);
+}
+
+.live-link:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 2px;
+}
+
+/* Section list. */
 .contents {
   list-style: none;
   margin: 0;

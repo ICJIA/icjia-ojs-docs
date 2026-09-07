@@ -34,6 +34,15 @@
   .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
   .updated .lab{font-size:15px;color:var(--paper-dim)}
   .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
+  /* see it live */
+  .see{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin:22px 0 0;padding:18px 22px;border-radius:14px;border:1px solid var(--rule);background:var(--ink-2);font-size:17px;line-height:1.4;color:var(--paper-dim);max-width:none}
+  .see .k{font-weight:700;color:var(--paper)}
+  .see a{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--pencil);background:var(--pencil-soft);color:var(--pencil);font-weight:600;text-decoration:none;white-space:nowrap}
+  .see a small{font-weight:400;font-size:.85em;color:var(--paper-dim)}
+  .see a:hover,.see a:focus-visible{background:var(--pencil);color:var(--ink)}
+  .see a:hover small,.see a:focus-visible small{color:var(--ink)}
+  .see .why{flex-basis:100%;font-size:15px;margin:0}
+  .see .why a{display:inline;padding:0;border:0;background:none;color:var(--pencil);font-weight:500;text-decoration:underline;white-space:normal}
   .plain{
     margin-top:44px;padding:30px 34px;border-left:6px solid var(--pencil);
     background:var(--ink-2);border-radius:0 16px 16px 0;
@@ -196,6 +205,7 @@
       ICJIA's public website. <b>The Studio</b>, the private tool behind it, is explained too.
     </p>
     <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
+    <p class="see"><span class="k">See it live:</span> <a href="https://icjia.illinois.gov/researchhub">Hub 1.0, live now <small>icjia.illinois.gov/researchhub</small></a> <a href="https://copperhead-hub-20.netlify.app/researchhub/">Hub 2.0 draft <small>copperhead-hub-20.netlify.app</small></a> <a href="https://studio-2026.netlify.app/login">Studio 2.0 demo <small>choose &ldquo;editor&rdquo;, no password</small></a> <span class="why">The first is the real thing. The other two are the finished draft, up for internal review: the same application with a safety switch on.</span></p>
     <div class="plain">
       <b>Who this is for:</b> anyone at the agency, new or long-serving, with no technical background
       and not much time, who keeps hearing &ldquo;the Hub&rdquo;, &ldquo;Hub 2.0&rdquo; and
@@ -214,12 +224,12 @@
       <h2>TL;DR &mdash; the short version</h2>
       <p class="sub">Nine lines. Everything after this is the supporting detail, to be read only if you want it.</p>
       <ul>
-        <li><b>What it is.</b> The Research Hub is where ICJIA publishes its research on the web &mdash; articles, datasets and interactive dashboards, each posted as soon as it is finished, at <a href="https://icjia.illinois.gov/researchhub">icjia.illinois.gov/researchhub</a>. It has been live since 2018 and holds roughly 540 pages.</li>
+        <li><b>What it is.</b> The Research Hub is where ICJIA publishes its research on the web &mdash; articles, datasets and interactive dashboards, each posted as soon as it is finished, at <a href="https://icjia.illinois.gov/researchhub">icjia.illinois.gov/researchhub</a>. It has been live since 2019 and holds roughly 540 pages.</li>
         <li><b>How it works.</b> Staff in the Research &amp; Analysis Unit write in the Studio, a private tool behind the Hub; a manager approves; the piece goes live. One approval, no outside review, nothing technical.</li>
         <li><b>Who runs it.</b> R&amp;A owns the content. IDS, the agency's own developers, built the software and keep it running. It was built in-house, not bought.</li>
         <li><b>It is not a separate website.</b> The Hub is a section of icjia.illinois.gov, and Hub&nbsp;1.0 is built into the same code as the main site. Switching it off, moving it, or leaving it unpatched is therefore a decision about the whole public website, not about one corner of it.</li>
         <li><b>What is wrong with it.</b> The software underneath Hub&nbsp;1.0 has had no security updates since 2022, and it is tangled into the main website's code. That is a real and urgent problem, and it is the reason Hub&nbsp;2.0 exists.</li>
-        <li><b>Hub 2.0.</b> The security update and rewrite of Hub&nbsp;1.0 &mdash; front end and Studio both &mdash; on current, supported software. The draft is finished; it is <b>not yet live</b>, pending testing and approval before it becomes part of the public website. Same content, same addresses, same name. The codename &ldquo;Copperhead&rdquo; is internal.</li>
+        <li><b>Hub 2.0.</b> The security update and rewrite of Hub&nbsp;1.0 &mdash; front end and Studio both &mdash; on current, supported software. The draft is finished; it is <b>not yet live</b>, pending testing and approval before it becomes part of the public website. Same content, same addresses, same name, and for readers the same functions in a modern interface. The codename &ldquo;Copperhead&rdquo; is internal.</li>
         <li><b>Why not just get rid of it?</b> The case for is real: in-house software is maintained by the agency alone, the 2022 problem is the proof, and Hub&nbsp;2.0 does not change who maintains the code. But the content has nowhere else to go &mdash; OJS is built for a journal and OPS for preprints, and neither can hold a dataset or a dashboard as a publication &mdash; and moving 540 addresses puts 84% of the agency's search traffic at risk. On the evidence, retiring the Hub would leave a smaller in-house platform running anyway, next to a second system.</li>
         <li><b>Could the Studio be extended instead?</b> For most of what off-the-shelf offers, yes, and more cheaply than assumed: Google Scholar labelling is days of work, versioning and catalogue feeds are weeks. Peer review is the exception and should not be built, and a DOI is a membership and a permanent commitment whichever software registers it.</li>
         <li><b>The questions to consider.</b> Whether to release Hub&nbsp;2.0, which fixes the security problem; and, separately, whether ICJIA wants a peer-reviewed journal on OJS beside the Hub. Those are two questions, not one.</li>
@@ -230,7 +240,7 @@
 
   <section>
     <h2>What it is</h2>
-    <p class="intro">Open <b>icjia.illinois.gov/researchhub</b> and you are looking at it: a library of the agency's research, in three kinds, each piece published as its own page the moment it is ready, and built to work on any device &mdash; no awkward PDF to download on a phone. Around them sit the pages that give them a home: research centers, projects, and the staff who wrote them.</p>
+    <p class="intro">Open <b>icjia.illinois.gov/researchhub</b> and you are looking at it: a library of the agency's research, in three kinds, each piece published as its own page the moment it is ready, and built to work on any device &mdash; no awkward PDF to download on a phone. Around them sit the pages that give them a home: research centers, projects, and the staff who wrote them. Counted from the content database in June 2026, that is 236 articles, 13 dashboards and 5 datasets.</p>
     <div class="three">
       <div><h3>Articles</h3><p>Short, readable summaries of longer research, written for the web and readable on a phone, with the full report linked from each one.</p><p>These are what readers find. Eight of the twelve most-visited pages on the whole agency website are Hub articles.</p></div>
       <div><h3>Datasets</h3><p>Data the agency has collected or compiled, published as an entry in its own right &mdash; what it is, where it came from, how to use it &mdash; for readers who want the numbers rather than the write-up.</p><p>On the Hub a dataset is a publication, not an attachment. That distinction matters later.</p></div>
@@ -248,15 +258,15 @@
 
   <section>
     <h2>Where it came from</h2>
-    <p class="intro">People kept asking ICJIA about its research, and there was no easy way to give it to them &mdash; least of all on a phone, where the answer was a long PDF to download and squint at. The Hub was built <b>in-house</b>, by IDS, the agency's own web developers, and went live in <b>2018</b> as a publishing platform with one idea behind it: <b>make what the Research &amp; Analysis Unit does public and plain</b>, in a form that works on any device. R&amp;A is also the state's Statistical Analysis Center, the unit designated to collect and analyse Illinois's criminal justice data.</p>
+    <p class="intro">People kept asking ICJIA about its research, and there was no easy way to give it to them &mdash; least of all on a phone, where the answer was a long PDF to download and squint at. The Hub was built <b>in-house</b>, by IDS, the agency's own web developers, and went live in <b>2019</b>, funded through a grant from the federal Bureau of Justice Statistics, as a publishing platform with one idea behind it: <b>make what the Research &amp; Analysis Unit does public and plain</b>, in a form that works on any device. R&amp;A is also the state's Statistical Analysis Center, the unit designated to collect and analyse Illinois's criminal justice data.</p>
     <p class="intro">It did that with the three kinds of content above &mdash; articles that summarise, datasets that supply the numbers, dashboards that let a reader explore them &mdash; and with two things built together: the public Hub that readers see, and the Studio that staff use behind it, so that R&amp;A could write, preview and publish without a developer in the loop.</p>
-    <p class="intro">It turned out to be far more popular than anyone expected. Eight years on it holds roughly 540 pages and is the most-read part of the agency's website by a wide margin. By now Hub&nbsp;1.0 is also running on software that stopped receiving security updates in 2022, and the response to that was a rebuild rather than a patch: that is Hub&nbsp;2.0. Whether a rebuild was the right response is one of the questions this page is meant to help with.</p>
+    <p class="intro">It turned out to be far more popular than anyone expected. Seven years on it holds roughly 540 pages and is the most-read part of the agency's website by a wide margin. By now Hub&nbsp;1.0 is also running on software that stopped receiving security updates in 2022, and the response to that was a rebuild rather than a patch: that is Hub&nbsp;2.0. Whether a rebuild was the right response is one of the questions this page is meant to help with.</p>
     <div class="same">
       <h3>The names</h3>
       <ul>
         <li><b>Hub 1.0</b> is the Hub that is live today. Nobody called it that until a second version existed.</li>
-        <li><b>Hub 2.0</b> is the security update and rewrite of Hub&nbsp;1.0, front end and Studio both. The draft is finished; it is not yet live, pending testing and approval. <b>&ldquo;Copperhead&rdquo;</b> is its internal codename, which is why that word is on the drafts; readers will never see it. At launch it is simply the Research Hub again.</li>
-        <li><b>The Studio</b> is the staff tool behind either. <b>Studio 1.0</b> is live; <b>Studio 2.0</b> is the rebuilt one, and a significant upgrade.</li>
+        <li><b>Hub 2.0</b> is the security update and rewrite of Hub&nbsp;1.0. The name can mean the whole programme, but mostly it means the public front end &mdash; the site readers see. The draft is finished; it is not yet live, pending testing and approval. <b>&ldquo;Copperhead&rdquo;</b> is its internal codename, which is why that word is on the drafts; readers will never see it. At launch it is simply the Research Hub again.</li>
+        <li><b>The Studio</b> is the ICJIA-only publishing tool behind either Hub, which the public never sees. <b>Studio 1.0</b> is live; <b>Studio 2.0</b> is the rebuilt one, and a significant upgrade.</li>
       </ul>
     </div>
   </section>
@@ -320,30 +330,34 @@
 
   <section>
     <h2>Studio 1.0 and Studio 2.0</h2>
-    <p class="intro">Both Hubs have a Studio: the private tool staff use to create, preview and publish. The job is the same in both. What changed is what it runs on and what it can keep on the record.</p>
+    <p class="intro">Both Hubs have a Studio: the private tool staff use to create, preview and publish. The job is the same in both, and so is the shape of the work &mdash; an author writes and submits, a manager publishes. What changed is what it runs on, what it protects an author from, and what it can keep on the record. This comparison is taken from the two applications' own code and documentation.</p>
     <div class="split">
       <div>
-        <h3>Studio 1.0 &mdash; live now</h3>
+        <h3>Studio 1.0 &mdash; live since 2019</h3>
         <ul>
-          <li><b>A plain-language editor</b> that shows the page exactly as it will appear, with files attached and drafts saved.</li>
-          <li><b>One path:</b> created, submitted, published. A manager looks at what is waiting and publishes it.</li>
-          <li><b>One approval, nothing recorded.</b> A yes or a no; no comment on a passage, no history of what was asked for.</li>
-          <li><b>No versions.</b> Updating a published piece replaces it.</li>
-          <li><b>A DOI field</b> for pasting in a number another organisation issued. Easy to miss, rarely used.</li>
-          <li><b>Built on tools that are no longer maintained,</b> like the Hub it serves.</li>
+          <li><b>Three kinds of content:</b> articles, apps (the dashboards) and datasets, each created through a step-by-step form with the fields the Hub needs &mdash; authors, categories, tags, sources, time period, a funding line, a DOI field.</li>
+          <li><b>Writing:</b> a Markdown editor &mdash; plain text with light formatting marks &mdash; with footnotes and tables, and a preview of the finished page for each kind of content.</li>
+          <li><b>Files:</b> drag-and-drop upload of images, PDFs, spreadsheets and data files. Images are stored inside the content itself, which is the one design choice the rebuild reverses.</li>
+          <li><b>Workflow:</b> created, submitted, published. A manager looks at what is waiting and publishes it. One approval, nothing recorded; no versions; no comments on a draft.</li>
+          <li><b>What it runs on:</b> the web toolkit of 2019 &mdash; Vue&nbsp;2 and Vuetify&nbsp;2 &mdash; both of which have since reached end of life, Vue&nbsp;2 at the end of 2023 and Vuetify&nbsp;2 in early 2025. Small fixes still land &mdash; the latest, in August 2026, let the dataset uploader accept Excel files &mdash; so &ldquo;unsupported&rdquo; describes its foundations, not its upkeep.</li>
         </ul>
       </div>
       <div class="keep">
         <h3>Studio 2.0 &mdash; draft finished, not yet live</h3>
         <ul>
-          <li><b>The same job, rebuilt</b> on a current, supported platform, standing on its own.</li>
-          <li><b>Comments on a passage.</b> A reviewer highlights a passage and leaves a note that stays with the draft. This is the single biggest change for R&amp;A's day-to-day work: a real conversation about a draft instead of a yes or no.</li>
-          <li><b>The same path,</b> created to submitted to published, with the same single approval &mdash; still not peer review, by design.</li>
-          <li><b>A working draft you can try:</b> <a href="https://studio-2026.netlify.app/login">Studio&nbsp;2.0</a>, choose &ldquo;editor&rdquo;, no password needed.</li>
+          <li><b>The same job, rebuilt</b> on a current, supported platform (Nuxt&nbsp;4, Vue&nbsp;3, TypeScript) over a current content database (Strapi&nbsp;5, already set up). The same three kinds of content and the same fields, in a modern interface.</li>
+          <li><b>Two roles, one path:</b> Authors draft, Editors publish. Publishing is enforced by the content database as well as by the screen, and it triggers a rebuild of the public site.</li>
+          <li><b>Writing:</b> the same Markdown, now with formatting buttons and a live preview, a &ldquo;Check&rdquo; button that flags heading, link and image problems before publication, and an &ldquo;exactly as published&rdquo; preview that opens in its own tab with a link a reviewer can be sent.</li>
+          <li><b>Review on the record:</b> a reviewer highlights a passage, comments, replies and resolves, with the comments in the margin as in Word. Still one approval, still not peer review.</li>
+          <li><b>Protection against lost work:</b> a warning before leaving a page with unsaved changes, a local snapshot every thirty seconds with a restore banner, a warning when a colleague has saved the same draft in the meantime instead of silently overwriting it, and automatic saving after every image or file change.</li>
+          <li><b>Files:</b> a shared media library, searchable, with alt text required on every image; several attached files per item; images no longer stored inside the content.</li>
+          <li><b>Proven before release:</b> 946 automated tests run on every change; four independent security reviews with no critical findings; accessibility verified in light and dark; a public demo anyone can try as an Author or an Editor, with a guided tour.</li>
+          <li><b>What remains before it is live:</b> setup on the content-database and email side, staff accounts, a rehearsal with real accounts, and a cutover its runbook puts at about half an hour, with one-click rollback. Not new building &mdash; and not yet approved.</li>
         </ul>
         <p class="tally">A significant upgrade</p>
       </div>
     </div>
+    <p class="today">Try it: <a href="https://studio-2026.netlify.app/login">Studio&nbsp;2.0</a>, choose &ldquo;editor&rdquo;, no password needed. It is the real application with a safety switch on; nothing done there can reach any real system.</p>
   </section>
 
   <section>
@@ -361,7 +375,7 @@
     </table>
     <div class="qa">
       <h3>Why the web addresses matter</h3>
-      <p>A web address is the line at the top of the browser: the link to a page. Google ranks <i>a page at an address</i>, and it has been ranking the Hub's roughly 540 addresses for eight years. That is why readers land on a Hub article straight from a search, and why the Hub earns 84% of the visitors Google sends the whole agency.</p>
+      <p>A web address is the line at the top of the browser: the link to a page. Google ranks <i>a page at an address</i>, and it has been ranking the Hub's roughly 540 addresses for seven years. That is why readers land on a Hub article straight from a search, and why the Hub earns 84% of the visitors Google sends the whole agency.</p>
       <p><b>Move a page to a new address and, to a search engine, it is a new page:</b> it has to be found again, judged again, and climb again, a process measured in months. Every link, bookmark, syllabus and citation pointing at the old address is affected at the same time. Forwarding old addresses to new ones carries most of the standing across, but only if every one of the 540 is mapped correctly and kept forwarding for ever. This is the single most expensive thing about any plan that moves the Hub's content somewhere else, and it is the reason Hub&nbsp;2.0 was built to keep every address exactly as it is.</p>
       <p>Two more things follow. Those addresses sit in citations, syllabi, bookmarks and other agencies' pages, and redirects protect them only for as long as the redirects are maintained &mdash; a permanent obligation, not a one-off task. And the scholarly indexing that OJS or OPS would add &mdash; Google Scholar, Crossref, library catalogues &mdash; is a genuine gain, but a different audience from ordinary web search and a much smaller one. Trading one for the other is a trade, not an upgrade.</p>
     </div>
@@ -398,29 +412,27 @@
 
   <section>
     <h2>Hub 2.0: what changes, and what doesn't</h2>
-    <p class="intro">Hub&nbsp;2.0 is the security update and rewrite of Hub&nbsp;1.0: both the Hub and the Studio, on a current, supported platform. The draft is <b>finished</b>, and its developers have tested it and deliberately attacked it, but it is <b>not yet live</b> &mdash; it is pending testing and approval before it becomes part of the public website. It changes a great deal about how the Hub is built and almost nothing about what the Hub is.</p>
+    <p class="intro">Hub&nbsp;2.0 is the security update and rewrite of Hub&nbsp;1.0: both the Hub and the Studio, on a current, supported platform. The draft is <b>finished</b>, and its developers have tested it and deliberately attacked it, but it is <b>not yet live</b> &mdash; it is pending testing and approval before it becomes part of the public website. It was built to fix the security problem and modernise the interface, <b>not to add features or take any away</b>: it changes a great deal about how the Hub is built and nothing about what the Hub does.</p>
     <div class="split">
-      <div>
-        <h3>What changes</h3>
-        <ul>
-          <li><b>It gets off unsupported software.</b> Current, supported platform, standing on its own rather than inside the main website's code. This is the 2022 problem, fixed directly.</li>
-          <li><b>Studio 2.0.</b> A significant upgrade over Studio&nbsp;1.0, set out side by side above. A reviewer can highlight a passage and leave a comment on it, kept with the draft &mdash; the thing today's single approval lacks.</li>
-          <li><b>Readers can search inside documents,</b> not just titles and summaries: the words inside a published PDF, opening a long report at the first match.</li>
-          <li><b>Accessibility is checked automatically on every change,</b> against the standards the agency is required to meet, plus a full manual walkthrough already done.</li>
-          <li><b>It has been tested, and attacked on purpose.</b> 946 automatic checks run whenever anything changes, and four separate security reviews had testers trying to break in. Nothing critical was found.</li>
-          <li><b>There is far less to break into.</b> The public site is built ahead of time and served as fixed files, with no live database or passwords behind it &mdash; quicker for readers and much harder to attack.</li>
-        </ul>
-      </div>
       <div class="keep">
-        <h3>What stays the same</h3>
+        <h3>For readers: the same Hub</h3>
         <ul>
-          <li><b>Every web address.</b> Keeping each existing address working is a firm requirement, checked automatically before launch. The search standing above never comes into question.</li>
-          <li><b>The content.</b> The same articles, datasets and dashboards, carried across.</li>
-          <li><b>The way it publishes.</b> Each piece goes up when it is ready, after one manager's approval. Still not a journal.</li>
+          <li><b>Every function works exactly as it does now.</b> The same articles, datasets and dashboards, found and read the same way. What a reader will notice is a modern interface; nothing is added and nothing is removed.</li>
+          <li><b>Every web address stays.</b> Keeping each existing address working is a firm requirement, checked automatically before launch, so the search standing above never comes into question.</li>
           <li><b>The name.</b> Readers see the Research Hub; &ldquo;Copperhead&rdquo; stays on the drafts.</li>
-          <li><b>The people.</b> R&amp;A writes and approves, IDS keeps it running.</li>
+          <li><b>The way it publishes.</b> Each piece goes up when it is ready, after one manager's approval. Still not a journal.</li>
         </ul>
         <p class="tally">Same Hub, better built</p>
+      </div>
+      <div>
+        <h3>Underneath, and for staff</h3>
+        <ul>
+          <li><b>It gets off unsupported software.</b> A current, supported platform, standing on its own rather than inside the main website's code. This is the 2022 problem, fixed directly.</li>
+          <li><b>There is far less to break into.</b> The public site is built ahead of time and served as fixed files, with no live database or passwords behind it &mdash; quicker for readers and much harder to attack.</li>
+          <li><b>Accessibility is checked automatically on every change,</b> against the standards the agency is required to meet, plus a full manual walkthrough already done.</li>
+          <li><b>Studio 2.0 is where the new capability is,</b> and it is staff-facing: comments on a passage, protection against lost work, a shared media library, a check before publishing &mdash; set out side by side above. The same people do the same job; the tool is better at keeping them from losing it.</li>
+          <li><b>Tested, and attacked on purpose.</b> 946 automated tests run on the Studio whenever anything changes, and four separate security reviews had testers trying to break in. Nothing critical was found.</li>
+        </ul>
       </div>
     </div>
     <div class="rule"><b>Where it stands:</b> draft finished; not yet live, pending testing and approval. Working drafts are up for internal review &mdash; the <a href="https://copperhead-hub-20.netlify.app/researchhub/">public site</a> and <a href="https://studio-2026.netlify.app/login">Studio&nbsp;2.0</a> (choose &ldquo;editor&rdquo;; no password needed). Releasing it is a decision that can be made on its own, whatever is decided about anything else on this portal.</div>
@@ -446,7 +458,7 @@
       <h3>What getting rid of it would actually mean</h3>
       <span class="verdict">On the evidence: more to run, not less</span>
       <ul>
-        <li><b>The content has nowhere to go.</b> The technical half is easy &mdash; OJS ships tools for bulk-loading existing content, so importing several hundred articles is a scripting job, not a research project. The structural half is where it fails. OJS is a journal expressed as software: nothing publishes until there is an issue of a periodical to publish it into, so eight years of continuous output would have to be filed into invented volumes and numbers. OPS labels everything it holds a <i>preprint</i> &mdash; a paper awaiting review &mdash; permanently and in a form machines read, so ICJIA's finished, authoritative research would be described as provisional.</li>
+        <li><b>The content has nowhere to go.</b> The technical half is easy &mdash; OJS ships tools for bulk-loading existing content, so importing several hundred articles is a scripting job, not a research project. The structural half is where it fails. OJS is a journal expressed as software: nothing publishes until there is an issue of a periodical to publish it into, so seven years of continuous output would have to be filed into invented volumes and numbers. OPS labels everything it holds a <i>preprint</i> &mdash; a paper awaiting review &mdash; permanently and in a form machines read, so ICJIA's finished, authoritative research would be described as provisional.</li>
         <li><b>Two of the three kinds of content do not survive.</b> In both systems a dataset becomes a file attached to something else, and a dashboard has nowhere to live at all.</li>
         <li><b>The readers do not come with it.</b> Every one of roughly 540 addresses would change, which puts 84% of the agency's search traffic at risk, for the reasons under &ldquo;Why the web addresses matter&rdquo; above.</li>
         <li><b>You would still be running a server.</b> Off-the-shelf is not a service someone else operates. OJS and OPS are applications with a database behind them, on a machine somebody has to keep updated, backed up and secured. The <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">runbook on this portal</a> is forty-odd minutes long because a standard installation of standard software hit error after error.</li>
@@ -555,9 +567,9 @@
     <table class="access">
       <thead><tr><th>Term</th><th>What it means here</th></tr></thead>
       <tbody>
-        <tr><td>The Research Hub</td><td>The section of icjia.illinois.gov where the agency's research is published. Hub&nbsp;1.0 is the version live now, built into the main site's code; Hub&nbsp;2.0 is the security update and rewrite, not yet live pending testing and approval, at the same addresses but standing on its own.</td></tr>
+        <tr><td>The Research Hub</td><td>The section of icjia.illinois.gov where the agency's research is published. Hub&nbsp;1.0 is the version live now, built into the main site's code; Hub&nbsp;2.0 is the security update and rewrite &mdash; the name mostly means the public front end &mdash; not yet live pending testing and approval, at the same addresses but standing on its own.</td></tr>
         <tr><td>Copperhead</td><td>The internal codename for Hub&nbsp;2.0. Readers never see it.</td></tr>
-        <tr><td>The Studio</td><td>The private tool behind the Hub that staff write and publish in. Studio&nbsp;2.0 is the rebuilt version, a significant upgrade, and not yet live either.</td></tr>
+        <tr><td>The Studio</td><td>The ICJIA-only publishing tool behind the Hub that staff write and publish in; the public never sees it. Studio&nbsp;2.0 is the rebuilt version, a significant upgrade, and not yet live either.</td></tr>
         <tr><td>R&amp;A</td><td>The Research &amp; Analysis Unit, which writes the research and owns what is on the Hub. It is also Illinois's Statistical Analysis Center (SAC), the state's designated unit for criminal justice statistics.</td></tr>
         <tr><td>IDS</td><td>Innovation &amp; Digital Services, the agency's own developers, who built the Hub and keep it running.</td></tr>
         <tr><td>In-house</td><td>Built by the agency's own staff, which means the agency maintains it. The opposite of off-the-shelf.</td></tr>

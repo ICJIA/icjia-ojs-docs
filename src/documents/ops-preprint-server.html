@@ -34,6 +34,15 @@
   .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
   .updated .lab{font-size:15px;color:var(--paper-dim)}
   .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
+  /* see it live */
+  .see{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin:22px 0 0;padding:18px 22px;border-radius:14px;border:1px solid var(--rule);background:var(--ink-2);font-size:17px;line-height:1.4;color:var(--paper-dim);max-width:none}
+  .see .k{font-weight:700;color:var(--paper)}
+  .see a{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--pencil);background:var(--pencil-soft);color:var(--pencil);font-weight:600;text-decoration:none;white-space:nowrap}
+  .see a small{font-weight:400;font-size:.85em;color:var(--paper-dim)}
+  .see a:hover,.see a:focus-visible{background:var(--pencil);color:var(--ink)}
+  .see a:hover small,.see a:focus-visible small{color:var(--ink)}
+  .see .why{flex-basis:100%;font-size:15px;margin:0}
+  .see .why a{display:inline;padding:0;border:0;background:none;color:var(--pencil);font-weight:500;text-decoration:underline;white-space:normal}
 
   .plain{
     margin-top:44px;padding:30px 34px;border-left:6px solid var(--pencil);
@@ -257,6 +266,7 @@
       turns on how it differs from the Hub, and from OJS.
     </p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
+  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both are up now. The public pages need no login; the administrator screens need the details IDS sent.</span></p>
     <div class="plain">
       <b>The question this answers:</b> what OPS is, how it differs from OJS and from the
       Research Hub, and whether it is worth having. Whether it could <i>replace</i> the Hub is
@@ -268,9 +278,9 @@
       &ldquo;Preprint Server Manager&rdquo; refers to. A <b>server</b> on its own is the computer
       everything runs on. Nothing here asks you to think about the computer.</p>
     <p class="wordnote"><span class="k">And a note on the names.</span> <b>Hub&nbsp;1.0</b> is the Research Hub
-      that is live now, launched in 2018, and <b>Studio&nbsp;1.0</b> is the tool behind it that authors use to
-      create and publish their work. <b>Hub&nbsp;2.0</b> is the security update and rewrite of Hub&nbsp;1.0, whose draft is finished but not yet live, pending testing and approval (its internal
-      codename is &ldquo;Copperhead&rdquo;), and <b>Studio&nbsp;2.0</b> is its Studio &mdash; a significant upgrade
+      that is live now, launched in 2019, and <b>Studio&nbsp;1.0</b> is the tool behind it that authors use to
+      create and publish their work. <b>Hub&nbsp;2.0</b> is the security update and rewrite of Hub&nbsp;1.0 &mdash; the name mostly means the public front end &mdash; whose draft is finished but not yet live, pending testing and approval (its internal
+      codename is &ldquo;Copperhead&rdquo;), and <b>Studio&nbsp;2.0</b> is the ICJIA-only publishing tool behind it &mdash; a significant upgrade
       over Studio&nbsp;1.0. Where this page says &ldquo;the Hub&rdquo; without a number, it means both. If the Hub itself is
       unfamiliar, start with <a href="https://ojs-docs.netlify.app/docs/what-is-the-research-hub/">the beginner's guide</a>.</p>
     <div class="glance">
@@ -383,7 +393,7 @@
     <div class="cols">
       <div>
         <h3>Hub 1.0</h3>
-        <span class="tag live">Live now, since 2018</span>
+        <span class="tag live">Live now, since 2019</span>
         <p><b>The Research Hub ICJIA publishes on today.</b> Articles, datasets and interactive dashboards, each going up when it is ready, with authors working in Studio&nbsp;1.0 behind it.</p>
         <p>The most-read part of the agency's website: 60% of all visitors, 47% of all pages read. The software storing its content stopped getting security updates in 2022.</p>
       </div>
@@ -434,7 +444,7 @@
     <div class="qa">
       <h3>First: Hub 2.0 is not a separate option</h3>
       <span class="verdict yes">A major upgrade to the Hub &mdash; but not a different way of publishing</span>
-      <p>This is the point most easily misread, so it is worth being blunt about. <b>Hub&nbsp;2.0 does not sit in a third place on this page.</b> It publishes the same three kinds of content, continuously, with the same single approval, under the same name, at the same web addresses. On the questions this page asks, most of its column reads &ldquo;no change&rdquo;.</p>
+      <p>This is the point most easily misread, so it is worth being blunt about. <b>Hub&nbsp;2.0 does not sit in a third place on this page.</b> It publishes the same three kinds of content, continuously, with the same single approval, under the same name, at the same web addresses. For readers it works exactly as it does now, in a modern interface: it was built to fix security, not to add or remove features. On the questions this page asks, most of its column reads &ldquo;no change&rdquo;.</p>
       <p>The point is narrower: <b>on the question this page is about &mdash; how ICJIA publishes &mdash; Hub&nbsp;1.0 and Hub&nbsp;2.0 fall in the same place.</b> Hub&nbsp;2.0 is a better, safer, more capable version of the same publishing model, which is exactly what it was meant to be. And that is why it settles nothing about OJS or OPS in either direction: whichever Hub is running, the two questions in the next box are answered the same way.</p>
     </div>
 
@@ -458,7 +468,7 @@
         <li><b>2. Is it registered as scholarship?</b> &mdash; a permanent identifier, versions that stay citable, and visibility to Google Scholar and citation counts.<br>
         <b>OJS and OPS, yes. Neither version of the Hub.</b> Hub articles are read by tens of thousands of people and are close to invisible to the scholarly record. That is a real ceiling on work the agency has already paid to produce, and Hub&nbsp;2.0 does not set out to lift it.</li>
       </ul>
-      <p>There is a third thing, and it runs the other way: <b>only the Hub has readers.</b> 60% of the agency's visitors, 84% of its search traffic, fifteen minutes a visit, and roughly 540 web addresses ranked by Google over eight years. Neither OJS nor OPS starts with any of that, which is where the next section begins.</p>
+      <p>There is a third thing, and it runs the other way: <b>only the Hub has readers.</b> 60% of the agency's visitors, 84% of its search traffic, fifteen minutes a visit, and roughly 540 web addresses ranked by Google over seven years. Neither OJS nor OPS starts with any of that, which is where the next section begins.</p>
     </div>
 
     <div class="rule">

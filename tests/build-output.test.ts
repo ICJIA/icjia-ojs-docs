@@ -32,6 +32,10 @@ describe('build output', () => {
     for (const entry of documents) {
       expect(html, `card missing for ${entry.slug}`).toContain(`/docs/${entry.slug}`);
       expect(html).toContain(entry.question);
+      // "See it live": every link the manifest promises is on the card.
+      for (const live of entry.live ?? []) {
+        expect(html, `${entry.slug}: live link ${live.href} missing from its card`).toContain(`href="${live.href}"`);
+      }
     }
   });
 

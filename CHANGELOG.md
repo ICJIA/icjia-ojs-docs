@@ -5,6 +5,52 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.0] - 2026-09-07
+
+### Added
+
+- **The Studio comparison is built from the two repositories** rather than
+  from the other documents' summaries. Studio 1.0 (`researchhub-studio`): three
+  content types through step-by-step forms, a Markdown editor with footnotes
+  and tables, drag-and-drop uploads, images stored inside the content, a
+  created/submitted/published workflow, and a Vue 2 / Vuetify 2 foundation that
+  has reached end of life while small fixes still land. Studio 2.0
+  (`copperhead-studio-20`): Nuxt 4 over Strapi 5, Author and Editor roles with
+  publishing enforced server-side, a live-preview editor with a pre-publication
+  check, review comments on a passage, an unsaved-work guard, edit-conflict
+  detection, auto-save after media changes, a shared media library with alt
+  text required, 946 tests in CI, four security reviews, and a written
+  half-hour cutover. The guide also records the content counts (236 articles,
+  13 dashboards, 5 datasets, June 2026) and the Bureau of Justice Statistics
+  grant both Studios credit.
+
+- **"See it live" on every card and every page.** A manager's first question
+  is "how can I see this, and how do I know it is working?", so each card and
+  each document's header now carry links to the running test installations —
+  `ojs.icjia.cloud` and `ops.icjia.cloud`, both up, public pages needing no
+  login — and the Hub guide's point at the live Hub, the Hub 2.0 draft and the
+  Studio 2.0 demo. The links come from a `live` field on the manifest entry and
+  the build asserts each one is on its card.
+
+### Changed
+
+- **Hub 2.0 is framed as a security upgrade that changes nothing for readers.**
+  Every function of the public Hub works as it does now, in a modern interface;
+  nothing is added and nothing removed. The new capability is all in Studio 2.0
+  and is staff-facing. The guide's Hub 2.0 section is now two columns, "for
+  readers" and "underneath, and for staff", and the proof of concept and the
+  write-up say the same in a sentence, and the names notes say that "Hub 2.0"
+  mostly means the public front end while Studio 2.0 is the ICJIA-only
+  publishing tool behind it. The earlier claim that readers would be
+  able to search inside published documents is dropped, since it described a
+  new reader-facing feature.
+
+### Fixed
+
+- **The Hub's launch year is 2019**, the date of Studio 1.0's first commit,
+  14 June 2019. Release 1.17.0 had moved it to 2018 on a verbal "eight years
+  ago"; the documents now say 2019 and "seven years" throughout.
+
 ## [1.18.0] - 2026-09-07
 
 ### Added
@@ -994,6 +1040,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.19.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.0
 [1.18.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.18.0
 [1.17.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.17.0
 [1.16.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.16.0

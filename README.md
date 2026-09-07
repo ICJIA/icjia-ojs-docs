@@ -39,7 +39,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app">
-    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with six cards on two shelves — five for managers and staff, one for developers — each shelf headed by its document count and three stat tiles, and each card showing its sections, reading time and last-updated date." width="900">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with six cards on two shelves — five for managers and staff, one for developers — each shelf headed by its document count and three stat tiles, and each card carrying "See it live" links to the running test installations and showing its sections, reading time and last-updated date." width="900">
   </a>
 </p>
 
@@ -68,6 +68,7 @@ before changing any styling.
      status: 'draft',
      note: 'Linux only',              // optional qualifier chip; omit if not needed
      order: 7,
+     live: [{ label: 'OJS test journal', href: 'https://ojs.icjia.cloud/' }], // "See it live" chips
    }
    ```
 3. Add the slug to `APPROVED` in [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts)

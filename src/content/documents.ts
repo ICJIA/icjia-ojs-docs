@@ -26,7 +26,14 @@ export interface DocumentEntry {
   note?: string;
   /** Optional explicit ordering. Lower sorts first; unset sorts last. */
   order?: number;
+  /** Where a reader can see the thing itself, running. Shown on the card as "See it live". */
+  live?: { label: string; href: string }[];
 }
+
+/** The two test installations. Both are up; the public pages need no login. */
+const OJS = { label: 'OJS test journal', href: 'https://ojs.icjia.cloud/' };
+const OPS = { label: 'OPS test preprint server', href: 'https://ops.icjia.cloud/' };
+const OJS_AND_OPS = [OJS, OPS];
 
 export const documents: DocumentEntry[] = [
   {
@@ -38,6 +45,7 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for managers',
     status: 'draft',
     order: 5,
+    live: OJS_AND_OPS,
   },
   {
     slug: 'ojs-administrator-guide',
@@ -48,6 +56,7 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for the journal administrator',
     status: 'draft',
     order: 3,
+    live: [OJS, OPS],
   },
   {
     slug: 'ops-administrator-guide',
@@ -58,6 +67,7 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for the preprint server administrator',
     status: 'draft',
     order: 4,
+    live: [OPS, OJS],
   },
   {
     slug: 'droplet-runbook',
@@ -69,6 +79,7 @@ export const documents: DocumentEntry[] = [
     status: 'draft',
     note: 'Linux only',
     order: 6,
+    live: OJS_AND_OPS,
   },
   {
     slug: 'ops-preprint-server',
@@ -79,6 +90,7 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for managers',
     status: 'draft',
     order: 1,
+    live: OJS_AND_OPS,
   },
   {
     slug: 'what-is-the-research-hub',
@@ -89,5 +101,10 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for managers',
     status: 'draft',
     order: 2,
+    live: [
+      { label: 'Hub 1.0, live now', href: 'https://icjia.illinois.gov/researchhub' },
+      { label: 'Hub 2.0 draft', href: 'https://copperhead-hub-20.netlify.app/researchhub/' },
+      { label: 'Studio 2.0 demo', href: 'https://studio-2026.netlify.app/login' },
+    ],
   },
 ];

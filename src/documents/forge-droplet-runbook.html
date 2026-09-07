@@ -35,6 +35,15 @@
   .updated{display:inline-flex;align-items:baseline;gap:12px;margin:26px 0 0;padding:10px 20px;border:1px solid var(--rule);border-radius:999px;background:var(--ink-2)}
   .updated .lab{font-size:15px;color:var(--paper-dim)}
   .updated time{font-family:"Manrope","Inter",system-ui,sans-serif;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--pencil)}
+  /* see it live */
+  .see{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin:22px 0 0;padding:18px 22px;border-radius:14px;border:1px solid var(--rule);background:var(--ink-2);font-size:17px;line-height:1.4;color:var(--paper-dim);max-width:none}
+  .see .k{font-weight:700;color:var(--paper)}
+  .see a{display:inline-flex;align-items:baseline;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--pencil);background:var(--pencil-soft);color:var(--pencil);font-weight:600;text-decoration:none;white-space:nowrap}
+  .see a small{font-weight:400;font-size:.85em;color:var(--paper-dim)}
+  .see a:hover,.see a:focus-visible{background:var(--pencil);color:var(--ink)}
+  .see a:hover small,.see a:focus-visible small{color:var(--ink)}
+  .see .why{flex-basis:100%;font-size:15px;margin:0}
+  .see .why a{display:inline;padding:0;border:0;background:none;color:var(--pencil);font-weight:500;text-decoration:underline;white-space:normal}
   .meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:40px 0 0}
   .meta div{padding:22px 20px 22px 0;font-size:15px;color:var(--paper-dim)}
   .meta div + div{padding-left:20px;border-left:1px solid var(--rule)}
@@ -154,6 +163,7 @@
   <h1>Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge</h1>
   <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean, carrying <b>two separate installations</b> on one box: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, then OPS as a second site &mdash; and the hardening, memory tuning, backups, upgrades and restores that from then on have to cover both.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
+  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both answer over HTTPS now; <a href="https://uptime.icjia.app">uptime.icjia.app</a> watches them.</span></p>
   <div class="meta">
     <div><b>Ubuntu 26.04</b>DigitalOcean, 2 GB / 2 vCPU</div>
     <div><b>Forge-provisioned</b>nginx mainline, PHP 8.5, MySQL 8.4</div>

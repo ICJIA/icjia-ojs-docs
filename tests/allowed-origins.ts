@@ -25,4 +25,6 @@ export const ALLOWED_ORIGINS = [
   'studio-2026.netlify.app',
   'uptime.icjia.app',
   'icjia.illinois.gov',
+  'ojs.icjia.cloud',
+  'ops.icjia.cloud',
 ];
