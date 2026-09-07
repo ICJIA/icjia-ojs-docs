@@ -7,6 +7,23 @@ import pkg from '../package.json';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = (p: string) => fileURLToPath(new URL(`../dist/${p}`, import.meta.url));
+
+/** Decode the handful of entities the documents use inside headings. */
+const decodeEntities = (s: string) =>
+  s
+    .replace(/&mdash;/g, '\u2014')
+    .replace(/&ndash;/g, '\u2013')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&rsquo;/g, '\u2019')
+    .replace(/&lsquo;/g, '\u2018')
+    .replace(/&ldquo;/g, '\u201c')
+    .replace(/&rdquo;/g, '\u201d')
+    .replace(/&hellip;/g, '\u2026')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&#x27;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&amp;/g, '&');
 const read = (p: string) => readFileSync(dist(p), 'utf8');
 
 /** The named and numeric entities Astro emits when escaping interpolated text. */
@@ -40,6 +57,18 @@ describe('build output', () => {
       for (const live of entry.live ?? []) {
         expect(html, `${entry.slug}: live link ${live.href} missing from its card`).toContain(`href="${live.href}"`);
       }
+    }
+  });
+
+  it('opens every page with its card question as the h1', () => {
+    // The card's question is what a reader clicks; the page they land on must
+    // open with the same words. The descriptive <title> stays the subtitle.
+    for (const entry of documents) {
+      const html = readFileSync(dist(`docs/${entry.slug}/index.html`), 'utf8');
+      const match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+      expect(match, `${entry.slug} has an h1`).not.toBeNull();
+      const h1 = decodeEntities(match![1].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
+      expect(h1, `${entry.slug}: the h1 must echo the card question`).toBe(entry.question);
     }
   });
 

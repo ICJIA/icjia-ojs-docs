@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-212_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-213_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -23,8 +23,8 @@ Six documents are published today — an explainer of what OJS and OPS are
 and whether OPS is worth having, a beginner's guide to the Research Hub for staff
 that also answers whether either system could replace it, a guide for the
 journal administrator, a shorter one for the preprint server administrator, an
-overview for managers asking whether to adopt either system, and an
-installation runbook for developers. The managers' shelf defines things first
+overview for managers asking whether to adopt either system and what that would
+mean for the Research Hub, and an installation runbook for developers. The managers' shelf defines things first
 and ends on the adoption question. Each was added as advertised: one entry in
 the manifest, and the card, the route, the contents and the statistics followed
 on their own.
@@ -47,7 +47,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">
-    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own title, lede, last-updated stamp and its strip of facts about the box: Ubuntu 26.04, Forge-provisioned, the symptom, and what it ends with. The status bar is pinned along the bottom of the viewport." width="900">
+    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own headline, &ldquo;How do I install OJS and OPS?&rdquo;, its lede, last-updated stamp and its strip of facts about the box: Ubuntu 26.04, Forge-provisioned, the symptom, and what it ends with. The status bar is pinned along the bottom of the viewport." width="900">
   </a>
 </p>
 
@@ -55,7 +55,10 @@ before changing any styling.
 
 ## Adding a document
 
-1. Put the HTML file in `src/documents/`.
+1. Put the HTML file in `src/documents/`. Its `<h1>` must be the card's
+   question, word for word — a test holds the two together — and its `<title>`
+   is the descriptive subtitle shown on the card, in the sticky header and in
+   the browser tab.
 2. Append an entry to `documents` in [`src/content/documents.ts`](src/content/documents.ts):
 
    ```ts
@@ -349,7 +352,7 @@ a version has no tag.
 
 ## Tests
 
-212 tests across six files.
+213 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -358,6 +361,7 @@ document has no title, headings, stylesheet or script.
 
 [`tests/build-output.test.ts`](tests/build-output.test.ts) builds the site and
 asserts on `dist/` — that every manifest entry produced a page, that each
+page opens with its card's question as its `h1`, that each
 document survived the wrap intact (every code block, its clipboard handler,
 its webfonts), that the document stylesheet still precedes the chrome's, that
 no personal name, unexpected email address or credential reached the published

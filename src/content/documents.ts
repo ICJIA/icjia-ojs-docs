@@ -39,9 +39,9 @@ export const documents: DocumentEntry[] = [
   {
     slug: 'ojs-proof-of-concept',
     file: 'ojs-proof-of-concept.html',
-    question: 'Should we adopt OJS and/or OPS?',
+    question: 'Should we adopt OJS and/or OPS — and what about the Research Hub?',
     summary:
-      'What Open Journal Systems does, where the test setup stands, what running it for real would take, and where OPS fits in the decision.',
+      'What Open Journal Systems does, where the test setup stands, what running it for real would take, where OPS fits in the decision, and what either would mean for the Research Hub.',
     audience: 'Written for managers',
     status: 'draft',
     order: 5,

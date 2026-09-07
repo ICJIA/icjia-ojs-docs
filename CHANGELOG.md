@@ -5,6 +5,25 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.1] - 2026-09-07
+
+### Changed
+
+- **The adoption card now asks the whole question.** "Should we adopt OJS
+  and/or OPS?" became "Should we adopt OJS and/or OPS — and what about the
+  Research Hub?", which is what the proof of concept actually answers:
+  replace the Hub, run beside it, or extend the Studio. The card summary,
+  the portal lede and the README say the same. On the banner the row runs
+  to three lines, with the shelf lifted by one line so the footer facts stay
+  where they were.
+- **Every page's headline is now its card's question.** Two documents already
+  opened with the question a reader clicked ("What is OJS? What is OPS?",
+  "What is the Research Hub?"); the other four opened with a different
+  heading. Each `<h1>` now repeats the card's question, and the descriptive
+  `<title>` stays as the subtitle on the card, in the sticky header and in the
+  browser tab. A build test holds the two together, so a card question cannot
+  drift from the page it opens.
+
 ## [1.23.0] - 2026-09-07
 
 ### Changed
@@ -1158,6 +1177,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.23.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.1
 [1.23.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.0
 [1.22.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.22.0
 [1.21.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.1
