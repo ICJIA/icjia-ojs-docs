@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.20.0] - 2026-09-07
+
+### Added
+
+- **How Hub 1.0 came to be frozen, and why that matters.** A new box in the
+  Research Hub guide, after the case for retiring the Hub, tells the history in
+  the author's account: R&A once had technical staff who built the Hub with
+  IDS (then ISU, the Information Systems Unit) on the understanding that R&A
+  wrote and fixed while ISU kept the servers; R&A lost that staff and never
+  replaced them; around 2022 an arrangement with an R&A director reduced IDS's
+  role to server upkeep, with nothing new and no fixes, the same year the
+  software beneath the Hub fell out of security support. It then says why a
+  frozen application inside a public website is a security problem, why almost
+  nobody in R&A today remembers any of this, why software is specification-
+  driven and late additions cost far more than designed-in ones, and what
+  Hub 2.0 is for: consolidate the fixes, move both onto supported software,
+  make them safe again — full draft written, not yet tested by its users, not
+  implemented. The TL;DR and the shortfall list carry a one-line version. The
+  guide reads in 35 minutes; the banner and screenshot follow.
+
 ## [1.19.2] - 2026-09-07
 
 ### Changed
@@ -1059,6 +1079,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.20.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.20.0
 [1.19.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.2
 [1.19.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.1
 [1.19.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.0

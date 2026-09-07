@@ -228,7 +228,7 @@
         <li><b>How it works.</b> Staff in the Research &amp; Analysis Unit write in the Studio, a private tool behind the Hub; a manager approves; the piece goes live. One approval, no outside review, nothing technical.</li>
         <li><b>Who runs it.</b> R&amp;A owns the content. IDS, the agency's own developers, built the software and keep it running. It was built in-house, not bought.</li>
         <li><b>It is not a separate website.</b> The Hub is a section of icjia.illinois.gov, and Hub&nbsp;1.0 is built into the same code as the main site. Switching it off, moving it, or leaving it unpatched is therefore a decision about the whole public website, not about one corner of it.</li>
-        <li><b>What is wrong with it.</b> The software underneath Hub&nbsp;1.0 has had no security updates since 2022, and it is tangled into the main website's code. That is a real and urgent problem, and it is the reason Hub&nbsp;2.0 exists.</li>
+        <li><b>What is wrong with it.</b> The software underneath Hub&nbsp;1.0 has had no security updates since 2022, it is tangled into the main website's code, and by an arrangement made around 2022 it gets server upkeep only: no new features, no fixes. That is a real and urgent problem, and it is the reason Hub&nbsp;2.0 exists.</li>
         <li><b>Hub 2.0.</b> The security update and rewrite of Hub&nbsp;1.0 &mdash; front end and Studio both &mdash; on current, supported software. The draft is finished; it is <b>not yet live</b>, pending testing and approval before it becomes part of the public website. Same content, same addresses, same name, and for readers the same functions in a modern interface. The codename &ldquo;Copperhead&rdquo; is internal.</li>
         <li><b>Why not just get rid of it?</b> The case for is real: in-house software is maintained by the agency alone, the 2022 problem is the proof, and Hub&nbsp;2.0 does not change who maintains the code. But the content has nowhere else to go &mdash; OJS is built for a journal and OPS for preprints, and neither can hold a dataset or a dashboard as a publication &mdash; and moving 540 addresses puts 84% of the agency's search traffic at risk. On the evidence, retiring the Hub would leave a smaller in-house platform running anyway, next to a second system.</li>
         <li><b>Could the Studio be extended instead?</b> For most of what off-the-shelf offers, yes, and more cheaply than assumed: Google Scholar labelling is days of work, versioning and catalogue feeds are weeks. Peer review is the exception and should not be built, and a DOI is a membership and a permanent commitment whichever software registers it.</li>
@@ -393,7 +393,7 @@
           <li><b>Review is a single step.</b> One approval, with nothing kept on the record about why, or what was changed.</li>
           <li><b>No versions.</b> Updating a published piece replaces it; a reader who cited the earlier text cannot find it.</li>
           <li><b>Invisible to the scholarly record.</b> No DOIs of its own, no Google Scholar visibility. Work the agency paid to produce is read by tens of thousands and cited by almost nobody.</li>
-          <li><b>In-house, with everything that implies.</b> Few people understand it, nobody patches it on a schedule, and you cannot hire for it.</li>
+          <li><b>In-house, with everything that implies.</b> Few people understand it, nobody patches it on a schedule, and you cannot hire for it. Since about 2022 it has, by agreement, had server upkeep only: no new features and no fixes.</li>
         </ul>
       </div>
       <div>
@@ -445,13 +445,27 @@
     <div class="qa">
       <h3>The case for getting rid of it, put fairly</h3>
       <ul>
-        <li><b>In-house software has a known failure mode,</b> and ICJIA is living inside an example of it: the people who can confidently change it are the people who wrote it, nobody patches it on a schedule, and there is no market of people who already know it.</li>
+        <li><b>In-house software has a known failure mode,</b> and ICJIA is living inside an example of it: the people who can confidently change it are the people who wrote it, nobody patches it on a schedule, and there is no market of people who already know it. How that happened here is set out in the next box.</li>
         <li><b>The 2022 problem is the proof.</b> That is exactly what the worry predicts, and it is not hypothetical.</li>
         <li><b>Off-the-shelf software outlives its adopters.</b> OJS has been developed since 2001 and is maintained by a community of thousands of journals. Security fixes arrive because other people need them, not because someone here had time.</li>
         <li><b>The scholarly plumbing comes included.</b> DOIs, listings in library catalogues, visibility to Google Scholar &mdash; all built in, and all real work to add to anything home-grown.</li>
         <li><b>The rebuild does not change the model.</b> Hub&nbsp;2.0 is in-house too. It answers the unsupported-software problem; it does not answer the in-house one.</li>
       </ul>
       <p>All of that is true. The question is not whether those risks are real. It is whether moving the Hub's research into OJS or OPS actually removes them, and at what cost.</p>
+    </div>
+
+    <div class="qa">
+      <h3>How Hub 1.0 came to be frozen, and why that matters</h3>
+      <p>The failure mode above is not abstract here. It is the Hub's own history, and it answers the question staff who joined recently keep asking: why isn't Hub&nbsp;1.0 updated?</p>
+      <ul>
+        <li><b>How it was built.</b> When the Hub was written, R&amp;A had technical staff of its own, who developed it together with IDS &mdash; then called ISU, the Information Systems Unit. The understanding was a division of labour: R&amp;A wrote the Hub and the Studio and fixed their bugs; ISU kept the servers running.</li>
+        <li><b>How that division collapsed.</b> Over the years R&amp;A lost its technical staff for the Hub and never replaced them, so the writing-and-fixing half of the arrangement fell to ISU, later IDS, by default, on top of the server half.</li>
+        <li><b>The arrangement of 2022.</b> Around 2022 an agreement was reached with an R&amp;A director: IDS would keep Hub&nbsp;1.0 and Studio&nbsp;1.0 running at the server level, but would not add anything new or fix existing issues. From that point the Hub was frozen &mdash; kept up, not kept current. It is also the year the software beneath it stopped receiving security updates.</li>
+        <li><b>Why that is a security problem, not a tidiness one.</b> A frozen application inside a public website keeps every flaw it had on the day it was frozen and acquires new ones as the software beneath it falls out of support. Nobody is assigned to fix what is found, so what is found stays. The exposure grows for as long as that runs, and the Hub is the most-visited part of icjia.illinois.gov.</li>
+        <li><b>Why almost nobody remembers this.</b> Almost all of R&amp;A's staff today arrived after the arrangement was made. They did not see the original Hub built or tested, and they have never seen the specifications it was written against, so to them it is simply a Hub that is not being updated, with no record of why. The reason is the 2022 arrangement, and the people who made it have largely moved on.</li>
+        <li><b>Why &ldquo;just add it later&rdquo; is hard.</b> Software is specification-driven: what is in the specification is in the design, and what is not in it is not. Adding a capability to a finished system afterwards costs far more than designing it in &mdash; in time, because it has to be threaded through a structure that never allowed for it, and in security, because every late addition is a new surface on software nobody is maintaining. That is why requests to change Hub&nbsp;1.0 have gone unanswered, and why the answer was a rebuild rather than a patch.</li>
+        <li><b>What Hub&nbsp;2.0 is for.</b> IDS wrote Hub&nbsp;2.0 and Studio&nbsp;2.0 to end the freeze: consolidate the accumulated fixes, move both onto current, supported software, and make the Hub and the Studio safe and secure again. The full draft is written. It has not yet been tested by the people who will use it, and it has not been implemented, so today the public website still runs the frozen Hub&nbsp;1.0.</li>
+      </ul>
     </div>
 
     <div class="qa">

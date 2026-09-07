@@ -48,7 +48,7 @@
 
     <text class="sans" x="704" y="188" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
     <text class="display" x="704" y="216" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="277" lengthAdjust="spacingAndGlyphs">What is the Research Hub?</text>
-    <text class="sans num" x="1128" y="216" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">32 min</text>
+    <text class="sans num" x="1128" y="216" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">35 min</text>
 
     <rect x="704" y="228" width="424" height="1" fill="#2e4056"/>
 
