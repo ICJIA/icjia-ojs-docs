@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.0] - 2026-09-07
+
+### Changed
+
+- **The adoption page is now the culmination of the portal.** "Should we
+  adopt OJS and/or OPS — and what about the Research Hub?" was an OJS page
+  with OPS as an aside and the Hub as one section. It is restructured as the
+  decision a manager reaches after the two definitions: part one OJS (what it
+  does, where the test stands, what it would give R&A, who does what and what
+  it costs, a one-line verdict), part two OPS (what is running, what it would
+  add beside the Hub and what it would not, where it earns its place, a
+  verdict), part three the Research Hub (the names, what it has earned,
+  whether either system could replace it, whether the Studio could be built
+  out, what Hub 2.0 changes, a verdict), then the decision: three verdict
+  cards, an at-a-glance table across all three, the three separate decisions,
+  and what has to happen first if the answer is yes. The TL;DR is nine lines
+  covering all three. Nothing was dropped: the low-risk and not-permanent
+  sections close the page. The title and the card summary say what the page
+  now is; the journal guide's cross-reference follows.
+
 ## [1.23.1] - 2026-09-07
 
 ### Changed
@@ -1177,6 +1197,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.24.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.24.0
 [1.23.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.1
 [1.23.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.0
 [1.22.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.22.0
