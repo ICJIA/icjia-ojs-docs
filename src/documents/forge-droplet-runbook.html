@@ -593,6 +593,7 @@ job_runner = On             <span class="c">; run queued jobs (emails, stats, no
   <h2>Post-install: outgoing mail via Mailgun</h2>
   <p>The OJS installer never asks about email. Mail is configured <b>after</b> install by editing <code>config.inc.php</code> in the OJS root. No restart needed; PHP reads the file on each request. There is no UI for these settings.</p>
   <p class="note"><b>Done on this box.</b> Outgoing mail is configured and sending as of 4 September 2026. The steps below are what to repeat on the next server; the values in them are the ones this one uses.</p>
+  <p class="note"><b>Why Mailgun.</b> Only because ICJIA already uses it for every other web-related mail task, so the sending domain, its DNS records and an account existed before OJS did, and with this install it is verified end to end for both applications. Nothing in OJS or OPS depends on it: they want an SMTP host, a port, a credential and a sending domain whose SPF and DKIM records are in place, and any transactional provider supplies those the same way &mdash; Amazon SES, SendGrid, Postmark, Mailjet, Brevo, SparkPost, among others. The provider for a production build is whoever builds it to choose, subject to DoIT approving it for an illinois.gov address. Substitute its SMTP host, port and credential in the <code>[email]</code> block below and keep everything else.</p>
 
   <div class="step">
     <div class="n">L</div>

@@ -5,6 +5,20 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1] - 2026-09-07
+
+### Added
+
+- **Why Mailgun.** The runbook's mail section now says the provider is there
+  only because ICJIA already uses it for every other web-related mail task,
+  that this install verifies it end to end for both applications, that OJS and
+  OPS need nothing more than an SMTP host, port, credential and a sending
+  domain with SPF and DKIM, and that any transactional provider — Amazon SES,
+  SendGrid, Postmark, Mailjet, Brevo, SparkPost — supplies those the same way.
+  The choice for production belongs to whoever builds it, subject to DoIT
+  approval. The proof of concept's "Approved email" item says the same in one
+  manager-level sentence.
+
 ## [1.21.0] - 2026-09-07
 
 ### Changed
@@ -1093,6 +1107,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.21.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.1
 [1.21.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.0
 [1.20.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.20.0
 [1.19.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.2
