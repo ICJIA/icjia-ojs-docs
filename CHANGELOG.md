@@ -5,6 +5,17 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.2] - 2026-09-07
+
+### Changed
+
+- **Four wording changes in the Research Hub guide, by request.** The genesis
+  is dated ("Around 2017 and 2018, people kept asking ICJIA about its
+  research"); the wiring section's right-hand column is headed "Hub 2.0:
+  drafted but not in production"; the Studio 2.0 column closes on "A
+  significant UI and security upgrade"; and the note under "See it live" says
+  "the finished drafts", plural, since it points at two of them.
+
 ## [1.19.1] - 2026-09-07
 
 ### Fixed
@@ -1048,6 +1059,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.19.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.2
 [1.19.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.1
 [1.19.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.0
 [1.18.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.18.0
