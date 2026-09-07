@@ -1,7 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DocumentCard from '../components/DocumentCard.astro';
-import { portalDocuments } from '../lib/registry.ts';
+import { portalDocuments, type PortalDocument } from '../lib/registry.ts';
+
+/**
+ * Two shelves, split on the audience string rather than on a list of slugs, so
+ * a document added later lands on the right one without touching this page.
+ * A group with nothing on it is not rendered.
+ */
+const forDevelopers = (doc: PortalDocument) => /developer/i.test(doc.audience);
+const minutes = (docs: PortalDocument[]) => docs.reduce((n, d) => n + d.parsed.readingMinutes, 0);
+const groups = [
+  {
+    id: 'managers',
+    tone: 'coral',
+    title: 'For managers and staff',
+    lede: 'Plain language throughout, no technical background assumed, and nothing here asks for a server login. New to the Hub itself? Start with the beginner\u2019s guide.',
+    fact: 'Browser only',
+    docs: portalDocuments.filter((d) => !forDevelopers(d)),
+  },
+  {
+    id: 'developers',
+    tone: 'green',
+    title: 'For developers',
+    lede: 'Ubuntu, nginx, PHP and MySQL, and a shell. Every command was run on the test box, and every error it hit is written down.',
+    fact: 'Linux only',
+    docs: portalDocuments.filter(forDevelopers),
+  },
+].filter((g) => g.docs.length > 0);
 ---
 
 <BaseLayout
@@ -14,15 +40,34 @@ import { portalDocuments } from '../lib/registry.ts';
       <p class="lede">
         A test server is running, with <strong>two separate installations</strong> on it: Open
         Journal Systems for a journal, and Open Preprint Systems for a preprint server beside it.
-        One document covers whether to adopt them, one covers whether either could replace the
-        Research Hub, one covers running the journal day to day, one covers running the preprint
-        server, and one covers how the machine was built.
+        One document covers what OJS and OPS are and whether OPS is worth having, one explains
+        what the Research Hub is and whether either system could replace it, one covers running
+        OJS day to day, one covers running OPS, one asks whether to adopt them, and one covers
+        how the machine was built.
       </p>
     </div>
 
-    <div class="shelf">
-      {portalDocuments.map((doc) => <DocumentCard doc={doc} />)}
-    </div>
+    {
+      groups.map((g) => (
+        <section class="group" data-tone={g.tone} aria-labelledby={`group-${g.id}`}>
+          <div class="group-head">
+            <div class="group-count" aria-hidden="true">{g.docs.length}</div>
+            <div class="group-text">
+              <h2 id={`group-${g.id}`}>{g.title}</h2>
+              <p class="group-lede">{g.lede}</p>
+            </div>
+            <ul class="group-facts" aria-label={`${g.title}, at a glance`}>
+              <li><b>{g.docs.length}</b>{g.docs.length === 1 ? 'document' : 'documents'}</li>
+              <li><b>{minutes(g.docs)}</b>minutes in all</li>
+              <li><b>{g.fact.split(' ')[0]}</b>{g.fact.split(' ').slice(1).join(' ')}</li>
+            </ul>
+          </div>
+          <div class="shelf">
+            {g.docs.map((doc) => <DocumentCard doc={doc} />)}
+          </div>
+        </section>
+      ))
+    }
 
     <footer class="colophon">
       <p>

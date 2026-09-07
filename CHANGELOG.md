@@ -5,6 +5,67 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.18.0] - 2026-09-07
+
+### Added
+
+- **A sixth document: "What is the Research Hub?"** A beginner's guide for
+  staff, new or long-serving — written with the incoming head of R&A in mind: senior, short on time,
+  no technical background, and inclined to ask why the Hub should not simply be
+  dropped now that off-the-shelf software is on trial. It covers what the Hub
+  is and where it came from (people kept asking for the research and there was
+  no mobile-friendly way to give it to them), how it is wired into
+  icjia.illinois.gov and why that makes "not updating it" and "getting rid of
+  it" decisions about the whole public site, how a piece gets onto it, Studio
+  1.0 against Studio 2.0, what it has accomplished in figures, the honest
+  problems, what Hub 2.0 changes and keeps, and a straight answer to "why not
+  just get rid of it?" — the case for put at full strength, then what removal
+  would actually mean, then what fixes the worry. It ends with the three
+  decisions that get run together and a glossary. Same figures as the two
+  decision documents, which link to it at their first mention of the Hub.
+
+### Changed
+
+- **The landing page is two shelves** — for managers and staff, and for
+  developers — each headed like an infographic: the document count as a large
+  numeral, one line of scope, and three stat tiles (documents, minutes in all,
+  browser or Linux only). Cards are shelved by audience string, so a future
+  developer document lands on the right shelf without touching the page. The
+  card headings drop to h3 beneath the shelf headings. The managers' shelf
+  defines things first — OJS and OPS, the Hub, then the two administrator
+  guides — and ends on the adoption question. The
+  The banner gains a sixth row with the shelf re-spaced to fit above the footer;
+  every changed string re-measured against the webfonts. The README's add-a-document recipe
+  now names the two steps it left out: the approved-scripts entry and the
+  banner row.
+- **The retirement question moves to the beginner's guide, and the write-up
+  goes back to being about OPS.** The two had come to share the traffic figures,
+  the case for retiring an in-house platform, what removal would mean, and the
+  Hub 2.0 summary. The guide now owns every Hub question — it absorbs the
+  back-catalogue mechanics, the bias note and the costed "Could the Studio be
+  extended instead?" table — and the write-up keeps what a preprint is, OJS
+  against OPS, the four-systems comparison, whether OPS is worth having beside
+  the Hub, and what is running, with a one-paragraph answer to the replacement
+  question pointing at the guide. Its TL;DR drops from ten lines to eight. The
+  proof of concept's pointers follow.
+- **The card questions are parallel:** "Should we adopt OJS and/or OPS?",
+  "What is the Research Hub?", "What is OJS? What is OPS?", "How do I run OJS?",
+  "How do I run OPS?", "How do I install OJS and OPS?".
+- **Hub 2.0's status is stated the same way everywhere:** the security update
+  and rewrite of Hub 1.0, front end and Studio both; the draft is finished; it
+  is not yet live, pending testing and approval before it becomes part of the
+  public website. The three manager documents had said "built and working",
+  "drafted", "not released" and "awaiting a decision" in different places.
+- `icjia.illinois.gov` joins the origin allowlist, so the guide can link to
+  the Hub itself.
+
+### Fixed
+
+- **The runbook's footer ran in a single narrow column** while the rule above
+  it spanned the page. The runbook is the only document with a global 66ch
+  measure on paragraphs, and the colophon inherited it. It is now exempt, so
+  the footer runs the width of its rule, as on the other documents.
+
 ## [1.17.0] - 2026-09-07
 
 An adversarial editorial pass over all five documents: sequence, accuracy,
@@ -933,6 +994,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.18.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.18.0
 [1.17.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.17.0
 [1.16.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.16.0
 [1.15.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.15.1

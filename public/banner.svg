@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="ICJIA Open Journal Systems documentation — five documents: two for managers, one for the journal administrator, one for the preprint server administrator, and one for developers.">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="ICJIA Open Journal Systems documentation — six documents: three for managers, one for the journal administrator, one for the preprint server administrator, and one for developers.">
   <title>Open Journal Systems, on trial at ICJIA</title>
 
   <!--
@@ -28,49 +28,61 @@
   <text class="display" x="72" y="238" font-size="50" letter-spacing="-1.1" fill="#efe8da" textLength="394" lengthAdjust="spacingAndGlyphs">Systems, on trial</text>
   <text class="display" x="72" y="294" font-size="50" letter-spacing="-1.1" fill="#efe8da" textLength="179" lengthAdjust="spacingAndGlyphs">at ICJIA</text>
 
-  <text class="sans" x="72" y="352" font-size="20" fill="#a8b2be" textLength="375" lengthAdjust="spacingAndGlyphs">Five working documents: what OJS and</text>
-  <text class="sans" x="72" y="380" font-size="20" fill="#a8b2be" textLength="370" lengthAdjust="spacingAndGlyphs">OPS are, how to run each of them, how</text>
-  <text class="sans" x="72" y="408" font-size="20" fill="#a8b2be" textLength="354" lengthAdjust="spacingAndGlyphs">the server was built, and how the two</text>
-  <text class="sans" x="72" y="436" font-size="20" fill="#a8b2be" textLength="109" lengthAdjust="spacingAndGlyphs">fit together.</text>
+  <text class="sans" x="72" y="352" font-size="20" fill="#a8b2be" textLength="376" lengthAdjust="spacingAndGlyphs">Six working documents: what OJS, OPS</text>
+  <text class="sans" x="72" y="380" font-size="20" fill="#a8b2be" textLength="357" lengthAdjust="spacingAndGlyphs">and the Research Hub are, how to run</text>
+  <text class="sans" x="72" y="408" font-size="20" fill="#a8b2be" textLength="337" lengthAdjust="spacingAndGlyphs">the two on trial, how the server was</text>
+  <text class="sans" x="72" y="436" font-size="20" fill="#a8b2be" textLength="294" lengthAdjust="spacingAndGlyphs">built, and how they fit together.</text>
 
-  <!-- ── the shelf: one row per document, the site's own contents device ── -->
+  <!-- ── the shelf: one row per document, in the portal's order: define things
+       first, end on the adoption question. One row is on two lines (it would end
+       within 12px of its minutes on one), so the pitch is 62px, 90px for that
+       row, and the footer facts sit lower than they did with five rows. ── -->
   <g>
     <rect x="704" y="104" width="424" height="1" fill="#2e4056"/>
 
-    <text class="sans" x="704" y="130" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
-    <text class="display" x="704" y="158" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="229" lengthAdjust="spacingAndGlyphs">Should we adopt this?</text>
-    <text class="sans num" x="1128" y="158" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">23 min</text>
-    <rect x="704" y="174" width="424" height="1" fill="#2e4056"/>
+    <text class="sans" x="704" y="126" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
+    <text class="display" x="704" y="154" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="277" lengthAdjust="spacingAndGlyphs">What is OJS? What is OPS?</text>
+    <text class="sans num" x="1128" y="154" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">21 min</text>
 
-    <!-- Two lines: on one, this question would end 5px short of the minutes.
-         The measured widths are for the halves, not the whole. -->
-    <text class="sans" x="704" y="200" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
-    <text class="display" x="704" y="228" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="157" lengthAdjust="spacingAndGlyphs">Could we retire</text>
-    <text class="display" x="704" y="256" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="195" lengthAdjust="spacingAndGlyphs">the Research Hub?</text>
-    <text class="sans num" x="1128" y="228" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">35 min</text>
-    <rect x="704" y="272" width="424" height="1" fill="#2e4056"/>
+    <rect x="704" y="166" width="424" height="1" fill="#2e4056"/>
 
-    <text class="sans" x="704" y="298" font-size="15" fill="#a8b2be" textLength="200" lengthAdjust="spacingAndGlyphs">For the journal administrator</text>
-    <text class="display" x="704" y="326" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="254" lengthAdjust="spacingAndGlyphs">How do I run the journal?</text>
-    <text class="sans num" x="1128" y="326" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">11 min</text>
-    <rect x="704" y="342" width="424" height="1" fill="#2e4056"/>
+    <text class="sans" x="704" y="188" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
+    <text class="display" x="704" y="216" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="277" lengthAdjust="spacingAndGlyphs">What is the Research Hub?</text>
+    <text class="sans num" x="1128" y="216" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">29 min</text>
 
-    <text class="sans" x="704" y="368" font-size="15" fill="#a8b2be" textLength="256" lengthAdjust="spacingAndGlyphs">For the preprint server administrator</text>
-    <text class="display" x="704" y="396" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="336" lengthAdjust="spacingAndGlyphs">How do I run the preprint server?</text>
-    <text class="sans num" x="1128" y="396" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">11 min</text>
-    <rect x="704" y="412" width="424" height="1" fill="#2e4056"/>
+    <rect x="704" y="228" width="424" height="1" fill="#2e4056"/>
 
-    <text class="sans" x="704" y="438" font-size="15" fill="#a8b2be" textLength="106" lengthAdjust="spacingAndGlyphs">For developers</text>
-    <text class="display" x="704" y="466" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="186" lengthAdjust="spacingAndGlyphs">How do I install it?</text>
-    <text class="sans num" x="1128" y="466" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">46 min</text>
-    <rect x="704" y="482" width="424" height="1" fill="#2e4056"/>
+    <text class="sans" x="704" y="250" font-size="15" fill="#a8b2be" textLength="200" lengthAdjust="spacingAndGlyphs">For the journal administrator</text>
+    <text class="display" x="704" y="278" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="183" lengthAdjust="spacingAndGlyphs">How do I run OJS?</text>
+    <text class="sans num" x="1128" y="278" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">11 min</text>
+
+    <rect x="704" y="290" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="312" font-size="15" fill="#a8b2be" textLength="256" lengthAdjust="spacingAndGlyphs">For the preprint server administrator</text>
+    <text class="display" x="704" y="340" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="186" lengthAdjust="spacingAndGlyphs">How do I run OPS?</text>
+    <text class="sans num" x="1128" y="340" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">11 min</text>
+
+    <rect x="704" y="352" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="374" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
+    <text class="display" x="704" y="402" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="173" lengthAdjust="spacingAndGlyphs">Should we adopt</text>
+    <text class="display" x="704" y="430" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="174" lengthAdjust="spacingAndGlyphs">OJS and/or OPS?</text>
+    <text class="sans num" x="1128" y="402" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">23 min</text>
+
+    <rect x="704" y="442" width="424" height="1" fill="#2e4056"/>
+
+    <text class="sans" x="704" y="464" font-size="15" fill="#a8b2be" textLength="106" lengthAdjust="spacingAndGlyphs">For developers</text>
+    <text class="display" x="704" y="492" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="303" lengthAdjust="spacingAndGlyphs">How do I install OJS and OPS?</text>
+    <text class="sans num" x="1128" y="492" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">46 min</text>
+
+    <rect x="704" y="504" width="424" height="1" fill="#2e4056"/>
   </g>
 
   <!-- ── footer facts ── -->
-  <rect x="72" y="498" width="1056" height="1" fill="#2e4056"/>
-  <text class="sans" x="72" y="536" font-size="17" fill="#a8b2be" textLength="57" lengthAdjust="spacingAndGlyphs">Astro 7</text>
-  <text class="sans" x="196" y="536" font-size="17" fill="#a8b2be" textLength="46" lengthAdjust="spacingAndGlyphs">Static</text>
-  <text class="sans" x="310" y="536" font-size="17" fill="#7fc49b" textLength="107" lengthAdjust="spacingAndGlyphs">WCAG 2.1 AA</text>
-  <text class="sans" x="480" y="536" font-size="17" fill="#a8b2be" textLength="71" lengthAdjust="spacingAndGlyphs">193 tests</text>
-  <text class="sans" x="1128" y="536" font-size="17" fill="#a8b2be" text-anchor="end" textLength="159" lengthAdjust="spacingAndGlyphs">ojs-docs.netlify.app</text>
+  <rect x="72" y="528" width="1056" height="1" fill="#2e4056"/>
+  <text class="sans" x="72" y="566" font-size="17" fill="#a8b2be" textLength="57" lengthAdjust="spacingAndGlyphs">Astro 7</text>
+  <text class="sans" x="196" y="566" font-size="17" fill="#a8b2be" textLength="46" lengthAdjust="spacingAndGlyphs">Static</text>
+  <text class="sans" x="310" y="566" font-size="17" fill="#7fc49b" textLength="107" lengthAdjust="spacingAndGlyphs">WCAG 2.1 AA</text>
+  <text class="sans" x="480" y="566" font-size="17" fill="#a8b2be" textLength="68" lengthAdjust="spacingAndGlyphs">211 tests</text>
+  <text class="sans" x="1128" y="566" font-size="17" fill="#a8b2be" text-anchor="end" textLength="159" lengthAdjust="spacingAndGlyphs">ojs-docs.netlify.app</text>
 </svg>

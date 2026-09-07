@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/banner.png" alt="Open Journal Systems, on trial at ICJIA — five working documents: what OJS and OPS are, how to run each of them, how the server was built, and how the two fit together." width="100%">
+  <img src="public/banner.png" alt="Open Journal Systems, on trial at ICJIA — six working documents: what OJS, OPS and the Research Hub are, how to run the two on trial, how the server was built, and how they fit together." width="100%">
 </p>
 
 <h1 align="center">ICJIA OJS documentation portal</h1>
@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-193_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-211_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -19,12 +19,15 @@ A portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
-Five documents are published today — an overview for managers, a second one for
-managers asking whether either system could replace the Research Hub, a guide
-for the journal administrator, a shorter one for the preprint server
-administrator, and an installation runbook for developers. The fifth was added
-as advertised: one entry in the manifest, and the card, the route, the contents
-and the statistics followed on their own.
+Six documents are published today — a write-up of the preprint server and
+whether it is worth having, a beginner's guide to the Research Hub for staff
+that also answers whether either system could replace it, a guide for the
+journal administrator, a shorter one for the preprint server administrator, an
+overview for managers asking whether to adopt either system, and an
+installation runbook for developers. The managers' shelf defines things first
+and ends on the adoption question. Each was added as advertised: one entry in
+the manifest, and the card, the route, the contents and the statistics followed
+on their own.
 
 Two applications are described here, and they were two separate installations.
 **OJS** runs the journal; **OPS** runs a preprint server beside it on the same
@@ -36,7 +39,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app">
-    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with five cards — two for managers, one for the journal administrator, one for the preprint server administrator, one for developers — each showing its sections, reading time and last-updated date." width="900">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with six cards on two shelves — five for managers and staff, one for developers — each shelf headed by its document count and three stat tiles, and each card showing its sections, reading time and last-updated date." width="900">
   </a>
 </p>
 
@@ -64,9 +67,12 @@ before changing any styling.
      audience: 'Written for developers',
      status: 'draft',
      note: 'Linux only',              // optional qualifier chip; omit if not needed
-     order: 6,
+     order: 7,
    }
    ```
+3. Add the slug to `APPROVED` in [`tests/document-scripts.test.ts`](tests/document-scripts.test.ts)
+   (`''` unless the document ships a script), and a row to `public/banner.svg`
+   with the reading time the build derives — the suite names the number.
 
 That is the whole job. The title, section list, reading time,
 last-updated date, table of contents and route are all read out of the HTML at
@@ -78,7 +84,8 @@ does not exist, or if two entries share a slug.
 
 `audience` and `status` are free-form strings. Known values get a colour and
 anything else falls back to a neutral style, so a new audience needs no code
-change.
+change. The landing page shelves cards by audience: one naming developers goes
+on the developers' shelf, everything else on the managers' shelf.
 
 ## How documents are handled
 
@@ -145,6 +152,7 @@ npm run build && npm run preview
 #   http://localhost:4321/docs/ops-administrator-guide
 #   http://localhost:4321/docs/droplet-runbook
 #   http://localhost:4321/docs/ops-preprint-server
+#   http://localhost:4321/docs/what-is-the-research-hub
 ```
 
 Automated tools cover roughly half of WCAG. Reflow, text spacing and keyboard
@@ -340,7 +348,7 @@ a version has no tag.
 
 ## Tests
 
-193 tests across six files.
+211 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug

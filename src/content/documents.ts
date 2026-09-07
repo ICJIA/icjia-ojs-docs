@@ -32,17 +32,17 @@ export const documents: DocumentEntry[] = [
   {
     slug: 'ojs-proof-of-concept',
     file: 'ojs-proof-of-concept.html',
-    question: 'Should we adopt this?',
+    question: 'Should we adopt OJS and/or OPS?',
     summary:
       'What Open Journal Systems does, where the test setup stands, and what running it for real would take.',
     audience: 'Written for managers',
     status: 'draft',
-    order: 1,
+    order: 5,
   },
   {
     slug: 'ojs-administrator-guide',
     file: 'ojs-administrator-guide.html',
-    question: 'How do I run the journal?',
+    question: 'How do I run OJS?',
     summary:
       'Everything the journal administrator does, from first login to publishing an issue. All of it in a browser; no server access needed.',
     audience: 'Written for the journal administrator',
@@ -52,7 +52,7 @@ export const documents: DocumentEntry[] = [
   {
     slug: 'ops-administrator-guide',
     file: 'ops-administrator-guide.html',
-    question: 'How do I run the preprint server?',
+    question: 'How do I run OPS?',
     summary:
       'What the OPS administrator does, from first login to posting a preprint. A short companion to the journal guide: only what differs, with the shared screens linked rather than repeated.',
     audience: 'Written for the preprint server administrator',
@@ -62,20 +62,30 @@ export const documents: DocumentEntry[] = [
   {
     slug: 'droplet-runbook',
     file: 'forge-droplet-runbook.html',
-    question: 'How do I install it?',
+    question: 'How do I install OJS and OPS?',
     summary:
       'Installing OJS and then OPS as a second site on a fresh DigitalOcean droplet through Laravel Forge, including every error the first build hit. Ubuntu commands throughout; none of it applies to Windows.',
     audience: 'Written for developers',
     status: 'draft',
     note: 'Linux only',
-    order: 5,
+    order: 6,
   },
   {
     slug: 'ops-preprint-server',
     file: 'ops-preprint-server.html',
-    question: 'Could we retire the Research Hub?',
+    question: 'What is OJS? What is OPS?',
     summary:
-      'A preprint server now runs beside the journal. What OPS is, how it differs from OJS and the Research Hub — and whether Hub 1.0 could be retired in favour of off-the-shelf software.',
+      'A preprint server now runs beside the journal. What OPS is, what a preprint is, how OPS differs from OJS and from the Research Hub, and whether it is worth having — on its own, or as the front half of a journal.',
+    audience: 'Written for managers',
+    status: 'draft',
+    order: 1,
+  },
+  {
+    slug: 'what-is-the-research-hub',
+    file: 'what-is-the-research-hub.html',
+    question: 'What is the Research Hub?',
+    summary:
+      "A beginner's guide for staff: what the Hub is, what it does, what it has already accomplished, and why it should — or shouldn't — stay a critical part of ICJIA's public website.",
     audience: 'Written for managers',
     status: 'draft',
     order: 2,

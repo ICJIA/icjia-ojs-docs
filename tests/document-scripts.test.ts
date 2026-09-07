@@ -58,6 +58,7 @@ const APPROVED: Record<string, string> = {
   'ojs-administrator-guide': '',
   'ops-administrator-guide': '',
   'ops-preprint-server': '',
+  'what-is-the-research-hub': '',
   // The clipboard handler for the runbook's code blocks.
   'droplet-runbook': '8d273e6aeb271b28',
 };

@@ -24,4 +24,5 @@ export const ALLOWED_ORIGINS = [
   'copperhead-hub-20.netlify.app',
   'studio-2026.netlify.app',
   'uptime.icjia.app',
+  'icjia.illinois.gov',
 ];

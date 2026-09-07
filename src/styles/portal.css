@@ -104,6 +104,114 @@ body {
   font-weight: 500;
 }
 
+/* ---------- the two shelves ---------- */
+
+/*
+ * Each audience gets a header that reads like an infographic: a large numeral
+ * for the document count, the title and one line of scope, and three stat
+ * tiles. The accent is set per group with a custom property, so a third
+ * audience only needs a new data-tone rule.
+ */
+.group {
+  --accent: var(--pencil);
+  --accent-soft: var(--pencil-soft);
+  margin-top: 64px;
+}
+
+.group + .group {
+  margin-top: 96px;
+}
+
+.group[data-tone='green'] {
+  --accent: var(--done, #7fc49b);
+  --accent-soft: var(--done-soft, rgba(127, 196, 155, 0.16));
+}
+
+.group-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: end;
+  padding-top: 28px;
+  border-top: 4px solid var(--accent);
+}
+
+.group-count {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(72px, 9vw, 124px);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.group-text h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+.group-lede {
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--paper-dim);
+  max-width: 54ch;
+  margin: 0;
+}
+
+.group-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.group-facts li {
+  min-width: 118px;
+  padding: 12px 16px 11px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  background: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--paper-dim);
+}
+
+.group-facts b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin-bottom: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.group .shelf {
+  margin-top: 34px;
+}
+
+@media (max-width: 900px) {
+  .group-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .group-facts {
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+  }
+}
+
 /* ---------- the shelf of documents ---------- */
 
 .shelf {
