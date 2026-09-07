@@ -5,6 +5,14 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.1] - 2026-09-07
+
+### Fixed
+
+- **The "See it live" links are stacked, one per line, left-aligned**, on the
+  cards and on the pages. Laid out in a row they wrapped unevenly and the names
+  and hostnames were hard to read.
+
 ## [1.19.0] - 2026-09-07
 
 ### Added
@@ -1040,6 +1048,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.19.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.1
 [1.19.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.0
 [1.18.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.18.0
 [1.17.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.17.0

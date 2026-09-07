@@ -357,10 +357,9 @@ body {
 .live {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
+  display: grid;
+  justify-items: start;
+  gap: 6px;
   margin: 0 0 22px;
   font-size: 14px;
 }
