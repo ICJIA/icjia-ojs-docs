@@ -200,11 +200,12 @@ describe('documents share one footer', () => {
  * Two conventions the manager-facing documents carry, both of which drifted
  * before this test existed.
  *
- * The first is the requirement itself: a document written for managers opens
- * with a TL;DR, because the audience will not read to the bottom to find out
- * that nothing has been committed. Tying this to `audience` rather than to a
- * list of slugs means a new manager document inherits the requirement instead
- * of quietly skipping it.
+ * The first is the requirement itself: every document not written for
+ * developers opens with a TL;DR, because that audience will not read to the
+ * bottom to find out that nothing has been committed. Tying this to `audience`
+ * rather than to a list of slugs means a new non-developer document inherits
+ * the requirement instead of quietly skipping it. (The developer runbook opens
+ * with an ordered plan instead, which this test does not police.)
  *
  * The second is that the TL;DR says how long it is — "Six lines", "Nine
  * lines" — and that number is written by hand next to a list that gets edited.
@@ -213,14 +214,14 @@ describe('documents share one footer', () => {
  * worse than no count, because it is the first sentence a sceptical reader
  * checks.
  */
-describe('manager documents open with an accurate TL;DR', () => {
+describe('every non-developer document opens with an accurate TL;DR', () => {
   const NUMBERS = [
     'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
     'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
     'nineteen', 'twenty',
   ];
 
-  const forManagers = documents.filter((d) => /manager/i.test(d.audience));
+  const forManagers = documents.filter((d) => !/developer/i.test(d.audience));
 
   /** The `.tldr` block: its stated line count, and how many bullets it actually has. */
   const tldrOf = (file: string) => {
@@ -242,7 +243,7 @@ describe('manager documents open with an accurate TL;DR', () => {
   });
 
   it.each(forManagers)('$slug has a TL;DR', (entry) => {
-    expect(tldrOf(entry.file), `${entry.slug} is written for managers but has no TL;DR block`).not.toBeNull();
+    expect(tldrOf(entry.file), `${entry.slug} is not written for developers, so it must open with a TL;DR block`).not.toBeNull();
   });
 
   it.each(forManagers)('$slug states its own length correctly', (entry) => {

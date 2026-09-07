@@ -44,13 +44,6 @@ const remaining = parsed.outline.length - shown.length;
         {shown.map((section) => (
           <li>
             <span>{section.text}</span>
-            {section.subsections > 0 && (
-              <span class="depth">
-                {section.subsections}
-                {/* Alone, this numeral is announced as a bare "4". */}
-                <span class="sr-only"> subsections</span>
-              </span>
-            )}
           </li>
         ))}
         {remaining > 0 && (

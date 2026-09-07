@@ -120,3 +120,40 @@ describe('build output', () => {
     }
   });
 });
+
+/**
+ * Cross-document links. Every document links to its siblings by absolute URL,
+ * and since 1.17.0 the preprint guide deep-links into sections of the journal
+ * guide. A renamed slug or a reworded heading breaks those silently: the page
+ * still builds, the link still looks right, and the reader lands on the top of
+ * a page or on a 404. So every link to ojs-docs.netlify.app is resolved against
+ * the build: the slug must be a document, and a fragment must be an id on it.
+ */
+describe('cross-document links resolve against the build', () => {
+  const pages = documents.map((d) => ({ slug: d.slug, html: read(`docs/${d.slug}/index.html`) }));
+  const seen = new Set<string>();
+  const links = pages
+    .flatMap(({ slug, html }) =>
+      [...html.matchAll(/href="https:\/\/ojs-docs\.netlify\.app\/docs\/([a-z0-9-]+)\/?(#[^"]*)?"/g)].map(
+        (m) => ({ from: slug, to: m[1], fragment: m[2]?.slice(1) }),
+      ),
+    )
+    .map((l) => ({ ...l, label: l.fragment ? `${l.from} → ${l.to}#${l.fragment}` : `${l.from} → ${l.to}` }))
+    .filter((l) => !seen.has(l.label) && seen.add(l.label));
+
+  it('finds links to check, including deep links, or it is asserting nothing', () => {
+    expect(links.length).toBeGreaterThan(0);
+    expect(links.some((l) => l.fragment)).toBe(true);
+  });
+
+  it.each(links)('$label', ({ from, to, fragment }) => {
+    const target = pages.find((page) => page.slug === to);
+    expect(target, `${from} links to /docs/${to}/, which is not a document`).toBeDefined();
+    if (fragment) {
+      expect(
+        target!.html,
+        `${from} links to #${fragment} on ${to}, and no element on that page has that id`,
+      ).toContain(`id="${fragment}"`);
+    }
+  });
+});

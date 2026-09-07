@@ -5,6 +5,129 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] - 2026-09-07
+
+An adversarial editorial pass over all five documents: sequence, accuracy,
+duplication, and the audience each is written for.
+
+### Fixed
+
+- **OPS versioning was described backwards.** PKP's own guide says only a
+  Preprint Server Manager can create a new version of a posted preprint; the
+  author may then edit it. The preprint guide's role table, its "Post a second
+  version" step and the write-up's account of versioning all gave the job to the
+  author, and the test the guide calls "the point of the exercise" would not
+  have run as written. All three now say who does it.
+- **The runbook fixed nginx after the install it broke.** The path-info
+  location, the FastCGI timeout and the denies sat in a post-install step with a
+  "test before touching anything" hedge, while the runbook's own error table
+  records that the installer looped until that block was in. They are now
+  step F of pre-install prep, ahead of the installer, with the PHP-FPM half of
+  the timeout beside them; the post-install step points back at it.
+- **The runbook told you to `wget` the tarball from the box, then said that
+  never worked.** Steps I and U3 now download on a workstation and `scp` up, as
+  error 5 and the OPS table already said.
+- **The backup script could not run as written.** Nothing showed how it reached
+  `/usr/local/bin`; written with sudo it is root-owned, and `chmod 750` then
+  refused the `forge` user whose crontab calls it. It is now installed with
+  `install -o root -g root -m 755`. It also captures `plugins/`, because
+  add-ons installed from the Plugin Gallery are not in the tarball, and the
+  upgrade step now carries them across too.
+- **Whole-machine recovery relied on dumps that live on the machine.** R3 now
+  says so: the nightly dumps go with the droplet, a restored image is as old as
+  the image, and off-box copies are the gap production closes.
+- **A 503 was asserted, not shown.** U3 gives the one-line `return 503;` at
+  server level and says why a `location /` block would not do it; U5 removes
+  it before verifying and names the rollback.
+- **Step lettering ran A, B, C, C½, D, E, I, J, K, F, G, H**, with an unlettered
+  readiness check, SSH and diagnosis steps both numbered 1–3, and a checklist
+  reference to a "step J½" that did not exist. Steps now run S1–S3, 0–3 and
+  A–N in order, and every cross-reference was updated.
+- **"Supported until at least Jan 2027" was the 3.3 line's date.** PKP has
+  published no end-of-life for 3.5, and the runbook now says so. The version and
+  release date were checked against PKP's download page and are correct.
+- **"Eight of the ten pages people most often arrive on" and "eight of the
+  twelve most-visited pages"** read like a typo. The proof of concept now uses
+  the one figure recorded as verified in 1.10.0.
+- **The write-up's "Short version of the section above" pointed at the wrong
+  section** once the Studio section was inserted above it. Removed; the
+  "alongside" section now opens on its own question.
+- **"Would cost 84% of the agency's search traffic"** overstated the document's
+  own case, which says redirects carry most of it across. Both places now say
+  "put at risk".
+- **"DOIs it issues itself"** contradicted the write-up's own point that no
+  software issues a DOI without a Crossref membership. All three documents now
+  say "register".
+- **The proof of concept and the write-up disagreed** on how hard indexing and
+  peer review would be to build into the Studio. The proof of concept now
+  matches the write-up's estimate: Scholar labelling, versioning and catalogue
+  feeds are ordinary work; peer review and the DOI commitment are not.
+- Smaller: Karl "has run one there" now says what; the journal guide's
+  "explains why at length" pointed at a primer removed in 1.10.0; "manager
+  one-pager" named a 24-minute document; step I's ownership check read the 8.5
+  pool after the move to 8.3; step A expected a 200 on plain http; the write-up
+  said "six years" for a site live since 2018.
+
+### Changed
+
+- **Hub 1.0 and Hub 2.0 are named as such throughout the manager documents.**
+  Hub 1.0 is the Research Hub that is live now, launched in 2018, with
+  Studio 1.0 behind it, the tool authors use to create and publish. Hub 2.0 is
+  the drafted, unreleased rebuild (codename "Copperhead") with Studio 2.0, a
+  significant upgrade over Studio 1.0. The write-up carries a note on the names
+  beside its note on the word "server"; the proof of concept's three cards and
+  the comparison table are titled by version.
+- **The two manager documents no longer duplicate each other.** The proof of
+  concept's Hub section drops the URL and back-catalogue analysis, the "If a
+  journal isn't the shape" digression and five of the seven Hub 2.0 virtues,
+  linking the write-up for each, and keeps the quarterly case in full. Its two
+  who-does-what sections are one.
+- **The proof of concept runs bench first, argument second:** what OJS does,
+  where the setup stands, not permanent, low risk, who does what, then the Hub
+  argument, then the adoption list.
+- **The journal guide** merges the duplicate backup-administrator steps, orders
+  its back half as look, email check, then file, links PKP's Editorial Workflow
+  and Journal Managers chapters from the end-to-end test, links PKP's own OJS
+  guide from the try-it list, and drops a "server" note the OPS guide carries.
+- **The preprint guide** is titled for the administrator, which is who its steps
+  are for, and every "read the journal guide for these" link lands on the
+  section rather than the top of the page.
+- **The preprint write-up** links the preprint guide, leads its glance row with
+  the Hub's search share rather than the install time, trims its TL;DR, says
+  three jobs under a heading that said two, drops the second telling of the
+  runbook-as-price-list line, and cuts the bias section to the test itself.
+- **The runbook** opens Forge in one paragraph instead of two cards, folds the
+  domain note into pre-install prep, hands over two logins and two guides, warns
+  that disabling the 8.5 pool makes Forge's PHP switch a live 502, and puts the
+  Handoff after Backups so the backup it asks for exists.
+- **The portal** lists the two manager documents first and adjacent, asks
+  "Could we retire the Research Hub?" on the write-up's card, and drops the
+  subsection counts from the cards. The banner follows: new row order, new
+  question, re-measured widths, reading times 23, 35, 11, 11 and 46.
+- The footer on all five documents credits OPS as well as OJS to the Public
+  Knowledge Project.
+- Jargon out of the manager documents: "Forge subscription", "Mailgun",
+  "overlapping table names", DOAJ. Crossref and DOI are defined where the proof
+  of concept first uses them.
+
+### Added
+
+- **A TL;DR on both administrator guides**, six lines each, at the very top:
+  what the guide is, the one rule, the sequence, the test that matters, and the
+  two-logins trap. The convention that pinned the manager documents' TL;DRs now
+  covers every document not written for developers, so the guides' stated line
+  counts are checked too.
+- **"The plan, in order" at the top of the runbook**: every step on the page as
+  one ordered list, keyed to the step labels, with a note on what a plain Ubuntu
+  server skips.
+- **Cross-document links are resolved against the build.** Every link to
+  ojs-docs.netlify.app must name a document, and a fragment must be an id on
+  that page — the guard the new deep links needed.
+- `docs.pkp.sfu.ca` on the origin allowlist, for the journal guide's links to
+  PKP's own documentation.
+- Changelog link definitions for 1.10.0 through 1.17.0, which had stopped at
+  1.9.0.
+
 ## [1.16.0] - 2026-09-06
 
 ### Added
@@ -810,6 +933,16 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.17.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.17.0
+[1.16.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.16.0
+[1.15.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.15.1
+[1.15.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.15.0
+[1.14.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.14.0
+[1.13.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.13.1
+[1.13.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.13.0
+[1.12.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.12.0
+[1.11.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.11.0
+[1.10.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.10.0
 [1.9.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.9.0
 [1.8.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.8.0
 [1.7.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.7.0

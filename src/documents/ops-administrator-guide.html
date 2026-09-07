@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Posting a preprint: a guide for the OPS moderator</title>
+<title>Running the preprint server: a guide for the OPS administrator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,6 +41,17 @@
     font-size:clamp(22px,2.4vw,28px);line-height:1.4;max-width:40ch;
   }
   .plain b{color:var(--pencil);font-weight:600}
+
+  /* tl;dr */
+  section.tldr-sec{margin-top:64px}
+  .tldr{padding:34px 38px;border-radius:20px;background:var(--ink-2);border:1px solid var(--rule)}
+  .tldr h2{font-size:clamp(28px,3.2vw,38px);margin-bottom:4px}
+  .tldr .sub{font-size:17px;color:var(--paper-dim);margin:0 0 24px}
+  .tldr ul{margin:0;padding-left:1.15em;font-size:19px;line-height:1.45;color:var(--paper-dim);max-width:78ch}
+  .tldr li{margin-bottom:13px}
+  .tldr li::marker{color:var(--pencil);font-weight:700}
+  .tldr li b{color:var(--paper);font-weight:600}
+  .tldr .close{margin:24px 0 0;font-size:18px;color:var(--pencil);max-width:78ch}
 
   /* pipeline: what OJS does */
   .pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
@@ -252,16 +263,32 @@
 
 <header>
   <h1>Running the preprint server</h1>
-  <p class="lede">Everything the OPS moderator does, from first login to posting a preprint &mdash; all of it in a web browser.</p>
-  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-06">6 September 2026</time></p>
+  <p class="lede">Everything the OPS administrator does, from first login to posting a preprint &mdash; all of it in a web browser.</p>
+  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
   <div class="plain">You do not need a server login, and you will not be given one. <b>If a task has a settings screen, it is yours.</b> If it needs someone to log in to the machine itself, it is a ticket.</div>
 </header>
+
+<section class="tldr-sec">
+  <div class="tldr">
+    <h2>TL;DR &mdash; the short version</h2>
+    <p class="sub">Six lines. Everything after this is the supporting detail, to be read as you need it.</p>
+    <ul>
+      <li><b>What this is.</b> A short guide for the person in R&amp;A administering the test preprint server, who is usually also its moderator. Where OPS shares a screen with the journal, this guide links the journal guide rather than repeating it.</li>
+      <li><b>One word to watch.</b> In OPS a &ldquo;server&rdquo; is a preprint server &mdash; a publication, the counterpart of a journal &mdash; not the computer, which you never log in to.</li>
+      <li><b>What is not here.</b> No reviewers, editors, copyediting or issues. One stage: an author submits, a moderator checks that it is in scope, and it is posted.</li>
+      <li><b>The sequence.</b> Log in with the OPS password (not the OJS one), create the preprint server (leave DOIs off), learn the four roles, add users and a backup administrator here too, and write down what the server accepts.</li>
+      <li><b>The test that matters.</b> Post one preprint, then create a second version of it &mdash; the Preprint Server Manager creates versions, not the author &mdash; and check that the first version is still there and still citable.</li>
+      <li><b>Two accounts, not one.</b> OJS and OPS keep separate users, passwords and roles. Both send mail from the same address, so check which application a message came from before acting on it.</li>
+    </ul>
+    <p class="close">Nothing you do on the test server is permanent, posted, or indexed. Break things freely.</p>
+  </div>
+</section>
 
 <section>
   <h2>Before you start</h2>
   <p><b>Two applications are installed on the test machine, and they were two separate installations.</b> Open Journal Systems runs at one web address and <b>Open Preprint Systems (OPS)</b> at another. Each has its own database, its own folder of uploaded files, and its own user accounts. Installing the second did not extend the first, and nothing you change in one appears in the other. This guide covers the second one.</p>
   <p>The journal has its own guide: <a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal</a>. Two further documents cover the rest: <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">what OPS is and how it differs</a> from OJS and the Research Hub, and a <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">server runbook</a> for the developers who build the machine.</p>
-  <p>This guide is written for the person moderating the preprint server. It assumes no server knowledge and asks for none. It also assumes you have <b>not</b> read the journal guide cover to cover, and says which parts of it to borrow rather than repeating them here.</p>
+  <p>This guide is written for the person in R&amp;A administering the preprint server, who on a server this size is usually also the one moderating it. It assumes no server knowledge and asks for none. It also assumes you have <b>not</b> read the journal guide cover to cover, and says which parts of it to borrow rather than repeating them here.</p>
 
   <div class="rule"><b>One word to watch, before anything else.</b> In OPS, &ldquo;server&rdquo; means a <b>preprint server</b> &mdash; a publication, and the exact counterpart of a journal in OJS. It is the thing you create in step 2, and it is what the role <b>Preprint Server Manager</b> refers to. The other kind of server, the computer everything runs on, is the one you do not need a login for. Every use of the word below is the first kind unless it says otherwise.</div>
 
@@ -277,12 +304,12 @@
       <h3>Read the journal guide for these</h3>
       <p class="muted">Identical in OPS. Same screens, same wording, same answers.</p>
       <ul>
-        <li><b>Adding users and changing their roles.</b> <b>Users &amp; Roles &rarr; Users &rarr; Add User</b>, exactly as described there.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#add-users">Adding users and changing their roles.</a></b> <b>Users &amp; Roles &rarr; Users &rarr; Add User</b>, exactly as described there.</li>
         <li><b>Editing email templates</b>, themes, and pages, under <b>Settings</b>.</li>
         <li><b>Switching on add-ons</b> from the plugin gallery.</li>
-        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Try it first, or file a ticket?</a></b> The dividing line is the same one: if the fix is in a Settings menu it is yours, if it needs a login to the machine it is a ticket.</li>
-        <li><b>The quick email check</b> before reporting anything about mail, including the 15-minute wait and the <b>[EXTERNAL]</b> tag the state's mail system adds.</li>
-        <li><b>Filing a useful ticket</b>, and what to look at when something breaks.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#try-it-first-or-file-a-ticket">Try it first, or file a ticket?</a></b> The dividing line is the same one: if the fix is in a Settings menu it is yours, if it needs a login to the machine it is a ticket.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#quick-email-check">The quick email check</a></b> before reporting anything about mail, including the 15-minute wait and the <b>[EXTERNAL]</b> tag the state's mail system adds.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#when-something-breaks">What to look at when something breaks</a></b>, and <b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#filing-a-useful-ticket">filing a useful ticket</a></b>.</li>
       </ul>
     </div>
     <div>
@@ -293,7 +320,7 @@
         <li><b>Editors and Section Editors.</b> The editorial decision those roles exist to make does not happen here.</li>
         <li><b>Copyediting and production.</b> One stage covers the whole journey.</li>
         <li><b>Issues and volumes.</b> Nothing waits to be gathered into anything; a preprint goes up on its own.</li>
-        <li><b>Step 6 of that guide</b> &mdash; running one article through review. The equivalent test here is a different shape, and it is the section after next.</li>
+        <li><b><a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/#run-one-article-all-the-way-through">Step 6 of that guide</a></b> &mdash; running one article through review. The equivalent test here is a different shape, and it is the section after next.</li>
       </ul>
     </div>
   </div>
@@ -319,7 +346,7 @@
         <h3>Create the preprint server</h3>
         <p>A fresh OPS site has no servers on it, the way a fresh OJS site has no journals. <span class="path">Administration &rarr; Hosted Servers &rarr; Create Server.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and <b>never change it later</b>), and a language.</p>
         <p>OPS then opens the <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> and <b>Contact</b> &mdash; principal contact is you, technical contact is IDS. Everything else can wait.</p>
-        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labelled indexing or search-engine registration. OPS can issue a DOI of its own, and <b>a DOI cannot be withdrawn once issued</b>. Nothing on a temporary address should carry one.</p>
+        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labelled indexing or search-engine registration. OPS can register a DOI for each preprint if the agency holds a Crossref membership, and <b>a DOI cannot be withdrawn once issued</b>. Nothing on a temporary address should carry one.</p>
       </div>
     </li>
     <li>
@@ -332,9 +359,10 @@
           <tr><td>Site Administrator</td><td>Everything, on every preprint server, plus site settings and creating servers.</td><td>You, and one backup (step 4).</td></tr>
           <tr><td>Preprint Server Manager</td><td>All settings, users, and workflow for one server. The counterpart of Journal Manager in OJS.</td><td>Whoever runs the server day to day &mdash; often you.</td></tr>
           <tr><td>Moderator</td><td>Sees every submission; checks it is in scope and appropriate; posts it or declines it.</td><td>The person doing the screening. This is the working role.</td></tr>
-          <tr><td>Author</td><td>Submits, tracks, and posts new versions of their own work.</td><td>Anyone who registers.</td></tr>
+          <tr><td>Author</td><td>Submits and tracks their own work, and edits a new version once one has been created for them.</td><td>Anyone who registers.</td></tr>
         </table>
         <p><b>A moderator is not an editor.</b> The job is to confirm the piece belongs here and is fit to be public &mdash; not to judge whether the research is sound. That judgement is what peer review is for, and OPS deliberately does not do it.</p>
+        <p><b>And an author does not post versions.</b> By default only the Preprint Server Manager can create a new version of a posted preprint; the author can then edit it and add the revised file. It matters for the test below, and it is the one thing the software does not make obvious.</p>
       </div>
     </li>
     <li>
@@ -364,7 +392,7 @@
     <li class="step next"><span class="mark">1</span><span class="t">Submit as an author<small>Make yourself a second account with a different email address, and submit a made-up paper. There is no review stage to enter; it lands directly in the only stage there is.</small></span><span class="s">To do</span></li>
     <li class="step next"><span class="mark">2</span><span class="t">Moderate it<small>Back as yourself: check it is in scope against what you wrote in step 5, tidy the title, authors and abstract, and post it &mdash; or decline it, which opens a discussion thread if there is anything to say.</small></span><span class="s">To do</span></li>
     <li class="step next"><span class="mark">3</span><span class="t">Look at what the public sees<small>The date stamp, the abstract, the attached file. This is the whole publication; there is no issue coming later.</small></span><span class="s">To do</span></li>
-    <li class="step next"><span class="mark">4</span><span class="t">Post a second version<small>As the author, submit a revision of the same piece. Then check the part that matters: the earlier version is still there, still reachable, and still says what it said.</small></span><span class="s">To do</span></li>
+    <li class="step next"><span class="mark">4</span><span class="t">Post a second version<small>Back as yourself, open the posted preprint and create a new version &mdash; the author cannot. Then, as the author, add the revised file to it, and post it as yourself. Now check the part that matters: the earlier version is still there, still reachable, and still says what it said.</small></span><span class="s">To do</span></li>
   </ol>
 
   <div class="rule"><b>Step 4 is the point of the exercise.</b> Versions that stay citable are the one thing OPS does that neither the Research Hub nor a folder of PDFs can. If that behaves the way you expect, OPS works. If it does not, nothing else about it matters.</div>
@@ -403,7 +431,7 @@
   <p class="muted">Prepared by Chris, lead web developer, Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
   Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
   Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
-  OJS is published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
 </footer>
 
 </main>

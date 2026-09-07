@@ -47,17 +47,17 @@ export const documents: DocumentEntry[] = [
       'Everything the journal administrator does, from first login to publishing an issue. All of it in a browser; no server access needed.',
     audience: 'Written for the journal administrator',
     status: 'draft',
-    order: 2,
+    order: 3,
   },
   {
     slug: 'ops-administrator-guide',
     file: 'ops-administrator-guide.html',
     question: 'How do I run the preprint server?',
     summary:
-      'What the OPS moderator does, from first login to posting a preprint. A short companion to the journal guide: only what differs, with the shared screens linked rather than repeated.',
-    audience: 'Written for the preprint server moderator',
+      'What the OPS administrator does, from first login to posting a preprint. A short companion to the journal guide: only what differs, with the shared screens linked rather than repeated.',
+    audience: 'Written for the preprint server administrator',
     status: 'draft',
-    order: 3,
+    order: 4,
   },
   {
     slug: 'droplet-runbook',
@@ -68,16 +68,16 @@ export const documents: DocumentEntry[] = [
     audience: 'Written for developers',
     status: 'draft',
     note: 'Linux only',
-    order: 4,
+    order: 5,
   },
   {
     slug: 'ops-preprint-server',
     file: 'ops-preprint-server.html',
-    question: "What's the difference between OJS and OPS?",
+    question: 'Could we retire the Research Hub?',
     summary:
-      'A preprint server now runs beside the journal. What OPS is, how it differs from OJS and the Research Hub — and whether the Hub could be retired in favour of off-the-shelf software.',
+      'A preprint server now runs beside the journal. What OPS is, how it differs from OJS and the Research Hub — and whether Hub 1.0 could be retired in favour of off-the-shelf software.',
     audience: 'Written for managers',
     status: 'draft',
-    order: 5,
+    order: 2,
   },
 ];

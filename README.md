@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-165_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-193_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -19,12 +19,12 @@ A portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
-Five documents are published today — an overview for managers, a guide for the
-journal administrator, a shorter one for the preprint server moderator, an
-installation runbook for developers, and a comparison of the preprint server
-against the journal and the Research Hub. The fifth was added as advertised: one
-entry in the manifest, and the card, the route, the contents and the statistics
-followed on their own.
+Five documents are published today — an overview for managers, a second one for
+managers asking whether either system could replace the Research Hub, a guide
+for the journal administrator, a shorter one for the preprint server
+administrator, and an installation runbook for developers. The fifth was added
+as advertised: one entry in the manifest, and the card, the route, the contents
+and the statistics followed on their own.
 
 Two applications are described here, and they were two separate installations.
 **OJS** runs the journal; **OPS** runs a preprint server beside it on the same
@@ -36,15 +36,15 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app">
-    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with five cards — two for managers, one for the journal administrator, one for the preprint server moderator, one for developers — each showing its sections, reading time and last-updated date." width="900">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with five cards — two for managers, one for the journal administrator, one for the preprint server administrator, one for developers — each showing its sections, reading time and last-updated date." width="900">
   </a>
 </p>
 
-<p align="center"><em>The portal. Each card's sections, counts, reading time and date are read out of the document itself at build time.</em></p>
+<p align="center"><em>The portal. Each card's sections, reading time and date are read out of the document itself at build time.</em></p>
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">
-    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own numbered diagnostic steps and code blocks with copy buttons." width="900">
+    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own title, lede, last-updated stamp and its strip of facts about the box: Ubuntu 26.04, Forge-provisioned, the symptom, and what it ends with." width="900">
   </a>
 </p>
 
@@ -64,11 +64,11 @@ before changing any styling.
      audience: 'Written for developers',
      status: 'draft',
      note: 'Linux only',              // optional qualifier chip; omit if not needed
-     order: 5,
+     order: 6,
    }
    ```
 
-That is the whole job. The title, section list, subsection counts, reading time,
+That is the whole job. The title, section list, reading time,
 last-updated date, table of contents and route are all read out of the HTML at
 build time, so they cannot drift out of date with the document. The accessibility fixes described
 below are applied by the wrapper, so a new document inherits them automatically.
@@ -340,7 +340,7 @@ a version has no tag.
 
 ## Tests
 
-165 tests across six files.
+193 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -350,9 +350,10 @@ document has no title, headings, stylesheet or script.
 [`tests/build-output.test.ts`](tests/build-output.test.ts) builds the site and
 asserts on `dist/` — that every manifest entry produced a page, that each
 document survived the wrap intact (every code block, its clipboard handler,
-its webfonts), that the document stylesheet still precedes the chrome's, and
-that no personal name, unexpected email address or credential reached the
-published HTML.
+its webfonts), that the document stylesheet still precedes the chrome's, that
+no personal name, unexpected email address or credential reached the published
+HTML, and that every link from one document to another resolves to a built page
+and, where it names a section, to an id on that page.
 
 [`tests/screen-reader.test.ts`](tests/screen-reader.test.ts) asserts the
 semantics assistive technology consumes: skip link placement and target,
@@ -381,8 +382,8 @@ a file that is not there — and asserts the message, not just the throw.
 JavaScript each document is allowed to ship, and refuses inline handlers,
 `javascript:` URLs, remote scripts, embedded frames and unknown outbound
 origins. It also holds two writing conventions: every document ends with the
-same footer, and a document written for managers opens with a TL;DR whose stated
-length matches the number of lines it actually carries. The origin scan is itself pinned against the ways a URL can be
+same footer, and every document not written for developers opens with a TL;DR
+whose stated length matches the number of lines it actually carries. The origin scan is itself pinned against the ways a URL can be
 written — quoting, spacing, protocol-relative, `srcset`, form actions — so the
 guard is held to the evasions rather than to today's content. See
 [Security](#security).

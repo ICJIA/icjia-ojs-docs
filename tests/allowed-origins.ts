@@ -18,6 +18,7 @@ export const ALLOWED_ORIGINS = [
   'fonts.gstatic.com',
   'pkp.sfu.ca',
   'forum.pkp.sfu.ca',
+  'docs.pkp.sfu.ca',
   'github.com',
   'ojs-docs.netlify.app',
   'copperhead-hub-20.netlify.app',
