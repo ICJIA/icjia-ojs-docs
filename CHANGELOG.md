@@ -5,6 +5,25 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.3] - 2026-09-07
+
+### Added
+
+- **Windows may be easier, and that is not the point.** The runbook's "read
+  this first" now says so in its own words: a Windows install may be dragging
+  the files into an IIS directory, installing PHP, pointing the installer at
+  a database and running it, twelve minutes against the nearly twelve hours
+  the Linux build took; if so, good. The reason to build on Linux is to hew
+  close to what OJS and OPS want, since PKP lists Windows as supported but
+  develops, tests and overwhelmingly runs the software on Linux, and its
+  documentation and fixes assume it. Speed is not a badge: a twelve-minute
+  install is an aberration, the kind that leads to issues down the road; the
+  point of an install is to leave something the next developer can work
+  with, and good engineering is for that person, not for a badge. A second
+  note says Forge
+  is optional and every step applies to a plain Ubuntu server. The decision
+  page's "Linux or Windows" card carries the same point in one sentence.
+
 ## [1.25.2] - 2026-09-07
 
 ### Changed
@@ -1266,6 +1285,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.25.3]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.3
 [1.25.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.2
 [1.25.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.1
 [1.25.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.0
