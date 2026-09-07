@@ -19,8 +19,8 @@ A portal for the working documents about the ICJIA
 [Open Journal Systems](https://pkp.sfu.ca/software/ojs/) evaluation. Built with
 [Astro](https://astro.build) 7, deployed to Netlify on every push to `main`.
 
-Six documents are published today — a write-up of the preprint server and
-whether it is worth having, a beginner's guide to the Research Hub for staff
+Six documents are published today — an explainer of what OJS and OPS are
+and whether OPS is worth having, a beginner's guide to the Research Hub for staff
 that also answers whether either system could replace it, a guide for the
 journal administrator, a shorter one for the preprint server administrator, an
 overview for managers asking whether to adopt either system, and an

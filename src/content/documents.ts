@@ -86,7 +86,7 @@ export const documents: DocumentEntry[] = [
     file: 'ops-preprint-server.html',
     question: 'What is OJS? What is OPS?',
     summary:
-      'A preprint server now runs beside the journal. What OPS is, what a preprint is, how OPS differs from OJS and from the Research Hub, and whether it is worth having — on its own, or as the front half of a journal.',
+      'What OJS and OPS each are, what a preprint is, how the two differ from each other and from the Research Hub, and whether OPS is worth having — on its own, or as the front half of a journal.',
     audience: 'Written for managers',
     status: 'draft',
     order: 1,

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Open Preprint Systems at ICJIA — what it is, and how it differs</title>
+<title>OJS and OPS at ICJIA — what each is, and how they differ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -257,20 +257,21 @@
 <main class="page">
 
   <header>
-    <h1>A preprint server, next to the journal</h1>
+    <h1>What is OJS? What is OPS?</h1>
     <p class="lede">
-      <b>Open Preprint Systems (OPS)</b> is now running alongside OJS on the same test server.
-      It is built by the same people, from the same code, and it does a deliberately smaller job:
-      it posts finished research publicly, straight away, without waiting for peer review or an issue.
-      The question it raises is whether that is worth having beside the Research Hub &mdash; which
-      turns on how it differs from the Hub, and from OJS.
+      <b>Open Journal Systems (OJS)</b> is free software for running a peer-reviewed journal.
+      <b>Open Preprint Systems (OPS)</b> is its sibling, built from the same code, for posting
+      finished research straight away, without waiting for review or an issue. Both are now
+      running on ICJIA's test server. This page says what each is, how they differ from each
+      other and from the Research Hub, and whether OPS is worth having.
     </p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
   <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both are up now. The public pages need no login; the administrator screens need the details IDS sent.</span></p>
     <div class="plain">
-      <b>The question this answers:</b> what OPS is, how it differs from OJS and from the
-      Research Hub, and whether it is worth having. Whether it could <i>replace</i> the Hub is
-      answered in the beginner's guide to the Hub; the short version is here.
+      <b>The questions this answers:</b> what OJS is, what OPS is, how the two differ from each
+      other and from the Research Hub, and whether OPS is worth having beside a journal. Whether
+      either could <i>replace</i> the Hub is answered in the beginner's guide to the Hub; the short
+      version is here.
     </div>
     <p class="wordnote"><span class="k">A note on the word &ldquo;server&rdquo;.</span> It does two
       different jobs on this page, and they are easy to confuse. A <b>preprint server</b> is a kind of
@@ -284,7 +285,7 @@
       over Studio&nbsp;1.0. Where this page says &ldquo;the Hub&rdquo; without a number, it means both. If the Hub itself is
       unfamiliar, start with <a href="https://ojs-docs.netlify.app/docs/what-is-the-research-hub/">the beginner's guide</a>.</p>
     <div class="glance">
-      <div><div class="n">3<small>things it adds</small></div><p><b>Over what the Hub already does.</b> Versions that stay citable, a DOI for each preprint, and visibility to Google Scholar. What it starts without is everything the Hub has earned.</p></div>
+      <div><div class="n">2<small>applications</small></div><p><b>Same maker, same code, two jobs.</b> OJS runs a journal; OPS runs a preprint server. Installed as two separate applications on one test server, sharing nothing but the machine and the mail.</p></div>
       <div><div class="n">1<small>stage</small></div><p><b>The whole difference in one number.</b> OJS moves a submission through review, copyediting and production. OPS has one stage: a moderator looks at it and posts it.</p></div>
       <div><div class="n">0<small>preprints</small></div><p><b>Nothing real lives here.</b> The same throwaway box as the journal test, at a temporary address, to be erased with it.</p></div>
     </div>
@@ -293,9 +294,10 @@
   <section class="tldr-sec">
     <div class="tldr">
       <h2>TL;DR &mdash; the short version</h2>
-      <p class="sub">Eight lines. Everything after this is the supporting detail, to be read only if you want it.</p>
+      <p class="sub">Nine lines. Everything after this is the supporting detail, to be read only if you want it.</p>
       <ul>
-        <li><b>What was installed.</b> Open Preprint Systems 3.5.0-5, the preprint sibling of OJS, on the same server: its own database, its own logins, its own web address. It took twenty minutes and hit nothing.</li>
+        <li><b>What OJS is.</b> Free software for running a peer-reviewed journal, made by a non-profit and used by tens of thousands of journals. It collects submissions, sends them to reviewers, tracks the rounds and the edits, and publishes the finished articles in issues, each with a permanent identifier. It is on trial here to answer whether ICJIA wants a journal of its own.</li>
+        <li><b>What OPS is.</b> Its sibling for posting finished research straight away, with no review and no issues: an author submits, a moderator checks the piece belongs, and it is posted. Installed beside OJS on 6 September 2026 as a second, separate application &mdash; its own database, logins and web address. It took twenty minutes and hit nothing.</li>
         <li><b>What a preprint is.</b> A finished paper posted publicly before &mdash; or instead of &mdash; formal peer review. It is timestamped, permanently citable, and can be replaced by a newer version without losing the old one.</li>
         <li><b>How OPS differs from OJS.</b> No issues, no volumes, no peer-review rounds, no copyediting. An author submits, a moderator screens it for scope, and it goes up. OJS is a journal; OPS is a noticeboard with a records office attached.</li>
         <li><b>How OPS differs from the Research Hub.</b> Less than you would hope. Both post individual pieces continuously, as each is ready. OPS adds three things: earlier versions stay readable, each piece gets a <b>DOI</b> &mdash; a permanent identifying number for a piece of research, the way an ISBN identifies a book, which keeps working even if the web address changes &mdash; and the work becomes visible to the search tools researchers actually use; it gives up the Hub's datasets, dashboards and hard-won web addresses.</li>
@@ -309,8 +311,72 @@
   </section>
 
   <section>
+    <h2>What OJS is, and what OPS is</h2>
+    <p class="intro">Two applications from one maker: the <b>Public Knowledge Project (PKP)</b>, a non-profit that has built publishing software for universities and research bodies since 2001. Both are free, both are installed on ICJIA's test server, and they do two different jobs.</p>
+    <div class="cols">
+      <div>
+        <h3>OJS &mdash; Open Journal Systems</h3>
+        <span class="tag">Test install &middot; ojs.icjia.cloud</span>
+        <p><b>Software for running a peer-reviewed journal.</b> It collects submissions, sends them to reviewers, tracks the rounds and the edits, and publishes the finished articles in issues, each carrying a permanent identifier (a DOI) and the listings that make it findable as scholarship. Tens of thousands of journals run on it.</p>
+        <p>It is a journal expressed as software: nothing publishes until there is an issue to publish it into, and everyone holds a journal role &mdash; manager, editor, reviewer, author. The <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof of concept</a> asks whether ICJIA should adopt it; the <a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">journal guide</a> says how it is run.</p>
+      </div>
+      <div>
+        <h3>OPS &mdash; Open Preprint Systems</h3>
+        <span class="tag">Test install &middot; ops.icjia.cloud</span>
+        <p><b>Its sibling for posting finished research straight away,</b> without waiting for peer review or an issue. An author submits, a moderator checks that the piece belongs, and it is posted with a date stamp, a permanent identifier, and every later version kept beside the first.</p>
+        <p>The same code underneath, one stage instead of four, and it labels everything it holds a preprint. It was installed beside OJS on 6 September 2026 as a second, separate application; the <a href="https://ojs-docs.netlify.app/docs/ops-administrator-guide/">preprint server guide</a> says how it is run. The rest of this page is mostly about whether it is worth having.</p>
+      </div>
+    </div>
+  </section>
+
+<section>
+    <h2>OJS and OPS: the same machine, geared differently</h2>
+    <p class="intro">These two are not competitors and not really alternatives. They are the same software underneath &mdash; the Public Knowledge Project builds both from one shared foundation &mdash; set up for two different jobs. Seeing the workflows next to each other makes the difference obvious in a way a feature list does not.</p>
+    <div class="rails">
+      <div class="rail">
+        <h3>OJS &mdash; a journal</h3>
+        <p class="sub">Four stages. The finish line is an issue.</p>
+        <ul class="flow">
+          <li><span class="k">Submission</span><small>Author submits; an editor decides whether it goes forward at all.</small></li>
+          <li><span class="k">Review</span><small>Reviewers are invited, rounds are run, deadlines chased, names hidden if the journal wants them hidden.</small></li>
+          <li><span class="k">Copyediting</span><small>Language, references and house style, with the author signing off.</small></li>
+          <li><span class="k">Production</span><small>Final files made, then scheduled into an issue and published with the rest of it.</small></li>
+        </ul>
+        <p class="after">Nothing publishes until there is an <b>issue</b> to publish it into. That is not a limitation to be worked around &mdash; it is the definition of a periodical, and it is what OJS is for.</p>
+      </div>
+      <div class="rail short">
+        <h3>OPS &mdash; a preprint server</h3>
+        <p class="sub">One stage. The finish line is the post.</p>
+        <ul class="flow">
+          <li><span class="k">Submission &rarr; Production</span><small>A submission lands directly in the only stage there is. There is no review stage to enter, because there is no review.</small></li>
+          <li><span class="k">Moderation</span><small>A moderator checks that it is in scope and appropriate, tidies up the title, authors and summary, and posts it &mdash; or declines it, with a discussion thread if there is anything to say.</small></li>
+          <li><span class="k">Posted</span><small>Public immediately, with a date stamp, and a new version whenever there is a revision to post.</small></li>
+        </ul>
+        <p class="after">PKP is careful about the vocabulary here, and so is this document: OPS <b>posts</b>, it does not <b>publish</b>. The distinction is the entire point. A moderator is not an editor, and screening is not review. The description OPS attaches to everything it publishes says so: every item is labelled a preprint, permanently and by design.</p>
+      </div>
+    </div>
+    <div class="rule">
+      <b>The practical consequence:</b> a preprint server cannot be quietly used as a journal, and a journal cannot be quietly used as a preprint server. The software will let you try; the description of the work that reaches Crossref (the non-profit that registers those permanent numbers), Google Scholar and the library catalogues will say which it is either way.
+    </div>
+  </section>
+
+<section>
+    <h2>What a preprint actually is</h2>
+    <p class="intro">The word does a lot of work, and it is worth getting right before comparing anything. A <b>preprint</b> is a complete piece of research, written up and made public by its authors, <b>before it has been through peer review</b> &mdash; or in place of it. It is not a draft, not a summary, and not a work in progress. It is the finished thing, published early.</p>
+    <div class="same">
+      <h3>Three properties do the work</h3>
+      <ul>
+        <li><b>A date stamp that holds up.</b> Posting establishes publicly, and permanently, that this work existed on this date. In fields where two teams can be working the same question, that matters.</li>
+        <li><b>A permanent identifier.</b> A preprint can carry a DOI of its own, so it can be cited in other people's work &mdash; and cited correctly &mdash; long before any journal accepts it.</li>
+        <li><b>Versions, kept.</b> A revision goes up as a new version. The old one does not disappear; anyone who cited it still finds what they cited. When a journal eventually publishes the work, the preprint points at that final version.</li>
+      </ul>
+      <p class="close">Take those three away and a preprint is just a document on a website. They are the whole reason preprint software exists rather than a folder of PDFs.</p>
+    </div>
+  </section>
+
+  <section>
     <h2>Three names. Three jobs.</h2>
-    <p class="intro">Before any detail: the three names in this document are easy to mix up, and one of them is not a new system at all. This is the whole distinction, and the rest of the page is only evidence for it.</p>
+    <p class="intro">Now the Research Hub, because the question about OPS is really a question about it. The three names below are easy to mix up, and one of them is not a new system at all. This is the whole distinction, and the rest of the page is only evidence for it.</p>
     <div class="quick">
       <div class="row key">
         <div class="who">Hub 1.0 and Hub 2.0<small>Hub&nbsp;1.0 is live now; Hub&nbsp;2.0 is the rewrite, draft finished, not yet live</small></div>
@@ -342,50 +408,9 @@
     </div>
   </section>
 
-  <section>
-    <h2>What a preprint actually is</h2>
-    <p class="intro">The word does a lot of work, and it is worth getting right before comparing anything. A <b>preprint</b> is a complete piece of research, written up and made public by its authors, <b>before it has been through peer review</b> &mdash; or in place of it. It is not a draft, not a summary, and not a work in progress. It is the finished thing, published early.</p>
-    <div class="same">
-      <h3>Three properties do the work</h3>
-      <ul>
-        <li><b>A date stamp that holds up.</b> Posting establishes publicly, and permanently, that this work existed on this date. In fields where two teams can be working the same question, that matters.</li>
-        <li><b>A permanent identifier.</b> A preprint can carry a DOI of its own, so it can be cited in other people's work &mdash; and cited correctly &mdash; long before any journal accepts it.</li>
-        <li><b>Versions, kept.</b> A revision goes up as a new version. The old one does not disappear; anyone who cited it still finds what they cited. When a journal eventually publishes the work, the preprint points at that final version.</li>
-      </ul>
-      <p class="close">Take those three away and a preprint is just a document on a website. They are the whole reason preprint software exists rather than a folder of PDFs.</p>
-    </div>
-  </section>
+  
 
-  <section>
-    <h2>OJS and OPS: the same machine, geared differently</h2>
-    <p class="intro">These two are not competitors and not really alternatives. They are the same software underneath &mdash; the Public Knowledge Project builds both from one shared foundation &mdash; set up for two different jobs. Seeing the workflows next to each other makes the difference obvious in a way a feature list does not.</p>
-    <div class="rails">
-      <div class="rail">
-        <h3>OJS &mdash; a journal</h3>
-        <p class="sub">Four stages. The finish line is an issue.</p>
-        <ul class="flow">
-          <li><span class="k">Submission</span><small>Author submits; an editor decides whether it goes forward at all.</small></li>
-          <li><span class="k">Review</span><small>Reviewers are invited, rounds are run, deadlines chased, names hidden if the journal wants them hidden.</small></li>
-          <li><span class="k">Copyediting</span><small>Language, references and house style, with the author signing off.</small></li>
-          <li><span class="k">Production</span><small>Final files made, then scheduled into an issue and published with the rest of it.</small></li>
-        </ul>
-        <p class="after">Nothing publishes until there is an <b>issue</b> to publish it into. That is not a limitation to be worked around &mdash; it is the definition of a periodical, and it is what OJS is for.</p>
-      </div>
-      <div class="rail short">
-        <h3>OPS &mdash; a preprint server</h3>
-        <p class="sub">One stage. The finish line is the post.</p>
-        <ul class="flow">
-          <li><span class="k">Submission &rarr; Production</span><small>A submission lands directly in the only stage there is. There is no review stage to enter, because there is no review.</small></li>
-          <li><span class="k">Moderation</span><small>A moderator checks that it is in scope and appropriate, tidies up the title, authors and summary, and posts it &mdash; or declines it, with a discussion thread if there is anything to say.</small></li>
-          <li><span class="k">Posted</span><small>Public immediately, with a date stamp, and a new version whenever there is a revision to post.</small></li>
-        </ul>
-        <p class="after">PKP is careful about the vocabulary here, and so is this document: OPS <b>posts</b>, it does not <b>publish</b>. The distinction is the entire point. A moderator is not an editor, and screening is not review. The description OPS attaches to everything it publishes says so: every item is labelled a preprint, permanently and by design.</p>
-      </div>
-    </div>
-    <div class="rule">
-      <b>The practical consequence:</b> a preprint server cannot be quietly used as a journal, and a journal cannot be quietly used as a preprint server. The software will let you try; the description of the work that reaches Crossref (the non-profit that registers those permanent numbers), Google Scholar and the library catalogues will say which it is either way.
-    </div>
-  </section>
+  
 
   <section>
     <h2>The four systems, side by side</h2>

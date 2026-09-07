@@ -5,6 +5,20 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.0] - 2026-09-07
+
+### Changed
+
+- **The OJS-and-OPS page now answers its own card question.** "What is OJS?
+  What is OPS?" opened on OPS and the Research Hub. It now opens with a section
+  defining both systems — what OJS is and does, what OPS is and does, who makes
+  them, where each is running and which guide runs it — followed by the two
+  workflows side by side and what a preprint is; the Hub comparison comes
+  second. The title, lede, glance row and TL;DR (nine lines, OJS and OPS
+  defined first) match. The card summary, the README and the journal guide's
+  companion list describe it the same way. It reads in 23 minutes; the banner
+  follows.
+
 ## [1.20.0] - 2026-09-07
 
 ### Added
@@ -1079,6 +1093,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.21.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.0
 [1.20.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.20.0
 [1.19.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.2
 [1.19.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.19.1
