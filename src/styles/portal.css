@@ -373,9 +373,13 @@ body {
 }
 
 .live-link {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: baseline;
-  gap: 7px;
+  gap: 4px 12px;
+  box-sizing: border-box;
+  width: min(24rem, 100%);
   padding: 6px 12px;
   border-radius: 999px;
   border: 1px solid var(--pencil);

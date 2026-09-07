@@ -5,6 +5,17 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.2] - 2026-09-07
+
+### Changed
+
+- **"See it live" chips are one width everywhere.** On the portal cards and
+  on every document page each chip is now the same fixed width (24rem,
+  capped at the container on narrow screens), with the label at the left
+  edge and the address at the right, so a stack of chips reads as a column
+  rather than a ragged list. On screens too narrow for the width, the
+  address wraps under the label instead of overflowing.
+
 ## [1.25.1] - 2026-09-07
 
 ### Changed
@@ -1255,6 +1266,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.25.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.2
 [1.25.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.1
 [1.25.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.0
 [1.24.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.24.0
