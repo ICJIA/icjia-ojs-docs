@@ -5,6 +5,15 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.4] - 2026-09-07
+
+### Changed
+
+- **Clarity is what is cool.** The runbook's Windows note closes on the
+  principle behind it: code is for other developers, and so is a server;
+  being as clear as possible is what is actually cool, and clever, fast work
+  is not, least of all when the developer who inherits it cannot read it.
+
 ## [1.25.3] - 2026-09-07
 
 ### Added
@@ -1285,6 +1294,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.25.4]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.4
 [1.25.3]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.3
 [1.25.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.2
 [1.25.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.1
