@@ -10,9 +10,9 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-211_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-212_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
-  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
 
 A portal for the working documents about the ICJIA
@@ -39,7 +39,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app">
-    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with six cards on two shelves — five for managers and staff, one for developers — each shelf headed by its document count and three stat tiles, and each card carrying "See it live" links to the running test installations and showing its sections, reading time and last-updated date." width="900">
+    <img src="docs/assets/portal.png" alt="The portal: a dark page headed &ldquo;Open Journal Systems, on trial at ICJIA&rdquo;, with six cards on two shelves — five for managers and staff, one for developers — each shelf headed by its document count and three stat tiles, and each card carrying "See it live" links to the running test installations and showing its sections, reading time and last-updated date; a status bar with the version and source link runs along the bottom." width="900">
   </a>
 </p>
 
@@ -47,7 +47,7 @@ before changing any styling.
 
 <p align="center">
   <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">
-    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own title, lede, last-updated stamp and its strip of facts about the box: Ubuntu 26.04, Forge-provisioned, the symptom, and what it ends with." width="900">
+    <img src="docs/assets/runbook.png" alt="A document page: the portal's sticky header — back link, the runbook's title &ldquo;Installing OJS and OPS on a newly provisioned DigitalOcean droplet via Laravel Forge&rdquo;, and a Contents button — above the runbook's own title, lede, last-updated stamp and its strip of facts about the box: Ubuntu 26.04, Forge-provisioned, the symptom, and what it ends with. The status bar is pinned along the bottom of the viewport." width="900">
   </a>
 </p>
 
@@ -83,7 +83,7 @@ below are applied by the wrapper, so a new document inherits them automatically.
 The build fails with a clear message if a manifest entry points at a file that
 does not exist, or if two entries share a slug.
 
-`audience` and `status` are free-form strings. Known values get a colour and
+`audience` and `status` are free-form strings. Known values get a color and
 anything else falls back to a neutral style, so a new audience needs no code
 change. The landing page shelves cards by audience: one naming developers goes
 on the developers' shelf, everything else on the managers' shelf.
@@ -132,8 +132,8 @@ script exist purely to hold that line. They look removable and are not:
 | `tabindex="0"` on `pre` and `table` | Those regions scroll horizontally, and a scrollable region must be reachable by keyboard (**2.1.1**). `pre` also gets `role="group"` and a label; `table` deliberately does not, because overriding a table's role costs row and column navigation. |
 | `:focus-visible` outlines | **2.4.7**, and it keeps one focus indicator across chrome and document. |
 | Skip links, `position: fixed` when focused | **2.4.1**. Absolute positioning pins them to the top of the document, so one focused after scrolling sits outside the viewport. |
-| Only the card heading is a link | Wrapping the whole card gives it a sixty-word accessible name; labelling that anchor instead fails **2.5.3 Label in Name**. A stretched pseudo-element keeps the card clickable. |
-| Contents links drive their own scroll | Native smooth scrolling took about four seconds across the runbook and moved nothing for the first second, so a reader who nudged the wheel cancelled it mid-flight — measured at 399px past the target, behind the header. The animation is bounded and starts within ~90ms. |
+| Only the card heading is a link | Wrapping the whole card gives it a sixty-word accessible name; labeling that anchor instead fails **2.5.3 Label in Name**. A stretched pseudo-element keeps the card clickable. |
+| Contents links drive their own scroll | Native smooth scrolling took about four seconds across the runbook and moved nothing for the first second, so a reader who nudged the wheel canceled it mid-flight — measured at 399px past the target, behind the header. The animation is bounded and starts within ~90ms. |
 | The landing position is recomputed on arrival | A long document shifts under the animation; one jump finished 251px short, which put the heading back under the header. Trusting the figure from click time reintroduces the bug it fixes. |
 
 Contrast is tight by design. The accent `--pencil` (`#f08a72`) was chosen as the
@@ -157,7 +157,7 @@ npm run build && npm run preview
 ```
 
 Automated tools cover roughly half of WCAG. Reflow, text spacing and keyboard
-behaviour were checked by hand, and `tests/screen-reader.test.ts` asserts the
+behavior were checked by hand, and `tests/screen-reader.test.ts` asserts the
 semantics assistive tech reads. Driving NVDA or VoiceOver with a human listener
 is the remaining gap a formal ADA Title II / IITAA review would expect.
 
@@ -190,7 +190,7 @@ document nobody had written when they were built?*
 - `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 385 in the tree, 226 installed, one with an install script (`esbuild`).
 - **No credential pattern anywhere in history** — the full log scanned for AWS keys, GitHub classic and fine-grained tokens, Slack, Stripe, Google API keys and private-key headers. Zero matches.
 - No `.env`, `.pem`, `.key`, `.p12` or keystore file has ever been committed, and none exists now.
-- The published artefact is **nine files**. Four address-shaped strings appear, all four allowlisted with a stated reason; no surname appears on any page.
+- The published artifact is **nine files**. Four address-shaped strings appear, all four allowlisted with a stated reason; no surname appears on any page.
 - All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
 - Every outbound origin in the new document — `pkp.sfu.ca`, `github.com`, the two Google Fonts hosts and the two Hub 2.0 previews — was already on the allowlist. The document ships **no JavaScript**, and is pinned as shipping none.
 - **Accessibility verified on the new page rather than assumed:** axe-core WCAG AA **0 violations** on desktop and mobile, Lighthouse accessibility **100/100**, no sideways scroll at a true 320px viewport with the comparison table scrollable and keyboard reachable, and the 1.4.12 text-spacing override clips nothing.
@@ -247,7 +247,7 @@ them.
 - `npm audit`: **0 vulnerabilities.** Three runtime dependencies, four dev, 294 installed packages, one with an install script (`esbuild`).
 - **No credential pattern anywhere in history** — the full log scanned for AWS keys, GitHub classic and fine-grained tokens, Slack, Stripe, Google API keys and private-key headers.
 - No `.env`, `.pem`, `.key`, `.p12` or keystore file has ever been committed, and none exists now.
-- The published artefact is **eight files**. Three email addresses appear, all three explicitly allowlisted with a stated reason — two role mailboxes and one SSH login — and anything else is treated as a leak.
+- The published artifact is **eight files**. Three email addresses appear, all three explicitly allowlisted with a stated reason — two role mailboxes and one SSH login — and anything else is treated as a leak.
 - `nginx.org` and `ojs.icjia.cloud` appear in published text but **never as an `href`**: prose, not reachable origins. Useful confirmation that the widened scan does not fire on prose.
 - [`release.yml`](.github/workflows/release.yml) was already hardened: the version is validated against strict semver before it reaches a shell, values are passed by environment rather than interpolation, and it refuses a failed CI run, an existing tag, or a missing changelog entry. CI itself runs `contents: read`.
 - All six headers live and verified against the deployed site, HSTS included: `max-age=31536000; includeSubDomains; preload`.
@@ -297,7 +297,7 @@ accounts, and no user input.** Everything below is scoped to that.
 **Blue — what held**
 
 - `npm audit`: **0 vulnerabilities**. Three runtime dependencies, four dev, 226 transitive, 2 with install scripts.
-- No adapter, no serverless functions, no database, no authentication, no user input. The published artefact is eight files on a CDN.
+- No adapter, no serverless functions, no database, no authentication, no user input. The published artifact is eight files on a CDN.
 - **No credential pattern in any commit** — full history scanned against AWS, GitHub, Slack, Stripe, Google, private-key and generic-base64 patterns.
 - No `.env`, `.pem`, `.key` or credential file has ever been committed.
 - Every credential in the documents is a placeholder (`YOUR_DB_PASSWORD`, `"the-mailgun-SMTP-password"`).
@@ -349,7 +349,7 @@ a version has no tag.
 
 ## Tests
 
-211 tests across six files.
+212 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -406,15 +406,17 @@ Netlify builds with `npm run check && npm run build && npm test` and publishes
 `dist/`, as configured in [`netlify.toml`](netlify.toml). The build precedes the
 test deliberately: the build-output and screen-reader suites assert against
 `dist/` and build it themselves only when it is missing, so building first means
-they read the artefact that is about to be published. A failing type check or
+they read the artifact that is about to be published. A failing type check or
 test fails the deploy. The output is plain static files — no adapter, no
 serverless functions — served from the domain root.
 
-Every page ends in a status bar: the version, read from `package.json` at build
-time so it cannot disagree with the release; a link to this repository; the
-commit, when Netlify built it (from `COMMIT_REF`); and the changelog. It is one
-component, [`src/components/StatusBar.astro`](src/components/StatusBar.astro),
-used by both shells, and the build test asserts the version it states.
+Every page carries a status bar, pinned to the bottom of the viewport from 641px
+up and left in normal flow on narrower screens, so a phone loses no room to it.
+It shows the version, read from `package.json` at build time so it cannot
+disagree with the release; a link to this repository; the commit, when Netlify
+built it (from `COMMIT_REF`); and the changelog. It is one component,
+[`src/components/StatusBar.astro`](src/components/StatusBar.astro), used by both
+shells, and the build test asserts the version it states.
 
 Document URLs are canonical with a trailing slash (`/docs/droplet-runbook/`).
 The un-slashed form redirects, so prefer the trailing-slash form when sharing a

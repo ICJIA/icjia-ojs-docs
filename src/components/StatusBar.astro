@@ -12,10 +12,12 @@ const commit = process.env.COMMIT_REF?.slice(0, 7);
 ---
 
 <footer class="px-status" aria-label="Site version and source">
+  <div class="px-status-inner">
   <span class="px-status-item"><span class="px-status-key">Version</span><a href={`${repo}/releases/tag/v${version}`}>v{version}</a></span>
   <span class="px-status-item"><span class="px-status-key">Source</span><a href={repo}>github.com/ICJIA/icjia-ojs-docs</a></span>
   {commit && (
     <span class="px-status-item"><span class="px-status-key">Build</span><a href={`${repo}/commit/${commit}`}>{commit}</a></span>
   )}
   <span class="px-status-item"><span class="px-status-key">Changes</span><a href={`${repo}/blob/main/CHANGELOG.md`}>changelog</a></span>
+  </div>
 </footer>

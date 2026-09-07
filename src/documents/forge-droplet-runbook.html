@@ -215,7 +215,7 @@
     <tr><td>PHP settings edit (which didn't stick anyway)</td><td>Edit <code>/etc/php/8.x/fpm/php.ini</code> directly, exactly as this doc does</td></tr>
     <tr><td>Firewall rules</td><td><code>ufw allow 22,80,443/tcp &amp;&amp; ufw enable</code></td></tr>
   </table>
-  <div class="heads"><b>What's Forge-specific here:</b> only the Brotli breakage in step A. Forge installs nginx from nginx.org's mainline repo and hand-compiles the Brotli module, which is why an apt upgrade orphaned it. Ubuntu's own <code>nginx</code> package with <code>libnginx-mod-brotli</code> (or no Brotli at all) doesn't have that problem. Everything else, including the MTA-STS CPU bug in step 0, is stock Ubuntu behavior and applies to any install.</div>
+  <div class="heads"><b>What's Forge-specific here:</b> the Brotli breakage in step A, and the Laravel-tuned defaults that steps D&ndash;F replace. Forge installs nginx from nginx.org's mainline repo and hand-compiles the Brotli module, which is why an apt upgrade orphaned it; Ubuntu's own <code>nginx</code> package with <code>libnginx-mod-brotli</code> (or no Brotli at all) doesn't have that problem. The MTA-STS CPU bug in step 0 is stock Ubuntu behavior and applies to any install, and the PHP-version, path-info and timeout requirements apply to any host, whatever its defaults happen to be.</div>
 </section>
 
 <section>
@@ -225,7 +225,7 @@
 
   <p>In practice the shell is for the work in this runbook and little else: installing or upgrading OJS and OPS, changing PHP or nginx limits, editing <code>config.inc.php</code>, reading server logs, and restoring from backup. <b>Managers and the application administrators are not given shell access</b> and do not need it &mdash; the handoff section near the end of this page is the whole job in a browser.</p>
 
-  <p>There is no password login. The server accepts <b>OpenSSH public keys only</b>, and a key has to be <b>added to the box by hand</b> &mdash; there is no self-service enrolment, and Forge will not do it for you on a server that already exists. <b>Contact IDS to request access</b>, and send the public half of your key.</p>
+  <p>There is no password login. The server accepts <b>OpenSSH public keys only</b>, and a key has to be <b>added to the box by hand</b> &mdash; there is no self-service enrollment, and Forge will not do it for you on a server that already exists. <b>Contact IDS to request access</b>, and send the public half of your key.</p>
 
   <p><b>Access is granted on a need-to-access basis only.</b> A ticket asking for the shell should say what you need to do on the server that cannot be done in the browser. If the task turns out to be a settings screen, IDS will point you at it rather than issue a key &mdash; fewer keys on the box is the point, not an obstacle.</p>
 
@@ -243,7 +243,7 @@ cat ~/.ssh/id_ed25519_ojs.pub</pre></div>
     <div class="n">S2</div>
     <div>
       <h3>Wait for it to be installed</h3>
-      <p>Raise a Freshservice ticket and paste the public key into it. IDS appends it to <code>authorized_keys</code> for the <code>forge</code> user by hand; there is no enrolment endpoint and Forge will not do it on an existing server. Until someone does that, the key does nothing and your connection is refused.</p>
+      <p>Raise a Freshservice ticket and paste the public key into it. IDS appends it to <code>authorized_keys</code> for the <code>forge</code> user by hand; there is no enrollment endpoint and Forge will not do it on an existing server. Until someone does that, the key does nothing and your connection is refused.</p>
     </div>
   </div>
 
@@ -643,7 +643,7 @@ force_dmarc_compliant_from = On <span class="c">; rewrite From to the envelope s
 
 <section>
   <h2>Adding OPS as a second site (same box, same MySQL)</h2>
-  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta &mdash; for what OPS is for, and how it differs from OJS and the Research Hub, see <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">the preprint server write-up</a>.</p>
+  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta &mdash; for what OPS is for, and how it differs from OJS and the Research Hub, see <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">the OJS and OPS write-up</a>.</p>
   <table class="map">
     <tr><th>Step</th><th>What</th><th>Note</th></tr>
     <tr><td>DNS + Forge site</td><td>A record for <code>ops.icjia.cloud</code>; Forge → New Site, web dir <code>/</code>; Let's Encrypt</td><td>Same as OJS; Forge assigns a new site ID (3368831 here)</td></tr>
@@ -699,7 +699,7 @@ top -bo %MEM | head -14</pre></div>
   </table>
   <p style="margin-top:14px">Plus the two that aren't timeouts: <b>PHP version inside OJS's stated support range</b> (not the newest available), and <b>upload limits</b> in both php.ini and nginx. Check all six on the prod box before unpacking a tarball, and the install is boring, which is the goal.</p>
 
-  <h3 style="margin-top:32px">The diagnostic tells, so you recognise them fast</h3>
+  <h3 style="margin-top:32px">The diagnostic tells, so you recognize them fast</h3>
   <table class="map">
     <tr><th>You see</th><th>It is</th></tr>
     <tr><td>Connection refused on 80 with correct DNS</td><td>nginx not running → <code>nginx -t</code></td></tr>

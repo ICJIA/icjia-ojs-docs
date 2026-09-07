@@ -297,7 +297,7 @@
 <section>
   <h2>Before you start</h2>
   <p><b>Two applications are installed on the test machine, and they were two separate installations.</b> Open Journal Systems runs at one web address and <b>Open Preprint Systems (OPS)</b> at another. Each has its own database, its own folder of uploaded files, and its own user accounts. Installing the second did not extend the first, and nothing you change in one appears in the other. This guide covers the second one.</p>
-  <p>The journal has its own guide: <a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal</a>. Two further documents cover the rest: <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">what OPS is and how it differs</a> from OJS and the Research Hub, and a <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">server runbook</a> for the developers who build the machine.</p>
+  <p>The journal has its own guide: <a href="https://ojs-docs.netlify.app/docs/ojs-administrator-guide/">Running the journal</a>. Two further documents give the context: <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">what OJS and OPS are and how they differ</a> from each other and from the Research Hub, and a <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">server runbook</a> for the developers who build the machine.</p>
   <p>This guide is written for the person in R&amp;A administering the preprint server, who on a server this size is usually also the one moderating it. It assumes no server knowledge and asks for none. It also assumes you have <b>not</b> read the journal guide cover to cover, and says which parts of it to borrow rather than repeating them here.</p>
 
   <div class="rule"><b>One word to watch, before anything else.</b> In OPS, &ldquo;server&rdquo; means a <b>preprint server</b> &mdash; a publication, and the exact counterpart of a journal in OJS. It is the thing you create in step 2, and it is what the role <b>Preprint Server Manager</b> refers to. The other kind of server, the computer everything runs on, is the one you do not need a login for. Every use of the word below is the first kind unless it says otherwise.</div>
@@ -356,7 +356,7 @@
         <h3>Create the preprint server</h3>
         <p>A fresh OPS site has no servers on it, the way a fresh OJS site has no journals. <span class="path">Administration &rarr; Hosted Servers &rarr; Create Server.</span> Give it a title, a short web path (this becomes part of every link, so keep it short and <b>never change it later</b>), and a language.</p>
         <p>OPS then opens the <span class="path">Settings</span> wizard. Fill in <b>Masthead</b> and <b>Contact</b> &mdash; principal contact is you, technical contact is IDS. Everything else can wait.</p>
-        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labelled indexing or search-engine registration. OPS can register a DOI for each preprint if the agency holds a Crossref membership, and <b>a DOI cannot be withdrawn once issued</b>. Nothing on a temporary address should carry one.</p>
+        <p class="flag"><b>Leave off during the test:</b> <span class="path">Settings &rarr; Distribution &rarr; DOIs</span>, and anything labeled indexing or search-engine registration. OPS can register a DOI for each preprint if the agency holds a Crossref membership, and <b>a DOI cannot be withdrawn once issued</b>. Nothing on a temporary address should carry one.</p>
       </div>
     </li>
     <li>
@@ -371,7 +371,7 @@
           <tr><td>Moderator</td><td>Sees every submission; checks it is in scope and appropriate; posts it or declines it.</td><td>The person doing the screening. This is the working role.</td></tr>
           <tr><td>Author</td><td>Submits and tracks their own work, and edits a new version once one has been created for them.</td><td>Anyone who registers.</td></tr>
         </table>
-        <p><b>A moderator is not an editor.</b> The job is to confirm the piece belongs here and is fit to be public &mdash; not to judge whether the research is sound. That judgement is what peer review is for, and OPS deliberately does not do it.</p>
+        <p><b>A moderator is not an editor.</b> The job is to confirm the piece belongs here and is fit to be public &mdash; not to judge whether the research is sound. That judgment is what peer review is for, and OPS deliberately does not do it.</p>
         <p><b>And an author does not post versions.</b> By default only the Preprint Server Manager can create a new version of a posted preprint; the author can then edit it and add the revised file. It matters for the test below, and it is the one thing the software does not make obvious.</p>
       </div>
     </li>

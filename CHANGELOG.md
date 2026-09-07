@@ -5,6 +5,45 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.0] - 2026-09-07
+
+### Changed
+
+- **The status bar is pinned to the bottom of the viewport** from 641px up.
+  The body is padded by the bar's height so no page ends underneath it, and
+  `scroll-padding-bottom` keeps in-page jumps clear of it. Below 641px it
+  stays in normal flow, so a phone gives up no room to it (WCAG 1.4.10).
+- **A final adversarial editorial pass over every page.** Contradictions
+  removed: the Hub guide said Hub 1.0 was "built by IDS" while its own history
+  box says R&A's technical staff of the time built it with IDS, then ISU — the
+  TL;DR, origin section, IDS column and glossary now agree; that IDS column no
+  longer says IDS "changes how it works when R&A needs it to" under a 2022
+  arrangement that forbids exactly that; Studio 1.0's occasional small fixes
+  are reconciled with the same arrangement; "nothing carries a DOI" became "a
+  DOI of its own", matching the table that says the field exists; the
+  OJS-and-OPS page no longer says OPS "publishes" in the sentence after
+  insisting it only "posts"; the proof of concept no longer claims all
+  published research carries a DOI on a portal whose Hub research does not,
+  nor that the beginner's guide "explains it in ten minutes" (it reads in 35);
+  the runbook's "only the Brotli breakage is Forge-specific" contradicted its
+  own introduction and now names the Laravel-tuned defaults too. Overclaims
+  softened: "cited by almost nobody", "the single most common OJS support
+  request", journal articles "each with a permanent identifier" (only where
+  DOIs are registered), "Neither is scheduled", "the closest of the three"
+  where there are two new systems. Stale names fixed: "the preprint server
+  write-up" and "its own write-up" now point at the OJS and OPS write-up
+  everywhere, and the journal guide lists all five companions. Redundancy cut:
+  the redirect obligation stated twice under "Why the web addresses matter",
+  and "The point is narrower" restating the paragraph above it. The 236/13/5
+  content count is reconciled with the 540-address figure; the estimate no
+  longer claims to be worked out "from the outside"; "Published research" and
+  "plain-language editor" are said plainly; and the OPS "Hosted Servers →
+  Create Server" menu label is verified against OPS's own locale file.
+  American spelling throughout: labeling, catalog, license, analyze, forever,
+  judgment, enrollment, organization, favor, labor.
+- The proof-of-concept card summary now says where OPS fits in the decision,
+  so the card answers its own "Should we adopt OJS and/or OPS?" question.
+
 ## [1.22.0] - 2026-09-07
 
 ### Added
@@ -1119,6 +1158,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.23.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.0
 [1.22.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.22.0
 [1.21.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.1
 [1.21.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.21.0

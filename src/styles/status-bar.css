@@ -1,26 +1,60 @@
 /* The status bar at the foot of every page. Loaded by both shells: bundled on the
-   portal, inlined after the chrome on document pages so it wins the cascade. */
+   portal, inlined after the chrome on document pages so it wins the cascade.
 
-/*
- * Foot of every page, portal and documents alike: the version, the repository,
- * the commit when Netlify built it, and the changelog. Every property a source
- * document's bare `footer {}` rule sets is set again here, so the bar looks the
- * same under each document's own stylesheet.
- */
+   Pinned to the bottom of the viewport from 641px up, with the page padded by
+   the bar's height so no content or focus target can hide beneath it, and
+   `scroll-padding-bottom` so a jumped-to heading lands above it. Below 641px it
+   sits in normal flow instead: on a phone a fixed bar would wrap to two or
+   three lines and take a fifth of the screen (and WCAG 1.4.10 reflow at 320px
+   is the reason the runbook's long commands already scroll rather than pin). */
+
+:root {
+  --px-status-height: 52px;
+}
+
 .px-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 28px;
+  max-width: none;
+  margin: 0;
+  padding: 14px 40px 14px;
+  border-top: 1px solid var(--rule);
+  background: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--paper-dim);
+}
+
+.px-status-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 28px;
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 18px 40px 28px;
-  border-top: 1px solid var(--rule);
-  font-family: var(--sans);
-  font-size: 13px;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-  color: var(--paper-dim);
+  width: 100%;
+}
+
+@media (min-width: 641px) {
+  .px-status {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    min-height: var(--px-status-height);
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body {
+    padding-bottom: calc(var(--px-status-height) + env(safe-area-inset-bottom, 0px));
+  }
+
+  html {
+    scroll-padding-bottom: calc(var(--px-status-height) + 16px);
+  }
 }
 
 .px-status-item {
@@ -57,6 +91,10 @@
 @media (max-width: 640px) {
   .px-status {
     padding: 14px 22px 24px;
+    gap: 4px 18px;
+  }
+
+  .px-status-inner {
     gap: 4px 18px;
   }
 }

@@ -18,7 +18,7 @@ const remaining = parsed.outline.length - shown.length;
   Only the heading is a link, stretched over the card by a pseudo-element in
   `portal.css`. Wrapping the whole card in an <a> instead would give it an
   accessible name around sixty words long — unusable in a screen reader's list
-  of links — and labelling that anchor to shorten it fails 2.5.3 Label in Name,
+  of links — and labeling that anchor to shorten it fails 2.5.3 Label in Name,
   because the visible text would no longer appear in the accessible name. This
   way the name is exactly the visible heading, and the whole card stays
   clickable.

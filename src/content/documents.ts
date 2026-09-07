@@ -18,7 +18,7 @@ export interface DocumentEntry {
   question: string;
   /** One line describing what is inside. */
   summary: string;
-  /** Who it is written for. Free-form; known values get a colour, others fall back. */
+  /** Who it is written for. Free-form; known values get a color, others fall back. */
   audience: string;
   /** Where it is in its life: draft, review, final. Free-form, same rule. */
   status: string;
@@ -41,7 +41,7 @@ export const documents: DocumentEntry[] = [
     file: 'ojs-proof-of-concept.html',
     question: 'Should we adopt OJS and/or OPS?',
     summary:
-      'What Open Journal Systems does, where the test setup stands, and what running it for real would take.',
+      'What Open Journal Systems does, where the test setup stands, what running it for real would take, and where OPS fits in the decision.',
     audience: 'Written for managers',
     status: 'draft',
     order: 5,
