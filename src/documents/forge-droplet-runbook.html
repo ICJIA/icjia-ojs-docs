@@ -175,7 +175,7 @@
     <h2>Read this first: why the early steps exist</h2>
     <p><b>Linux only. These commands are for Ubuntu, not Windows.</b> Everything on this page was run and verified on <b>Ubuntu 26.04</b>, the version in the header above, and the commands assume that. <b>None of it transfers to Windows.</b> Windows Server is a completely separate test environment &mdash; different web server, different PHP packaging, different file permissions, different failure modes &mdash; and nothing below can be translated line by line. If OJS is going to be installed on Windows, that needs <b>its own set of docs</b>, written against an actual Windows install by whoever does it.</p>
     <p><b>Worked through 3&ndash;6 September 2026</b> on the OJS/OPS proof-of-concept droplet. The hostname and paths below are specific to that box; everything else is general to Forge on DigitalOcean.</p>
-    <p><b>Two applications end up on this box, and they are two separate installations.</b> OJS and OPS are the same codebase geared for different jobs, but they do not share an install: separate web addresses, separate nginx sites, <b>separate databases</b> (their table names collide), separate files directories and separate user tables. Read the runbook front to back for the first one; the <b>&ldquo;Adding OPS as a second site&rdquo;</b> section after the mail setup is the delta for the other. From that point on, everything operational &mdash; memory, backups, upgrades, restores &mdash; is a two-application job, and the sections below say so where it matters.</p>
+    <p><b>Two applications end up on this box, and they are two separate installations.</b> OJS and OPS are the same codebase geared for different jobs, but they do not share an install: separate web addresses, separate nginx sites, <b>separate databases</b> (their table names collide), separate files directories and separate user tables. Read the runbook front to back for the first one; the <b>&ldquo;Installing OPS as the second site&rdquo;</b> section after the mail setup (steps P1&ndash;P8) is the delta for the other. From that point on, everything operational &mdash; memory, backups, upgrades, restores &mdash; is a two-application job, and the sections below say so where it matters.</p>
     <p>This runbook opens with fixes, not installation, because a <b>freshly provisioned Forge droplet on DigitalOcean did not work as delivered</b>. Out of the box it showed excessive CPU usage on an idle machine and nginx would not start, so the site was unreachable before a single line of OJS had been unpacked. Steps 0 through B document what had to be done to the Forge server <b>before any real work could begin</b>.</p>
     <p><b>Several of those steps are specific to how Forge provisions a box</b> (nginx from the nginx.org mainline repo, a hand-compiled Brotli module, a Laravel-tuned PHP-FPM) and <b>will not apply to a vanilla Ubuntu install</b> that uses the distro's nginx package. The MTA-STS CPU bug is stock Ubuntu and applies anywhere. The translation table below says which is which. If you're on plain Ubuntu, skim the fixes for the symptoms and skip straight to the pre-install prep.</p>
   </div>
@@ -192,7 +192,7 @@
     <li><b>C&ndash;H &middot; Prepare for a PHP app, before the tarball.</b> Settle the hostname; find the web root; install PHP 8.3 (OJS 3.5 does not run on 8.5); raise the upload cap in nginx; rewrite the PHP location with path-info, the 8.3 socket, the 600&nbsp;s timeouts and the denies; create a <code>utf8mb4</code> database; prove it all with the readiness page.</li>
     <li><b>I&ndash;K &middot; Install OJS.</b> Download the tarball on a workstation and <code>scp</code> it up; unpack into the web root with uploads outside it; run the web installer; lock down <code>config.inc.php</code> and set the day-one options.</li>
     <li><b>L&ndash;N &middot; Outgoing mail.</b> Verify the Mailgun domain with DKIM, add an SMTP credential, write the <code>[email]</code> block with the envelope-sender and DMARC settings, test with a password reset.</li>
-    <li><b>OPS as a second site.</b> Same box, same MySQL; separate database, files directory and users. Copy the step F block to the new site file, then do the memory tuning two applications need on 2&nbsp;GB.</li>
+    <li><b>P1&ndash;P8 &middot; OPS as the second site.</b> Same box, same MySQL, everything server-level inherited from the OJS build. Per site: DNS and the Forge site, step F's block copied into the new site file, a separate database, the tarball and a files directory, the installer, the <code>[email]</code> block and a mail test, then the backup line and the memory tuning two applications need on 2&nbsp;GB.</li>
     <li><b>Backups, then handoff.</b> Install <code>pkp-backup</code>, run it once and count six files, then hand over two admin logins and point at the two administrator guides.</li>
     <li><b>Later: U1&ndash;U5 upgrades, R1&ndash;R3 restores.</b> Both applications, one at a time, from the command line; rehearse a restore quarterly.</li>
   </ol>
@@ -642,20 +642,113 @@ force_dmarc_compliant_from = On <span class="c">; rewrite From to the envelope s
 
 
 <section>
-  <h2>Adding OPS as a second site (same box, same MySQL)</h2>
-  <p>Open Preprint Systems is the same pkp-lib codebase as OJS: same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, same release train (OPS 3.5.0-5 LTS shipped the same day as OJS). With the OJS fixes known in advance, the second site took twenty minutes and hit nothing. This is the delta &mdash; for what OPS is for, and how it differs from OJS and the Research Hub, see <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">the OJS and OPS write-up</a>.</p>
+  <h2>Installing OPS as the second site (same box, same MySQL)</h2>
+  <p>OJS went on first, and every problem above was found and fixed on it. <b>Open Preprint Systems went on second, once those were settled</b>, and that order is why it was uneventful: OPS is the same pkp-lib codebase as OJS &mdash; same installer, same <code>config.inc.php</code> layout, same nginx and PHP needs, the same release train (both are at 3.5.0-5, published within a minute of each other) &mdash; so everything fixed at the server level for OJS was already fixed for OPS. What remained was the per-site work, and only that. It took twenty minutes and hit none of the nine errors in the table below. For what OPS is for, and how it differs from OJS and the Research Hub, see <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">the OJS and OPS write-up</a>; this section is only how it was put on the box.</p>
   <table class="map">
-    <tr><th>Step</th><th>What</th><th>Note</th></tr>
-    <tr><td>DNS + Forge site</td><td>A record for <code>ops.icjia.cloud</code>; Forge → New Site, web dir <code>/</code>; Let's Encrypt</td><td>Same as OJS; Forge assigns a new site ID (3368831 here)</td></tr>
-    <tr><td>nginx, before anything else</td><td>Apply the whole of step F to the fresh site file &mdash; the <code>\.php(/|$)</code> location with <code>PATH_INFO</code>/<code>SCRIPT_FILENAME</code>, the 8.3 socket, <code>fastcgi_read_timeout 600</code>, the two <code>deny</code> locations &mdash; plus <code>client_max_body_size 64M</code> from step E</td><td>Fastest: copy the block from the OJS site file, fix the site ID in <code>error_log</code>/<code>include</code></td></tr>
-    <tr><td>PHP / FPM</td><td>Nothing</td><td>The 8.3 pool and ini limits are server-wide; the site inherits them via <code>fastcgi_pass</code></td></tr>
-    <tr><td>Database</td><td><code>CREATE DATABASE ops CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></td><td><b>Separate database</b>, same server. OJS and OPS use overlapping table names; sharing one DB would corrupt both</td></tr>
-    <tr><td>Tarball</td><td>Download on a workstation, <code>scp</code> to <code>/home/forge/ops.icjia.cloud/</code>, <code>tar -xzf … --strip-components=1</code></td><td>PKP's front end still refuses the droplet; don't rediscover it</td></tr>
-    <tr><td>Files dir</td><td><code>mkdir -p /home/forge/ops-files</code></td><td>Its own, outside the web root</td></tr>
-    <tr><td>Installer</td><td>Same form; database <code>ops</code>; files dir <code>/home/forge/ops-files</code></td><td>Finished first try on the success page. Verify: <code>SELECT product,major,minor,revision,build FROM versions WHERE product_type='core'</code> → <code>ops 3 5 0 5</code></td></tr>
-    <tr><td>Mail</td><td>Same eleven-line <code>[email]</code> block, reusing the <code>ojs@icjia.cloud</code> SMTP login; envelope sender <code>admin@</code></td><td>Lost-password test delivered first try. Add an <code>ops@</code> credential in Mailgun later if the two apps ever need to be revoked independently</td></tr>
-    <tr><td>Users</td><td>Separate user tables</td><td>The R&amp;A admin needs a login on each app; decide up front whether the same person owns both</td></tr>
+    <tr><th style="width:50%;white-space:normal">Settled by the OJS build &mdash; do nothing again</th><th style="width:50%">Per site &mdash; repeat for OPS</th></tr>
+    <tr><td style="white-space:normal;width:50%">Step 0, the CPU fix: server-wide</td><td>P1 &middot; DNS, the Forge site and its certificate</td></tr>
+    <tr><td style="white-space:normal;width:50%">Steps A&ndash;B, nginx started and held: server-wide</td><td>P2 &middot; The nginx site block: step F's location and denies, step E's body cap</td></tr>
+    <tr><td style="white-space:normal;width:50%">Step D, PHP 8.3 with its <code>php.ini</code> limits and the 600&nbsp;s FPM timeout: one pool, shared by every site</td><td>P3 &middot; A separate database</td></tr>
+    <tr><td style="white-space:normal;width:50%">Step L, the Mailgun domain, its DKIM record and the SMTP credential: account-wide</td><td>P4 &middot; The tarball and a files directory of its own</td></tr>
+    <tr><td style="white-space:normal;width:50%">The readiness page: the stack it proved has not changed</td><td>P5 &middot; The web installer, then the lock-down checks</td></tr>
+    <tr><td style="white-space:normal;width:50%">&nbsp;</td><td>P6 &middot; Day-one <code>config.inc.php</code> settings and the <code>[email]</code> block, then a mail test</td></tr>
+    <tr><td style="white-space:normal;width:50%">&nbsp;</td><td>P7 &middot; Its own line in the backup script, and the memory tuning two applications need</td></tr>
+    <tr><td style="white-space:normal;width:50%">&nbsp;</td><td>P8 &middot; Its own administrator login at handoff</td></tr>
   </table>
+
+  <div class="step">
+    <div class="n">P1</div>
+    <div>
+      <h3>DNS, the Forge site and its certificate</h3>
+      <p>An A record for <code>ops.icjia.cloud</code> pointing at the same droplet. Then Forge &rarr; New Site: domain <code>ops.icjia.cloud</code>, web directory <code>/</code> (as for OJS, so the root is the site folder itself with no <code>public/</code> subfolder), and issue the Let's Encrypt certificate from Forge before anything is installed, so the application's base URL is https from the start. Forge gives the site its own ID (3368831 here) and its own certificate path.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>dig +short ops.icjia.cloud                                  <span class="c"># the droplet's IPv4, the same one ojs.icjia.cloud resolves to</span>
+sudo head -20 /etc/nginx/sites-available/ops.icjia.cloud    <span class="c"># root /home/forge/ops.icjia.cloud</span>
+curl -I https://ops.icjia.cloud                             <span class="c"># 200 once Forge has issued the cert</span></pre></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P2</div>
+    <div>
+      <h3>The nginx site block, before the tarball</h3>
+      <p>Forge writes the new site file with the same Laravel defaults that broke the OJS installer (errors 6, 8 and 9 in the table below), so fix it now rather than rediscovering them. Open <code>/etc/nginx/sites-available/ops.icjia.cloud</code> and, inside <code>server { }</code>: add <code>client_max_body_size 64M;</code> from step E, add the two <code>deny</code> locations from step F, and replace Forge's <code>location ~ \.php$</code> block with step F's <code>\.php(/|$)</code> block &mdash; the 8.3 socket, <code>PATH_INFO</code> and <code>SCRIPT_FILENAME</code>, <code>fastcgi_read_timeout 600</code>. Nothing in those blocks is site-specific, so copy them verbatim from the OJS site file; leave Forge's own <code>server_name</code>, <code>root</code>, <code>ssl_certificate</code>, <code>error_log</code> and <code>include forge-conf/&hellip;</code> lines alone, because they already carry the new site's paths. Add the same one-line comment at the top saying the socket is 8.3 on purpose and the Forge PHP setting must not be touched.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>sudo nano /etc/nginx/sites-available/ops.icjia.cloud
+sudo nginx -t &amp;&amp; sudo systemctl reload nginx
+grep -n 'fastcgi_pass\|fastcgi_read_timeout\|client_max_body_size\|deny all' /etc/nginx/sites-available/ops.icjia.cloud</pre></div>
+      <p>PHP and PHP-FPM need nothing: the 8.3 pool, its <code>php.ini</code> limits and its <code>request_terminate_timeout</code> are server-wide, and the new site inherits all of them through <code>fastcgi_pass</code>. The <code>grep</code> should show the 8.3 socket, 600, 64M and two denies.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P3</div>
+    <div>
+      <h3>A separate database</h3>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>mysql -u forge -p -e 'CREATE DATABASE ops CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;'
+mysql -u forge -p -e 'SHOW DATABASES;'                      <span class="c"># ojs and ops, side by side</span></pre></div>
+      <p><b>Its own database, on the same MySQL.</b> A shared one is not an option: OJS and OPS build the same tables from the same library &mdash; <code>users</code>, <code>submissions</code>, <code>publications</code> and the rest &mdash; so the second installer would run straight into the first one's. Same <code>utf8mb4</code> rule as step G, and the same fallback if <code>forge</code> lacks CREATE rights: Forge &rarr; server &rarr; Database &rarr; Add Database.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P4</div>
+    <div>
+      <h3>The tarball, and a files directory of its own</h3>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre><span class="c"># On a workstation, not the box: PKP's front end still refuses the droplet's TLS client (error 5)</span>
+wget https://pkp.sfu.ca/ops/download/ops-3.5.0-5.tar.gz
+scp ops-3.5.0-5.tar.gz forge@ojs.icjia.cloud:/home/forge/ops.icjia.cloud/
+<span class="c"># Then on the box:</span>
+cd /home/forge/ops.icjia.cloud
+rm -f index.php                                 <span class="c"># Forge's placeholder</span>
+tar -xzf ops-3.5.0-5.tar.gz --strip-components=1
+rm ops-3.5.0-5.tar.gz
+mkdir -p /home/forge/ops-files                  <span class="c"># uploads live OUTSIDE the web root, and NOT in ojs-files</span>
+ls                                              <span class="c"># expect index.php config.TEMPLATE.inc.php lib/ plugins/ public/ cache/ ...</span></pre></div>
+      <p>The <code>scp</code> goes to the same host under either name; both hostnames are the one droplet. Ownership is as for OJS: the pool runs as <code>forge</code>, so <code>forge</code>-owned files are already writable by the application and nothing needs <code>chown</code>. Do not point OPS at <code>ojs-files</code>; each application must own its uploads, or a restore of one will overwrite the other's.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P5</div>
+    <div>
+      <h3>The web installer, then the lock-down checks</h3>
+      <p>Open <code>https://ops.icjia.cloud</code>. It is the same form as step J, with the pre-install check at the top; give it the OPS values &mdash; database <code>ops</code>, files directory <code>/home/forge/ops-files</code>, host <code>127.0.0.1</code>, &ldquo;Create new database&rdquo; unchecked, locale <code>en</code>, OAI identifier left at its default. <b>The administrator account is a new account:</b> OPS keeps its own user table, so the username can match the OJS one but it is not the same login, and its password is set here, separately. With step P2 done first, the installer finished on the success page at the first attempt.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>chmod 640 /home/forge/ops.icjia.cloud/config.inc.php
+curl -sI https://ops.icjia.cloud/config.inc.php | head -1          <span class="c"># 403 from the deny, never 200</span>
+curl -sI https://ops.icjia.cloud/index.php/index/login | head -1     <span class="c"># 200, and the browser shows the login form</span>
+mysql -u forge -p -e "SELECT product,major,minor,revision,build FROM ops.versions WHERE product_type='core';"
+<span class="c"># ops 3 5 0 5 &mdash; the OJS row in ojs.versions says ojs2, a product name OJS has kept since version 2; that is not a wrong install</span></pre></div>
+      <p>If the installer 504s or 502s here, P2 was skipped or not reloaded: it is errors 8 and 9 again, and the recovery is the same &mdash; drop and recreate <code>ops</code>, fix the site file, rerun.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P6</div>
+    <div>
+      <h3>Day-one settings and outgoing mail</h3>
+      <p>In <code>/home/forge/ops.icjia.cloud/config.inc.php</code>: the step K lines with the OPS address (<code>base_url = "https://ops.icjia.cloud"</code>, <code>force_ssl = On</code>, <code>force_login_ssl = On</code>, <code>job_runner = On</code>), then the same eleven-line <code>[email]</code> block as step M, verbatim. On this box it reuses the <code>ojs@icjia.cloud</code> SMTP login and the <code>admin@icjia.cloud</code> envelope sender; the Mailgun domain, its DKIM record and the credential were all settled in step L and need nothing more. PHP reads the file per request, so there is nothing to restart.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>nano /home/forge/ops.icjia.cloud/config.inc.php     <span class="c"># [general], [security], [queues], then [email]</span>
+<span class="c"># Test: https://ops.icjia.cloud/index.php/index/login/lostPassword for the OPS admin, then Mailgun → Sending → Logs</span></pre></div>
+      <p>The lost-password message was delivered on the first try. Two consequences of sharing the mail setup: a recipient cannot tell OJS mail from OPS mail except by the link inside it, because both send as the same address; and revoking one application's credential revokes the other's. Add a separate <code>ops@</code> SMTP user in Mailgun if the two ever need to be managed apart; nothing else changes.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P7</div>
+    <div>
+      <h3>Fold it into the operations: backups and memory</h3>
+      <p>The backup script in the section below already carries the line <code>backup_app ops ops.icjia.cloud</code>; if you installed the earlier OJS-only script, replace it and run the new one by hand now. A good run leaves six files, three per application, and the count is the check that matters &mdash; a script that succeeds while backing up one application is the failure to design against. The upgrade and restore procedures later on this page are written once and run per application; nothing in them is shared between the two.</p>
+      <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre>/usr/local/bin/pkp-backup &amp;&amp; ls -lh /home/forge/backups      <span class="c"># six files: db, files, config × ojs, ops</span>
+free -m                                                    <span class="c"># then the memory tuning below; two apps on 2 GB swap without it</span></pre></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">P8</div>
+    <div>
+      <h3>Handoff: a second administrator login</h3>
+      <p>OPS has its own user table, so the R&amp;A administrator needs a login on each application, created separately; a backup administrator likewise has to be created in both. Decide up front whether one person owns both applications or two people own one each &mdash; it is easier to answer now than after somebody leaves. Point whoever runs the preprint server at <a href="https://ojs-docs.netlify.app/docs/ops-administrator-guide/">Running the preprint server</a>, which covers only what differs from the journal: a moderator instead of editors and reviewers, no issues, and the versioning test that answers whether OPS does its one distinctive job.</p>
+    </div>
+  </div>
 
   <h3 style="margin-top:32px">Memory with two apps on 2 GB</h3>
   <p>After the second install: 952 MB used, <b>267 MB in swap</b> at idle. MySQL was resident at ~525 MB with <code>innodb_buffer_pool_size</code> already at the 128 MB default; the bulk was <code>performance_schema</code>. Two changes brought it to 870 MB used, 31 MB swap, 1.1 GB available:</p>
@@ -886,6 +979,7 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
     <li><span class="box"></span><span>Two apps on 2 GB: <code>performance_schema = OFF</code> for MySQL and disable the unused <code>php8.5-fpm</code> pool; check <code>free -m</code> for swap creep.</span></li>
     <li><span class="box"></span><span>Install the backup cron and run it once by hand before handing over either admin login. <b>Count the output files</b> &mdash; three per application, so six with OJS and OPS both installed.</span></li>
     <li><span class="box"></span><span>OJS 3.5.0-5 does not run on PHP 8.5. Install 8.3 from the sury PPA by hand (step D) and point <code>fastcgi_pass</code> at it before running the installer.</span></li>
+    <li><span class="box"></span><span><b>Second application:</b> repeat only the per-site steps (P1&ndash;P8) &mdash; site and cert, the step F block, its own database and files directory, the installer, <code>[email]</code>, its backup line, its own admin. Nothing server-level needs doing twice.</span></li>
   </ul>
 </section>
 

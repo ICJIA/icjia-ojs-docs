@@ -5,6 +5,37 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.0] - 2026-09-07
+
+### Added
+
+- **Installing OPS as the second site, as eight steps.** The runbook's OPS
+  delta table becomes a full section, P1–P8, framed as it happened: OJS
+  went on first and every server-level problem was fixed on it, so OPS
+  inherited the CPU fix, the held nginx, the PHP 8.3 pool with its limits
+  and timeout, and the verified Mailgun domain, and only the per-site work
+  remained. A two-column table says which is which. The steps carry the
+  commands and checks: DNS, Forge site and certificate; the nginx site
+  block copied verbatim from step F, with the reason nothing in it is
+  site-specific; a separate `utf8mb4` database, with why a shared one is
+  impossible (the same table names from the same library); the tarball
+  fetched on a workstation and its own files directory; the installer,
+  the lock-down curls and the `versions` check (`ops 3 5 0 5`, and why
+  OJS's own row says `ojs2`); the day-one settings and the shared
+  `[email]` block with the consequences of sharing it; the backup line and
+  the six-file count; and a second administrator login at handoff. The
+  plan, the "read this first" cross-reference and the checklist point at
+  P1–P8. The OPS 3.5.0-5 tarball URL was verified live.
+- **"Can't keep them straight?" — the OJS/OPS difference for a fifth
+  grader.** A new section near the top of "What is OJS? What is OPS?", for
+  the manager drowning in information: OJS is a magazine (stories checked by
+  outside experts, published together in issues, months later), OPS is a
+  bulletin board (a finished paper pinned up the same day, dated, labeled as
+  not yet checked, with later copies pinned beside the old), a six-question
+  table in the same words, the Research Hub as the board already on the
+  wall, and a memory trick: J for journal, P for posted. The TL;DR gains the
+  same line and is now ten.
+
 ## [1.24.0] - 2026-09-07
 
 ### Changed
@@ -1197,6 +1228,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.25.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.0
 [1.24.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.24.0
 [1.23.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.1
 [1.23.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.0
