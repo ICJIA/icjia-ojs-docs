@@ -212,6 +212,7 @@
       &ldquo;Copperhead&rdquo; in meetings and would like to know what is being discussed &mdash;
       especially before being asked to decide anything about it.
     </div>
+    <div class="rule" style="margin-top:22px"><b>Declared interest, so it is on the table:</b> this page is written by the developer who helped build Hub&nbsp;1.0's Studio and who wrote Hub&nbsp;2.0. That is exactly why every claim on it rests on a measurement, a document or a working system anyone can check; why the case for retiring the Hub is put at full strength before it is answered; and why the recommendation at the end is a specification to score every option against, not a preference.</div>
     <div class="glance">
       <div><div class="n">60<small>% of visitors</small></div><p><b>The most-read part of ICJIA's website.</b> Six in ten people who visit icjia.illinois.gov in a year read something on the Hub.</p></div>
       <div><div class="n">84<small>% from Google</small></div><p><b>Where the agency's search traffic lands.</b> Of the visitors Google sends the whole site in a year, 84% arrive on a Hub page.</p></div>
@@ -351,7 +352,7 @@
           <li><b>Review on the record:</b> a reviewer highlights a passage, comments, replies and resolves, with the comments in the margin as in Word. Still one approval, still not peer review.</li>
           <li><b>Protection against lost work:</b> a warning before leaving a page with unsaved changes, a local snapshot every thirty seconds with a restore banner, a warning when a colleague has saved the same draft in the meantime instead of silently overwriting it, and automatic saving after every image or file change.</li>
           <li><b>Files:</b> a shared media library, searchable, with alt text required on every image; several attached files per item; images no longer stored inside the content.</li>
-          <li><b>Proven before release:</b> 946 automated tests run on every change; four independent security reviews with no critical findings; accessibility verified in light and dark; a public demo anyone can try as an Author or an Editor, with a guided tour.</li>
+          <li><b>Proven before release:</b> 946 automated tests run on every change; four adversarial security reviews, logged in its repository, with no critical findings; accessibility verified in light and dark; a public demo anyone can try as an Author or an Editor, with a guided tour.</li>
           <li><b>What remains before it is live:</b> setup on the content-database and email side, staff accounts, a rehearsal with real accounts, and a cutover its runbook puts at about half an hour, with one-click rollback. Not new building &mdash; and not yet approved.</li>
         </ul>
         <p class="tally">A significant UI and security upgrade</p>
@@ -373,6 +374,7 @@
         <tr><td>Visitors arriving from Google</td><td>25,500</td><td>21,500 &mdash; <b>84%</b></td></tr>
       </tbody>
     </table>
+    <p class="muted" style="font-size:17px;margin:-12px 0 22px">Source: the site's own analytics (Plausible), the twelve months to early September 2026; content counts from the Hub's database, June 2026. Percentages are the Hub's share of the whole site.</p>
     <div class="qa">
       <h3>Why the web addresses matter</h3>
       <p>A web address is the line at the top of the browser: the link to a page. Google ranks <i>a page at an address</i>, and it has been ranking the Hub's roughly 540 addresses for seven years. That is why readers land on a Hub article straight from a search, and why the Hub earns 84% of the visitors Google sends the whole agency.</p>
@@ -388,7 +390,7 @@
       <div>
         <h3>Hub 1.0, live now</h3>
         <ul>
-          <li><b>The software underneath it is unsupported.</b> The program that stores the Hub's content stopped receiving security updates in 2022. Every year it runs, the risk of a hole nobody will patch grows. This is the most serious item on this page.</li>
+          <li><b>The software underneath it is unsupported.</b> The program that stores the Hub's content stopped receiving security updates in 2022. Every year it runs, the risk of a hole nobody will patch grows. This page deliberately names neither the software nor its version: the fact is enough for the decision, and the detail belongs in a ticket, not on a public page. This is the most serious item on this page.</li>
           <li><b>It is tangled into the main website's code.</b> A change to one risks the other, and neither can be moved or upgraded on its own.</li>
           <li><b>Review is a single step.</b> One approval, with nothing kept on the record about why, or what was changed.</li>
           <li><b>No versions.</b> Updating a published piece replaces it; a reader who cited the earlier text cannot find it.</li>
@@ -431,7 +433,7 @@
           <li><b>There is far less to break into.</b> The public site is built ahead of time and served as fixed files, with no live database or passwords behind it &mdash; quicker for readers and much harder to attack.</li>
           <li><b>Accessibility is checked automatically on every change,</b> against the standards the agency is required to meet, plus a full manual walkthrough already done.</li>
           <li><b>Studio 2.0 is where the new capability is,</b> and it is staff-facing: comments on a passage, protection against lost work, a shared media library, a check before publishing &mdash; set out side by side above. The same people do the same job; the tool is better at keeping them from losing it.</li>
-          <li><b>Tested, and attacked on purpose.</b> 946 automated tests run on the Studio whenever anything changes, and four separate security reviews had testers trying to break in. Nothing critical was found.</li>
+          <li><b>Tested, and attacked on purpose.</b> 946 automated tests run on the Studio whenever anything changes, and four adversarial security reviews, logged in the repository, found nothing critical.</li>
         </ul>
       </div>
     </div>
@@ -475,7 +477,7 @@
         <li><b>The content has nowhere to go.</b> The technical half is easy &mdash; OJS ships tools for bulk-loading existing content, so importing several hundred articles is a scripting job, not a research project. The structural half is where it fails. OJS is a journal expressed as software: nothing publishes until there is an issue of a periodical to publish it into, so seven years of continuous output would have to be filed into invented volumes and numbers. OPS labels everything it holds a <i>preprint</i> &mdash; a paper awaiting review &mdash; permanently and in a form machines read, so ICJIA's finished, authoritative research would be described as provisional.</li>
         <li><b>Two of the three kinds of content do not survive.</b> In both systems a dataset becomes a file attached to something else, and a dashboard has nowhere to live at all.</li>
         <li><b>The readers do not come with it.</b> Every one of roughly 540 addresses would change, which puts 84% of the agency's search traffic at risk, for the reasons under &ldquo;Why the web addresses matter&rdquo; above.</li>
-        <li><b>You would still be running a server.</b> Off-the-shelf is not a service someone else operates. OJS and OPS are applications with a database behind them, on a machine somebody has to keep updated, backed up and secured. The <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">runbook on this portal</a> is forty-odd minutes long because a standard installation of standard software hit error after error.</li>
+        <li><b>You would still be running a server.</b> Off-the-shelf is not a service someone else operates. OJS and OPS are applications with a database behind them, on a machine somebody has to keep updated, backed up and secured. The <a href="https://ojs-docs.netlify.app/docs/droplet-runbook/">runbook on this portal</a> is nearly an hour's reading because a standard installation of standard software hit error after error.</li>
         <li><b>So the in-house platform survives anyway,</b> reduced, for the dashboards and datasets that cannot leave &mdash; next to a second application and its database. The goal was fewer things to maintain. The result is more.</li>
       </ul>
     </div>
@@ -571,7 +573,7 @@
     <p class="intro">Three questions get run together in conversation. They are separate, and they have different answers.</p>
     <div class="three">
       <div><span class="tag live">Ready to decide</span><h3>Release Hub 2.0?</h3><p>It fixes the unsupported-software problem and keeps the readers, the addresses and the content. It does not change who maintains the code, and it is not live until it has been tested and approved. It can be decided on its own, whatever is decided about the rest.</p></div>
-      <div><span class="tag">Being tested</span><h3>Start a journal on OJS?</h3><p>A different question: does ICJIA want to publish a peer-reviewed journal of its own research, beside the Hub? The software is the easy part; an editorial board and reviewers willing to work for free are not. The <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof of concept</a> makes the case and shows where the test stands.</p></div>
+      <div><span class="tag">Being tested</span><h3>Start a journal on OJS?</h3><p>A different question: does ICJIA want to publish a peer-reviewed journal of its own research, beside the Hub? The software is the easy part; an editorial board and unpaid reviewers are not. The <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof of concept</a> makes the case and shows where the test stands.</p></div>
       <div><span class="tag">Answered above</span><h3>Replace the Hub with OJS or OPS?</h3><p>No, on the evidence above &mdash; and the section after it costs what extending the Studio would take instead. The <a href="https://ojs-docs.netlify.app/docs/ops-preprint-server/">OJS and OPS write-up</a> covers OPS itself: what a preprint is, how it differs from OJS, and whether it is worth having beside the Hub.</p></div>
     </div>
   </section>

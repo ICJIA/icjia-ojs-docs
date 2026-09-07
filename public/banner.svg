@@ -53,7 +53,7 @@
 
     <text class="sans" x="704" y="160" font-size="15" fill="#a8b2be" textLength="98" lengthAdjust="spacingAndGlyphs">For managers</text>
     <text class="display" x="704" y="188" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="277" lengthAdjust="spacingAndGlyphs">What is the Research Hub?</text>
-    <text class="sans num" x="1128" y="188" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">35 min</text>
+    <text class="sans num" x="1128" y="188" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">36 min</text>
 
     <rect x="704" y="200" width="424" height="1" fill="#2e4056"/>
 
@@ -79,7 +79,7 @@
 
     <text class="sans" x="704" y="464" font-size="15" fill="#a8b2be" textLength="106" lengthAdjust="spacingAndGlyphs">For developers</text>
     <text class="display" x="704" y="492" font-size="22" letter-spacing="-0.5" fill="#efe8da" textLength="303" lengthAdjust="spacingAndGlyphs">How do I install OJS and OPS?</text>
-    <text class="sans num" x="1128" y="492" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">53 min</text>
+    <text class="sans num" x="1128" y="492" font-size="19" fill="#f08a72" text-anchor="end" textLength="62" lengthAdjust="spacingAndGlyphs">54 min</text>
 
     <rect x="704" y="504" width="424" height="1" fill="#2e4056"/>
   </g>

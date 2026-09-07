@@ -5,6 +5,33 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.25.1] - 2026-09-07
+
+### Changed
+
+- **A pass for the blame-seeking reader.** Every figure about the Research Hub
+  now names its source (the site's own analytics, Plausible, twelve months to
+  early September 2026; content counts from the Hub's database, June 2026),
+  on both pages that quote them, and the whole-site totals were re-checked
+  against Plausible on the day. The Hub guide and the decision page carry a
+  declared-interest note: the author helped build the Hub and wrote Hub 2.0,
+  which is why both argue only from figures and documents anyone can check.
+  "Four independent security reviews" became "four adversarial security
+  reviews, logged in the repository", the contestable word dropped.
+  "Reviewers willing to work for free" is "unpaid reviewers". The owner chips
+  under "If the answer is yes" name a role and an office ("Decision: IDS
+  (Tony, deputy director)") rather than assigning a person, and a former
+  colleague is no longer named for having once run a server. The Hub guide
+  says outright that it names neither the unsupported software nor its
+  version, and the runbook says what it publishes on purpose (a disposable
+  box's hostnames, paths and configuration) and what it never will (any
+  credential, or a production value). The portal footer states that the
+  site sets no cookies and runs no analytics, that every page is checked
+  against WCAG 2.1 AA before publication, and that every Hub figure names
+  its source. A stale "forty-odd minutes" for the runbook, now nearly an
+  hour, is fixed; "noticeboard" is "bulletin board"; "Fair." is "That is a
+  fair complaint." A dictionary pass over every page found no misspellings.
+
 ## [1.25.0] - 2026-09-07
 
 ### Added
@@ -1228,6 +1255,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.25.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.1
 [1.25.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.0
 [1.24.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.24.0
 [1.23.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.23.1
