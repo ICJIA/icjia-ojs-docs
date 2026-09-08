@@ -5,6 +5,22 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.1] - 2026-09-08
+
+### Changed
+
+- **A second voice pass, for an editor's eye.** Fifty edits on top of
+  1.28.0, all six documents read again in full. Gone: the duplicated purpose
+  box on the OJS-and-OPS page, "the whole difference in one number", "the
+  definition of a periodical rather than a limitation", "does not sit in a
+  third place on this page", "decides the matter", "where it belongs",
+  "which is where the next section begins", "contingent on the journal, not
+  independent of it", "worth knowing", "worth revisiting", "put the way a
+  new manager is entitled to put it", "the case for is real", "get run
+  together", "separable at last", and the last "actually"s that were doing
+  no work. The shared footer no longer says "in flux, and that is fine; what
+  is not fine". Three pages read a minute shorter.
+
 ## [1.28.0] - 2026-09-08
 
 ### Changed
@@ -1352,6 +1368,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.28.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.1
 [1.28.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.0
 [1.27.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.1
 [1.27.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.0

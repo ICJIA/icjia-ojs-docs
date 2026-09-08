@@ -217,7 +217,7 @@
     <div class="glance">
       <div><div class="n">60<small>% of visitors</small></div><p><b>The most-read part of ICJIA's website.</b> Six in ten people who visit icjia.illinois.gov in a year read something on the Hub.</p></div>
       <div><div class="n">84<small>% from Google</small></div><p><b>Where the agency's search traffic lands.</b> Of the visitors Google sends the whole site in a year, 84% arrive on a Hub page.</p></div>
-      <div><div class="n">15<small>minutes</small></div><p><b>How long a visit lasts,</b> against ten for the site as a whole. People arrive on an article from a search and actually read it.</p></div>
+      <div><div class="n">15<small>minutes</small></div><p><b>How long a visit lasts,</b> against ten for the site as a whole. People arrive on an article from a search and read it.</p></div>
     </div>
   </header>
 
@@ -232,9 +232,9 @@
         <li><b>It is not a separate website.</b> The Hub is a section of icjia.illinois.gov, and Hub&nbsp;1.0 is built into the same code as the main site. Switching it off, moving it, or leaving it unpatched is therefore a decision about the whole public website, not about one corner of it.</li>
         <li><b>What is wrong with it.</b> The software underneath Hub&nbsp;1.0 has had no security updates since 2022, it is tangled into the main website's code, and by an arrangement made around 2022 it gets server upkeep only: no new features, no fixes. That is a real and urgent problem, and it is the reason Hub&nbsp;2.0 exists.</li>
         <li><b>Hub 2.0.</b> The security update and rewrite of Hub&nbsp;1.0 &mdash; front end and Studio both &mdash; on current, supported software. The draft is finished; it is <b>not yet live</b>, pending testing and approval before it becomes part of the public website. Same content, same addresses, same name, and for readers the same functions in a modern interface. The codename &ldquo;Copperhead&rdquo; is internal.</li>
-        <li><b>Why not just get rid of it?</b> The case for is real: in-house software is maintained by the agency alone, the 2022 problem is the proof, and Hub&nbsp;2.0 does not change who maintains the code. But the content has nowhere else to go &mdash; OJS is built for a journal and OPS for preprints, and neither can hold a dataset or a dashboard as a publication &mdash; and moving 540 addresses puts 84% of the agency's search traffic at risk. On the evidence, retiring the Hub would leave a smaller in-house platform running anyway, next to a second system.</li>
+        <li><b>Why not just get rid of it?</b> The case for doing so is real: in-house software is maintained by the agency alone, the 2022 problem is the proof, and Hub&nbsp;2.0 does not change who maintains the code. But the content has nowhere else to go &mdash; OJS is built for a journal and OPS for preprints, and neither can hold a dataset or a dashboard as a publication &mdash; and moving 540 addresses puts 84% of the agency's search traffic at risk. On the evidence, retiring the Hub would leave a smaller in-house platform running anyway, next to a second system.</li>
         <li><b>Could the Studio be extended instead?</b> For most of what off-the-shelf offers, yes, and more cheaply than assumed: Google Scholar labeling is days of work, versioning and catalog feeds are weeks. Peer review is the exception and should not be built, and a DOI is a membership and a permanent commitment whichever software registers it.</li>
-        <li><b>The questions to consider.</b> Whether to release Hub&nbsp;2.0, which fixes the security problem; and, separately, whether ICJIA wants a peer-reviewed journal on OJS beside the Hub. Those are two questions, not one; the third that gets run in with them, replacing the Hub outright, is the one answered two lines up.</li>
+        <li><b>The questions to consider.</b> Whether to release Hub&nbsp;2.0, which fixes the security problem; and, separately, whether ICJIA wants a peer-reviewed journal on OJS beside the Hub. Those are two questions, not one; the third that gets mixed in with them, replacing the Hub outright, is answered two lines up.</li>
       </ul>
       <p class="close">The figures on this page are the same ones the proof of concept and the OJS and OPS write-up use, so the three documents can be read together without reconciling numbers.</p>
     </div>
@@ -245,7 +245,7 @@
     <p class="intro">Open <b>icjia.illinois.gov/researchhub</b> and you are looking at it: a library of the agency's research, in three kinds, each piece published as its own page the moment it is ready, and built to work on any device &mdash; no awkward PDF to download on a phone. Around them sit the pages that give them a home: research centers, projects, and the staff who wrote them. Counted from the content database in June 2026, that is 236 articles, 13 dashboards and 5 datasets. Add the center, project and staff pages and the Hub comes to roughly 540 web addresses.</p>
     <div class="three">
       <div><h3>Articles</h3><p>Short summaries of longer research, written for the web and readable on a phone, with the full report linked from each one.</p><p>These are what readers find. Eight of the twelve most-visited pages on the whole agency website are Hub articles.</p></div>
-      <div><h3>Datasets</h3><p>Data the agency has collected or compiled, published as an entry in its own right &mdash; what it is, where it came from, how to use it &mdash; for readers who want the numbers rather than the write-up.</p><p>On the Hub a dataset is a publication in its own right. Everywhere else in this evaluation it is an attachment.</p></div>
+      <div><h3>Datasets</h3><p>Data the agency has collected or compiled, published as an entry in its own right &mdash; what it is, where it came from, how to use it &mdash; for readers who want the numbers rather than the write-up.</p><p>On the Hub a dataset is a publication. Everywhere else in this evaluation it is an attachment.</p></div>
       <div><h3>Dashboards</h3><p>Interactive charts, built in Tableau and R, that a reader can filter and explore in the browser rather than a fixed picture in a report.</p><p>Nothing else in this evaluation can hold one.</p></div>
     </div>
     <div class="same">
@@ -293,7 +293,7 @@
           <li><b>Separate underneath.</b> It is built to stand on its own, on current software, so it can be upgraded or worked on without touching the main site, and the main site without touching it.</li>
           <li><b>That is the untangling.</b> It has already been done, in the rebuild, which is why releasing Hub&nbsp;2.0 answers the &ldquo;not updating it&rdquo; problem and makes any later decision about the Hub a decision about the Hub alone.</li>
         </ul>
-        <p class="tally">Same site, separable at last</p>
+        <p class="tally">Same site, now separable</p>
       </div>
     </div>
   </section>
@@ -354,7 +354,7 @@
           <li><b>Protection against lost work:</b> a warning before leaving a page with unsaved changes, a local snapshot every thirty seconds with a restore banner, a warning when a colleague has saved the same draft in the meantime instead of silently overwriting it, and automatic saving after every image or file change.</li>
           <li><b>Files:</b> a shared media library, searchable, with alt text required on every image; several attached files per item; images no longer stored inside the content.</li>
           <li><b>Proven before release:</b> 946 automated tests run on every change; four adversarial security reviews, logged in its repository, with no critical findings; accessibility verified in light and dark; a public demo anyone can try as an Author or an Editor, with a guided tour.</li>
-          <li><b>What remains before it is live:</b> setup on the content-database and email side, staff accounts, a rehearsal with real accounts, and a cutover its runbook puts at about half an hour, with one-click rollback. Not new building &mdash; and not yet approved.</li>
+          <li><b>What remains before it is live:</b> setup on the content-database and email side, staff accounts, a rehearsal with real accounts, and a cutover its runbook puts at about half an hour, with one-click rollback. Not new building, but not yet approved either.</li>
         </ul>
         <p class="tally">A significant UI and security upgrade</p>
       </div>
@@ -391,7 +391,7 @@
       <div>
         <h3>Hub 1.0, live now</h3>
         <ul>
-          <li><b>The software underneath it is unsupported.</b> The program that stores the Hub's content stopped receiving security updates in 2022. Every year it runs, the risk grows of a hole nobody will patch. This page names neither the software nor its version, on purpose: the fact is enough for the decision, and the detail belongs in a ticket, not on a public page. This is the most serious item on this page.</li>
+          <li><b>The software underneath it is unsupported.</b> The program that stores the Hub's content stopped receiving security updates in 2022. Every year it runs, the risk grows of a hole nobody will patch. The software and its version are left unnamed on purpose: the fact is enough for the decision, and the detail belongs in a ticket rather than on a public page. This is the most serious item in the list.</li>
           <li><b>It is tangled into the main website's code.</b> A change to one risks the other, and neither can be moved or upgraded on its own.</li>
           <li><b>Review is a single step.</b> One approval, with nothing kept on the record about why, or what was changed.</li>
           <li><b>No versions.</b> Updating a published piece replaces it; a reader who cited the earlier text cannot find it.</li>
@@ -402,7 +402,7 @@
       <div>
         <h3>Hub 2.0, and what it does not fix</h3>
         <ul>
-          <li><b>It is still in-house.</b> The rebuild changes what the code runs on, not who maintains it. Every feature added to it is ICJIA's to keep working, forever, and a first attempt at anything still carries the faults that software used by thousands of sites has already had found and fixed.</li>
+          <li><b>It is still in-house.</b> The rebuild changes what the code runs on, not who maintains it. Every feature added to it is ICJIA's to keep working, forever, and a first attempt at anything still has the faults that widely used software lost years ago.</li>
           <li><b>Still one approval, no peer review.</b> By design. A comment on a passage is a better conversation than a yes or no; it is not an outside expert's assessment.</li>
           <li><b>Still no DOI of its own, no citable versions, no Google Scholar listing.</b> The machinery to add the Scholar labeling is there, but the labeling is not, and versioning and DOIs are work not yet done &mdash; or things to buy instead.</li>
           <li><b>It is not yet live.</b> The draft is finished and its developers have tested it, but it is not part of the public website: it is pending testing by the people who will use it, and approval to release. Neither has happened yet.</li>
@@ -443,7 +443,7 @@
 
   <section>
     <h2>Should it stay part of the public website?</h2>
-    <p class="intro">Or, put the way a new manager is entitled to put it: why not just get rid of it? The question deserves a straight answer rather than a defensive one. Off-the-shelf software is on trial &mdash; <b>OJS</b> for running a journal, <b>OPS</b> for a preprint server, both made by a non-profit and used by thousands of institutions &mdash; so the question is live: why not move the research into one of those and stop maintaining anything?</p>
+    <p class="intro">Or, as a new manager is entitled to put it: why not just get rid of it? The question deserves a straight answer, not a defensive one. Off-the-shelf software is on trial &mdash; <b>OJS</b> for running a journal, <b>OPS</b> for a preprint server, both made by a non-profit and used by thousands of institutions &mdash; so the question is live: why not move the research into one of those and stop maintaining anything?</p>
 
     <div class="qa">
       <h3>The case for getting rid of it</h3>
@@ -464,7 +464,7 @@
         <li><b>How it was built.</b> When the Hub was written, R&amp;A had technical staff of its own, who developed it together with IDS &mdash; then called ISU, the Information Systems Unit. The understanding was a division of labor: R&amp;A wrote the Hub and the Studio and fixed their bugs; ISU kept the servers running.</li>
         <li><b>How that division collapsed.</b> Over the years R&amp;A lost its technical staff for the Hub and never replaced them, so the writing-and-fixing half of the arrangement fell to ISU, later IDS, by default, on top of the server half.</li>
         <li><b>The arrangement of 2022.</b> Around 2022 an agreement was reached with an R&amp;A director: IDS would keep Hub&nbsp;1.0 and Studio&nbsp;1.0 running at the server level, but would not add anything new or fix existing issues. From that point the Hub was frozen &mdash; kept up, not kept current. It is also the year the software beneath it stopped receiving security updates.</li>
-        <li><b>Why that is a security problem, not a tidiness one.</b> A frozen application inside a public website keeps every flaw it had on the day it was frozen and acquires new ones as the software beneath it falls out of support. Nobody is assigned to fix what turns up, so it stays. The exposure grows for as long as that runs, and the Hub is the most-visited part of icjia.illinois.gov.</li>
+        <li><b>Why that is a security problem, not a tidiness one.</b> A frozen application inside a public website keeps every flaw it had on the day it was frozen and acquires new ones as the software beneath it falls out of support. Nobody is assigned to fix what turns up, so it stays, and the exposure grows for as long as that lasts; and the Hub is the most-visited part of icjia.illinois.gov.</li>
         <li><b>Why almost nobody remembers this.</b> Almost all of R&amp;A's staff today arrived after the arrangement was made. They did not see the original Hub built or tested, and they have never seen the specifications it was written against, so to them it is simply a Hub that is not being updated, with no record of why. The reason is the 2022 arrangement, and the people who made it have largely moved on.</li>
         <li><b>Why &ldquo;just add it later&rdquo; is hard.</b> Software is specification-driven: what is in the specification is in the design, and what is not in it is not. Adding a capability to a finished system afterwards costs far more than designing it in &mdash; in time, because it has to be threaded through a structure that never allowed for it, and in security, because every late addition is a new surface on software nobody is maintaining. That is why requests to change Hub&nbsp;1.0 have gone unanswered, and why the answer was a rebuild rather than a patch.</li>
         <li><b>What Hub&nbsp;2.0 is for.</b> IDS wrote Hub&nbsp;2.0 and Studio&nbsp;2.0 to end the freeze: consolidate the accumulated fixes, move both onto current, supported software, and make the Hub and the Studio safe and secure again. The full draft is written. It has not yet been tested by the people who will use it, and it has not been implemented, so today the public website still runs the frozen Hub&nbsp;1.0.</li>
@@ -512,7 +512,7 @@
     <div class="qa">
       <h3>What this estimate is based on, and what it is not</h3>
       <p>These are <b>rough bands</b> &mdash; days, weeks, months &mdash; for a developer who already knows the software. They are not quotes, and they come from reading the code rather than from having done the work, so treat them as an order of magnitude and nothing finer.</p>
-      <p>Two things about Hub&nbsp;2.0 as it stands do matter, because they change the answer. Hub&nbsp;2.0 is built on a <b>current, widely used foundation</b>, and its pages <b>already carry hidden labeling</b> that machines read &mdash; the sort that tells a search engine what kind of organization publishes the site. So the machinery for putting machine-readable information into a page already exists and is already switched on. What the pages carry <b>none</b> of is the particular labeling <b>Google Scholar</b> looks for. That is the difference between an article being invisible to researchers and being findable by them. The template is missing that block; the ability to add it is already there.</p>
+      <p>Two things about Hub&nbsp;2.0 as it stands change the answer. Hub&nbsp;2.0 is built on a <b>current, widely used foundation</b>, and its pages <b>already carry hidden labeling</b> that machines read &mdash; the sort that tells a search engine what kind of organization publishes the site. So the machinery for putting machine-readable information into a page already exists and is already switched on. What the pages carry <b>none</b> of is the particular labeling <b>Google Scholar</b> looks for. That is the difference between an article being invisible to researchers and being findable by them. The template is missing that block; the ability to add it is already there.</p>
     </div>
 
     <table class="map">
@@ -565,13 +565,13 @@
     </div>
 
     <div class="rule">
-      <b>So the practical recommendation is a specification, not a preference.</b> &ldquo;We would rather have off-the-shelf software&rdquo; cannot be met, tested, or costed &mdash; by anyone, including a vendor. <b>&ldquo;Every article must carry a DOI that resolves in perpetuity; prior versions must remain citable at stable addresses; article pages must carry the labeling Google&nbsp;Scholar reads; the list of articles must be collectable by library catalogs&rdquo;</b> is a list, and any of the three options &mdash; extend the Studio, adopt OJS, adopt OPS &mdash; can be scored against it, item by item. On the evidence above, that scoring would not come out one-sided in either direction, which is the argument for doing it properly.
+      <b>The practical recommendation, then, is a specification rather than a preference.</b> &ldquo;We would rather have off-the-shelf software&rdquo; cannot be met, tested, or costed &mdash; by anyone, including a vendor. <b>&ldquo;Every article must carry a DOI that resolves in perpetuity; prior versions must remain citable at stable addresses; article pages must carry the labeling Google&nbsp;Scholar reads; the list of articles must be collectable by library catalogs&rdquo;</b> is a list, and any of the three options &mdash; extend the Studio, adopt OJS, adopt OPS &mdash; can be scored against it, item by item. On the evidence above, that scoring would not come out one-sided in either direction, which is the argument for doing it properly.
     </div>
   </section>
 
   <section>
     <h2>The questions to consider</h2>
-    <p class="intro">Three questions get run together in conversation. They are separate, and they have different answers.</p>
+    <p class="intro">Three questions get mixed together in conversation. They are separate, and they have different answers.</p>
     <div class="three">
       <div><span class="tag live">Ready to decide</span><h3>Release Hub 2.0?</h3><p>It fixes the unsupported-software problem and keeps the readers, the addresses and the content. It does not change who maintains the code, and it is not live until it has been tested and approved. It can be decided on its own, whatever is decided about the rest.</p></div>
       <div><span class="tag">Being tested</span><h3>Start a journal on OJS?</h3><p>A different question: does ICJIA want to publish a peer-reviewed journal of its own research, beside the Hub? The software is the easy part; an editorial board and unpaid reviewers are not. The <a href="https://ojs-docs.netlify.app/docs/ojs-proof-of-concept/">proof of concept</a> makes the case and shows where the test stands.</p></div>
@@ -605,7 +605,7 @@
 
   <footer>
   <p class="muted">Prepared by Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
-  Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
+  Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are still changing. An error that someone has spotted should not stay in them.<br>
   Source: <a href="https://github.com/ICJIA/icjia-ojs-docs" target="_blank" rel="noopener">github.com/ICJIA/icjia-ojs-docs<span class="sr-only"> (opens in a new tab)</span></a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues" target="_blank" rel="noopener">Open an issue<span class="sr-only"> (opens in a new tab)</span></a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
   OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca" target="_blank" rel="noopener">pkp.sfu.ca<span class="sr-only"> (opens in a new tab)</span></a>).</p>
 </footer>
