@@ -265,6 +265,7 @@
     section{margin-top:56px;break-inside:avoid}
     .prod{break-before:page}
   }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -274,7 +275,7 @@
   <h1>How do I run OJS?</h1>
   <p class="lede">Everything the OJS administrator does, from first login to publishing an issue &mdash; all of it in a web browser.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
-  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both are up now. The public pages need no login; your administrator screens need the login IDS sent you.</span></p>
+  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/" target="_blank" rel="noopener">OJS test journal <small>ojs.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <a href="https://ops.icjia.cloud/" target="_blank" rel="noopener">OPS test preprint server <small>ops.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <span class="why">Both are up now. The public pages need no login; your administrator screens need the login IDS sent you.</span></p>
   <div class="plain">You do not need a server login, and you will not be given one. <b>If a task has a settings screen, it is yours.</b> If it needs someone to log in to the machine itself, it is a ticket.</div>
 </header>
 
@@ -364,7 +365,7 @@
       <div>
         <h3>Run one article all the way through</h3>
         <p>This is the real test. Make yourself a second account as an Author with a different email address and submit a fake manuscript. Then, back as the editor: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build an issue, and publish it. Every step sends an email; watch them arrive.</p>
-        <p>Each of those stages has screens of its own, and this guide does not repeat them. PKP's <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/">Editorial Workflow</a> chapter walks an editor from a new submission through review, copyediting and production to a published issue, and its <a href="https://docs.pkp.sfu.ca/learning-ojs/journal-managers/">Journal Managers</a> chapter covers the settings behind them. Keep both open while you work through this step.</p>
+        <p>Each of those stages has screens of its own, and this guide does not repeat them. PKP's <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/" target="_blank" rel="noopener">Editorial Workflow<span class="sr-only"> (opens in a new tab)</span></a> chapter walks an editor from a new submission through review, copyediting and production to a published issue, and its <a href="https://docs.pkp.sfu.ca/learning-ojs/journal-managers/" target="_blank" rel="noopener">Journal Managers<span class="sr-only"> (opens in a new tab)</span></a> chapter covers the settings behind them. Keep both open while you work through this step.</p>
         <p>By the end you will know whether the workflow fits how R&amp;A actually works. <b>That is the question this whole exercise exists to answer.</b></p>
       </div>
     </li>
@@ -380,7 +381,7 @@
       <h3>Try it first</h3>
       <p class="muted">You handle these. Most take five minutes.</p>
       <ul>
-        <li><b>&ldquo;How do I make OJS do X?&rdquo;</b> Almost always a setting. Look in <span class="path">Settings</span>, then search the PKP forum (forum.pkp.sfu.ca) or <a href="https://docs.pkp.sfu.ca/learning-ojs/">PKP's own OJS guide</a>. Someone has asked already.</li>
+        <li><b>&ldquo;How do I make OJS do X?&rdquo;</b> Almost always a setting. Look in <span class="path">Settings</span>, then search the PKP forum (forum.pkp.sfu.ca) or <a href="https://docs.pkp.sfu.ca/learning-ojs/" target="_blank" rel="noopener">PKP's own OJS guide<span class="sr-only"> (opens in a new tab)</span></a>. Someone has asked already.</li>
         <li><b>A user cannot log in.</b> Use the &ldquo;forgot password&rdquo; link, or reset it from <span class="path">Users &amp; Roles</span>.</li>
         <li><b>Someone cannot see a submission.</b> Check their role; reviewers and section editors only see what is assigned to them.</li>
         <li><b>An email went out with the wrong wording.</b> Templates are editable under <span class="path">Settings &rarr; Workflow &rarr; Emails</span>.</li>
@@ -441,8 +442,8 @@
 <footer>
   <p class="muted">Prepared by Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
   Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
-  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
-  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs" target="_blank" rel="noopener">github.com/ICJIA/icjia-ojs-docs<span class="sr-only"> (opens in a new tab)</span></a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues" target="_blank" rel="noopener">Open an issue<span class="sr-only"> (opens in a new tab)</span></a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
+  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca" target="_blank" rel="noopener">pkp.sfu.ca<span class="sr-only"> (opens in a new tab)</span></a>).</p>
 </footer>
 
 </main>

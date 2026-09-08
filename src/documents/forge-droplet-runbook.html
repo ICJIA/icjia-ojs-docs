@@ -154,6 +154,7 @@
     html,body{background:#fff}.page{padding:0;max-width:none}
     .code button{display:none}.step{break-inside:avoid}section{margin-top:48px}
   }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -163,7 +164,7 @@
   <h1>How do I install OJS and OPS?</h1>
   <p class="lede">Runbook for a brand-new Laravel Forge server on DigitalOcean, carrying <b>two separate installations</b> on one box: the CPU-eating package to remove first, the reason the site didn't serve, the prep before installing OJS, the install itself, the Mailgun hookup, then OPS as a second site &mdash; and the hardening, memory tuning, backups, upgrades and restores that from then on have to cover both.</p>
   <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
-  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/">OJS test journal <small>ojs.icjia.cloud</small></a> <a href="https://ops.icjia.cloud/">OPS test preprint server <small>ops.icjia.cloud</small></a> <span class="why">Both answer over HTTPS now; <a href="https://uptime.icjia.app">uptime.icjia.app</a> watches them.</span></p>
+  <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/" target="_blank" rel="noopener">OJS test journal <small>ojs.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <a href="https://ops.icjia.cloud/" target="_blank" rel="noopener">OPS test preprint server <small>ops.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <span class="why">Both answer over HTTPS now; <a href="https://uptime.icjia.app" target="_blank" rel="noopener">uptime.icjia.app<span class="sr-only"> (opens in a new tab)</span></a> watches them.</span></p>
   <div class="meta">
     <div><b>Ubuntu 26.04</b>DigitalOcean, 2 GB / 2 vCPU</div>
     <div><b>Forge-provisioned</b>nginx mainline, PHP 8.5, MySQL 8.4</div>
@@ -529,7 +530,7 @@ rm ~/ojs.icjia.cloud/index.php           <span class="c"># then reset the DB pas
     <div class="n">I</div>
     <div>
       <h3>Unpack into the web root</h3>
-      <p>Latest LTS at time of writing: <b>3.5.0-5</b>, released 30 June 2026. PKP has not yet published an end-of-life date for the 3.5 line; the 3.3 line's runs to January 2027. Check <a href="https://pkp.sfu.ca/software/ojs/download/">pkp.sfu.ca/software/ojs/download</a> for the current one and substitute.</p>
+      <p>Latest LTS at time of writing: <b>3.5.0-5</b>, released 30 June 2026. PKP has not yet published an end-of-life date for the 3.5 line; the 3.3 line's runs to January 2027. Check <a href="https://pkp.sfu.ca/software/ojs/download/" target="_blank" rel="noopener">pkp.sfu.ca/software/ojs/download<span class="sr-only"> (opens in a new tab)</span></a> for the current one and substitute.</p>
       <div class="code"><div class="bar"><span>bash</span><button>Copy</button></div><pre><span class="c"># On a workstation, not the box: PKP's front end refused the droplet's TLS client (error 5 in the table below)</span>
 wget https://pkp.sfu.ca/ojs/download/ojs-3.5.0-5.tar.gz
 scp ojs-3.5.0-5.tar.gz forge@ojs.icjia.cloud:/home/forge/ojs.icjia.cloud/
@@ -989,8 +990,8 @@ rm -rf /home/forge/ojs.icjia.cloud/cache/t_compile/* /home/forge/ojs.icjia.cloud
 <footer>
   <p class="muted">Prepared by Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
   Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
-  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
-  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs" target="_blank" rel="noopener">github.com/ICJIA/icjia-ojs-docs<span class="sr-only"> (opens in a new tab)</span></a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues" target="_blank" rel="noopener">Open an issue<span class="sr-only"> (opens in a new tab)</span></a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
+  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca" target="_blank" rel="noopener">pkp.sfu.ca<span class="sr-only"> (opens in a new tab)</span></a>).</p>
 </footer>
 
 </main>

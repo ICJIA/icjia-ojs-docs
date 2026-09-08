@@ -153,7 +153,12 @@ export function parseDocument(rawHtml: string, slug: string): ParsedDocument {
     body.querySelector('h1')?.text.replace(/\s+/g, ' ').trim() ||
     slug;
 
-  const wordCount = countWords(body.text);
+  // Text hidden from sighted readers — the "(opens in a new tab)" note on
+  // every external link — is not reading, so it does not count.
+  const hiddenText = Array.from(body.querySelectorAll('.sr-only'))
+    .map((node) => node.text)
+    .join(' ');
+  const wordCount = countWords(body.text) - countWords(hiddenText);
 
   return {
     slug,

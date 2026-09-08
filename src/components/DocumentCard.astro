@@ -43,10 +43,10 @@ const remaining = parsed.outline.length - shown.length;
       <p class="live">
         <span class="live-label">See it live</span>
         {doc.live.map((l) => (
-          <a class="live-link" href={l.href}>
+          <a class="live-link" href={l.href} target="_blank" rel="noopener">
             {l.label}
             <small>{new URL(l.href).host}</small>
-          </a>
+          <span class="sr-only"> (opens in a new tab)</span></a>
         ))}
       </p>
     )

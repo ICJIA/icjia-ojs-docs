@@ -10,7 +10,7 @@
   <a href="https://ojs-docs.netlify.app"><img alt="Live site" src="https://img.shields.io/badge/live-ojs--docs.netlify.app-f08a72?style=flat-square&labelColor=14202e"></a>
   <a href="https://github.com/ICJIA/icjia-ojs-docs/releases"><img alt="Release" src="https://img.shields.io/github/v/release/ICJIA/icjia-ojs-docs?style=flat-square&color=f08a72&labelColor=14202e"></a>
   <a href="#accessibility"><img alt="WCAG 2.1 AA" src="https://img.shields.io/badge/WCAG_2.1-AA-7fc49b?style=flat-square&labelColor=14202e"></a>
-  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-213_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/tests-214_passing-7fc49b?style=flat-square&labelColor=14202e"></a>
   <img alt="Astro 7" src="https://img.shields.io/badge/Astro-7-f08a72?style=flat-square&labelColor=14202e">
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-a8b2be?style=flat-square&labelColor=14202e"></a>
 </p>
@@ -58,7 +58,9 @@ before changing any styling.
 1. Put the HTML file in `src/documents/`. Its `<h1>` must be the card's
    question, word for word — a test holds the two together — and its `<title>`
    is the descriptive subtitle shown on the card, in the sticky header and in
-   the browser tab.
+   the browser tab. Every link off the site carries `target="_blank"`,
+   `rel="noopener"` and a hidden "(opens in a new tab)" note; links to other
+   documents do not. A build test enforces both directions.
 2. Append an entry to `documents` in [`src/content/documents.ts`](src/content/documents.ts):
 
    ```ts
@@ -352,7 +354,7 @@ a version has no tag.
 
 ## Tests
 
-213 tests across six files.
+214 tests across six files.
 
 [`tests/parse-document.test.ts`](tests/parse-document.test.ts) covers the parser,
 which is a pure function: extraction, heading-id injection and slug
@@ -361,7 +363,8 @@ document has no title, headings, stylesheet or script.
 
 [`tests/build-output.test.ts`](tests/build-output.test.ts) builds the site and
 asserts on `dist/` — that every manifest entry produced a page, that each
-page opens with its card's question as its `h1`, that each
+page opens with its card's question as its `h1`, that every link off the site
+opens in a new tab and every link between documents does not, that each
 document survived the wrap intact (every code block, its clipboard handler,
 its webfonts), that the document stylesheet still precedes the chrome's, that
 no personal name, unexpected email address or credential reached the published

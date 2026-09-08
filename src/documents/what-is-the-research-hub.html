@@ -192,6 +192,7 @@
     .page{padding:0;max-width:none}
     section{margin-top:56px;break-inside:avoid}
   }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 <body>
@@ -205,7 +206,7 @@
       ICJIA's public website. <b>The Studio</b>, the private tool behind it, is explained too.
     </p>
     <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
-    <p class="see"><span class="k">See it live:</span> <a href="https://icjia.illinois.gov/researchhub">Hub 1.0, live now <small>icjia.illinois.gov/researchhub</small></a> <a href="https://copperhead-hub-20.netlify.app/researchhub/">Hub 2.0 draft <small>copperhead-hub-20.netlify.app</small></a> <a href="https://studio-2026.netlify.app/login">Studio 2.0 demo <small>choose &ldquo;editor&rdquo;, no password</small></a> <span class="why">The first is the real thing. The other two are the finished drafts, up for internal review: the same applications with a safety switch on.</span></p>
+    <p class="see"><span class="k">See it live:</span> <a href="https://icjia.illinois.gov/researchhub" target="_blank" rel="noopener">Hub 1.0, live now <small>icjia.illinois.gov/researchhub</small><span class="sr-only"> (opens in a new tab)</span></a> <a href="https://copperhead-hub-20.netlify.app/researchhub/" target="_blank" rel="noopener">Hub 2.0 draft <small>copperhead-hub-20.netlify.app</small><span class="sr-only"> (opens in a new tab)</span></a> <a href="https://studio-2026.netlify.app/login" target="_blank" rel="noopener">Studio 2.0 demo <small>choose &ldquo;editor&rdquo;, no password</small><span class="sr-only"> (opens in a new tab)</span></a> <span class="why">The first is the real thing. The other two are the finished drafts, up for internal review: the same applications with a safety switch on.</span></p>
     <div class="plain">
       <b>Who this is for:</b> anyone at the agency, new or long-serving, with no technical background
       and not much time, who keeps hearing &ldquo;the Hub&rdquo;, &ldquo;Hub 2.0&rdquo; and
@@ -225,7 +226,7 @@
       <h2>TL;DR &mdash; the short version</h2>
       <p class="sub">Nine lines. Everything after this is the supporting detail, to be read only if you want it.</p>
       <ul>
-        <li><b>What it is.</b> The Research Hub is where ICJIA publishes its research on the web &mdash; articles, datasets and interactive dashboards, each posted as soon as it is finished, at <a href="https://icjia.illinois.gov/researchhub">icjia.illinois.gov/researchhub</a>. It has been live since 2019 and holds roughly 540 pages.</li>
+        <li><b>What it is.</b> The Research Hub is where ICJIA publishes its research on the web &mdash; articles, datasets and interactive dashboards, each posted as soon as it is finished, at <a href="https://icjia.illinois.gov/researchhub" target="_blank" rel="noopener">icjia.illinois.gov/researchhub<span class="sr-only"> (opens in a new tab)</span></a>. It has been live since 2019 and holds roughly 540 pages.</li>
         <li><b>How it works.</b> Staff in the Research &amp; Analysis Unit write in the Studio, a private tool behind the Hub; a manager approves; the piece goes live. One approval, no outside review, nothing technical.</li>
         <li><b>Who runs it.</b> R&amp;A owns the content. IDS, the agency's own developers, keep it running and wrote Hub&nbsp;2.0; Hub&nbsp;1.0 was built in-house too, by R&amp;A's technical staff of the time working with IDS. Nothing about it was bought.</li>
         <li><b>It is not a separate website.</b> The Hub is a section of icjia.illinois.gov, and Hub&nbsp;1.0 is built into the same code as the main site. Switching it off, moving it, or leaving it unpatched is therefore a decision about the whole public website, not about one corner of it.</li>
@@ -358,7 +359,7 @@
         <p class="tally">A significant UI and security upgrade</p>
       </div>
     </div>
-    <p class="today">Try it: <a href="https://studio-2026.netlify.app/login">Studio&nbsp;2.0</a>, choose &ldquo;editor&rdquo;, no password needed. It is the real application with a safety switch on; nothing done there can reach any real system.</p>
+    <p class="today">Try it: <a href="https://studio-2026.netlify.app/login" target="_blank" rel="noopener">Studio&nbsp;2.0<span class="sr-only"> (opens in a new tab)</span></a>, choose &ldquo;editor&rdquo;, no password needed. It is the real application with a safety switch on; nothing done there can reach any real system.</p>
   </section>
 
   <section>
@@ -437,7 +438,7 @@
         </ul>
       </div>
     </div>
-    <div class="rule"><b>Where it stands:</b> draft finished; not yet live, pending testing and approval. Working drafts are up for internal review &mdash; the <a href="https://copperhead-hub-20.netlify.app/researchhub/">public site</a> and <a href="https://studio-2026.netlify.app/login">Studio&nbsp;2.0</a> (choose &ldquo;editor&rdquo;; no password needed). Releasing it is a decision that can be made on its own, whatever is decided about anything else on this portal.</div>
+    <div class="rule"><b>Where it stands:</b> draft finished; not yet live, pending testing and approval. Working drafts are up for internal review &mdash; the <a href="https://copperhead-hub-20.netlify.app/researchhub/" target="_blank" rel="noopener">public site<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://studio-2026.netlify.app/login" target="_blank" rel="noopener">Studio&nbsp;2.0<span class="sr-only"> (opens in a new tab)</span></a> (choose &ldquo;editor&rdquo;; no password needed). Releasing it is a decision that can be made on its own, whatever is decided about anything else on this portal.</div>
   </section>
 
   <section>
@@ -605,8 +606,8 @@
   <footer>
   <p class="muted">Prepared by Innovation &amp; Digital Services (IDS), Illinois Criminal Justice Information Authority.<br>
   Written from a close reading of the official OJS and OPS documentation and from a working test installation &mdash; not from experience of running either in production. <b>Expect some of this to be wrong, and some of it to go out of date.</b> These documents are in flux, and that is fine; what is not fine is leaving an error in place once someone has spotted it.<br>
-  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs">github.com/ICJIA/icjia-ojs-docs</a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues">Open an issue</a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
-  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca">pkp.sfu.ca</a>).</p>
+  Source: <a href="https://github.com/ICJIA/icjia-ojs-docs" target="_blank" rel="noopener">github.com/ICJIA/icjia-ojs-docs<span class="sr-only"> (opens in a new tab)</span></a>. Found something wrong, unclear, or out of date? <a href="https://github.com/ICJIA/icjia-ojs-docs/issues" target="_blank" rel="noopener">Open an issue<span class="sr-only"> (opens in a new tab)</span></a> or send a pull request &mdash; corrections are welcome from anyone who reads this.<br>
+  OJS and OPS are published by the Public Knowledge Project (<a href="https://pkp.sfu.ca" target="_blank" rel="noopener">pkp.sfu.ca<span class="sr-only"> (opens in a new tab)</span></a>).</p>
 </footer>
 
 </main>

@@ -5,6 +5,20 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.27.0] - 2026-09-08
+
+### Changed
+
+- **Links off the site open in a new tab.** Every external link — the "See
+  it live" chips on the cards and the pages, the PKP documentation and forum,
+  the Hub 2.0 previews, GitHub, the uptime monitor, and the status bar's
+  links — now carries `target="_blank"` and `rel="noopener"`, so the
+  documentation tab keeps the reader's place. Each such link also carries a
+  visually hidden "(opens in a new tab)" note for screen-reader users, which
+  the reading-time count ignores. Links between documents, and in-page
+  fragments, stay in the same tab: that is navigation, not a reference. A
+  build test enforces both directions on every page, which makes 214 tests.
+
 ## [1.26.0] - 2026-09-08
 
 ### Changed
@@ -1306,6 +1320,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.27.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.0
 [1.26.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.26.0
 [1.25.4]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.4
 [1.25.3]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.3

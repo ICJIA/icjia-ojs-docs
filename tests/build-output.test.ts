@@ -72,6 +72,28 @@ describe('build output', () => {
     }
   });
 
+  it('opens external links in a new tab, and internal ones in the same tab', () => {
+    // Every link off the site carries target="_blank" and rel="noopener" plus
+    // a hidden "(opens in a new tab)" note, so the reader keeps their place in
+    // the documentation. Links between documents, and in-page fragments, must
+    // stay in the same tab: that is navigation, not a reference.
+    const pages = ['index.html', ...documents.map((d) => `docs/${d.slug}/index.html`)];
+    for (const page of pages) {
+      const html = readFileSync(dist(page), 'utf8');
+      for (const [tag, attrs, inner] of [...html.matchAll(/(<a\b([^>]*)>)([\s\S]*?)<\/a>/g)].map((m) => [m[1], m[2], m[3]])) {
+        const href = /href="([^"]*)"/.exec(attrs)?.[1] ?? '';
+        const external = /^https?:\/\//.test(href) && !href.includes('ojs-docs.netlify.app');
+        if (external) {
+          expect(attrs, `${page}: ${tag} should open in a new tab`).toMatch(/target="_blank"/);
+          expect(attrs, `${page}: ${tag} should carry rel="noopener"`).toMatch(/rel="[^"]*noopener/);
+          expect(inner, `${page}: ${tag} should tell screen-reader users it opens a new tab`).toContain('(opens in a new tab)');
+        } else {
+          expect(attrs, `${page}: ${tag} is internal and must stay in the same tab`).not.toMatch(/target=/);
+        }
+      }
+    }
+  });
+
   it('builds one page per manifest entry', () => {
     for (const entry of documents) {
       expect(existsSync(dist(`docs/${entry.slug}/index.html`)), `${entry.slug} not built`).toBe(
