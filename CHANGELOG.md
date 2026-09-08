@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.0] - 2026-09-08
+
+### Changed
+
+- **A voice pass over the three manager documents.** Seventy-odd edits
+  removing the constructions that read as generated rather than written: the
+  reflexive antithesis ("that is not a limitation — it is the definition
+  of"), the self-congratulating hedge ("this is the honest answer, and it is
+  not the flattering one"), the throat-clearing ("it is worth being clear",
+  "worth naming", "worth getting right"), and the page talking about itself
+  ("the mistake this page most wants to prevent"). Three separate "if you
+  remember nothing else" openings became one. Ten uses of "honest/honestly"
+  and five of "fair" are down to the few that carry meaning; "exactly",
+  "precisely", "genuinely" and "deliberately" are thinned where they
+  clustered. Twin foreshadowing lines ("that matters later", "that matters
+  later too") are gone, along with "the incumbent", "the shaking-out",
+  "living inside an example of it" and "blockers". One three-clause run-on
+  about the names is split in two. Nothing about the argument or the figures
+  changed.
+
 ## [1.27.1] - 2026-09-08
 
 ### Changed
@@ -1332,6 +1352,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.28.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.0
 [1.27.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.1
 [1.27.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.0
 [1.26.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.26.0
