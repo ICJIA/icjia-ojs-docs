@@ -5,6 +5,18 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.26.0] - 2026-09-08
+
+### Changed
+
+- **No personal names anywhere.** Every document's footer now reads
+  "Prepared by Innovation & Digital Services (IDS)"; the decision page's
+  owner chips read "Decision: IDS", "Evaluation: IDS" and "Plan: IDS"; the
+  changelog's earlier mentions are scrubbed to roles. The build guard that
+  blocked surnames now blocks the first names too, so none can return
+  unnoticed. The README's security notes say the earlier acceptance is
+  superseded.
+
 ## [1.25.4] - 2026-09-07
 
 ### Changed
@@ -59,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   reviews, logged in the repository", the contestable word dropped.
   "Reviewers willing to work for free" is "unpaid reviewers". The owner chips
   under "If the answer is yes" name a role and an office ("Decision: IDS
-  (Tony, deputy director)") rather than assigning a person, and a former
+  (deputy director)") rather than assigning a person, and a former
   colleague is no longer named for having once run a server. The Hub guide
   says outright that it names neither the unsupported software nor its
   version, and the runbook says what it publishes on purpose (a disposable
@@ -423,7 +435,7 @@ duplication, and the audience each is written for.
   peer review would be to build into the Studio. The proof of concept now
   matches the write-up's estimate: Scholar labelling, versioning and catalogue
   feeds are ordinary work; peer review and the DOI commitment are not.
-- Smaller: Karl "has run one there" now says what; the journal guide's
+- Smaller: the former manager "has run one there" now says what; the journal guide's
   "explains why at length" pointed at a primer removed in 1.10.0; "manager
   one-pager" named a 24-minute document; step I's ownership check read the 8.5
   pool after the move to 8.3; step A expected a 200 on plain http; the write-up
@@ -1177,7 +1189,7 @@ Acted on a full adversarial read of both documents.
 ### Changed
 
 - Bylines credit the author again, as first name plus role — the same shape used
-  for everyone else named in these documents, and still no surnames. Karl, left
+  for everyone else named in these documents, and still no surnames. The former manager, left
   as "a colleague" while his role was unknown, is a former R&A center manager;
   that is the detail that makes the AWS remark useful to a manager weighing it.
 - Dropped "Updated September 2026" from the footers. The last-updated stamp at
@@ -1294,6 +1306,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.26.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.26.0
 [1.25.4]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.4
 [1.25.3]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.3
 [1.25.2]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.2

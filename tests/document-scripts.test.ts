@@ -192,7 +192,8 @@ describe('documents share one footer', () => {
       expect(footer.toLowerCase(), `${entry.slug} lacks pull-request wording`).toContain(
         'pull request',
       );
-      expect(footer, `${entry.slug} lacks attribution`).toContain('lead web developer');
+      expect(footer, `${entry.slug} lacks attribution`).toContain('Digital Services (IDS)');
+      expect(footer, `${entry.slug} names a person`).not.toMatch(/\b(Chris|Tony|Eric|Karl)\b/);
     }
   });
 });

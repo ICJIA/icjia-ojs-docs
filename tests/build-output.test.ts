@@ -136,7 +136,10 @@ describe('build output', () => {
   it('publishes no personal names, email addresses or credentials', () => {
     for (const entry of documents) {
       const html = read(`docs/${entry.slug}/index.html`);
-      expect(html, `${entry.slug} contains a surname`).not.toMatch(/Schweda|Jenkins/);
+      // Surnames never appeared; first names did until 1.26.0, when every
+      // personal name was removed and attribution became the office. Both
+      // lists are guarded so neither can return unnoticed.
+      expect(html, `${entry.slug} contains a personal name`).not.toMatch(/\b(Schweda|Jenkins|Chris|Tony|Eric|Karl)\b/);
       // Address-shaped strings that are expected. The first two are role
       // mailboxes on the service domain — `ojs@` is the SMTP credential both
       // apps authenticate with, `admin@` the envelope sender they send as. The
