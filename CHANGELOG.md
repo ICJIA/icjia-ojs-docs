@@ -5,6 +5,24 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.29.1] - 2026-09-08
+
+### Fixed
+
+- **The Hub has roughly 270 addresses, not 540.** The earlier figure came
+  from the analytics' count of distinct Hub pages, and the analytics record
+  every article twice, once with a trailing slash and once without, because
+  Hub 1.0 answers at both (checked: both forms return 200). The site's
+  sitemap on 8 September 2026 lists 269 Hub URLs, all with a trailing slash
+  and none in both forms: 256 articles, 5 dashboards, 5 datasets and three
+  index pages. Every page that quoted 540 now says roughly 270, the Hub
+  guide says where both counts come from and how the old one went wrong,
+  and the figures table names the sitemap as the source of the address
+  count. The duplicate-address behaviour is added to Hub 1.0's shortcomings;
+  the Hub 2.0 draft redirects the slashless form to the canonical one
+  (checked: 301). The "84% of search traffic at risk" figure is unaffected,
+  since it is a share of visitors, not a count of pages.
+
 ## [1.29.0] - 2026-09-08
 
 ### Changed
@@ -1395,6 +1413,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.29.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.29.1
 [1.29.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.29.0
 [1.28.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.1
 [1.28.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.0
