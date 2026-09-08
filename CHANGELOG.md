@@ -5,6 +5,33 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.29.0] - 2026-09-08
+
+### Changed
+
+- **Each fact now lives on one page.** The decision page's part three
+  restated the beginner's guide to the Hub almost in full: the same figures
+  table with the same three observations, the same case against replacing
+  the Hub, the same Studio-extension argument, the same account of Hub 2.0.
+  It now keeps its three cards and its verdict, carries all five figures in
+  one sentence, and gives each argument a short paragraph with a link to
+  the guide, which stays canonical: about 1,900 words down to 900, no fact
+  gone from the site. The OJS-and-OPS page made the "Hub 2.0 is not a third
+  option" point six times; it makes it once, in its own section. The two
+  administrator guides say "break things freely" once each and share a
+  two-sentence version of the "two applications" paragraph.
+- **Tone: honest and collegial, on purpose.** The Hub guide no longer
+  lectures the reader about bias ("Two biases to watch while deciding" is
+  gone), no longer announces that it is not being defensive, and no longer
+  says requests to change Hub 1.0 "went unanswered" (they could not be met
+  under the 2022 arrangement). The promotional adjectives for Hub 2.0
+  ("much improved", "better, safer, more capable", "better built", "proven")
+  are gone. The site now says plainly that Hub 1.0 has run its course, and
+  its verdict reads "retire 1.0, release 2.0, and keep the job it does"
+  rather than "keep the Hub". The declared-interest note says the case for
+  retiring the Hub is given in full before anything is said against it.
+  Three pages read shorter; the banner follows.
+
 ## [1.28.1] - 2026-09-08
 
 ### Changed
@@ -1368,6 +1395,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.29.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.29.0
 [1.28.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.1
 [1.28.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.28.0
 [1.27.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.1
