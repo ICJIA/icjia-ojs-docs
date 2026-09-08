@@ -5,6 +5,18 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.27.1] - 2026-09-08
+
+### Changed
+
+- **The runbook's "Read this first" section, cut to half.** The same eight
+  points in fewer words: Linux only; Windows may be easier, and if so, good,
+  but Linux is what OJS and OPS are built, tested and supported on, speed is
+  not a badge, an install is for the next developer, and clear beats clever;
+  Forge is optional; two applications, two installations; why the page opens
+  with fixes and which of them are Forge-specific; when it was done; and what
+  the page publishes on purpose and what it never will.
+
 ## [1.27.0] - 2026-09-08
 
 ### Changed
@@ -1320,6 +1332,7 @@ Title II / IITAA review would expect.
 The contrast, heading-order and personal-name changes were made in the source
 documents, so the standalone files carry them too.
 
+[1.27.1]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.1
 [1.27.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.27.0
 [1.26.0]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.26.0
 [1.25.4]: https://github.com/ICJIA/icjia-ojs-docs/releases/tag/v1.25.4
