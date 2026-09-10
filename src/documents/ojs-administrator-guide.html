@@ -274,7 +274,7 @@
 <header>
   <h1>How do I run OJS?</h1>
   <p class="lede">Everything the OJS administrator does, from first login to publishing an issue &mdash; all of it in a web browser.</p>
-  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-07">7 September 2026</time></p>
+  <p class="updated"><span class="lab">Last updated</span><time datetime="2026-09-10">10 September 2026</time></p>
   <p class="see"><span class="k">See it live:</span> <a href="https://ojs.icjia.cloud/" target="_blank" rel="noopener">OJS test journal <small>ojs.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <a href="https://ops.icjia.cloud/" target="_blank" rel="noopener">OPS test preprint server <small>ops.icjia.cloud</small><span class="sr-only"> (opens in a new tab)</span></a> <span class="why">Both are up now. The public pages need no login; your administrator screens need the login IDS sent you.</span></p>
   <div class="plain">You do not need a server login, and you will not be given one. <b>If a task has a settings screen, it is yours.</b> If it needs someone to log in to the machine itself, it is a ticket.</div>
 </header>
@@ -364,11 +364,87 @@
       <div>
         <h3>Run one article all the way through</h3>
         <p>This is the real test. Make yourself a second account as an Author with a different email address and submit a fake manuscript. Then, back as the editor: assign a Reviewer (a third account), complete the review as that reviewer, record a decision, copyedit, build an issue, and publish it. Every step sends an email; watch them arrive.</p>
-        <p>Each of those stages has screens of its own, and this guide does not repeat them. PKP's <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/" target="_blank" rel="noopener">Editorial Workflow<span class="sr-only"> (opens in a new tab)</span></a> chapter walks an editor from a new submission through review, copyediting and production to a published issue, and its <a href="https://docs.pkp.sfu.ca/learning-ojs/journal-managers/" target="_blank" rel="noopener">Journal Managers<span class="sr-only"> (opens in a new tab)</span></a> chapter covers the settings behind them. Keep both open while you work through this step.</p>
+        <p>The review stage is walked through in the next section. The other stages have screens of their own, and this guide does not repeat them. PKP's <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/" target="_blank" rel="noopener">Editorial Workflow<span class="sr-only"> (opens in a new tab)</span></a> chapter walks an editor from a new submission through review, copyediting and production to a published issue, and its <a href="https://docs.pkp.sfu.ca/learning-ojs/journal-managers/" target="_blank" rel="noopener">Journal Managers<span class="sr-only"> (opens in a new tab)</span></a> chapter covers the settings behind them. Keep both open while you work through this step.</p>
         <p>By the end you will know whether the workflow fits how R&amp;A works, <b>which is the question this whole exercise exists to answer.</b></p>
       </div>
     </li>
   </ol>
+</section>
+
+<section>
+  <h2>Starting the review process</h2>
+  <p>Review is the part of <a href="#run-one-article-all-the-way-through">step 6</a> that is new to most people, and the part OJS exists for. This is how the first submission to your first journal gets in front of a reviewer, and what happens when the review comes back. All of it is in the browser. The screens are OJS 3.5, which is what the test server runs.</p>
+
+  <ol class="qs">
+    <li>
+      <span class="num">1</span>
+      <div>
+        <h3>Make sure the journal can take a submission</h3>
+        <p>A new journal accepts submissions from the start, but two settings can quietly close the door. <span class="path">Settings &rarr; Workflow &rarr; Submissions:</span> <b>Disable Submissions</b> must be off. <span class="path">Settings &rarr; Journal &rarr; Sections:</span> OJS created a section called <b>Articles</b>. Open it and make sure <b>Items can only be submitted by Editors and Section Editors</b> is not ticked; if every section has it ticked, no author can submit anything.</p>
+        <p>While the section is open, add yourself under <b>Section Editors</b> if you hold the Editor role. Every submission to that section then arrives already assigned to you. If you are the only Editor or Journal Manager on the journal, OJS assigns you anyway.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">2</span>
+      <div>
+        <h3>Set the review defaults</h3>
+        <p><span class="path">Settings &rarr; Workflow &rarr; Review &rarr; Setup.</span> <b>Default Review Mode</b> is the one that matters: anonymous reviewer and anonymous author, anonymous reviewer and disclosed author, or open. Choose what the journal would really do, and know that the first one makes you responsible for stripping the author&rsquo;s name from the files, including the hidden document properties Word fills in. <b>Restrict File Access</b> keeps the manuscript hidden until the reviewer has said yes. <b>Default Response Deadline</b> and <b>Default Completion Deadline</b> are in weeks; a week each is plenty for the test. <b>Recommended Reviewers Number</b>: set it to 1 for now, or OJS warns you at decision time that you have too few. The reminder sliders send chasers before and after each deadline. They go out through a scheduler on the server, so if none ever arrives, that is a ticket.</p>
+        <p>Then the <b>Reviewer Guidance</b> tab. A paragraph under <b>Review Guidelines</b> is shown to every reviewer before they start, so write one, even a short one. Leave <b>Review Forms</b> for later; without a form, reviewers get a plain text box.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">3</span>
+      <div>
+        <h3>Have three accounts, with three email addresses</h3>
+        <p>You as the editor, an Author, and a Reviewer. OJS keys accounts by email address and sends most of its mail to them, so the author and reviewer need addresses of their own that you can actually open. Create them as in <a href="#add-users">Add users</a> above, with the Author and Reviewer roles. A reviewer can also be created on the spot when you invite them, and any existing user can be given the role then.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">4</span>
+      <div>
+        <h3>Submit the fake manuscript as the author</h3>
+        <p>Log in as the author; a private browser window keeps the two logins apart. Click <b>Start a New Submission</b> at the foot of the dashboard menu. The first screen asks for a title, a section and the checklist, then <b>Start Submission</b>. Then the steps: the abstract; the file, labeled <b>Article Text</b>; contributors, whose email addresses get mail, so use real ones; a note to the editor; suggested reviewers, only if you turned that on; and a last look, where you tick the copyright agreement and click <b>Submit</b>, twice.</p>
+        <p>Two emails should now arrive: an acknowledgement to the author, and a new-submission notice to you. Once submitted, the author cannot change anything; changes go through the submission&rsquo;s discussions.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">5</span>
+      <div>
+        <h3>Take it, and send it to review</h3>
+        <p>Back as yourself. The dashboard opens on <b>Assigned to Me</b>. If the submission is not there, look under <b>Needs Editor</b>: nobody is assigned yet. Open it with <b>View</b>, click <b>Assign</b> in the <b>Participants</b> panel, find yourself, leave the decision rights at their default, and <b>OK</b>.</p>
+        <p>Three buttons then appear on the right: <b>Send to Review</b>, <b>Accept and Skip Review</b>, <b>Decline Submission</b>. Click <b>Send to Review</b>. Check the message to the author, make sure the manuscript is ticked as a file for review, and <b>OK</b>. The submission moves to <b>Review</b>, round 1, and the author gets the message.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">6</span>
+      <div>
+        <h3>Invite the reviewer</h3>
+        <p>In the <b>Reviewers</b> panel, click <b>Add Reviewer</b>. The list shows everyone with the Reviewer role; pick yours with <b>Select Reviewer</b>. You are not in the list yourself: an editor who can see the author&rsquo;s name is kept out of it unless you click <b>Unlock</b>. At the foot of the list, <b>Create New Reviewer</b> makes an account on the spot and <b>Enroll Existing User</b> gives the role to someone already registered.</p>
+        <p>The request form follows: the email, which you can edit; <b>Response Due Date</b> and <b>Review Due Date</b>, already filled in from the defaults you set; <b>Files to be Reviewed</b>, where the manuscript must be ticked; the review type; and a review form, of which you have none. Click <b>Add Reviewer</b> and the request goes out. The panel now shows the request with its deadlines, and the three-dots menu beside it can change the dates, email the reviewer, or cancel.</p>
+      </div>
+    </li>
+    <li>
+      <span class="num">7</span>
+      <div>
+        <h3>Review it as the reviewer, then decide as the editor</h3>
+        <p>As the reviewer: follow the link in the email, or log in and open <b>Review Assignments</b>, then <b>Respond to request</b>. The page shows the title, the abstract, the review type and the dates. Agree to the privacy statement and click <b>Accept Review, Continue to Step #2</b>. Step 2 is your guidelines. Step 3, <b>Download &amp; Review</b>: download the file, write in the two boxes, of which the first goes to author and editor and the second to the editor only, attach a marked-up file if you like, pick a <b>Recommendation</b>, and <b>Submit Review</b>.</p>
+        <p>Back as the editor: the record says <b>New reviews have been submitted</b>. Click <b>Read Review</b> beside the reviewer&rsquo;s name, then <b>Confirm</b> at the foot; <b>Thank Reviewer</b> sends the thank-you mail. Then the decision buttons: <b>Request Revisions</b>, which asks whether the revised version needs another round; <b>Accept Submission</b>, which moves it to copyediting; <b>Create New Review Round</b>; <b>Decline Submission</b>. For the test, accept it: tell the author, tell the reviewer if you like, choose the file for copyediting, and the rest of <a href="#run-one-article-all-the-way-through">step 6</a> continues from there.</p>
+      </div>
+    </li>
+  </ol>
+
+  <p>The point of the test server is whether the email arrives, so here is what OJS sends along the way. Give each one the fifteen minutes from the <a href="#quick-email-check">email check</a> below before deciding it is missing.</p>
+  <table class="access">
+    <tr><th>When</th><th>Who gets an email</th></tr>
+    <tr><td>The author clicks Submit</td><td>The author, and every editor on the journal</td></tr>
+    <tr><td>Send to Review</td><td>The author</td></tr>
+    <tr><td>Add Reviewer</td><td>The reviewer</td></tr>
+    <tr><td>The reviewer accepts or declines</td><td>The editor</td></tr>
+    <tr><td>Submit Review</td><td>The editor</td></tr>
+    <tr><td>Thank Reviewer</td><td>The reviewer</td></tr>
+    <tr><td>Accept Submission, or Request Revisions</td><td>The author; the reviewer too, if you tick it</td></tr>
+  </table>
+  <p>PKP&rsquo;s own pages on the <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/en/submission" target="_blank" rel="noopener">submission stage<span class="sr-only"> (opens in a new tab)</span></a>, the <a href="https://docs.pkp.sfu.ca/learning-ojs/editorial-workflow/en/review" target="_blank" rel="noopener">review stage<span class="sr-only"> (opens in a new tab)</span></a> and the <a href="https://docs.pkp.sfu.ca/learning-ojs/reviewer/en/" target="_blank" rel="noopener">reviewer&rsquo;s side<span class="sr-only"> (opens in a new tab)</span></a> show the screens named here, with screenshots.</p>
 </section>
 
 <section>

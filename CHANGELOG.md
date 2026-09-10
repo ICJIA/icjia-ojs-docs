@@ -5,6 +5,26 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.30.0] - 2026-09-10
+
+### Added
+
+- **Starting the review process, in the journal guide.** A new section
+  between "Getting started" and "Try it first, or file a ticket?" takes the
+  administrator of a first journal from a journal that can accept a
+  submission to a recorded decision, in seven steps: the two settings that
+  can quietly close a journal to authors, the review defaults (mode,
+  deadlines, reminders, reviewer guidelines), the three accounts and why
+  each needs its own email address, the author's submission, assigning an
+  editor and Send to Review, Add Reviewer, the reviewer's four steps, and
+  Read Review, Confirm and the decision buttons. A table lists which email
+  each step sends, since the test server exists to answer whether mail
+  arrives. Every label was checked against PKP's Learning OJS 3.5 guide,
+  the version the test server runs, and the section links to its
+  submission, review and reviewer chapters. Step 6 of "Getting started"
+  now points to the section instead of saying the guide does not cover
+  the stages. The guide reads 17 minutes instead of 11; the banner follows.
+
 ## [1.29.1] - 2026-09-08
 
 ### Fixed
